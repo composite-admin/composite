@@ -40,7 +40,7 @@ export default function LoginForm() {
         >
           <div className="flex flex-col w-full gap-2">
             <CustomFormField
-              name="email address"
+              name="email"
               control={form.control}
               placeholder="Email Address"
               icon={<RiMailCloseLine className=" text-primaryLight-500" />}
@@ -48,6 +48,7 @@ export default function LoginForm() {
             />
 
             <CustomFormField
+              type="password"
               control={form.control}
               name="password"
               placeholder="Enter Password"

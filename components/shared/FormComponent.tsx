@@ -21,6 +21,7 @@ type CustomFormFieldProps = {
   placeholder?: string;
   control: Control<any>;
   withIcon?: boolean;
+  type?: string;
   icon?: React.ReactNode;
 };
 
@@ -38,6 +39,7 @@ export function CustomFormField({
   placeholder,
   withIcon,
   icon,
+  type,
 }: CustomFormFieldProps) {
   return (
     <FormField
@@ -48,6 +50,7 @@ export function CustomFormField({
           <FormLabel className="capitalize">{name}</FormLabel>
           <FormControl>
             <Input
+              type={type}
               {...field}
               placeholder={placeholder}
               withIcon={withIcon}
