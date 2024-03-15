@@ -55,10 +55,10 @@ export default function LoginForm() {
               withIcon
             />
           </div>
-          <div className="flex gap-2">
+          <label className="flex gap-2">
             <input type="checkbox" name="" id="" />
             <p>Remember Me</p>
-          </div>
+          </label>
           <Button type="submit" className=" p-3 py-6 rounded-l">
             Login
           </Button>
