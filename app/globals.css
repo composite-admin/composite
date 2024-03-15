@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+.login {
+  background: url(/young-black-race-man-with-blueprint-stading-near-glass-building\ 1.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.loginFoot h1 {
+  line-height: 67.5px;
+}
+
+.login-in {
+  @apply focus:outline-none;
+}
+
+.loginScreen a {
+  @apply text-primaryLight;
+}
+
+.underline {
+  @apply cursor-pointer;
+}
+
+p {
+  font-size: 14px;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex items-center justify-between;
+}
+
+.info > div {
+  @apply grid grid-cols-2;
+}
+
+.key {
+  @apply text-textColor-500;
+}
+
+.value {
+  @apply text-[#475367] font-[600];
+}
+
+.line {
+  @apply h-[1px] w-full;
+}
+
+.radio > div {
+  @apply flex gap-2 key;
+}
+
+/* select {
+  @apply bg-transparent border border-outline focus:outline-none p-4 rounded-lg;
+} */
+
+.edit > div {
+  @apply gap-2;
+}
+
+select,
+textarea {
+  @apply text-sm text-textColor-500;
+}
+
+/* .edit-info > div > textarea,
+.edit > div > textarea {
+  @apply border border-outline resize-none rounded-lg h-20 w-full p-3 focus:outline-none;
+} */
+
+/* .edit > div > input {
+  @apply border border-outline rounded-lg w-full p-3 focus:outline-none;
+} */
+
+.black__overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.focus {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  @apply bg-white;
+}
+
+img {
+  @apply object-cover;
+}
