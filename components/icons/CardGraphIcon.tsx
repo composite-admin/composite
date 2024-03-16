@@ -19,8 +19,8 @@ export default function CardGraphIcon({
         fill={fill}
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M2.5 0C1.39543 0 0.5 0.895432 0.5 2V7C0.5 8.10457 1.39543 9 2.5 9H9.5C10.6046 9 11.5 8.10457 11.5 7V2C11.5 0.895431 10.6046 0 9.5 0H2.5ZM1.5 2C1.5 1.44772 1.94772 1 2.5 1H9.5C10.0523 1 10.5 1.44772 10.5 2V7C10.5 7.55228 10.0523 8 9.5 8H2.5C1.94772 8 1.5 7.55228 1.5 7V2Z"
         fill={fill}
       />
