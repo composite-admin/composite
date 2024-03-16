@@ -20,6 +20,7 @@ const config = {
     extend: {
       colors: {
         primaryDark: {
+          DEFAULT: "#101928",
           100: "#cfd1d4",
           200: "#9fa3a9",
           300: "#70757e",
@@ -45,6 +46,7 @@ const config = {
         },
 
         layer: {
+          DEFAULT: "#1d2739",
           100: "#d2d4d7",
           200: "#a5a9b0",
           300: "#777d88",
@@ -56,6 +58,7 @@ const config = {
           900: "#06080b",
         },
         grey: {
+          DEFAULT: "#f5f6f8",
           100: "#fefefe",
           200: "#fdfdfd",
           300: "#fbfcfd",
@@ -67,6 +70,7 @@ const config = {
           900: "#323232",
         },
         bg: {
+          DEFAULT: "#f5f6f8",
           100: "#fdfdfe",
           200: "#fbfbfc",
           300: "#f9fafb",
@@ -79,17 +83,19 @@ const config = {
         },
 
         loginOther: {
+          DEFAULT: "#44b8ff",
           100: "#daf1ff",
           200: "#b4e3ff",
           300: "#8fd4ff",
           400: "#69c6ff",
-          DEFAULT: "#44b8ff",
+          500: "#44b8ff",
           600: "#3693cc",
           700: "#296e99",
           800: "#1b4a66",
           900: "#0e2533",
         },
         outline: {
+          DEFAULT: "#f5f6f8",
           100: "#f6f7f8",
           200: "#eceef1",
           300: "#e3e6eb",
@@ -101,6 +107,7 @@ const config = {
           900: "#2a2b2c",
         },
         textColor: {
+          DEFAULT: "#667185",
           100: "#e0e3e7",
           200: "#c2c6ce",
           300: "#a3aab6",
@@ -112,6 +119,7 @@ const config = {
           900: "#14171b",
         },
         textColor2: {
+          DEFAULT: "#101928",
           100: "#cfd1d4",
           200: "#9fa3a9",
           300: "#70757e",
