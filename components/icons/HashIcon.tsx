@@ -11,10 +11,10 @@ export default function HashIcon({}: IconProps) {
     >
       <path
         d="M4.00027 16.5L6.50027 1.49995M11.5003 16.5L14.0003 1.49995M2.3336 5.66662L16.5003 5.66662M1.50024 12.3333L15.6669 12.3333"
-        stroke="#98A2B3"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
