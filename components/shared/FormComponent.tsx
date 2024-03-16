@@ -14,7 +14,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
-import { RiMailCloseLine } from "react-icons/ri";
 
 type CustomFormFieldProps = {
   name: string;

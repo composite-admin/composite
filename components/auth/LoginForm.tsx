@@ -2,7 +2,6 @@
 import { RiLock2Fill, RiMailCloseLine } from "react-icons/ri";
 import { Form } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
@@ -21,7 +20,6 @@ export default function LoginForm() {
   function onSubmit(values: LoginType) {
     console.log(values);
   }
-
   return (
     <div className="loginScreen flex flex-col text-start w-3/5 m-auto gap-10">
       <div>
@@ -32,7 +30,6 @@ export default function LoginForm() {
           Enter your email and password to login
         </p>
       </div>
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

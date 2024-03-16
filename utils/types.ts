@@ -1,5 +1,4 @@
 import * as z from "zod";
-
 export type LoginForm = {
   email: string;
   password: string;

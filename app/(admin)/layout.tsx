@@ -1,3 +1,9 @@
+import Sidebar from "@/components/shared/Sidebar";
+
 export default function layout() {
-  return <div>layout</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 }
