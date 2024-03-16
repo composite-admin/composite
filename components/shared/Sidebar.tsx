@@ -82,7 +82,8 @@ const Sidebar = ({ active = 0 }) => {
   ];
 
   return (
-    <div className="bg-primaryDark min-h-[100vh] p-3 overflow-y-auto">
+    <aside className="py-4 px-8 bg-primaryDark h-full">
+      {/* <div className=" min-h-[100vh] p-3 overflow-y-auto"> */}
       <div className="flex gap-2 items-center justify-center">
         <img src="./logo.png" alt="" />
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
@@ -114,7 +115,7 @@ const Sidebar = ({ active = 0 }) => {
           );
         })}
       </div>
-    </div>
+    </aside>
   );
 };
 
