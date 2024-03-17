@@ -6,6 +6,7 @@ export default function page() {
     <FormContainer
       title="Change Password"
       description="Set a new password here"
+      isColumn={false}
     >
       <div>
         <ChangePasswordForm />

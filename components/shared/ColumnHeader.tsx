@@ -20,12 +20,14 @@ interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
+  withSort?: boolean; //make this optional later
 }
 
 export function ColumnHeader<TData, TValue>({
   column,
   title,
   className,
+  withSort = true,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
@@ -35,20 +37,24 @@ export function ColumnHeader<TData, TValue>({
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
-          >
+          {withSort ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="-ml-3 h-8 data-[state=open]:bg-accent"
+            >
+              <span>{title}</span>
+              {column.getIsSorted() === "desc" ? (
+                <ArrowDownIcon className="ml-2 h-4 w-4" />
+              ) : column.getIsSorted() === "asc" ? (
+                <ArrowUpIcon className="ml-2 h-4 w-4" />
+              ) : (
+                <CaretSortIcon className="ml-2 h-4 w-4" />
+              )}
+            </Button>
+          ) : (
             <span>{title}</span>
-            {column.getIsSorted() === "desc" ? (
-              <ArrowDownIcon className="ml-2 h-4 w-4" />
-            ) : column.getIsSorted() === "asc" ? (
-              <ArrowUpIcon className="ml-2 h-4 w-4" />
-            ) : (
-              <CaretSortIcon className="ml-2 h-4 w-4" />
-            )}
-          </Button>
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
