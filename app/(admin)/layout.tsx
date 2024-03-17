@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 export default function layout({ children }: PropsWithChildren) {
   return (
-    <main className="grid lg:grid-cols-5">
+    <main className="grid lg:grid-cols-5 max-w-[120rem] mx-auto">
       <div className="hidden lg:block lg:col-span-1 lg:min-h-screen">
         <Sidebar />
       </div>

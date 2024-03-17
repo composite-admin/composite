@@ -5,7 +5,7 @@ import { RiMailCloseLine } from "react-icons/ri";
 import { type VariantProps, cva } from "class-variance-authority";
 
 const inputVariants = cva(
-  "flex h-[56px] w-full rounded-md placeholder:text-[14px] border border-[#D0D5DD] bg-white pl-10 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-[#626262]  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+  "flex h-[56px] w-full rounded-md placeholder:text-[14px] border border-[#D0D5DD] bg-white pl-8 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-[#626262]  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {

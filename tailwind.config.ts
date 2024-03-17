@@ -135,6 +135,7 @@ const config = {
         },
       },
       fontSize: {
+        responsive: "calc(.9rem + 1vw)",
         md: "26px",
         sm: "14px",
       },

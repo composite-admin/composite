@@ -90,15 +90,15 @@ const SidebarLinks: NavLinkType[] = [
 
 export default SidebarLinks;
 
-const footItem = [
+export const footerLinks: NavLinkType[] = [
   {
-    title: "Support",
-    icon: "./home.png",
-    link: "/",
+    href: "/support",
+    label: "Support",
+    icon: <SupportIcon />,
   },
   {
-    title: "Settings",
-    icon: "./home.png",
-    link: "/",
+    href: "/settings",
+    label: "Settings",
+    icon: <SettingsIcon />,
   },
 ];
