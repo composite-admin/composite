@@ -22,7 +22,7 @@ export const data: Array<DashboardType> = [
   {
     id: "3",
     projectName: "Project 3",
-    amountSpent: "₦60,000",
+    amountSpent: "₦13,000",
     materials: "₦200,000",
     labour: "₦38,000",
     toolsAndMachine: "₦1,100,000",
@@ -31,7 +31,7 @@ export const data: Array<DashboardType> = [
   {
     id: "4",
     projectName: "Project 4",
-    amountSpent: "₦70,000",
+    amountSpent: "₦20,000",
     materials: "₦300,000",
     labour: "₦45,000",
     toolsAndMachine: "₦1,400,000",
@@ -40,7 +40,7 @@ export const data: Array<DashboardType> = [
   {
     id: "5",
     projectName: "Project 5",
-    amountSpent: "₦90,000",
+    amountSpent: "₦955,000",
     materials: "₦350,000",
     labour: "₦50,000",
     toolsAndMachine: "₦1,600,000",

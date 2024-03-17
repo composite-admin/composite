@@ -1,8 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 
-import { ChevronUp, ChevronDown } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 
 export type DashboardType = {
   id: string;
@@ -19,44 +20,81 @@ export const columns: ColumnDef<DashboardType>[] = [
     accessorKey: "projectName",
     header: ({ column }) => {
       return (
-        <div className="flex items-center gap-2">
-          <p>Project Name</p>
-          <div>
-            <ChevronUp
-              className="h-5 w-5 cursor-pointer"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            />
-            <ChevronDown
-              className="h-5 w-5 cursor-pointer "
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            />
-          </div>
-        </div>
+        <HeaderComponent
+          title="Project Name"
+          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        />
       );
     },
   },
   {
     accessorKey: "amountSpent",
-    header: "Amount Spent",
+    header: ({ column }) => {
+      return (
+        <HeaderComponent
+          title="Amount Spent"
+          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        />
+      );
+    },
   },
   {
     accessorKey: "materials",
-    header: "Materials",
+    header: ({ column }) => {
+      return (
+        <HeaderComponent
+          title="Materials"
+          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        />
+      );
+    },
   },
   {
     accessorKey: "labour",
-    header: "Labour",
+    header: ({ column }) => {
+      return (
+        <HeaderComponent
+          title="Labour"
+          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        />
+      );
+    },
   },
   {
     accessorKey: "toolsAndMachine",
-    header: "Tools and Machines",
+    header: ({ column }) => {
+      return (
+        <HeaderComponent
+          title="Tools And Machine"
+          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        />
+      );
+    },
   },
   {
     accessorKey: "cashAdvance",
-    header: "Cash Advance",
+    header: ({ column }) => {
+      return (
+        <HeaderComponent
+          title="Cash Advance"
+          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        />
+      );
+    },
   },
 ];
+
+type HeaderProps = {
+  title: string;
+  onclick: () => void;
+};
+const HeaderComponent = ({ onclick, title }: HeaderProps) => {
+  return (
+    <div className="flex items-center gap-2">
+      {title}
+      <div>
+        <ChevronsUpDown className="h-5 w-5 cursor-pointer" onClick={onclick} />
+      </div>
+    </div>
+  );
+};

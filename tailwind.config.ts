@@ -19,6 +19,9 @@ const config = {
     },
     extend: {
       colors: {
+        borderColor: {
+          DEFAULT: "#E4E7EC",
+        },
         primaryDark: {
           DEFAULT: "#101928",
           100: "#cfd1d4",
