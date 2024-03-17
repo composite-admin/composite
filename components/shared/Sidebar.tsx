@@ -9,7 +9,7 @@ const Sidebar = ({ active = 0 }) => {
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full">
       {/* <div className=" min-h-[100vh] p-3 overflow-y-auto"> */}
-      <div className="flex gap-2 items-center justify-center">
+      <div className="flex gap-2 items-center justify-center pb-5">
         <img src="./logo.png" alt="" />
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
       </div>
@@ -23,7 +23,7 @@ const Sidebar = ({ active = 0 }) => {
               className={`flex gap-3.5 pb-3.5 p-[12px_16px] rounded-md hover:scale-105 ${
                 pathname === item.href
                   ? "bg-layer-500 text-primaryLight-500 scale-105"
-                  : "text-white"
+                  : "text-textColor-500"
               }`}
             >
               <div>{item.icon}</div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -19,82 +20,38 @@ export const columns: ColumnDef<DashboardType>[] = [
   {
     accessorKey: "projectName",
     header: ({ column }) => {
-      return (
-        <HeaderComponent
-          title="Project Name"
-          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        />
-      );
+      return <ColumnHeader column={column} title="Project Name" />;
     },
   },
   {
     accessorKey: "amountSpent",
     header: ({ column }) => {
-      return (
-        <HeaderComponent
-          title="Amount Spent"
-          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        />
-      );
+      return <ColumnHeader column={column} title="Amount Spent" />;
     },
   },
   {
     accessorKey: "materials",
     header: ({ column }) => {
-      return (
-        <HeaderComponent
-          title="Materials"
-          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        />
-      );
+      return <ColumnHeader column={column} title="Materials" />;
     },
   },
   {
     accessorKey: "labour",
     header: ({ column }) => {
-      return (
-        <HeaderComponent
-          title="Labour"
-          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        />
-      );
+      return <ColumnHeader column={column} title="Labour" />;
     },
   },
   {
     accessorKey: "toolsAndMachine",
     header: ({ column }) => {
-      return (
-        <HeaderComponent
-          title="Tools And Machine"
-          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        />
-      );
+      return <ColumnHeader column={column} title="Tools And Machine" />;
     },
   },
   {
     accessorKey: "cashAdvance",
     header: ({ column }) => {
-      return (
-        <HeaderComponent
-          title="Cash Advance"
-          onclick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        />
-      );
+      return <ColumnHeader column={column} title="Cash Advance" />;
     },
   },
 ];
 
-type HeaderProps = {
-  title: string;
-  onclick: () => void;
-};
-const HeaderComponent = ({ onclick, title }: HeaderProps) => {
-  return (
-    <div className="flex items-center gap-2">
-      {title}
-      <div>
-        <ChevronsUpDown className="h-5 w-5 cursor-pointer" onClick={onclick} />
-      </div>
-    </div>
-  );
-};
