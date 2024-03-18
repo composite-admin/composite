@@ -7,7 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
-export type ReportType = {
+export type SupplierType = {
   id: string;
   supplierName: string;
   address: string;
@@ -18,7 +18,7 @@ export type ReportType = {
   actions: string;
 };
 
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<SupplierType>[] = [
   {
     accessorKey: "supplierName",
     header: ({ column }) => {
@@ -29,7 +29,7 @@ export const columns: ColumnDef<ReportType>[] = [
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div>
-            <span className="font-semibold">Alison Ogaga</span>
+            <span className="font-semibold">{row.getValue("supplierName")}</span>
             <p>IVGSH776f</p>
           </div>
         </div>
@@ -47,7 +47,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Grace Land Avenue, Lagos</span>
+          <span className="font-semibold ">{row.getValue('address')}</span>
         </div>
       );
     },
@@ -63,7 +63,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">0810933290</span>
+          <span className="font-semibold ">{ row.getValue('officePhone')}</span>
         </div>
       );
     },
@@ -77,7 +77,7 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">Alison Ogaga</span>
+          <span className="font-semibold">{row.getValue("contactPerson")}</span>
         </div>
       );
     },
