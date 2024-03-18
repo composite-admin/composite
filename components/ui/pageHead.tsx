@@ -13,7 +13,7 @@ interface PageHeadProps {
 const PageHead = React.forwardRef<any, PageHeadProps> (({ headText, buttonText, buttonAction, subText, leftChild }) => {
 
         return (
-            <div className="flex justify-between">
+            <div className="flex justify-between my-10">
                 <div>
                     <h2 className='text-md font-[600]'>{headText}</h2>
                     <p className='text-[#475367] text-[16px]'>{subText}</p>

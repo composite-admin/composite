@@ -119,3 +119,39 @@ body::-webkit-scrollbar {
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
 }
+
+.key{
+  @apply text-textColor
+}
+
+.value{
+  @apply text-[#475367] font-[600]
+}
+
+.line{
+  @apply h-[1px] w-full
+}
+
+.radio > div{
+  @apply flex gap-2 key
+}
+
+select{
+  @apply bg-transparent border border-outline focus:outline-none p-4 rounded-lg
+}
+
+.edit > div{
+  @apply gap-2
+}
+
+select, textarea{
+  @apply text-sm text-textColor
+}
+
+.edit-info > div > textarea, .edit > div > textarea {
+    @apply border border-outline resize-none rounded-lg h-20 w-full p-3 focus:outline-none
+}
+
+.edit > div > input{
+  @apply border border-outline rounded-lg w-full p-3 focus:outline-none
+}

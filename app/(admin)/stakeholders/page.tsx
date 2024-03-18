@@ -6,7 +6,7 @@ import { data } from "./data";
 export default function page() {
   return(
     <>
-    <PageHead headText="Stakeholder (22)" subText="View all your Stakeholder s here" buttonText="Add Stakeholder " />
+    <PageHead headText="Stakeholder (22)" subText="View all your Stakeholder here" buttonText="Add Stakeholder " />
     <DataTable columns={columns} data={data} />
   </>
   )

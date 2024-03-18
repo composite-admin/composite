@@ -10,7 +10,6 @@ const GoBack = (props: any) => {
     <div className="flex items-center gap-3" onClick={() => router.back()}>
       <div
         className="p-2 bg-white rounded-md border border-outline cursor-pointer"
-        onClick={() => props.setState(false)}
       >
         <HiArrowLeft />
       </div>
