@@ -1,16 +1,26 @@
 import { Button } from "../ui/button";
 
-export default function PageHeaderComponent() {
+export type PageHeaderComponentProps = {
+  title: string;
+  subTitle: string;
+  onclick?: () => void;
+  buttonText?: string;
+};
+
+export default function PageHeaderComponent({
+  title,
+  subTitle,
+  buttonText,
+  onclick,
+}: PageHeaderComponentProps) {
   return (
     <div className="pb-5 flex justify-between items-center">
       <div>
-        <h1 className="text-2xl font-bold">Welcome David</h1>
-        <p className="text-[#475367] text-[1rem]">
-          This is your dashboard, an overview of everything going on.
-        </p>
+        <h1 className="text-2xl font-bold">{title}</h1>
+        <p className="text-[#475367] text-[1rem]">{subTitle}</p>
       </div>
       <div>
-        <Button>Click me</Button>
+        <Button onClick={onclick}>{buttonText ? buttonText : "Create"}</Button>
       </div>
     </div>
   );

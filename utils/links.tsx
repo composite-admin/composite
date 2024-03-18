@@ -76,6 +76,11 @@ const SidebarLinks: NavLinkType[] = [
     icon: <HashIcon />,
   },
   {
+    href: "/consultants",
+    label: "Consultants",
+    icon: <ManageStaffIcon />,
+  },
+  {
     href: "/manage-staff",
     label: "Manage Staff",
     icon: <ManageStaffIcon />,
