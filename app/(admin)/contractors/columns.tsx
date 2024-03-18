@@ -7,7 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
-export type ReportType = {
+export type ContractorType = {
   id: string;
   contractorName: string;
   address: string;
@@ -18,7 +18,7 @@ export type ReportType = {
   actions: string;
 };
 
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<ContractorType>[] = [
   {
     accessorKey: "contractorName",
     header: ({ column }) => {
