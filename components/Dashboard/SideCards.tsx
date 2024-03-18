@@ -3,7 +3,7 @@ import { Badge } from "../ui/badge";
 
 export default function SideCards() {
   return (
-    <div className="shadow-lg border border-[#E4E7EC] rounded-2xl w-full max-w-sm p-3.5 min-h-[270px] flex flex-col justify-center">
+    <div className="shadow-sm bg-white border border-[#E4E7EC] rounded-2xl w-full max-w-sm p-3.5 min-h-[270px] flex flex-col justify-center">
       <div>
         <div className="flex justify-between items-center  pb-3.5">
           <div className="flex items-center gap-5">

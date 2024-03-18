@@ -3,7 +3,7 @@ import { Badge } from "../ui/badge";
 
 export default function DashboardCard() {
   return (
-    <div className=" border-borderColor border rounded-xl shadow-lg p-3 w-full min-w-[250px] ">
+    <div className=" border-borderColor border rounded-xl shadow-lg p-3 w-full min-w-[250px] sm:min-w-0 bg-white">
       <div className="space-y-2.5">
         <h3>Total Projects</h3>
         <div className="flex justify-between items-center">

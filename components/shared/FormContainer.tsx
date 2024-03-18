@@ -10,22 +10,22 @@ export default function FormContainer({
   title,
   description,
   children,
-  isColumn = false,
+  isColumn,
 }: FormContainerProps) {
   return (
     <div
       className={clsx(
-        "grid lg:min-h-[32rem] grid-cols-1 lg:grid-cols-6 border mt-10 border-[#F0F2F5] shadow-lg rounded-2xl p-7 pb-12",
-        { "lg:grid-cols-1 max-w-4xl mx-auto": isColumn }
+        "grid lg:min-h-[32rem] w-full mx-auto grid-cols-1 bg-white border mt-10 border-[#F0F2F5] shadow-sm rounded-2xl p-7 pb-12",
+        isColumn ? "lg:block max-w-4xl" : "lg:grid-cols-6"
       )}
     >
       <div
         className={clsx("col-span-2 px-5 pt-2", {
-          "px-0 py-7 space-y-1.5": isColumn,
+          "px-0 py-7 space-y-1.5 ": isColumn,
         })}
       >
         <h3 className="text-responsive font-semibold">{title}</h3>
-        <p className="text-[#475367] text-[1rem]">{description}</p>
+        {description ? <p className="text-textColor text-xs">{description}</p> : null}
       </div>
       <div className="col-span-4">{children}</div>
     </div>

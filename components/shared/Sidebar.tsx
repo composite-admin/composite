@@ -8,7 +8,6 @@ const Sidebar = ({ active = 0 }) => {
   const pathname = usePathname();
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full flex flex-col">
-      {/* <div className=" min-h-[100vh] p-3 overflow-y-auto"> */}
       <div className="flex gap-2 items-center justify-center pb-5">
         <img src="./logo.png" alt="" />
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
@@ -20,14 +19,14 @@ const Sidebar = ({ active = 0 }) => {
             <Link
               href={item.href}
               key={item.label}
-              className={`flex gap-3.5 pb-3.5 p-[12px_16px] rounded-md hover:scale-105 ${
+              className={`flex gap-3.5 pb-2.5 p-[12px_16px] rounded-md hover:scale-105 ${
                 pathname === item.href
                   ? "bg-layer-500 text-primaryLight-500 scale-105"
                   : "text-textColor-500"
               }`}
             >
               <div>{item.icon}</div>
-              <p className=" text-[15px]">{item.label}</p>
+              <p className=" text-sm">{item.label}</p>
             </Link>
           );
         })}
@@ -39,14 +38,14 @@ const Sidebar = ({ active = 0 }) => {
             <Link
               href={item.href}
               key={item.label}
-              className={`flex gap-3.5 pb-3.5 p-[12px_16px] rounded-md hover:scale-105 ${
+              className={`flex gap-3.5 pb-2.5 p-[12px_16px] rounded-md hover:scale-105 ${
                 pathname === item.href
                   ? "bg-layer-500 text-primaryLight-500 scale-105"
                   : "text-textColor-500"
               }`}
             >
               <div>{item.icon}</div>
-              <p className=" text-[15px]">{item.label}</p>
+              <p className=" text-sm">{item.label}</p>
             </Link>
           );
         })}
