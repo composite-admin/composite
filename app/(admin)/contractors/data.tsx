@@ -22,5 +22,6 @@ export const data: Array<ContractorType> = [
   addedOn: "6 July, 2023",
   actions: "View",
   },
+  
 
 ];
