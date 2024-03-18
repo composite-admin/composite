@@ -6,10 +6,10 @@ import FormContainer from "../shared/FormContainer";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 
-export default function ConsultantForm() {
+export default function ConsultantForm({isEdit}: {isEdit?: boolean}) {
   const form = useForm();
   return (
-    <FormContainer title="Add new consultant" description="" isColumn={true}>
+    <FormContainer title={isEdit ? "Edit Consultant" : "Add New Consultant"} description="" isColumn={true}>
       <Form {...form}>
         <form>
           <div className="flex gap-5 flex-col justify-center lg:items-center lg:flex-row">
