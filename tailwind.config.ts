@@ -133,6 +133,7 @@ const config = {
           800: "#060a10",
           900: "#030508",
         },
+        subtext: '#475467'
       },
       fontSize: {
         responsive: "calc(.9rem + 1vw)",
