@@ -8,6 +8,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 
 import {
@@ -20,6 +21,8 @@ import {
 } from "@/components/ui/table";
 import React from "react";
 import { DataTablePagination } from "./PaginationComponent";
+import { Input } from "../ui/input";
+import { Search } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,6 +34,7 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = React.useState<string>("");
   const table = useReactTable({
     data,
     columns,
@@ -38,13 +42,27 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      globalFilter,
     },
+    onGlobalFilterChange: setGlobalFilter,
   });
 
   return (
     <div>
+<div className="my-6">
+<Input
+        type="text"
+        placeholder="Search..."
+        className="w-full md:w-32 placeholder:text-textColor"
+        value={globalFilter}
+        onChange={(e) => setGlobalFilter(e.target.value)}
+        withIcon
+        icon={<Search className="w-4 h-4 text-textColor" />}
+      />
+</div>
       <div className="rounded-lg border border-borderColor shadow-sm">
         <Table>
           <TableHeader>
