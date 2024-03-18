@@ -1,55 +1,26 @@
-import { ReportType } from "./columns";
+import { ContractorType } from "./columns";
 
-export const data: Array<ReportType> = [
+export const data: Array<ContractorType> = [
   {
-    id: "1",
-    contractorName: "string",
-    address: "string",
-    officePhone: "string",
-    contactPerson: "string",
-    contactPhone: "string",
-    addedOn: "string",
-    actions: "string"
+  id: "1",
+  "contractorName": "Contractor 1",
+  address: "Abuja, Nigeria",
+  officePhone: "08000000000",
+  contactPerson: "John Doe",
+  contactPhone: "08000000000",
+  addedOn: "6 July, 2023",
+  actions: "View",
   },
+
   {
-    id: "1",
-    contractorName: "string",
-    address: "string",
-    officePhone: "string",
-    contactPerson: "string",
-    contactPhone: "string",
-    addedOn: "string",
-    actions: "string"
-  },
-  {
-    id: "1",
-    contractorName: "string",
-    address: "string",
-    officePhone: "string",
-    contactPerson: "string",
-    contactPhone: "string",
-    addedOn: "string",
-    actions: "string"
-  },
-  {
-    id: "1",
-    contractorName: "string",
-    address: "string",
-    officePhone: "string",
-    contactPerson: "string",
-    contactPhone: "string",
-    addedOn: "string",
-    actions: "string"
-  },
-  {
-    id: "1",
-    contractorName: "string",
-    address: "string",
-    officePhone: "string",
-    contactPerson: "string",
-    contactPhone: "string",
-    addedOn: "string",
-    actions: "string"
+  id: "2",
+  "contractorName": "Contractor 1",
+  address: "Abuja, Nigeria",
+  officePhone: "08000000000",
+  contactPerson: "John Doe",
+  contactPhone: "08000000000",
+  addedOn: "6 July, 2023",
+  actions: "View",
   },
   
 

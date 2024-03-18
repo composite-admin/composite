@@ -10,8 +10,7 @@ interface PageHeadProps {
     leftChild?: any
 }
 
-const PageHead = React.forwardRef<any, PageHeadProps>(
-    ({ headText, buttonText, buttonAction, subText, leftChild }) => {
+const PageHead = React.forwardRef<any, PageHeadProps> (({ headText, buttonText, buttonAction, subText, leftChild }) => {
 
         return (
             <div className="flex justify-between">
@@ -49,4 +48,6 @@ const PageHead = React.forwardRef<any, PageHeadProps>(
     }
 );
 
-export default PageHead
+PageHead.displayName = 'PageHead'; 
+
+export default PageHead;
