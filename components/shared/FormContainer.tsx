@@ -20,7 +20,7 @@ export default function FormContainer({
       )}
     >
       <div
-        className={clsx("col-span-2 px-5 pt-2", {
+        className={clsx("col-span-2 pt-2", {
           "px-0 py-7 space-y-1.5 ": isColumn,
         })}
       >
