@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type AvatarProps = {
   width?: string;
-  height: string;
+  height?: string;
 }
 
 export function AvatarComponent({height,width}: AvatarProps) {
