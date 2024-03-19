@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Button } from "../ui/button";
 
@@ -22,7 +22,11 @@ export default function PageHeaderComponent({
         <p className="text-[#475367] text-[1rem]">{subTitle}</p>
       </div>
       <div>
-        <Button onClick={onclick}>{buttonText ? buttonText : "Create"}</Button>
+        {buttonText ? (
+          <Button onClick={onclick}>
+            {buttonText ? buttonText : "Create"}
+          </Button>
+        ) : null}
       </div>
     </div>
   );
