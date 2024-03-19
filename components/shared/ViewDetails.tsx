@@ -10,7 +10,7 @@ interface KeysInterface{
     dateSubmitted: string;
     editAction: any,
     keys: Keys[],
-    children: any
+    children?: any
 }
 
 const ViewDetails =  React.forwardRef<any, KeysInterface>  (({

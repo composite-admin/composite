@@ -5,7 +5,7 @@ import { useTestModalStore } from '@/hooks/UseTestModal'
 import React, { useState } from 'react'
 
 const page = () => {
-    const [showOverlay, setOverlay] = useState<Boolean>(false)
+    const [showOverlay, setOverlay] = useState<boolean>(false)
 
   return (
     <>

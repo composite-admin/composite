@@ -3,13 +3,13 @@
 import { useTestModalStore } from "@/hooks/UseTestModal";
 import { Modal } from "../shared/Modal";
 
-export const TestModal = () => {
+export const TestModal = ({children}: any) => {
   const testModal = useTestModalStore();
   return (
     <Modal
       title="Test Modal 🙂"
       description="I am a test modal"
-      isOpen={true}
+      isOpen={false}
       onClose={testModal.onClose}
     >
       <p>
