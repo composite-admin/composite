@@ -5,12 +5,12 @@ export interface Keys {
   text: string;
 }
 
-interface KeysInterface {
-  title: string;
-  dateSubmitted: string;
-  editAction: any;
-  keys: Keys[];
-  children: any;
+interface KeysInterface{
+    title: string;
+    dateSubmitted: string;
+    editAction: any,
+    keys: Keys[],
+    children?: any
 }
 
 const ViewDetails = React.forwardRef<any, KeysInterface>(
