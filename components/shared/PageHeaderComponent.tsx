@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "../ui/button";
 
 export type PageHeaderComponentProps = {
@@ -7,6 +8,7 @@ export type PageHeaderComponentProps = {
   subTitle: string;
   onclick?: () => void;
   buttonText?: string;
+  href?: string;
 };
 
 export default function PageHeaderComponent({
@@ -14,6 +16,7 @@ export default function PageHeaderComponent({
   subTitle,
   buttonText,
   onclick,
+  href,
 }: PageHeaderComponentProps) {
   return (
     <div className="pb-5 flex justify-between items-center">
@@ -23,9 +26,11 @@ export default function PageHeaderComponent({
       </div>
       <div>
         {buttonText ? (
+        <Link href={href || ' '}>
           <Button onClick={onclick}>
             {buttonText ? buttonText : "Create"}
           </Button>
+        </Link>
         ) : null}
       </div>
     </div>

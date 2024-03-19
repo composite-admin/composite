@@ -15,7 +15,7 @@ const GoBack = ({ btnText, onClick, withBtn }: props) => {
   const router = useRouter();
 
   return (
-    <div className="mb-10 flex justify-between">
+    <div className="mb-4 flex justify-between">
       <div className="flex items-center gap-3" onClick={() => router.back()}>
         <div className="p-2 bg-white rounded-md border border-outline cursor-pointer">
           <HiArrowLeft />

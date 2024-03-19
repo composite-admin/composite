@@ -10,7 +10,7 @@ export default function layout({ children }: PropsWithChildren) {
       </section>
       <section className="lg:col-span-4 overflow-y-scroll lg:h-screen bg-[#F5F6F8]">
         <TopNav />
-        <div className="py-16 px-4 sm:px-8 lg:px-7 ">{children}</div>
+        <div className="pb-16 pt-5 px-4 sm:px-8 lg:px-7 ">{children}</div>
       </section>
     </main>
   );
