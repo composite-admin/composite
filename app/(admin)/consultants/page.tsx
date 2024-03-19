@@ -3,7 +3,7 @@ import { columns } from "./columns";
 import { data } from "./data";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 
-export default function page() {
+export default function ConsultantsPage() {
   return (
     <div className="space-y-8">
       <div>

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function ReportPage() {
   const router = useRouter();
 
+export default function ReportPage() {
   return (
     <div>
       <PageHead headText="Report" subText="A report of daily, weekly and monthly activities" buttonText="Add Report" buttonAction={()=> router.push("/reports/new")} />
