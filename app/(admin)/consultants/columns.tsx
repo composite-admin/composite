@@ -39,7 +39,7 @@ export const columns: ColumnDef<ConsultantsType>[] = [
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div className="flex-col flex">
-            <span className="font-semibold">Alison Ogaga</span>
+            <span className="font-semibold">{row.getValue('fullName')}</span>
             <span className="text-xs">CRN128320182</span>
           </div>
         </div>
