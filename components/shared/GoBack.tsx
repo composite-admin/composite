@@ -6,8 +6,8 @@ import { HiArrowLeft } from "react-icons/hi2";
 import { Button } from "../ui/button";
 
 type props = {
-  btntext: string;
-  onClick: () => void;
+  btntext?: string;
+  onClick?: () => void;
   withBtn?: boolean;
 };
 
