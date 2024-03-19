@@ -5,7 +5,7 @@ import React from 'react'
 import keys from './keys'
 import { useRouter } from "next/navigation";
 
-const SingleReportPage = () => {
+const page = () => {
   const router = useRouter();
 
   return (
@@ -34,4 +34,4 @@ const SingleReportPage = () => {
   )
 }
 
-export default SingleReportPage
+export default page

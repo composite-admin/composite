@@ -5,24 +5,24 @@ import { Button } from './button'
 interface PageHeadProps {
     headText: string
     buttonText?: string
-    buttonAction?: string
+    buttonAction?: any
     subText: string
     leftChild?: any
 }
 
-const PageHead = React.forwardRef<any, PageHeadProps> (({ headText, buttonText, buttonAction, subText, leftChild }) => {
+const PageHead = React.forwardRef<any, PageHeadProps>(({ headText, buttonText, buttonAction, subText, leftChild }) => {
 
-        return (
-            <div className="flex justify-between my-10">
+    return (
+        <div className="flex justify-between my-10">
+            <div>
+                <h2 className='text-md font-[600]'>{headText}</h2>
+                <p className='text-[#475367] text-[16px]'>{subText}</p>
+
                 <div>
-                    <h2 className='text-md font-[600]'>{headText}</h2>
-                    <p className='text-[#475367] text-[16px]'>{subText}</p>
+                    {leftChild}
+                </div>
 
-                    <div>
-                        {leftChild}
-                    </div>
-
-                    {/* <div className="flex gap-3 my-5 text-[#667185] text-sm">
+                {/* <div className="flex gap-3 my-5 text-[#667185] text-sm">
                         <div className='flex items-center gap-1'>
                             <HiSearch />
                             <p>Search</p>
@@ -38,16 +38,19 @@ const PageHead = React.forwardRef<any, PageHeadProps> (({ headText, buttonText, 
                             <p>Sort</p>
                         </div>
                     </div> */}
-                </div>
+            </div>
 
-                <Button>
+            {
+                buttonText &&
+                <Button onClick={buttonAction}>
                     {buttonText}
                 </Button>
-            </div>
-        );
-    }
+            }
+        </div>
+    );
+}
 );
 
-PageHead.displayName = 'PageHead'; 
+PageHead.displayName = 'PageHead';
 
 export default PageHead;
