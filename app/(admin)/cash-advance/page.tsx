@@ -1,3 +1,3 @@
-export default function page() {
+export default function CashAdvancePage() {
   return <div>page</div>;
 }

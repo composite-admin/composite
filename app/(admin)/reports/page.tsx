@@ -3,7 +3,7 @@ import { columns } from "./columns";
 import { data } from "./data";
 import PageHead from "@/components/ui/pageHead";
 
-export default function page() {
+export default function ReportPage() {
   return (
     <div>
       <PageHead headText="Report" subText="A report of daily, weekly and monthly activities" buttonText="Add Report" />

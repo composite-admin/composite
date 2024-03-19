@@ -11,6 +11,7 @@ export const TestModal = ({children}: any) => {
       description="I am a test modal"
       isOpen={testModal.isOpen}
       onClose={testModal.onClose}
+      classname="w-1/2"
     >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, pariatur.
