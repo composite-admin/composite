@@ -2,12 +2,7 @@
 import { DataTable } from "@/components/shared/DataTable";
 import { columns } from "./columns";
 import { data } from "./data";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar } from "@/components/ui/avatar";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
-import { CardGraphIcon, TotalProjectsIcon } from "@/components/icons";
+
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import DashboardCard from "@/components/Dashboard/DashboardCard";
 import SideCards from "@/components/Dashboard/SideCards";

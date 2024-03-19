@@ -1,4 +1,6 @@
 import { Control } from "react-hook-form";
+import { Textarea } from "@/components/ui/textarea"
+
 import {
   Select,
   SelectContent,
@@ -61,6 +63,37 @@ export function CustomFormField({
       )}
     />
   );
+}
+
+type CustomFormTextareaFieldProps = {
+  name: string;
+  control?: Control<any>;
+  placeholder?: string;
+};
+
+export function CustomFormTextareaField({
+  name,
+  control,
+  placeholder,
+}: CustomFormTextareaFieldProps) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel className="capitalize">{name}</FormLabel>
+          <FormControl>
+            <Textarea
+              {...field}
+              placeholder={placeholder}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
 }
 
 export function CustomFormSelect({

@@ -5,7 +5,7 @@ import UploadImages from '@/components/shared/UploadImages'
 import React, { useState } from 'react'
 import { HiChevronRight } from 'react-icons/hi2';
 
-const page = () => {
+const NewReportsPage = () => {
     const [index, setIndex] = useState(1)
   return (
     <>
@@ -52,4 +52,4 @@ const page = () => {
   )
 }
 
-export default page
+export default NewReportsPage

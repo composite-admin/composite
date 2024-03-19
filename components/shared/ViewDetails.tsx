@@ -34,7 +34,7 @@ const ViewDetails =  React.forwardRef<any, KeysInterface>  (({
                     {
                         keys.map((key: Keys, i: number) => {
                             return (
-                                <div>
+                                <div key={i}>
                                     <p className="key">{key.text}</p>
                                     <p className="value">RCPD155</p>
                                 </div>
@@ -52,5 +52,5 @@ const ViewDetails =  React.forwardRef<any, KeysInterface>  (({
 }
 );
 
-
+ViewDetails.displayName = 'ViewDetails'
 export default ViewDetails

@@ -9,7 +9,7 @@ export const TestModal = ({children}: any) => {
     <Modal
       title="Test Modal 🙂"
       description="I am a test modal"
-      isOpen={false}
+      isOpen={testModal.isOpen}
       onClose={testModal.onClose}
     >
       <p>
