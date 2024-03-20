@@ -9,7 +9,7 @@ import {
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useUpdateRequestModal } from "@/store/inventory/UseInventoryModal";
+import { useUpdateRequestModal } from "@/store/modals/useRequestModal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 

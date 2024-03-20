@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
-import { useAddCommentModal, useUpdateRequestModal } from "@/store/inventory/UseInventoryModal";
+import { useAddCommentModal, useUpdateRequestModal } from "@/store/modals/useRequestModal";
 
 export default function RequestDetailsPge() {
   const onOpen = useAddCommentModal((state) => state.onOpen)

@@ -1,3 +1,4 @@
+import { ContrastIcon } from "lucide-react";
 import {
   DashboardIcon,
   ReportsIcon,
@@ -36,7 +37,11 @@ const SidebarLinks: NavLinkType[] = [
     label: "Inventory",
     icon: <InventoryIcon />,
   },
-
+  {
+      href: "/facility",
+      label: "Facility",
+      icon: <ContrastIcon />,
+  },
   {
     href: "/project",
     label: "Project",

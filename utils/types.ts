@@ -4,6 +4,8 @@ export type LoginForm = {
   password: string;
 };
 
+
+
 export const loginSchema = z.object({
   email: z
     .string()
@@ -16,3 +18,18 @@ export const loginSchema = z.object({
 });
 
 export type LoginType = z.infer<typeof loginSchema>;
+
+
+export interface FormField {
+  id: string;
+  label: string;
+  type: 'text' | 'email' | 'select' | 'textarea';
+  options?: string[];
+  required?: boolean;
+}
+
+export interface FormStep {
+  id: string;
+  name: string;
+  fields: FormField[];
+}

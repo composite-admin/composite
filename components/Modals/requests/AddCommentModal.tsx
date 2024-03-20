@@ -1,7 +1,7 @@
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useAddCommentModal } from "@/store/inventory/UseInventoryModal";
+import { useAddCommentModal } from "@/store/modals/useRequestModal";
 
 export default function AddCommentModal() {
   const isOpen = useAddCommentModal((state) => state.isOpen);
