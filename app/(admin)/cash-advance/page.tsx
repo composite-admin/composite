@@ -2,7 +2,6 @@ import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { columns } from "../consultants/columns";
 import { data } from "../consultants/data";
 import { DataTable } from "@/components/shared/DataTable";
-import Multistepform from "@/components/forms/MultiStepFoms/Multistepform";
 
 export default function CashAdvancePage() {
   return (
@@ -16,7 +15,6 @@ export default function CashAdvancePage() {
         />
       </div>
       <DataTable columns={columns} data={data} /> */}
-      <Multistepform/>
     </div>
   );
 }
