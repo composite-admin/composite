@@ -8,52 +8,55 @@ import Link from "next/link";
 
 export type ReportType = {
   id: string;
-  description: string;
-  totalQuantity: string;
-  quantityLeft: string;
-  inventoryCode: string;
-  type: string;
-  addedBy: string;
-  addedOn: string;
-  actions: string;
+  requestType: string;
+  toolName: string;
+  quantity: string;
+  project: string;
+  pickedOn: string;
+  pickedBy: string;
+  status: string;
+  returnedOn: string;
 };
 
 export const columns: ColumnDef<ReportType>[] = [
   {
-    accessorKey: "description",
+    accessorKey: "requestType",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Description" />;
+      return <ColumnHeader column={column} title="Request Type" />;
     },
     cell: ({ row }) => {
       return (
-        <div className="">
-          <span className="font-semibold ">Wheel Barrow</span>
+        <div className="flex  flex-col">
+          <span className="w-32 font-semibold text-primaryLight-500 truncate">
+            Tools and Machinery
+          </span>
+          <span>RCPD119548</span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "totalQuantity",
+    accessorKey: "toolName",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Total Quantity" withSort={false} />
+        <ColumnHeader column={column} title="Tool Name" withSort={false} />
       );
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">x12</span>
+          <span className="font-semibold ">Weldng Machine / Generator</span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "quantityLeft",
+    accessorKey: "quantity",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Quantity Left" withSort={false} />
+        <ColumnHeader column={column} title="Quantity" withSort={false} />
       );
     },
     cell: ({ row }) => {
@@ -65,36 +68,37 @@ export const columns: ColumnDef<ReportType>[] = [
     },
   },
   {
-    accessorKey: "inventoryCode",
+    accessorKey: "project",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Inventory Code" withSort={false} />;
+      return <ColumnHeader column={column} title="Project" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">IVHTV66JJ</span>
+          <span className="font-semibold ">Graceland Kickoff</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "type",
+    accessorKey: "pickedOn",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Type" />;
+      return <ColumnHeader column={column} title="Picked On" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
 
-          <span className="font-semibold">Tools</span>
+          <p>6th July, 2002</p>
+          <p>10am</p>
         </div>
       );
     },
   },
   {
-    accessorKey: "addedBy",
+    accessorKey: "pickedBy",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Added By" />;
+      return <ColumnHeader column={column} title="Picked By" />;
     },
     cell: ({ row }) => {
       return (
@@ -106,33 +110,28 @@ export const columns: ColumnDef<ReportType>[] = [
     },
   },
   {
-    accessorKey: "addedOn",
+    accessorKey: "status",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Added On" />;
+      return <ColumnHeader column={column} title="Status" />;
     },
     cell: ({ row }) => {
       return (
-        <div>
-          <p>6th July, 2002</p>
-          <p>10am</p>
-        </div>
+        <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>Completed</p>
       );
     },
   },
   {
-    accessorKey: "actions",
+    accessorKey: "returnedOn",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
+      return <ColumnHeader column={column} title="Returned On" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
-        <Link
-          href={row.getValue("actions")}
-          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
-        >
-          <ViewUserPageIcon />
-          View
-        </Link>
+        <div className="">
+
+          <p>6th July, 2002</p>
+          <p>10am</p>
+        </div>
       );
     },
   },

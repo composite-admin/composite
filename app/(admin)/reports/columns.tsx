@@ -110,7 +110,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <Link
-          href={row.getValue("actions")}
+          href={"/reports/8909"}
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
           <ViewUserPageIcon />

@@ -1,8 +1,8 @@
 import { DataTable } from "@/components/shared/DataTable";
 import PageHead from "@/components/ui/pageHead";
-import { columns } from "./columns";
-import { data } from "./data";
-import { DetailsModal } from "@/components/Modals/DetailsModal";
+import { columns } from "./picked/columns";
+import { data } from "./picked/data";
+import { DetailsModal } from "@/components/shared/DetailsModal";
 import ViewDetails from "@/components/shared/ViewDetails";
 import keys from "./keys";
 

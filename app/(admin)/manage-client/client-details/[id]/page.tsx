@@ -1,7 +1,7 @@
-import { columns } from "@/app/(admin)/inventory/columns";
+// import { columns } from "@/app/(admin)/inventory/columns";
 import {columns as columnTwo} from "@/app/(admin)/consultants/columns";
 import { data as dataTwo } from "@/app/(admin)/consultants/data";
-import { data } from "@/app/(admin)/inventory/data";
+// import { data } from "@/app/(admin)/inventory/data";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { DataTable } from "@/components/shared/DataTable";
 import GoBack from "@/components/shared/GoBack";
@@ -75,9 +75,9 @@ export default function ClientDetailsPage() {
             <TabsTrigger value="comment">Comment</TabsTrigger>
           </TabsList>
           <TabsContent value="project">
-            <DataTable columns={columns} data={data}/>
+            {/* <DataTable columns={columns} data={data}/> */}
           </TabsContent>
-          <DataTable columns={columnTwo} data={dataTwo}/>
+          {/* <DataTable columns={columnTwo} data={dataTwo}/> */}
         </Tabs>
       </div>
     </>
