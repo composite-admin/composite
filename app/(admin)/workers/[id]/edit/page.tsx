@@ -25,7 +25,7 @@ const SingleWorker = () => {
                     <AvatarComponent />
 
                     <div>
-                        <label className='value' htmlFor="">Worker's Full Name</label>
+                        <label className='value' htmlFor="">Worker&apos;s Full Name</label>
                         <input type="text" />
                     </div>
 
