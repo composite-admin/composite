@@ -11,8 +11,7 @@ import { DataTable } from "@/components/shared/DataTable";
 import { data } from "../../consultants/data";
 
 export default function CashAdvanceDetailsPage() {
-  const {onOpen} = useAddAndEditBreakDownModal()
-
+  const { onOpen } = useAddAndEditBreakDownModal();
 
   const setModalType = (args: breakdownModal) => {
     if (args == "add") {
@@ -41,9 +40,6 @@ export default function CashAdvanceDetailsPage() {
               <p className="text-textColor">Submitted on Jul, 2023</p>
               <Button className="w-max" onClick={() => setModalType("add")}>
                 Add Breakdown
-              </Button>
-              <Button className="w-max" onClick={() => setModalType("edit")}>
-                Edit Breakdown
               </Button>
             </div>
             <div className="flex flex-col md:flex-row col-span-4">
