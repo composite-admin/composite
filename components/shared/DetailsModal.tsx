@@ -17,6 +17,7 @@ export const DetailsModal = ({title, description, children}: DetailsModalProps) 
       description={description}
       isOpen={true}
       onClose={testModal.onClose}
+      classname="w-3/4"
     >
       {children}
     </Modal>

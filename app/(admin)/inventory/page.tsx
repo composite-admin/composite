@@ -12,9 +12,7 @@ export default function page() {
       <PageHead headText="Inventory" subText="View all your inventories here" buttonText="Add Inventory" />
       <DataTable columns={columns} data={data} />
 
-      <DetailsModal title="Inventory" description="Check Inventory">
-        <ViewDetails title="Inventory Details" dateSubmitted="6th July, 2023" editAction={null} keys={keys} />
-      </DetailsModal>
+      
     </>
   )
 }
