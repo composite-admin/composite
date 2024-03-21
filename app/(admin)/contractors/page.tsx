@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/shared/DataTable";
 import PageHead from "@/components/ui/pageHead";
-import { columns } from "./columns";
-import { data } from "./data";
+import { columns } from "./pending-project/columns";
+import { data } from "./pending-project/data";
 
 export default function page() {
   return(

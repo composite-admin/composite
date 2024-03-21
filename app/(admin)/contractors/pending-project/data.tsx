@@ -1,0 +1,60 @@
+import { ContractorType } from "./columns";
+
+export const data: Array<ContractorType> = [
+  {
+    id: "string",
+    contractorCode: "string",
+    projectCode: "string",
+    createdBy: "string",
+    amount: "string",
+    createdOn: "string",
+    service: "string",
+    status: "string",
+    actions: "string",
+  },
+
+  {
+    id: "string",
+    contractorCode: "string",
+    projectCode: "string",
+    createdBy: "string",
+    amount: "string",
+    createdOn: "string",
+    service: "string",
+    status: "string",
+    actions: "string",
+  },
+  {
+    id: "string",
+    contractorCode: "string",
+    projectCode: "string",
+    createdBy: "string",
+    amount: "string",
+    createdOn: "string",
+    service: "string",
+    status: "string",
+    actions: "string",
+  },
+  {
+    id: "string",
+    contractorCode: "string",
+    projectCode: "string",
+    createdBy: "string",
+    amount: "string",
+    createdOn: "string",
+    service: "string",
+    status: "string",
+    actions: "string",
+  },
+  {
+    id: "string",
+    contractorCode: "string",
+    projectCode: "string",
+    createdBy: "string",
+    amount: "string",
+    createdOn: "string",
+    service: "string",
+    status: "string",
+    actions: "string",
+  }
+];

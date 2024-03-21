@@ -8,6 +8,8 @@ export default function page() {
     <>
       <PageHead headText="Inventory" subText="View all your inventories here" buttonText="Add Inventory" />
       <DataTable columns={columns} data={data} />
+
+      
     </>
   )
 }
