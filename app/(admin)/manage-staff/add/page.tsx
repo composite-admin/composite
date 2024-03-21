@@ -15,7 +15,7 @@ export default function AddStaffpage() {
     <>
       <GoBack />
       <div>
-        <div className="w-4/6 m-auto my-10">
+        <div className=" m-auto my-10">
           <div className="flex bg-white flex-col md:flex-row md:justify-between md: gap-8 md:gap-0 items-center w-full px-10 py-5 rounded-md">
             <div
               className={`cursor-pointer flex gap-3 items-center`}

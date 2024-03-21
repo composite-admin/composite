@@ -7,7 +7,7 @@ export default function NextOfKin() {
     <div>
       <form>
         <div className="flex flex-col gap-5">
-          <div className="w-full md:w-1/2 space-y-3">
+          <div className="w-full space-y-3">
             <div className="space-y-2">
               <Label className="py-2" htmlFor="name">
                 First name
