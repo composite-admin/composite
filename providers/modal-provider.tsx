@@ -1,5 +1,6 @@
 "use client";
 import { DetailsModal } from "@/components/Modals/DetailsModal";
+import SuccesModal from "@/components/Modals/SuccesModal";
 import { TestModal } from "@/components/Modals/TestModal";
 import AddAndEditBreakdownModal from "@/components/Modals/cash-advance/AddAndEditBreakdownModal";
 import AddCommentModal from "@/components/Modals/requests/AddCommentModal";
@@ -25,6 +26,7 @@ export const ModalProvider = () => {
       <UpdateRequestModal/>
       <DetailsModal/>
       <AddAndEditBreakdownModal/>
+      <SuccesModal/>
     </>
   );
 };
