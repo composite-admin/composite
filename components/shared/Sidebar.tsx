@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import SidebarLinks, { NavLinkType, footerLinks } from "@/utils/links";
 import Link from "next/link";
 
-const Sidebar = ({ active = 0 }) => {
+const Sidebar = () => {
   const pathname = usePathname();
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full flex flex-col">
@@ -20,7 +20,7 @@ const Sidebar = ({ active = 0 }) => {
               href={item.href}
               key={item.label}
               className={`flex gap-3.5 pb-2.5 p-[12px_16px] rounded-md hover:scale-105 ${
-                pathname === item.href
+                pathname === item.href || pathname?.includes(item.href)
                   ? "bg-layer-500 text-primaryLight-500 scale-105"
                   : "text-textColor-500"
               }`}

@@ -11,6 +11,10 @@
   font-family: "Inter", sans-serif;
 }
 
+body {
+  overflow-y: hidden;
+}
+
 .login {
   background: url(/young-black-race-man-with-blueprint-stading-near-glass-building\ 1.png);
   background-repeat: no-repeat;
