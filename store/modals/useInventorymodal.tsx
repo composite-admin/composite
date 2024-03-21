@@ -1,3 +1,3 @@
-import { createModalStore } from "./useRequestModal";
+import { createModalStore } from "./useCreateModal";
 
 export const useAddInventoryModal = createModalStore();

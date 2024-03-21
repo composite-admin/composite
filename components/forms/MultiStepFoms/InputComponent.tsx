@@ -25,8 +25,8 @@ interface FormInputProps<TFormValues extends FieldValues> {
   name: Path<TFormValues>;
   type?: string;
   placeholder?: string;
-  register: UseFormRegister<TFormValues>;
-  errors: Partial<Record<Path<TFormValues>, any>>;
+  register?: UseFormRegister<TFormValues>;
+  errors?: Partial<Record<Path<TFormValues>, any>>;
   autoComplete?: string;
 }
 
