@@ -1,4 +1,17 @@
 import * as z from "zod";
+export type gridDataType = {
+  key: string;
+  value: string;
+};
+
+export type GridDetailsType = {
+  withHeader?: boolean;
+  children?: React.ReactNode;
+  data: gridDataType[];
+};
+
+
+
 export type LoginForm = {
   email: string;
   password: string;
