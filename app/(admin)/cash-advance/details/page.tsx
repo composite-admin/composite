@@ -11,7 +11,9 @@ import { DataTable } from "@/components/shared/DataTable";
 import { data } from "../../consultants/data";
 
 export default function CashAdvanceDetailsPage() {
-  const onOpen = useAddAndEditBreakDownModal((state) => state.onOpen);
+  const {onOpen} = useAddAndEditBreakDownModal()
+
+
   const setModalType = (args: breakdownModal) => {
     if (args == "add") {
       useAddAndEditBreakDownModal.setState({

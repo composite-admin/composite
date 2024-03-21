@@ -10,13 +10,18 @@ export type GridDetailsType = {
   data: gridDataType[];
 };
 
-
+export type NavLinkType = {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+  isCollapsible?: boolean;
+  children?: NavLinkType[];
+};
 
 export type LoginForm = {
   email: string;
   password: string;
 };
-
 
 
 export const loginSchema = z.object({

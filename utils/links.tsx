@@ -11,14 +11,9 @@ import {
   SettingsIcon,
   SupportIcon,
 } from "../components/icons";
+import { NavLinkType } from "./types";
 
-export type NavLinkType = {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
-  isCollapsible?: boolean;
-  children?: NavLinkType[];
-};
+
 
 const SidebarLinks: NavLinkType[] = [
   {
