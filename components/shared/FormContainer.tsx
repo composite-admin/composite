@@ -25,7 +25,7 @@ export default function FormContainer({
         })}
       >
         <h3 className="text-responsive font-semibold">{title}</h3>
-        {description ? <p className="text-textColor text-xs">{description}</p> : null}
+        {description ? <p className="text-textColor text-sm">{description}</p> : null}
       </div>
       <div className="col-span-4">{children}</div>
     </div>

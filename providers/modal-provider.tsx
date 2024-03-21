@@ -1,7 +1,9 @@
 "use client";
+import { DetailsModal } from "@/components/Modals/DetailsModal";
 import { TestModal } from "@/components/Modals/TestModal";
-import AddCommentModal from "@/components/Modals/inventory/AddCommentModal";
-import UpdateRequestModal from "@/components/Modals/inventory/UpdateRequestModal";
+import AddAndEditBreakdownModal from "@/components/Modals/cash-advance/AddAndEditBreakdownModal";
+import AddCommentModal from "@/components/Modals/requests/AddCommentModal";
+import UpdateRequestModal from "@/components/Modals/requests/UpdateRequestModal";
 import { useEffect, useState } from "react";
 
 
@@ -21,6 +23,8 @@ export const ModalProvider = () => {
       <TestModal />
       <AddCommentModal />
       <UpdateRequestModal/>
+      <DetailsModal/>
+      <AddAndEditBreakdownModal/>
     </>
   );
 };

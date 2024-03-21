@@ -1,9 +1,9 @@
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useAddCommentModal } from "@/store/inventory/UseInventoryModal";
+import { useAddCommentModal } from "@/store/modals/useCreateModal";
 
-export default function AddCommentModal() {
+export default function EditFlatModal() {
   const isOpen = useAddCommentModal((state) => state.isOpen);
   const onClose = useAddCommentModal((state) => state.onClose);
 
@@ -17,10 +17,10 @@ export default function AddCommentModal() {
       <form className="space-y-5">
         <div className="space-y-1">
           <h2 className="capitalize font-semibold text-lg">
-            make Additioanl comment
+            Edit Flat
           </h2>
           <p className="text-textColor">
-            Write addition information about this request
+            Make changes to this flat
           </p>
         </div>
         <div>
