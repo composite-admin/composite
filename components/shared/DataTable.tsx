@@ -52,17 +52,17 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-<div className="my-6">
-<Input
-        type="text"
-        placeholder="Search..."
-        className="w-full md:w-32 placeholder:text-textColor"
-        value={globalFilter}
-        onChange={(e) => setGlobalFilter(e.target.value)}
-        withIcon
-        icon={<Search className="w-4 h-4 text-textColor" />}
-      />
-</div>
+      <div className="my-6">
+        <Input
+          type="text"
+          placeholder="Search..."
+          className="w-full md:w-1/3 placeholder:text-textColor"
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          withIcon
+          icon={<Search className="w-4 h-4 text-textColor" />}
+        />
+      </div>
       <div className="rounded-lg border border-borderColor shadow-sm">
         <Table>
           <TableHeader>
