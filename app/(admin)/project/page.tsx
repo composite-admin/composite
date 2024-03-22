@@ -11,7 +11,7 @@ import AddMaterial from "@/components/Modals/projects/AddMaterialModel";
 import { useAddProjectModal } from "@/store/inventory/UseInventoryModal";
 
 
-export default function page() {
+export default function ProjectPage() {
   const onOpen = useAddProjectModal(state => state.onOpen)
   return (
     <>
