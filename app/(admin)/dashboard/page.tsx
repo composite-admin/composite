@@ -1,3 +1,5 @@
+"use client";
+
 // import { DataTable } from "@/components/data-table";
 import { DataTable } from "@/components/shared/DataTable";
 import { columns } from "./columns";

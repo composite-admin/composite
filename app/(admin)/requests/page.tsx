@@ -1,3 +1,5 @@
+
+"use client";
 import { DataTable } from "@/components/shared/DataTable";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { data } from "../consultants/data";

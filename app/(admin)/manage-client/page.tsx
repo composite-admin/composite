@@ -1,3 +1,5 @@
+"use client";
+
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { data } from "../consultants/data";
 import { columns } from "../consultants/columns";
