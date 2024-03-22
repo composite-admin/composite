@@ -9,7 +9,7 @@ export default function RequestDetailsPage() {
   const onRequestModal = useUpdateRequestModal((state) => state.onOpen)
   return (
     <div>
-      <GoBack btnText="Add Comment" withBtn onClick={onOpen} />
+      <GoBack btnText="Add Comment" withBtn onclick={onOpen} />
       <div className="flex flex-col gap-6">
         {/* request details */}
         <div className="flex flex-col md:grid grid-cols-1 xl:grid-cols-6 gap-8">

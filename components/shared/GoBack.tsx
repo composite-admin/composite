@@ -7,11 +7,11 @@ import { Button } from "../ui/button";
 
 type props = {
   btnText?: string;
-  onClick?: () => void;
+  onclick?: () => void;
   withBtn?: boolean;
 };
 
-const GoBack = ({ btnText, onClick, withBtn }: props) => {
+const GoBack = ({ btnText, onclick, withBtn }: props) => {
   const router = useRouter();
 
   return (
@@ -23,7 +23,7 @@ const GoBack = ({ btnText, onClick, withBtn }: props) => {
 
         <p className="text-textColor">Go Back</p>
       </div>
-      <div>{withBtn ? <Button onClick={onClick} >{btnText}</Button> : null}</div>
+      <div>{withBtn ? <Button onClick={onclick} >{btnText}</Button> : null}</div>
     </div>
   );
 };

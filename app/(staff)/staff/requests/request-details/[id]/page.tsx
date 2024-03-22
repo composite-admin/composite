@@ -12,7 +12,7 @@ export default function StaffRequestDetailsPage() {
   return (
     <div>
       <div className="py-5">
-        <GoBack btnText="Edit Request" withBtn onClick={onOpen} />
+        <GoBack btnText="Edit Request" withBtn onclick={onOpen} />
       </div>
       <div className="flex flex-col gap-6">
         {/* request details */}
