@@ -12,7 +12,7 @@ import { useAddProjectModal } from "@/store/inventory/UseInventoryModal";
 import { useRouter } from "next/navigation";
 
 
-export default function page() {
+export default function ProjectPage() {
   const onOpen = useAddProjectModal(state => state.onOpen)
   const router = useRouter()
   return (

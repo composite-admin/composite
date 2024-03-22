@@ -1,15 +1,19 @@
-'use client'
+"use client";
 /* eslint-disable react/no-unescaped-entities */
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
-import { useAddCommentModal, useUpdateRequestModal } from "@/store/modals/useCreateModal";
+import {
+  useAddCommentModal,
+  useUpdateRequestModal,
+} from "@/store/modals/useCreateModal";
 
-export default function RequestDetailsPage() {
-  const onOpen = useAddCommentModal((state) => state.onOpen)
-  const onRequestModal = useUpdateRequestModal((state) => state.onOpen)
+export default function StaffRequestDetailsPage() {
+  const {onOpen} = useUpdateRequestModal()
   return (
     <div>
-      <GoBack btnText="Add Comment" withBtn onClick={onOpen} />
+      <div className="py-5">
+        <GoBack btnText="Edit Request" withBtn onClick={onOpen} />
+      </div>
       <div className="flex flex-col gap-6">
         {/* request details */}
         <div className="flex flex-col md:grid grid-cols-1 xl:grid-cols-6 gap-8">
@@ -190,15 +194,6 @@ export default function RequestDetailsPage() {
             </aside>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col md:flex-row gap-4 py-8">
-        <Button className="md:w-1/3" onClick={onRequestModal}>Request more information</Button>
-        <Button className="md:w-1/3" variant={"destructive"}>
-          Decline
-        </Button>
-        <Button className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90">
-          Approve
-        </Button>
       </div>
     </div>
   );
