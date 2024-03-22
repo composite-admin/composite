@@ -14,8 +14,12 @@ import SupportIcon from "./SupportIcon";
 import TotalProjectsIcon from "./TotalProjectsIcon";
 import TotalStackholdersIcon from "./TotalStackholdersIcon";
 import ViewUserPageIcon from "./ViewUserPageIcon";
+import InventoryNewIcon from "./InventoryNewIcon";
+import SuppliersNewIcon from "./SuppliersNewIcon";
 
 export {
+  SuppliersNewIcon,
+  InventoryNewIcon,
   ViewUserPageIcon,
   CardContractorsIcon,
   CardGraphIcon,

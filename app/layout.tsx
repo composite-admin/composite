@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ModalProvider/>
-      <body className={`${inter.className} xl:overflow-hidden`}>{children}</body>
+      <body className={`${inter.className}  xl:overflow-hidden`}>{children}</body>
     </html>
   );
 }
