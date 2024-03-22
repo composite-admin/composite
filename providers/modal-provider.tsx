@@ -29,7 +29,6 @@ export const ModalProvider = () => {
       <DetailsModal/>
       <AddAndEditBreakdownModal/>
       <ProjectSuccessModal />
-      <DetailsModal />
       <AddProjectModal />
       <SuccesModal/>
     </>
