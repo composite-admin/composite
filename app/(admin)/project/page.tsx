@@ -9,14 +9,16 @@ import AddStakeHolderModal from "@/components/Modals/projects/AddStakeholderMode
 import AddContractorModal from "@/components/Modals/projects/AddContractorModal";
 import AddMaterial from "@/components/Modals/projects/AddMaterialModel";
 import { useAddProjectModal } from "@/store/inventory/UseInventoryModal";
+import { useRouter } from "next/navigation";
 
 
 export default function page() {
   const onOpen = useAddProjectModal(state => state.onOpen)
+  const router = useRouter()
   return (
     <>
       <PageHead headText="Project" subText="View all your Items here" buttonText="Add Project" buttonAction={onOpen}/>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={data} clickAction={()=> router.push("/project/12")}/>
 
       {/* <AddMaterial /> */}
     </>

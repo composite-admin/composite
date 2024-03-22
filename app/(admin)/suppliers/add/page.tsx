@@ -1,14 +1,19 @@
+"use client";
 import GoBack from '@/components/shared/GoBack'
+import { useSuccessModal } from '@/store/modals/useCreateModal'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { HiBellAlert } from 'react-icons/hi2'
 
 const AddSuppliers = () => {
-  return (
-    <>
-        <GoBack />
+    const onOpen = useSuccessModal(state => state.onOpen);
+    const router = useRouter()
+    return (
+        <>
+            <GoBack />
 
 
-        <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
+            <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
                 <div className="flex gap-2 items-center border-b border-b-gray-200 py-3">
                     <HiBellAlert />
 
@@ -72,12 +77,12 @@ const AddSuppliers = () => {
                         <textarea />
                     </div>
 
-                    <button className="bg-[#EBEBEB] text-textColor rounded-md" >Cancel</button>
-                            <button className="bg-primaryLight text-white  p-3 rounded-md" >Submit</button>
+                    <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={() => router.back()} >Cancel</button>
+                    <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={onOpen} >Submit</button>
                 </div>
             </div>
-    </>
-  )
+        </>
+    )
 }
 
 export default AddSuppliers

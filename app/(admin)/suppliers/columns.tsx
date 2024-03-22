@@ -15,7 +15,7 @@ export type SupplierType = {
   contactPerson: string;
   contactPhone: string;
   addedOn: string;
-  actions: string;
+  actions: any;
 };
 
 export const columns: ColumnDef<SupplierType>[] = [

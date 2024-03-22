@@ -1,3 +1,4 @@
+"use client"
 import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
@@ -40,7 +41,6 @@ const page = () => {
   return (
     <>
         <GoBack />
-
         <PageHead headText='High Cost Tower Renovation' subText='Date Added, 6th July' buttonText='Edit Project'/>
 
         <div className='grid grid-cols-3 gap-5 my-10'>
