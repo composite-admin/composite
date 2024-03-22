@@ -3,13 +3,14 @@
 import { usePathname } from "next/navigation";
 import SidebarLinks, { NavLinkType, footerLinks } from "@/utils/links";
 import Link from "next/link";
+import Image from "next/image";
 
 const Sidebar = () => {
   const pathname = usePathname();
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full flex flex-col">
       <div className="flex gap-2 items-center justify-center pb-5">
-        <img src="./logo.png" alt="" />
+        <Image src="/./logo.png" alt="" unoptimized width={30} height={30}/>
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
       </div>
 

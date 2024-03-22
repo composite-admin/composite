@@ -42,7 +42,7 @@ const PageHead = React.forwardRef<any, PageHeadProps>(({ headText, buttonText, b
 
             {
                 buttonText &&
-                <Button onClick={buttonAction}>
+                <Button onClick={()=> buttonAction()}>
                     {buttonText}
                 </Button>
             }

@@ -1,6 +1,6 @@
 "use client"
 import { Modal } from '@/components/shared/Modal'
-import { useAddProjectModal } from '@/store/inventory/UseInventoryModal';
+import { useAddProjectModal, useSuccessModal } from '@/store/inventory/UseInventoryModal';
 import React from 'react'
 import { HiHome } from 'react-icons/hi2';
 
@@ -8,9 +8,12 @@ const AddProjectModal = () => {
     const isOpen = useAddProjectModal((state) => state.isOpen);
     const onClose = useAddProjectModal((state) => state.onClose);
 
+    const isSucessOpen = useSuccessModal(state => state.onOpen)
+
     return (
         <Modal
-            title={<div className="flex items-center justify-between cursor-pointer">
+            title={<div className="flex items-center justify-between cursor-pointer"
+            >
             <div className='flex gap-2 items-center'>
                 <div className='p-2 rounded-full bg-[#52a7f226] w-[50px] h-[50px] flex items-center justify-center'>
                     <HiHome />
@@ -20,7 +23,7 @@ const AddProjectModal = () => {
 
         </div>}
             description={""}
-            isOpen={true}
+            isOpen={isOpen}
             onClose={onClose}
             classname=" rounded-lg border border-outline bg-white p-[20px] w-3/6 focus max-h-[90vh] overflow-auto"
         >
@@ -109,8 +112,8 @@ const AddProjectModal = () => {
                         <textarea />
                     </div>
 
-                    <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
-                    <button className="bg-primaryLight text-white  p-5 rounded-md">Submit</button>
+                    <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={()=> onClose()}>Cancel</button>
+                    <button className="bg-primaryLight text-white  p-5 rounded-md" onClick={()=> isSucessOpen()}>Submit</button>
                 </div>
 
 

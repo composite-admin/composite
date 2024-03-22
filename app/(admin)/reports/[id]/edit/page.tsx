@@ -2,11 +2,14 @@
 import { TestModal } from "@/components/Modals/TestModal";
 import GoBack from "@/components/shared/GoBack";
 import { useTestModalStore } from "@/hooks/UseTestModal";
+import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
 import React, { useState } from "react";
 
 
 export default function ReportEditPage() {
   const [showOverlay, setOverlay] = useState<Boolean>(false);
+  const onOpen = useSuccessModal((state) => state.onOpen);
+
   return (
     <>
       <GoBack />
@@ -22,7 +25,7 @@ export default function ReportEditPage() {
               </p>
             </div>
 
-            <button className="bg-primaryLight text-sm text-white rounded-md py-2 px-5 w-fit">
+            <button className="bg-primaryLight text-sm text-white rounded-md py-2 px-5 w-fit" onClick={()=> onOpen()}>
               Submit Changes
             </button>
           </div>
@@ -122,7 +125,7 @@ export default function ReportEditPage() {
               <button className="bg-[#EBEBEB] text-textColor rounded-md">
                 Cancel
               </button>
-              <button className="bg-primaryLight text-white  p-4 rounded-md">
+              <button onClick={()=> onOpen()} className="bg-primaryLight text-white  p-4 rounded-md">
                 Submit
               </button>
             </div>

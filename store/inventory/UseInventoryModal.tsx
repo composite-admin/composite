@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createModalStore } from "../modals/useCreateModal";
 
 interface ModalStoreState {
   isOpen: boolean;
@@ -6,12 +7,6 @@ interface ModalStoreState {
   onClose: () => void;
 }
 
-const createModalStore = () =>
-  create<ModalStoreState>((set) => ({
-    isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false }),
-  }));
 
 export const useAddCommentModal = createModalStore();
 export const useUpdateRequestModal = createModalStore();
@@ -22,3 +17,4 @@ export const useAddStakeHolderModal = createModalStore()
 export const useAddContractorModal = createModalStore()
 export const useAddMaterial = createModalStore()
 export const useUpdateProjectModal = createModalStore()
+export const useInventoryDetails = createModalStore()
