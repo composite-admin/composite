@@ -155,3 +155,7 @@ select, textarea{
 .edit > div > input{
   @apply border border-outline rounded-lg w-full p-3 focus:outline-none
 }
+
+.supplierActions p{
+  @apply p-5 border-y border-y-outline cursor-pointer
+}

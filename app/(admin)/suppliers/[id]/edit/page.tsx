@@ -1,3 +1,4 @@
+"use client"
 import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
@@ -5,8 +6,13 @@ import React from 'react'
 import { columns } from './columns'
 import { data } from './data'
 import { HiHome } from 'react-icons/hi2'
+import { useSuccessModal } from '@/store/modals/useCreateModal'
+import { useRouter } from 'next/navigation'
 
-const page = () => {
+const EditSupplier = () => {
+    const onOpen = useSuccessModal(state => state.onOpen)
+    const router = useRouter()
+
     return (
         <>
             <GoBack />
@@ -79,8 +85,8 @@ const page = () => {
                     <textarea />
                 </div>
 
-                <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
-                <button className="bg-primaryLight text-white  p-5 rounded-md">Submit</button>
+                <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={()=> router.back()}>Cancel</button>
+                <button className="bg-primaryLight text-white  p-5 rounded-md" onClick={onOpen}>Submit</button>
             </div>
 
 
@@ -90,4 +96,4 @@ const page = () => {
   )
 }
 
-export default page
+export default EditSupplier
