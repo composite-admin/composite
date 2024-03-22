@@ -1,17 +1,21 @@
+"use client"
 import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
 import React from 'react'
 import { columns } from '../pending-project/columns'
 import { data } from '../pending-project/data'
+import { useRouter } from 'next/navigation'
+
 
 const SingleContractor = () => {
+    const router = useRouter()
     return (
         <>
             <GoBack />
 
             <div>
-                <PageHead headText="Jerry Inc Limited" subText="DCIN90099" buttonText='Edit Contractor' />
+                <PageHead headText="Jerry Inc Limited" subText="DCIN90099" buttonText='Edit Contractor' buttonAction={()=> router.push("/contractors/23/edit")}/>
 
                 <div className='gap-5 my-10'>
 

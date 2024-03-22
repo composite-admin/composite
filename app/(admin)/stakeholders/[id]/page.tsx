@@ -1,17 +1,21 @@
+"use client"
 import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
 import React from 'react'
 import { columns } from '../../consultants/columns'
 import { data } from '../../consultants/data'
+import { useRouter } from 'next/navigation'
 
 const SingleStakeholder = () => {
+    const router = useRouter();
+
     return (
         <>
             <GoBack />
 
             <div>
-                <PageHead headText="Jerry Inc Limited" subText="DCIN90099" buttonText='Edit Stakeholder' />
+                <PageHead headText="Jerry Inc Limited" subText="DCIN90099" buttonText='Edit Stakeholder' buttonAction={()=> router.push("/stakeholders/12/edit")} />
 
                 <div className='gap-5 my-10'>
 

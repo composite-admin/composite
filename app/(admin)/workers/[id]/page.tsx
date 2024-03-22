@@ -8,8 +8,10 @@ import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/shared/DataTable'
 import { columns } from '../columns'
 import { data } from '../data'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
+    const router = useRouter();
     return (
         <>
             <GoBack />
@@ -23,7 +25,7 @@ const page = () => {
                         <AvatarComponent />
                         <h2>Jerry Inc Limited</h2>
                         <p>Submitted on 6th July, 2023</p>
-                        <Button>Edit Worker</Button>
+                        <Button onClick={()=> router.push("/workers/12/edit")}>Edit Worker</Button>
                     </div>
                 }
             />

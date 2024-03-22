@@ -1,8 +1,13 @@
+"use client"
 import GoBack from '@/components/shared/GoBack'
+import { useSuccessModal } from '@/store/inventory/UseInventoryModal'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { HiBellAlert } from 'react-icons/hi2'
 
 const SingleContractorEdit = () => {
+    const router = useRouter();
+    const onOpen = useSuccessModal(state => state.onOpen);
   return (
     <>
     <GoBack />
@@ -98,8 +103,8 @@ const SingleContractorEdit = () => {
                     <textarea />
                 </div>
 
-                <button className="bg-[#EBEBEB] text-textColor rounded-md" >Cancel</button>
-                        <button className="bg-primaryLight text-white  p-3 rounded-md" >Submit</button>
+                <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={()=> router.back()} >Cancel</button>
+                        <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={onOpen}>Submit</button>
             </div>
         </div>
 </>

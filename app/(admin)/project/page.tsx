@@ -14,7 +14,6 @@ export default function ProjectPage() {
     <>
       <PageHead headText="Project" subText="View all your Items here" buttonText="Add Project" buttonAction={onOpen}/>
       <DataTable columns={columns} data={data} clickAction={()=> router.push("/project/12")}/>
-
     </>
   )
 }

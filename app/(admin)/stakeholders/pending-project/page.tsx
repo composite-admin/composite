@@ -8,9 +8,9 @@ import { data } from '../data'
 const PendingStakeholderProject = () => {
   return (
     <>
-    <PageHead headText="Pending Stakeholder Project" subText="View all your Stakeholders here" buttonText="Add Stakeholder" />
-    <DataTable columns={columns} data={data} />
-  </>
+      <PageHead headText="Pending Stakeholder Project" subText="View all your Stakeholders here" buttonText="Add Stakeholder" />
+      <DataTable columns={columns} data={data} />
+    </>
   )
 }
 
