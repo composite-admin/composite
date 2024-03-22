@@ -10,6 +10,8 @@ import {
   HashIcon,
   SettingsIcon,
   SupportIcon,
+  InventoryNewIcon,
+  SuppliersNewIcon,
 } from "../components/icons";
 import { NavLinkType } from "./types";
 
@@ -30,7 +32,7 @@ const SidebarLinks: NavLinkType[] = [
   {
     href: "/inventory",
     label: "Inventory",
-    icon: <InventoryIcon />,
+    icon: <InventoryNewIcon />,
   },
   {
       href: "/facility",
@@ -46,7 +48,7 @@ const SidebarLinks: NavLinkType[] = [
   {
     href: "/suppliers",
     label: "Suppliers",
-    icon: <ManageStaffIcon />,
+    icon: <SuppliersNewIcon />,
   },
   {
     href: "/contractors",
