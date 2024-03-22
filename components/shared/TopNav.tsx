@@ -3,16 +3,7 @@ import { RiSearch2Line } from "react-icons/ri";
 
 const TopNav = () => {
   return (
-    <div className="bg-white py-4 px-[50px] grid grid-cols-[1.5fr_1fr]">
-      <div className="flex gap-3 px-2 items-center bg-[#F9FAFB] rounded-lg">
-        <RiSearch2Line />
-        <input
-          type="text"
-          className="w-full bg-transparent rounded-lg focus:outline-none"
-          placeholder="Search any code from project, tenant, request..."
-        />
-      </div>
-
+    <div className="bg-white py-3 pr-8 grid-cols-[1.5fr_1fr] border-b border-borderColor">
       <div className="flex items-center justify-end gap-3">
         <div className="flex w-[40px] h-[40px] bg-grey  items-center justify-center rounded-full">
           <HiOutlineBell />

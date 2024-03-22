@@ -1,5 +1,6 @@
 "use client";
 import { DetailsModal } from "@/components/Modals/inventory/DetailsModal";
+import SuccesModal from "@/components/Modals/SuccesModal";
 import { TestModal } from "@/components/Modals/TestModal";
 import AddAndEditBreakdownModal from "@/components/Modals/cash-advance/AddAndEditBreakdownModal";
 import ProjectSuccessModal from "@/components/Modals/projects/ProjectSuccessModal";
@@ -30,6 +31,7 @@ export const ModalProvider = () => {
       <ProjectSuccessModal />
       <DetailsModal />
       <AddProjectModal />
+      <SuccesModal/>
     </>
   );
 };

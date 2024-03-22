@@ -24,6 +24,7 @@ const useUpdateRequestModal = createModalStore();
 const useAddNewApartmentModal = createModalStore();
 const useEditFlatModal = createModalStore();
 const useAddAndEditBreakDownModal = createModalStore();
+const useSuccessModal = createModalStore()
 
 export {
   useAddCommentModal,
@@ -31,4 +32,5 @@ export {
   useAddNewApartmentModal,
   useEditFlatModal,
   useAddAndEditBreakDownModal,
+  useSuccessModal
 };

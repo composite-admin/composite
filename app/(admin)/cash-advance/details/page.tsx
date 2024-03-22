@@ -42,9 +42,6 @@ export default function CashAdvanceDetailsPage() {
               <Button className="w-max" onClick={() => setModalType("add")}>
                 Add Breakdown
               </Button>
-              <Button className="w-max" onClick={() => setModalType("edit")}>
-                Edit Breakdown
-              </Button>
             </div>
             <div className="flex flex-col md:flex-row col-span-4">
               <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between lg:pr-8 gap-3 ">

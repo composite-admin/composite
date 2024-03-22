@@ -1,9 +1,10 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import SidebarLinks, { NavLinkType, footerLinks } from "@/utils/links";
+import SidebarLinks, { footerLinks } from "@/utils/links";
 import Link from "next/link";
 import Image from "next/image";
+import { NavLinkType } from "@/utils/types";
 
 const Sidebar = () => {
   const pathname = usePathname();
