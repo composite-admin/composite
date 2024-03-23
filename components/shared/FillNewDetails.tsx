@@ -90,7 +90,7 @@ const FillNewDetails = (props: any) => {
 
 
                 <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
-                <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={()=> {props.setState(false)}}>Submit</button>
+                <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={()=> {props.setState(false)}}>Next</button>
 
             </div>
         </div>

@@ -6,7 +6,7 @@ import { data } from "./data";
 import { useRouter } from "next/navigation";
 
 
-export default function page() {
+export default function WorkersPage() {
   const router = useRouter()
   
   return(

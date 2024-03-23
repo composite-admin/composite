@@ -6,7 +6,7 @@ import { columns } from "./pending-project/columns";
 import { data } from "./pending-project/data";
 import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function ContractorsPage() {
   const router = useRouter();
   return(
     <>

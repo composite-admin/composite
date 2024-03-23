@@ -1,8 +1,11 @@
-
+"use client";
+import { useSuccessModal } from '@/store/inventory/UseInventoryModal';
+import { useRouter } from 'next/navigation';
 import { HiCloudUpload } from 'react-icons/hi'
 
 const UploadImages = () => {
-    
+    const onOpen = useSuccessModal(state => state.onOpen)
+    const router = useRouter()
     return (
         <div>
             <p>Upload Images</p>
@@ -21,8 +24,8 @@ const UploadImages = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-5 mt-5">
-                <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
-                <button className="bg-primaryLight text-white  p-3 rounded-md">Submit</button>
+                <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={()=> router.back()}>Cancel</button>
+                <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={onOpen}>Submit</button>
             </div>
 
             

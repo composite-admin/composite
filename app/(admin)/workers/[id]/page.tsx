@@ -10,7 +10,7 @@ import { columns } from '../columns'
 import { data } from '../data'
 import { useRouter } from 'next/navigation'
 
-const page = () => {
+const SingleWorker = () => {
     const router = useRouter();
     return (
         <>
@@ -34,4 +34,4 @@ const page = () => {
     )
 }
 
-export default page
+export default SingleWorker

@@ -6,7 +6,7 @@ import { columns } from "./columns";
 import { data } from "./data";
 import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function StakeholdersPage() {
   const router = useRouter();
 
   return(

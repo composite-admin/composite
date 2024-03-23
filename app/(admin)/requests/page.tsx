@@ -4,7 +4,7 @@ import { DataTable } from "@/components/shared/DataTable";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { data } from "../consultants/data";
 import { columns } from "../consultants/columns";
-export default function page() {
+export default function ReportPage() {
   return (
     <>
     <PageHeaderComponent subTitle="A request of daily, weekly and monthly activites" title="Request"/>
