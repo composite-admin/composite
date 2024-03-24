@@ -4,6 +4,7 @@ import ViewDetails from '@/components/shared/ViewDetails'
 import React from 'react'
 import keys from './keys'
 import { useRouter } from "next/navigation";
+import Image from 'next/image'
 
 const SingleReport = () => {
   const router = useRouter();
@@ -22,11 +23,11 @@ const SingleReport = () => {
           </div>
 
           <div className="flex gap-2">
-            <img src="./young-black-race-man-with-blueprint-stading-near-glass-building 1.png" alt="" className="w-[162px] h-[112px] object-cover" />
+            <Image unoptimized width={0} height={0} src="/./young-black-race-man-with-blueprint-stading-near-glass-building 1.png" alt="" className="w-[162px] h-[112px] object-cover" />
 
-            <img src="./young-black-race-man-with-blueprint-stading-near-glass-building 1.png" alt="" className="w-[162px] h-[112px] object-cover" />
+            <Image unoptimized width={0} height={0} src="/./young-black-race-man-with-blueprint-stading-near-glass-building 1.png" alt="" className="w-[162px] h-[112px] object-cover" />
 
-            <img src="./young-black-race-man-with-blueprint-stading-near-glass-building 1.png" alt="" className="w-[162px] h-[112px] object-cover" />
+            <Image unoptimized width={0} height={0} src="/./young-black-race-man-with-blueprint-stading-near-glass-building 1.png" alt="" className="w-[162px] h-[112px] object-cover" />
           </div>
         </div>
       </ViewDetails>

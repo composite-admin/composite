@@ -7,6 +7,7 @@ import { columns } from '../apartment/columns'
 import { data } from '../apartment/data'
 import { HiDocument } from 'react-icons/hi2'
 import { useAddContractorModal, useAddMaterial, useAddProjectModal, useAddStakeHolderModal, useAddStartupModal } from '@/store/inventory/UseInventoryModal'
+import StartUpIcon from '@/components/icons/StartUpIcon'
 
 const page = () => {
     const onOpenAddStakeHolder = useAddStakeHolderModal(state => state.onOpen);
@@ -104,7 +105,7 @@ const page = () => {
                         options.map((item, i) => {
                             return (
                                 <div key={i} className='flex items-center justify-center flex-col cursor-pointer' onClick={item.action}>
-                                    <HiDocument />
+                                    <StartUpIcon />
                                     <p className='text-center text-[10.37px] text-[#6E6E6E]'>{item.title}</p>
                                 </div>
                             )

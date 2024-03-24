@@ -13,6 +13,7 @@ import AddMaterial from "@/components/Modals/projects/AddMaterialModel";
 import AddStakeHolderModal from "@/components/Modals/projects/AddStakeholderModel";
 import AddStartUp from "@/components/Modals/projects/AddStartUpModal";
 import UpdateProjectModal from "@/components/Modals/projects/UpdateProject";
+import AddWorkerModal from "@/components/Modals/projects/AddWorkerModal";
 
 
 export const ModalProvider = () => {
@@ -41,6 +42,7 @@ export const ModalProvider = () => {
       <AddStakeHolderModal />
       <AddStartUp />
       <UpdateProjectModal />
+      <AddWorkerModal />
     </>
   );
 };

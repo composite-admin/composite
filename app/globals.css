@@ -145,7 +145,7 @@ select{
 }
 
 select, textarea{
-  @apply text-sm text-textColor
+  @apply text-sm text-textColor w-full
 }
 
 .edit-info > div > textarea, .edit > div > textarea {

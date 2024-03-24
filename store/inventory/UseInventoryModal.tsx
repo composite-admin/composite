@@ -18,3 +18,4 @@ export const useAddContractorModal = createModalStore()
 export const useAddMaterial = createModalStore()
 export const useUpdateProjectModal = createModalStore()
 export const useInventoryDetails = createModalStore()
+export const useAddWorkerModal = createModalStore();
