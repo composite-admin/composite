@@ -6,42 +6,58 @@ import React from 'react'
 import { columns } from '../apartment/columns'
 import { data } from '../apartment/data'
 import { HiDocument } from 'react-icons/hi2'
+import { useAddContractorModal, useAddMaterial, useAddProjectModal, useAddStakeHolderModal, useAddStartupModal } from '@/store/inventory/UseInventoryModal'
 
 const page = () => {
+    const onOpenAddStakeHolder = useAddStakeHolderModal(state => state.onOpen);
+    const onOpenAddContractor = useAddContractorModal(state => state.onOpen);
+    const onOpenStartupModal = useAddStartupModal(state=> state.onOpen);
+    const onOpenAddMaterialMOdal = useAddMaterial(state => state.onOpen);
+    const onOpenAddProjectModal = useAddProjectModal(state => state.onOpen)
+    
   const options = [
     {
-        title: "Add Startup Cost"
+        title: "Add Startup Cost",
+        action: onOpenStartupModal
     },
     {
-        title: "Add Management Cost"
+        title: "Add Management Cost",
+        action: onOpenAddStakeHolder
     },
     {
-        title: "Add stakeholder Cost"
+        title: "Add stakeholder",
+        action: onOpenAddStakeHolder
     },
     {
-        title: "Add Worker"
+        title: "Add Worker",
+        action: onOpenAddStakeHolder
     },
     {
-        title: "Add Material"
+        title: "Add Material",
+        action: onOpenAddMaterialMOdal
     },
     {
-        title: "View Apartment"
+        title: "View Apartment",
+        action: onOpenAddStakeHolder
     },
     {
-        title: "View Tenant"
+        title: "View Tenant",
+        action: onOpenAddStakeHolder
     },
     {
-        title: "View Images"
+        title: "View Images",
+        action: onOpenAddStakeHolder
     },
     {
-        title: "Add Startup Cost"
+        title: "Add Contractor",
+        action: onOpenAddContractor
     }
 ]
 
   return (
     <>
         <GoBack />
-        <PageHead headText='High Cost Tower Renovation' subText='Date Added, 6th July' buttonText='Edit Project'/>
+        <PageHead headText='High Cost Tower Renovation' subText='Date Added, 6th July' buttonText='Edit Project' buttonAction={onOpenAddProjectModal}/>
 
         <div className='grid grid-cols-3 gap-5 my-10'>
 
@@ -87,7 +103,7 @@ const page = () => {
                     {
                         options.map((item, i) => {
                             return (
-                                <div key={i} className='flex items-center justify-center flex-col'>
+                                <div key={i} className='flex items-center justify-center flex-col cursor-pointer' onClick={item.action}>
                                     <HiDocument />
                                     <p className='text-center text-[10.37px] text-[#6E6E6E]'>{item.title}</p>
                                 </div>

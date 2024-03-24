@@ -1,5 +1,7 @@
 "use client"
+import ManageStaffModalIcon from '@/components/icons/ManageStaffModalIcon';
 import { Modal } from '@/components/shared/Modal'
+import { Button } from '@/components/ui/button';
 import { useSuccessModal } from '@/store/inventory/UseInventoryModal';
 import Image from 'next/image';
 import React from 'react'
@@ -11,25 +13,27 @@ const ProjectSuccessModal = () => {
 
     return (
         <Modal
-            title={<p> Success </p>}
-            description=""
-            isOpen={isOpen}
-            onClose={onClose}
-            classname="focus rounded-2xl w-3/12"
-        >
-            <div>
-                <div className="flex flex-col items-center justify-center text-center">
-                    <Image width={30} height={30} unoptimized src="/./success.png" alt="" className="w-[20%] h-auto object-cover m-auto" />
-
-                    <div className="p-5">
-                        <h2 className="text-[18px] font-[600] text-[#1D2739]">Changes made successfully</h2>
-                        <p className="text-[#667185]">The you have successfully edit the inventory and the new information has be effected</p>
-
-                        <button className="bg-primaryLight p-3 text-white rounded-md w-full" onClick={onClose}>Done</button>
-                    </div>
-                </div>
-            </div>
-        </Modal>
+        title="Successful"
+        isOpen={isOpen}
+        onClose={onClose}
+        classname="max-w-md"
+      >
+        <div className='space-y-7'>
+          <div className='flex flex-col items-center'>
+            <ManageStaffModalIcon />
+          </div>
+          <div className='text-center'>
+            <h2>Changes made successfully</h2>
+            <p>
+              The you have successfully edit the inventory and the new information
+              has be effected
+            </p>
+          </div>
+          <div>
+            <Button className='w-full' onClick={onClose}>Done</Button>
+          </div>
+        </div>
+      </Modal>
     )
 }
 

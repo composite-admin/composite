@@ -1,6 +1,6 @@
 "use client";
 import { Modal } from '@/components/shared/Modal'
-import { useAddContractorModal } from '@/store/inventory/UseInventoryModal';
+import { useAddContractorModal, useSuccessModal } from '@/store/inventory/UseInventoryModal';
 
 import React from 'react'
 import { HiHome } from 'react-icons/hi2'
@@ -8,6 +8,7 @@ import { HiHome } from 'react-icons/hi2'
 const AddContractorModal = () => {
   const isOpen = useAddContractorModal((state) => state.isOpen);
   const onClose = useAddContractorModal((state) => state.onClose);
+  const onOpenSucess = useSuccessModal(state => state.onOpen)
 
   return (
     <Modal
@@ -21,15 +22,13 @@ const AddContractorModal = () => {
 
       </div>}
       description={""}
-      isOpen={true}
+      isOpen={isOpen}
       onClose={onClose}
       classname=" rounded-lg border border-outline bg-white p-[20px] w-3/6 focus max-h-[90vh] overflow-auto"
     >
 
-      <div >
-
-
-        <div className="grid grid-cols-2 gap-2 my-5 edit">
+      <div className='space-y-7' >
+        <div className="grid grid-cols-2 gap-2 edit">
           <div className="flex flex-col col-span-2">
             <p className="value">
               Project Name
@@ -62,8 +61,8 @@ const AddContractorModal = () => {
             <textarea />
           </div>
 
-          <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
-          <button className="bg-primaryLight text-white  p-3 rounded-md">Submit</button>
+          <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={onClose}>Cancel</button>
+          <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={onOpenSucess}>Submit</button>
         </div>
 
 

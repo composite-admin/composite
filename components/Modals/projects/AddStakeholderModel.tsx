@@ -1,6 +1,6 @@
 "use client";
 import { Modal } from '@/components/shared/Modal'
-import { useAddStakeHolderModal } from '@/store/inventory/UseInventoryModal';
+import { useAddStakeHolderModal, useSuccessModal } from '@/store/inventory/UseInventoryModal';
 
 import React from 'react'
 import { HiHome } from 'react-icons/hi2'
@@ -8,6 +8,7 @@ import { HiHome } from 'react-icons/hi2'
 const AddStakeHolderModal = () => {
   const isOpen = useAddStakeHolderModal((state) => state.isOpen);
   const onClose = useAddStakeHolderModal((state) => state.onClose);
+  const onOpenSucess = useSuccessModal(state => state.onOpen);
 
   return (
     <Modal
@@ -21,7 +22,7 @@ const AddStakeHolderModal = () => {
 
       </div>}
       description={""}
-      isOpen={true}
+      isOpen={isOpen}
       onClose={onClose}
       classname=" rounded-lg border border-outline bg-white p-[20px] w-3/6 focus max-h-[90vh] overflow-auto"
     >
@@ -70,8 +71,8 @@ const AddStakeHolderModal = () => {
             <textarea />
           </div>
 
-          <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
-          <button className="bg-primaryLight text-white  p-3 rounded-md">Submit</button>
+          <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={onClose}>Cancel</button>
+          <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={onOpenSucess}>Submit</button>
         </div>
 
 
