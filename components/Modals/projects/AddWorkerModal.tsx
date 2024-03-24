@@ -30,7 +30,7 @@ const AddWorkerModal = () => {
         <div className='p-5'>
             <div className="grid grid-cols-2 gap-3 edit">
                 <div>
-                    <p>Worker's Full name</p>
+                    <p>Worker&apos;s Full name</p>
                     <input type="text" />
                 </div>
 

@@ -9,7 +9,7 @@ import { HiDocument } from 'react-icons/hi2'
 import { useAddContractorModal, useAddMaterial, useAddProjectModal, useAddStakeHolderModal, useAddStartupModal } from '@/store/inventory/UseInventoryModal'
 import StartUpIcon from '@/components/icons/StartUpIcon'
 
-const page = () => {
+const SingleProject = () => {
     const onOpenAddStakeHolder = useAddStakeHolderModal(state => state.onOpen);
     const onOpenAddContractor = useAddContractorModal(state => state.onOpen);
     const onOpenStartupModal = useAddStartupModal(state=> state.onOpen);
@@ -120,4 +120,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SingleProject
