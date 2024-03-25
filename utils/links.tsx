@@ -27,7 +27,7 @@ const SidebarLinks: NavLinkType[] = [
     href: "/reports",
     label: "Reports",
     icon: <ReportsIcon />,
-    isCollapsible: true,
+    isCollapsible: false,
     childLabel: [
       'Items picked from store'
     ],
