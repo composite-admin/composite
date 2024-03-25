@@ -19,7 +19,7 @@ export default function PageHeaderComponent({
   href,
 }: PageHeaderComponentProps) {
   return (
-    <div className="pb-5 flex justify-between items-center">
+    <div className="pb-5 flex justify-between items-center ">
       <div>
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-[#475367] text-[1rem]">{subTitle}</p>
