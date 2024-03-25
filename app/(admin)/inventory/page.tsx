@@ -2,8 +2,9 @@
 import { DataTable } from "@/components/shared/DataTable";
 import PageHead from "@/components/ui/pageHead";
 import { columns } from "./picked/columns";
-import { data } from "./picked/data";
+
 import { useInventoryDetails } from "@/store/inventory/UseInventoryModal";
+import { data } from "./picked/data";
 
 export default function InventoryPage() {
   

@@ -18,7 +18,7 @@ interface KeysInterface{
 const ViewDetails = React.forwardRef<any, KeysInterface>(
   ({ title, dateSubmitted, editAction, keys, children, overideHeader, headerChildren }) => {
     return (
-      <div className="my-5 rounded-lg  bg-white w-full">
+      <div className="my-5 rounded-lg  bg-white p-[29px] w-full">
         <div className="grid grid-cols-[1fr_3fr]  gap-10 border-b border-b-outline pb-10">
           <div className="flex gap-3 flex-col">
 
