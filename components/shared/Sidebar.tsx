@@ -11,7 +11,7 @@ const Sidebar = () => {
   const pathname = usePathname();
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full flex flex-col">
-      <div className="flex gap-2 items-center justify-center pb-5">
+      <div className="flex gap-2 items-center pb-5">
         <Image src="/./logo.png" alt="" unoptimized width={30} height={30} />
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
       </div>

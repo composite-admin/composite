@@ -3,6 +3,7 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
+import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
@@ -26,12 +27,14 @@ export const columns: ColumnDef<ReportType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="flex  flex-col">
-          <span className="w-32 font-semibold text-primaryLight-500 truncate">
-            High Tower Cost Renovation
-          </span>
-          <span>RCPD119548</span>
-        </div>
+        <Link href={"/project/22"}>
+          <div className="flex  flex-col">
+            <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+              High Tower Cost Renovation
+            </span>
+            <span>RCPD119548</span>
+          </div>
+        </Link>
       );
     },
   },
@@ -99,8 +102,9 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Worker" />;
     },
     cell: ({ row }) => {
+      // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
-        <div className="">
+        <div className="cursor-pointer" >
           <span className="font-semibold text-primaryLight-500 flex items-center"><HiUserAdd />Add </span>
         </div>
       );
@@ -112,8 +116,9 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Worker" />;
     },
     cell: ({ row }) => {
+      // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
-        <div className="">
+        <div className=""  >
           <span className="font-semibold text-primaryLight-500 flex items-center"><HiOutlineCog />Add </span>
         </div>
       );
