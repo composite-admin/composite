@@ -15,7 +15,9 @@ export type NavLinkType = {
   label: string;
   icon: React.ReactNode;
   isCollapsible?: boolean;
-  children?: NavLinkType[];
+  childLabel?: string[];
+  childTitle?: string
+  childHref?: string
 };
 
 export type LoginForm = {
