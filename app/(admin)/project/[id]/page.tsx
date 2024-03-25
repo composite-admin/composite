@@ -69,32 +69,32 @@ const SingleProject = () => {
 
                     <div className="grid grid-cols-4 p-5 gap-5">
                         <div>
-                            <p className='text-[#475367] text-sm'>Supplier Name:</p>
+                            <p className='text-[#475367] text-sm'>Project Name:</p>
                             <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Supplier Name:</p>
+                            <p className='text-[#475367] text-sm'>Project Name:</p>
                             <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Supplier Name:</p>
+                            <p className='text-[#475367] text-sm'>Project Name:</p>
                             <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Supplier Name:</p>
+                            <p className='text-[#475367] text-sm'>Project Name:</p>
                             <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Supplier Name:</p>
+                            <p className='text-[#475367] text-sm'>Project Name:</p>
                             <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Supplier Name:</p>
+                            <p className='text-[#475367] text-sm'>Project Name:</p>
                             <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
                         </div>
                     </div>

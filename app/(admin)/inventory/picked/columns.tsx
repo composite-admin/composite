@@ -3,6 +3,7 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
+import { useInventoryDetails } from "@/store/inventory/UseInventoryModal";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
@@ -25,9 +26,10 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Request Type" />;
     },
     cell: ({ row }) => {
+      const onOpen = useInventoryDetails((state) => state.onOpen);
       return (
-        <div className="flex  flex-col">
-          <span className="w-32 font-semibold text-primaryLight-500 truncate">
+        <div className="flex  flex-col cursor-pointer" onClick={onOpen}>
+          <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
             Tools and Machinery
           </span>
           <span>RCPD119548</span>

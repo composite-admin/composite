@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="my-6">
-        <Input
+        {/* <Input
           type="text"
           placeholder="Search..."
           className="w-full md:w-1/3 placeholder:text-textColor"
@@ -63,7 +63,7 @@ export function DataTable<TData, TValue>({
           onChange={(e) => setGlobalFilter(e.target.value)}
           withIcon
           icon={<Search className="w-4 h-4 text-textColor" />}
-        />
+        /> */}
       </div>
       <div className="rounded-lg border border-borderColor shadow-sm">
         <Table>

@@ -137,7 +137,7 @@ body::-webkit-scrollbar {
 }
 
 select{
-  @apply bg-transparent border border-outline focus:outline-none p-4 rounded-lg
+  @apply bg-transparent border border-outline-600 focus:outline-none p-4 rounded-lg
 }
 
 .edit > div{
@@ -149,13 +149,13 @@ select, textarea{
 }
 
 .edit-info > div > textarea, .edit > div > textarea {
-    @apply border border-outline resize-none rounded-lg h-20 w-full p-3 focus:outline-none
+    @apply border border-outline-600 resize-none rounded-lg h-20 w-full p-3 focus:outline-none
 }
 
 .edit > div > input{
-  @apply border border-outline rounded-lg w-full p-3 focus:outline-none
+  @apply border border-outline-600 rounded-lg w-full p-3 focus:outline-none
 }
 
 .supplierActions p{
-  @apply p-5 border-y border-y-outline cursor-pointer
+  @apply p-5 border-y border-y-outline-600 cursor-pointer
 }
