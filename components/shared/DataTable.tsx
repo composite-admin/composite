@@ -27,13 +27,15 @@ import { Search } from "lucide-react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  clickAction?: any
+  clickAction?: any,
+  showSearch?: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  clickAction
+  clickAction,
+  showSearch = true
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState<string>("");
@@ -55,15 +57,18 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="my-6">
-        {/* <Input
-          type="text"
-          placeholder="Search..."
-          className="w-full md:w-1/3 placeholder:text-textColor"
-          value={globalFilter}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          withIcon
-          icon={<Search className="w-4 h-4 text-textColor" />}
-        /> */}
+        {
+          showSearch &&
+          <Input
+            type="text"
+            placeholder="Search..."
+            className="w-full md:w-1/3 placeholder:text-textColor"
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            withIcon
+            icon={<Search className="w-4 h-4 text-textColor" />}
+          />
+        }
       </div>
       <div className="rounded-lg border border-borderColor shadow-sm">
         <Table>
@@ -79,9 +84,9 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}

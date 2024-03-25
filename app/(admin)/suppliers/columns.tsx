@@ -26,6 +26,7 @@ export const columns: ColumnDef<SupplierType>[] = [
     },
     cell: ({ row }) => {
       return (
+        <Link href={"/suppliers/12"}>
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div>
@@ -33,6 +34,7 @@ export const columns: ColumnDef<SupplierType>[] = [
             <p>IVGSH776f</p>
           </div>
         </div>
+        </Link>
       );
     },
   },
@@ -116,9 +118,11 @@ export const columns: ColumnDef<SupplierType>[] = [
     },
     cell: ({ row }) => {
       return (
+        <Link href={"/suppliers/12/edit"}>
         <div className="">
-          <span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
         </div>
+        </Link>
       );
     },
   },
