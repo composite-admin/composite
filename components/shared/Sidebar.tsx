@@ -30,7 +30,7 @@ const Sidebar = () => {
             }`}
             >
               <div>{item.icon}</div>
-            <DropdownMenuComponent triggerText={item.label} items={item.childLabel}/>
+            <DropdownMenuComponent triggerText={item.label} items={item.childLabel as string[]}/>
             </Link> 
           )
         }
