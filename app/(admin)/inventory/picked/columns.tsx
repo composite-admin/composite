@@ -26,9 +26,9 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Request Type" />;
     },
     cell: ({ row }) => {
-      const onOpen = useInventoryDetails((state) => state.onOpen);
+      // const onOpen = useInventoryDetails((state) => state.onOpen);
       return (
-        <div className="flex  flex-col cursor-pointer" onClick={onOpen}>
+        <div className="flex  flex-col cursor-pointer">
           <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
             Tools and Machinery
           </span>

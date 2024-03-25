@@ -102,9 +102,9 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Worker" />;
     },
     cell: ({ row }) => {
-      const onOpen = useAddWorkerModal(state => state.onOpen);
+      // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
-        <div className="cursor-pointer" onClick={onOpen}>
+        <div className="cursor-pointer" >
           <span className="font-semibold text-primaryLight-500 flex items-center"><HiUserAdd />Add </span>
         </div>
       );
@@ -116,9 +116,9 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Worker" />;
     },
     cell: ({ row }) => {
-      const onOpen = useAddWorkerModal(state => state.onOpen);
+      // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
-        <div className=""  onClick={onOpen}>
+        <div className=""  >
           <span className="font-semibold text-primaryLight-500 flex items-center"><HiOutlineCog />Add </span>
         </div>
       );
