@@ -10,7 +10,7 @@ export default function SuppliersPage() {
   return(
     <>
       <PageHead headText="Supplier(22)" subText="View all your suppliers here" buttonText="Add Supplier" buttonAction={()=> router.push("/suppliers/add")} />
-      <DataTable columns={columns} data={data} clickAction={()=> router.push("/suppliers/12")} />
+      <DataTable columns={columns} data={data} />
     </>
   )
 }

@@ -25,7 +25,7 @@ export default function DashboardPage() {
             <DashboardCard />
             <DashboardCard />
           </div>
-          <DataTable columns={columns} data={data} />
+          <DataTable columns={columns} data={data} showSearch={false} />
         </div>
 
         <div className="xl:col-span-2 grid md:grid-cols-2 xl:grid-cols-1 gap-5 auto-rows-min  place-items-center w-full">

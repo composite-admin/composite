@@ -4,10 +4,10 @@ import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import { Avatar } from '@/components/ui/avatar'
 import React from 'react'
-import { columns } from '../columns'
-import { data } from '../data'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import { columns } from './edit/columns'
+import { data } from './edit/data'
 
 const SingleSupplier = () => {
   const router = useRouter()

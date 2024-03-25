@@ -157,5 +157,5 @@ select, textarea{
 }
 
 .supplierActions p{
-  @apply p-5 border-y border-y-outline-600 cursor-pointer
+  @apply p-5 border-t border-t-outline-600 cursor-pointer
 }
