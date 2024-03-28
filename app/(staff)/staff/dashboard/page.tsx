@@ -1,5 +1,5 @@
-import { columns } from "@/app/(admin)/dashboard/columns";
-import { data } from "@/app/(admin)/dashboard/data";
+import { columns } from "@/app/(admin)/columns";
+import { data } from "@/app/(admin)/data";
 import DashboardCard from "@/components/Dashboard/DashboardCard";
 import { DataTable } from "@/components/shared/DataTable";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";

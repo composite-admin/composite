@@ -86,7 +86,7 @@ export const columns: ColumnDef<ConsultantsType>[] = [
     cell: ({ row }) => {
       return (
         <Link
-          href={row.getValue("actions")}
+          href="consultants/consultant/user"
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
           <ViewUserPageIcon />
