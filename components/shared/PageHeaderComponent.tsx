@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 
-export type PageHeaderComponentProps = {
+export interface PageHeaderComponentProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   subTitle: string;
   onclick?: () => void;
@@ -17,9 +17,10 @@ export default function PageHeaderComponent({
   buttonText,
   onclick,
   href,
+  ...props
 }: PageHeaderComponentProps) {
   return (
-    <div className="pb-5 flex justify-between items-center ">
+    <div {...props} className={`pb-5 flex justify-between items-center ${props.className}`}>
       <div>
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-[#475367] text-[1rem]">{subTitle}</p>

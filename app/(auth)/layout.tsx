@@ -8,7 +8,9 @@ export default function AuthLayout({
 }>) {
   return (
     <section className="m-[24px] grid grid-cols-2 gap-10">
-      <HeroImage />
+      <div className="hidden lg:block">
+        <HeroImage />
+      </div>
       {children}
     </section>
   );

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function ClientHomePage() {
   return (
-    <div className='lg:pr-24'>
+    <div className="lg:pr-24">
       <div>
         <aside className="bg-white flex-col md:flex-row flex justify-between items-center border-borderColor border p-6 gap-5 rounded-xl ">
           <div className="flex flex-col gap-2.5">
@@ -26,12 +26,12 @@ export default function ClientHomePage() {
             </Link>
           </div>
           <div>
-            <AvatarComponent height="h-28" width="w-28"/>
+            <AvatarComponent height="h-28" width="w-28" />
           </div>
         </aside>
       </div>
       <div>
-        <div className="pb-12 flex gap-10 py-3 ml-3 md:overflow-x-visible overflow-x-auto hide">
+        <div className="pb-12 flex gap-10 py-3  md:overflow-x-visible overflow-x-auto hide">
           <Card />
           <Card />
           <Card />

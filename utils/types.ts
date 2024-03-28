@@ -1,4 +1,27 @@
 import * as z from "zod";
+
+export interface UserData {
+  id: number;
+  userid: string;
+  email: string;
+  username: string | null;
+  password: string;
+  menu_right: string | null;
+  user_type: string;
+  status: string;
+  lastlogdate: string;
+  pwd_status: number;
+  pwd_date_created: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface LoginResponse {
+  data: UserData;
+  token: string;
+  message: string;
+}
+
 export type gridDataType = {
   key: string;
   value: string;
@@ -15,16 +38,15 @@ export type NavLinkType = {
   label: string;
   icon: React.ReactNode;
   isCollapsible?: boolean;
-  childLabel?: string[];
-  childTitle?: string
-  childHref?: string
+  childLabel?: string;
+  childTitle?: string;
+  childHref?: string;
 };
 
 export type LoginForm = {
   email: string;
   password: string;
 };
-
 
 export const loginSchema = z.object({
   email: z
@@ -39,11 +61,10 @@ export const loginSchema = z.object({
 
 export type LoginType = z.infer<typeof loginSchema>;
 
-
 export interface FormField {
   id: string;
   label: string;
-  type: 'text' | 'email' | 'select' | 'textarea';
+  type: "text" | "email" | "select" | "textarea";
   options?: string[];
   required?: boolean;
 }

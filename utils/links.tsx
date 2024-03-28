@@ -28,10 +28,8 @@ const SidebarLinks: NavLinkType[] = [
     label: "Reports",
     icon: <ReportsIcon />,
     isCollapsible: true,
-    childLabel: [
-      'Items picked from store'
-    ],
-    childHref: '/inventory/picked'
+    childHref: "/reports",
+    childLabel: "Items picked from store",
   },
 
   {
@@ -40,9 +38,12 @@ const SidebarLinks: NavLinkType[] = [
     icon: <InventoryNewIcon />,
   },
   {
-      href: "/facility",
-      label: "Facility",
-      icon: <ContrastIcon />,
+    href: "/facility",
+    label: "Facility",
+    icon: <ContrastIcon />,
+    isCollapsible: true,
+    childLabel: "flats",
+    childHref: "/facility/all-flats",
   },
   {
     href: "/project",
@@ -59,12 +60,18 @@ const SidebarLinks: NavLinkType[] = [
     href: "/contractors",
     label: "Contractors",
     icon: <SidebarContractorIcon />,
+    isCollapsible: true,
+    childHref: "/contractors",
+    childLabel: "Pending Contractor Project",
   },
 
   {
     href: "/stakeholders",
     label: "Stakeholders",
     icon: <StakeholderIcon />,
+    isCollapsible: true,
+    childHref: "/stakeholders",
+    childLabel: "Pending Stakeholder Project",
   },
 
   {
@@ -91,6 +98,9 @@ const SidebarLinks: NavLinkType[] = [
     href: "/manage-staff",
     label: "Manage Staff",
     icon: <ManageStaffIcon />,
+    isCollapsible: true,
+    childHref: "/manage-staff/team-manager/id",
+    childLabel: "Project Team Member",
   },
 
   {

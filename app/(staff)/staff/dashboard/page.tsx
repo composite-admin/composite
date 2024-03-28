@@ -16,7 +16,7 @@ export default function StaffDashboardPage() {
       {/* grid container */}
       <div className="grid-cols-1">
         <div className="xl:col-span-6">
-          <div className="pb-12 flex gap-5 py-3 ml-3 md:overflow-x-visible overflow-x-auto hide">
+          <div className="pb-12 flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">
             <DashboardCard />
             <DashboardCard />
             <DashboardCard />
@@ -24,7 +24,6 @@ export default function StaffDashboardPage() {
           </div>
           <DataTable columns={columns} data={data} />
         </div>
-
       </div>
     </div>
   );

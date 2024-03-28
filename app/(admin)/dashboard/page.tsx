@@ -20,7 +20,7 @@ export default function DashboardPage() {
       {/* grid container */}
       <div className="grid-cols-1 gap-8 grid xl:grid-cols-8">
         <div className="xl:col-span-6">
-          <div className="pb-12 flex gap-5 py-3 ml-3 md:overflow-x-visible overflow-x-auto hide">
+          <div className="pb-12 flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">
             <DashboardCard />
             <DashboardCard />
             <DashboardCard />

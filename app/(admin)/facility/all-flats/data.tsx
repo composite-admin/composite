@@ -7,7 +7,7 @@ export const data: Array<AllFlatsType> = [
     flatDescription: "FLAT 1 - Ground Floor - 2",
     dateAdded: "6 July, 2023",
     status: "vacant",
-    actions: "https://www.google.com/",
+    actions: "random details to edit 1",
   },
   // generate random data for each key/value
 
@@ -17,7 +17,7 @@ export const data: Array<AllFlatsType> = [
     flatDescription: "FLAT 1 - Ground Floor - 2",
     dateAdded: "6 July, 2023",
     status: "occupied",
-    actions: "https://www.reddit.com/",
+    actions: "random details to edit 2",
   },
 
   {
@@ -26,7 +26,7 @@ export const data: Array<AllFlatsType> = [
     flatDescription: "FLAT 1 - Ground Floor - 2",
     dateAdded: "6 July, 2023",
     status: "vacant",
-    actions: "https://www.discord.com/",
+    actions: " random details to edit 3",
   },
 
   {
@@ -35,6 +35,6 @@ export const data: Array<AllFlatsType> = [
     flatDescription: "FLAT 1 - Ground Floor - 2",
     dateAdded: "6 July, 2023",
     status: "occupied",
-    actions: "https://www.pinterest.com/",
+    actions: "random details to edit 4",
   },
 ];
