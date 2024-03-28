@@ -7,8 +7,10 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { LoginType, loginSchema } from "@/utils/types";
 import { CustomFormField } from "../shared/FormComponent";
+import useLogin from "@/mutations/LoginMutation";
 
 export default function LoginForm() {
+  const {isPending, login} = useLogin();
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -19,6 +21,7 @@ export default function LoginForm() {
 
   function onSubmit(values: LoginType) {
     console.log(values);
+    login(values);
   }
   return (
     <div className="loginScreen flex flex-col text-start w-3/5 m-auto gap-10">
