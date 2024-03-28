@@ -17,6 +17,10 @@
   background-size: cover;
 }
 
+.transition-max-height {
+  transition: max-height 2s ease-in-out;
+}
+
 .loginFoot h1 {
   line-height: 67.5px;
 }

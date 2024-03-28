@@ -20,7 +20,7 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
       <Toaster />
       <QueryClientProvider client={queryClient}>
         {children}
-        <ReactQueryDevtools initialIsOpen={true} />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );

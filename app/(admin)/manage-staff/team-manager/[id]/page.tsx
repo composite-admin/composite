@@ -8,10 +8,9 @@ export default function ManageStaffPage() {
     <div className="space-y-8">
       <div>
         <PageHeaderComponent
-          title="Manane Staff(22)"
+          title="Project Team Member"
           subTitle="View all staff here"
-          buttonText="Add Client"
-          href="manage-client/add-new-client"
+          className="py-8"
         />
       </div>
       <DataTable columns={columns} data={data} />

@@ -38,7 +38,7 @@ export type NavLinkType = {
   label: string;
   icon: React.ReactNode;
   isCollapsible?: boolean;
-  childLabel?: string[];
+  childLabel?: string;
   childTitle?: string;
   childHref?: string;
 };

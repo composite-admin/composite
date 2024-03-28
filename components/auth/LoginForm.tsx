@@ -8,8 +8,11 @@ import { useForm } from "react-hook-form";
 import { LoginType, loginSchema } from "@/utils/types";
 import { CustomFormField } from "../shared/FormComponent";
 import useLogin from "@/mutations/LoginMutation";
+import useAuthStore from "@/store/auth/AuthStore";
 
 export default function LoginForm() {
+  const {user} = useAuthStore();
+
   const {isPending, login} = useLogin();
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
