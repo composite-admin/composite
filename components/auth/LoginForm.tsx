@@ -13,7 +13,7 @@ import useAuthStore from "@/store/auth/AuthStore";
 export default function LoginForm() {
   const {user} = useAuthStore();
 
-  const {isPending, login} = useLogin();
+  const { isPending, login, isError, isSuccess, error } = useLogin();
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -23,7 +23,6 @@ export default function LoginForm() {
   });
 
   function onSubmit(values: LoginType) {
-    console.log(values);
     login(values);
   }
   return (
@@ -63,8 +62,12 @@ export default function LoginForm() {
             <input type="checkbox" name="" id="" />
             <p>Remember Me</p>
           </label>
-          <Button type="submit" className=" p-3 py-6 rounded-l">
-            Login
+          <Button
+            type="submit"
+            className=" p-3 py-6 rounded-l"
+            disabled={isPending}
+          >
+            {isPending ? "Logging in..." : "Login"}
           </Button>
         </form>
       </Form>

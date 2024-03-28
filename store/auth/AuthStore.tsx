@@ -1,5 +1,5 @@
 import { UserData } from '@/utils/types';
-import create from 'zustand';
+import { create } from "zustand";
 
 interface AuthStore {
   user: UserData | null;
