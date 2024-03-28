@@ -14,7 +14,7 @@ import AddStakeHolderModal from "@/components/Modals/projects/AddStakeholderMode
 import AddStartUp from "@/components/Modals/projects/AddStartUpModal";
 import UpdateProjectModal from "@/components/Modals/projects/UpdateProject";
 import AddWorkerModal from "@/components/Modals/projects/AddWorkerModal";
-
+import EditFlatModal from "@/components/Modals/faclility/EditFlatModal";
 
 export const ModalProvider = () => {
   const [ismounted, setIsMounted] = useState(false);
@@ -30,13 +30,14 @@ export const ModalProvider = () => {
   return (
     <>
       <TestModal />
+      <EditFlatModal />
       <AddCommentModal />
-      <UpdateRequestModal/>
-      <DetailsModal/>
-      <AddAndEditBreakdownModal/>
+      <UpdateRequestModal />
+      <DetailsModal />
+      <AddAndEditBreakdownModal />
       <ProjectSuccessModal />
       <AddProjectModal />
-      <SuccesModal/>
+      <SuccesModal />
       <AddContractorModal />
       <AddMaterial />
       <AddStakeHolderModal />
