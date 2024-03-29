@@ -1,11 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { LoginResponse } from "@/utils/types";
-import useAuthStore from "@/store/auth/AuthStore";
+import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import { api } from "@/config/api";
 import axios from "axios";
 
 const useLogin = () => {
   const { setUser } = useAuthStore();
+  const { setUserStorage } = userStore();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({
     mutationFn: async (credentials: { email: string; password: string }) => {
       try {
@@ -21,6 +22,7 @@ const useLogin = () => {
     },
     onSuccess: (data) => {
       setUser(data.data, data.token);
+      setUserStorage(data.token, data.data.user_type?.toLowerCase());
     },
     onError: (error: Error) => {
       return error;

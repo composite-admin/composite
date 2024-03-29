@@ -13,14 +13,16 @@ export const api = axios.create({
     "Content-Type": "application/json",
     Accept: "application/json",
     "Access-Control-Allow-Origin": "*",
+    "Authorization": "Bearer",
   },
 });
 
 api.interceptors.request.use(
   (config) => {
-    const { token } = useAuthStore.getState();
+    const token = sessionStorage.getItem("token");
+    const userToken = JSON.parse(token ?? "{}");
     if (token) {
-      config.headers!.Authorization = `Bearer ${token}`;
+      config.headers["Authorization"] = `Bearer ${userToken.state.token}`;
     }
     return config;
   },
@@ -37,6 +39,8 @@ api.interceptors.response.use(
     } else {
       return Promise.reject(error);
     }
-    return Promise.reject(error);
   }
 );
+
+// john@example.com
+// john123456

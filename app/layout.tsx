@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "@/providers/modal-provider";
 import QueryProvider from "@/providers/query-provider";
+import AuthProvider from "@/providers/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <ModalProvider />
-        <body className={`${inter.className}  xl:overflow-hidden`}>
-      <QueryProvider >
-          {children}
-      </QueryProvider>
-        </body>
+      <ModalProvider />
+      <body className={`${inter.className}  xl:overflow-hidden`}>
+        <AuthProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

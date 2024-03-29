@@ -9,10 +9,10 @@ import { LoginType, loginSchema } from "@/utils/types";
 import { CustomFormField } from "../shared/FormComponent";
 import useLogin from "@/mutations/LoginMutation";
 import useAuthStore from "@/store/auth/AuthStore";
+import userStore from "@/store/auth/AuthStore";
 
 export default function LoginForm() {
-  const {user} = useAuthStore();
-
+  const { user } = useAuthStore();
   const { isPending, login, isError, isSuccess, error } = useLogin();
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
