@@ -2,15 +2,14 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import useAuthStore from "@/store/auth/AuthStore";
+import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useAuthStore();
+  const { token } = userStore();
   const router = useRouter();
-  console.log(user);
   useEffect(() => {
     const handleRedirect = () => {
-      if (!user) {
+      if (!token) {
         router.push("/login");
       } else {
         router.push("/");
@@ -18,7 +17,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     handleRedirect();
-  }, [user, router]);
+  }, [token, router]);
 
   return <>{children}</>;
 };
