@@ -7,7 +7,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="m-[24px] grid grid-cols-2 gap-10">
+    <section className="m-[24px] grid lg:grid-cols-2 gap-10">
       <div className="hidden lg:block">
         <HeroImage />
       </div>
