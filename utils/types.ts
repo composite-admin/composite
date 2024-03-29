@@ -7,13 +7,14 @@ export interface UserData {
   username: string | null;
   password: string;
   menu_right: string | null;
-  user_type: string;
+  user_type: string | undefined;
   status: string;
   lastlogdate: string;
   pwd_status: number;
   pwd_date_created: string;
   createdAt: string;
   updatedAt: string;
+  token: string;
 }
 
 export interface LoginResponse {

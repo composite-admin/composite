@@ -1,3 +1,4 @@
+import useAuthStore from "@/store/auth/AuthStore";
 import { AvatarComponent } from "../shared/AvatarComponent";
 import { Badge } from "../ui/badge";
 

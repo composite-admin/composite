@@ -1,5 +1,6 @@
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import GoBack from "@/components/shared/GoBack";
+import Link from "next/link";
 
 export default function page() {
   return (
@@ -41,24 +42,26 @@ export default function page() {
               Consultant Details
             </h2>
 
-            <div className='flex flex-col'>
+            <div className="flex flex-col">
               <div className="flex gap-5 items-center border-b p-8">
                 <div className="flex gap-2 items-center">
                   <AvatarComponent />
                 </div>
-                <div className="text-primaryLight-500 font-semibold">
-                    <span className="text-sm">Edit Consultant  Information</span>                
-                  </div>
+                <Link
+                  href="/consultants/edit-consultant"
+                  className="text-primaryLight-500 font-semibold"
+                >
+                  <span className="text-sm">Edit Consultant Information</span>
+                </Link>
               </div>
               <div className="flex gap-5 items-center p-8">
                 <div className="flex gap-2 items-center">
                   <AvatarComponent />
                 </div>
                 <div className="text-primaryLight-500 font-semibold">
-                    <span className="text-sm">Add to Project</span>                
-                  </div>
+                  <span className="text-sm">Add to Project</span>
+                </div>
               </div>
-            
             </div>
           </div>
         </div>

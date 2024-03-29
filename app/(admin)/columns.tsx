@@ -1,11 +1,7 @@
 "use client";
 
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-
-import { ChevronsUpDown } from "lucide-react";
-
 export type DashboardType = {
   id: string;
   projectName: string;
@@ -54,4 +50,3 @@ export const columns: ColumnDef<DashboardType>[] = [
     },
   },
 ];
-

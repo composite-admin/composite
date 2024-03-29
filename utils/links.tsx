@@ -19,7 +19,7 @@ import { NavLinkType } from "./types";
 
 const SidebarLinks: NavLinkType[] = [
   {
-    href: "/dashboard",
+    href: "/",
     label: "Dashboard",
     icon: <DashboardIcon />,
   },

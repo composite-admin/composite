@@ -2,10 +2,10 @@
 
 import { Clock, Plus } from "lucide-react";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
-import { columns } from "../consultants/columns";
-import { data } from "../consultants/data";
-import { data as dataTwo } from "../dashboard/data";
-import { columns as columnTwo } from "../dashboard/columns";
+import { columns } from "./columns";
+import { data } from "./data";
+import { data as dataTwo } from "../data";
+import { columns as columnTwo } from "../columns";
 import { DataTable } from "@/components/shared/DataTable";
 import SelectTableTypeBadge from "@/components/shared/SelectTableTypeBadge";
 import { DashboardIcon } from "@/components/icons";

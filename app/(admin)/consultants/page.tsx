@@ -13,6 +13,7 @@ export default function ConsultantsPage() {
           title="Consultants"
           subTitle="View all consultants here"
           buttonText="Add consultant"
+          href="consultants/add-consultant"
         />
       </div>
       <DataTable columns={columns} data={data} />
