@@ -7,6 +7,8 @@ export interface AxiosErrorResponse extends AxiosRequestConfig {
   response: { data: { message: string } };
 }
 
+
+
 export const api = axios.create({
   baseURL: "https://composite-port-services.onrender.com",
   headers: {
@@ -18,11 +20,10 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = getCookie("token");
-    console.log("Token value:", token);
-    // const userToken = JSON.parse(token ?? "{}");
+    const token = sessionStorage.getItem("token");
+    const userToken = JSON.parse(token ?? "{}");
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers["Authorization"] = `Bearer ${userToken.state.token}`;
     }
     return config;
   },
