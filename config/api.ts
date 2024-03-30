@@ -1,5 +1,5 @@
-import useAuthStore from "@/store/auth/AuthStore";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { getCookie } from "cookies-next";
 
 export interface AxiosErrorResponse extends AxiosRequestConfig {
   error: string;
@@ -12,17 +12,17 @@ export const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Authorization": "Bearer",
+    Authorization: "Bearer",
   },
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem("token");
-    const userToken = JSON.parse(token ?? "{}");
+    const token = getCookie("token");
+    console.log("Token value:", token);
+    // const userToken = JSON.parse(token ?? "{}");
     if (token) {
-      config.headers["Authorization"] = `Bearer ${userToken.state.token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
