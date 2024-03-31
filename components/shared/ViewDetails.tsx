@@ -13,7 +13,7 @@ interface KeysInterface {
   children?: any,
   overideHeader?: boolean,
   headerChildren?: any,
-  data: any
+  data?: any
 }
 
 const ViewDetails = React.forwardRef<any, KeysInterface>(
