@@ -4,9 +4,11 @@ import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import { api } from "@/config/api";
 import axios from "axios";
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 const useLogin = () => {
   const { setUser } = useAuthStore();
+  const router = useRouter();
   const { setUserStorage } = userStore();
   
   const { mutate, isPending, isSuccess, isError, error } = useMutation({
@@ -30,6 +32,7 @@ const useLogin = () => {
       });
       setCookie("token", data.token, { maxAge: 60 * 60 * 2 });
       setUserStorage(data.token, data.data.user_type?.toLowerCase());
+      router.refresh();
     },
     onError: (error: Error) => {
       return error;

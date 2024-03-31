@@ -20,11 +20,9 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem("token");
-    const userToken = JSON.parse(token ?? "{}");
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${userToken.state.token}`;
-    }
+      const token = getCookie("token");
+      config.headers["Authorization"] = `Bearer ${token}`;
+  
     return config;
   },
   (error) => Promise.reject(error)
