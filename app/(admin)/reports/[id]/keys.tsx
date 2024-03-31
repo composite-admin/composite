@@ -2,63 +2,63 @@ import { Keys } from "@/components/shared/ViewDetails"
 
 const keys: Keys[] = [
     {
-        key: "reportCode",
+        key: "report_code",
         text: "Report Code"
     },
     {
-        key: "reportType",
+        key: "report_type",
         text: "Report Type"
     },
     {
-        key: "projectName",
+        key: "project_name",
         text: "Project Name",
     },
     {
-        key: "createdFor",
+        key: "created_for",
         text: "Created For"
     },
     {
-        key: "projectCode",
+        key: "project_code",
         text: "Project Code"
     },
     {
-        key: "projectSummary",
+        key: "report_summary",
         text: "Project Summary"
     },
     {
-        key: "challengesEncountered",
+        key: "challenges",
         text: "Challenges Encountered"
     },
     {
-        key: "proferredSolution",
+        key: "solutions",
         text: "Proferred Solution"
     },
     {
-        key: "futureRecommendation",
+        key: "recommendation",
         text: "FutureRecommendation"
     },
     {
-        key: "projectForTheNextOneWeek",
+        key: "weekly_projection",
         text: "Project For The Next One Week"
     },
     {
-        key: "materialsRequiredToAchiveProjection",
+        key: "materials_required_for_projection",
         text: "Materials Required To Achive Projection"
     },
     {
-        key: "equipmentOnSite",
+        key: "materials_on_site",
         text: "Equipment On Site/Status"
     },
     {
-        key: "visitorsToSite",
+        key: "visitor",
         text: "Visitors To SIte"
     },
     {
-        key: "weatherReport",
+        key: "weather",
         text: "Weather Report"
     },
     {
-        key: "progressPhotographs",
+        key: "photograph_id",
         text: "Progress Photographs"
     }
 ]
