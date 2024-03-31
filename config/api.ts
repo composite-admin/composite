@@ -1,5 +1,5 @@
-import useAuthStore from "@/store/auth/AuthStore";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { getCookie } from "cookies-next";
 
 export interface AxiosErrorResponse extends AxiosRequestConfig {
   error: string;
@@ -7,13 +7,14 @@ export interface AxiosErrorResponse extends AxiosRequestConfig {
   response: { data: { message: string } };
 }
 
+
+
 export const api = axios.create({
   baseURL: "https://composite-port-services.onrender.com",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Authorization": "Bearer",
+    Authorization: "Bearer",
   },
 });
 
