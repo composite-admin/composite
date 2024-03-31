@@ -2,18 +2,29 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token");
+  const token = request.cookies.get("token")?.value || null;
+  const user_type = request.cookies.get("user_type")?.value || null;
+  console.log({
+    user_type: user_type,
+    token: token,
+  });
   const currentURL = request.nextUrl.pathname;
 
-  // Define a list of protected routes that require authentication
-  const protectedRoutes = ["/", "/client", "/staff"];
+  const protectedRoutes = ["/", "/client/dashboard", "/staff/dashboard"];
+  const publicRoutes = ["/login", "/forgot-password"];
 
-  // Check if the current URL is a protected route and if the token is missing
-  if (protectedRoutes.includes(currentURL) && !token) {
-    // Redirect to the login page
+  if (publicRoutes.includes(currentURL) && token) {
+    console.log(token);
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  if (!publicRoutes.includes(currentURL) && !token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // If the token exists or the current URL is not a protected route, proceed with the request
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/", "/client/", "/staff/", "/login", "/forgot-password"],
+};
