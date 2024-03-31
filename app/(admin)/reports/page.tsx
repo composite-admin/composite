@@ -1,13 +1,30 @@
 "use client";
 import { DataTable } from "@/components/shared/DataTable";
 import { columns } from "./columns";
-import { data } from "./data";
+// import { data } from "./data";
 import PageHead from "@/components/ui/pageHead";
 import { useRouter } from "next/navigation";
 import { HiHome, HiOutlineClock, HiPlus } from "react-icons/hi2";
+import useFetchReportData from "@/mutations/ReportMutation";
+import { useEffect, useState } from "react";
+import useGetAllReport from "@/store/report/ReportStore";
 
 export default function ReportPage() {
   const router = useRouter();
+  const { response, isError, isSuccess, error } = useFetchReportData();
+
+  const { reportData } = useGetAllReport();
+
+
+  useEffect(() => {
+    response();
+  }, [])
+
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(()=> {
+    setData(reportData)
+  }, [reportData])
 
   return (
     <div>
@@ -39,7 +56,10 @@ export default function ReportPage() {
         </div>
       </div>
 
-      <DataTable columns={columns} data={data} />
+      {
+        data?.length > 0 &&
+        <DataTable columns={columns} data={data} />
+      }
     </div>
   );
 }

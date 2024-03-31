@@ -21,7 +21,7 @@ export default function ForgottenPassword() {
     console.log(values);
   }
   return (
-    <div className="loginScreen flex flex-col text-start w-3/5 m-auto gap-10">
+    <div className="loginScreen flex flex-col text-start w-full lg:w-3/5 m-auto gap-10">
       <div>
         <h1 className="text-[#101928] text-[36px] font-[600] ">
           Forgot Password
