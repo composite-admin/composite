@@ -10,8 +10,10 @@ import { CustomFormField } from "../shared/FormComponent";
 import useLogin from "@/mutations/LoginMutation";
 import useAuthStore from "@/store/auth/AuthStore";
 import userStore from "@/store/auth/AuthStore";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
   const { user } = useAuthStore();
   const { isPending, login, isError, isSuccess, error } = useLogin();
   const form = useForm<LoginType>({
@@ -24,7 +26,9 @@ export default function LoginForm() {
 
   function onSubmit(values: LoginType) {
     login(values);
+    console.log(isSuccess);
   }
+
   return (
     <div className="loginScreen flex flex-col text-start w-full lg:w-3/5 m-auto gap-10">
       <div>

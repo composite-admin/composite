@@ -12,7 +12,6 @@ import { motion, AnimatePresence } from "framer-motion";
 const Sidebar = () => {
   const pathname = usePathname();
   const [activeItem, setActiveItem] = useState<NavLinkType | null>(null);
-console.log(pathname.split("/")[1]);
 const handleToggle = (item: NavLinkType) => {
   setActiveItem(activeItem === item ? null : item);
 };
