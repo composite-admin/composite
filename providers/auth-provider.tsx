@@ -12,7 +12,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const handleRedirect = () => {
       if (!token) {
-        router.push("/login");
+        // router.push("/login");
       } else {
         const currentPath = pathname;
 

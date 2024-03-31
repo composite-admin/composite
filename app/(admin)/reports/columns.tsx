@@ -8,13 +8,14 @@ import Link from "next/link";
 
 export type ReportType = {
   id: string;
-  reportTitle: string;
-  submittedOn: string;
-  reportType: string;
-  project: string;
+  name: string;
+  submitted_on: string;
+  report_type: string;
+  project_name: string;
   createdBy: string;
-  createdFor: string;
+  created_for: string;
   actions: string;
+  report_code: string;
 };
 
 export const columns: ColumnDef<ReportType>[] = [
@@ -27,16 +28,16 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="flex  flex-col">
           <span className="w-32 font-semibold text-primaryLight-500 truncate">
-            Bode Project builder
+          {row.getValue("project_name")}
           </span>
-          <span>RCPD119548</span>
+          <span>{row.getValue("report_code")}</span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "submittedOn",
+    accessorKey: "submitted_on",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Submitted On" withSort={false} />
@@ -45,7 +46,7 @@ export const columns: ColumnDef<ReportType>[] = [
   },
 
   {
-    accessorKey: "reportType",
+    accessorKey: "report_type",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Report Type" withSort={false} />
@@ -55,21 +56,21 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="">
           <span className="rounded-full w-12 text-[0.8rem] text-center bg-[#E7F6EC] text-[#036B26] font-semibold  p-1 px-2">
-            Daily
+            {row.getValue("report_type")}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "project",
+    accessorKey: "project_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Project" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Bode Peters</span>
+          <span className="font-semibold ">{row.getValue("project_name")}</span>
         </div>
       );
     },
@@ -83,13 +84,13 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">Alison Ogaga</span>
+          <span className="font-semibold">{row.getValue("createdBy")}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "createdFor",
+    accessorKey: "created_for",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Created For" />;
     },
@@ -97,20 +98,20 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">Alison Ogaga</span>
+          <span className="font-semibold">{row.getValue("created_for")}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "actions",
+    accessorKey: "id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Actions" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <Link
-          href={"/reports/8909"}
+          href={`/reports/${row.getValue("id")}`}
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
           <ViewUserPageIcon />
