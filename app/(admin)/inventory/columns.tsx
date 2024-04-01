@@ -9,36 +9,40 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
 export type ReportType = {
-  id: string;
-  description: string;
-  totalQuantity: string;
-  quantityLeft: string;
-  inventoryCode: string;
+  inventory_id: string;
+  inventory_code: string;
+  name: string;
+  unit_price: string;
+  quantity: string;
   type: string;
-  addedBy: string;
-  addedOn: string;
-  actions: string;
+  total_price: string;
+  total_quantity: string;
+  remaining_quantity: string;
+  created_by: string,
+  updated_by: string,
+  createdbyname: string,
+  createdAt: string
 };
 
 export const columns: ColumnDef<ReportType>[] = [
   {
-    accessorKey: "desciption",
+    accessorKey: "name",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Description" />;
+      return <ColumnHeader column={column} title="Name" />;
     },
     cell: ({ row }) => {
       // const onOpen = useInventoryDetails((state) => state.onOpen);
       return (
         <div className="flex  flex-col cursor-pointer">
           <span className="w-32 font-semibold  truncate ">
-            Wheel Barrow
+            {row.getValue("name")}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "totalQuantity",
+    accessorKey: "total_quantity",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Total Quantity" withSort={false} />
@@ -47,14 +51,14 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">x2</span>
+          <span className="font-semibold ">{row.getValue("total_quantity")}</span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "quantityLeft",
+    accessorKey: "remaining_quantity",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Quantity Left" withSort={false} />
@@ -63,20 +67,20 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">x1</span>
+          <span className="font-semibold ">{row.getValue("remaining_quantity")}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "inventoryCode",
+    accessorKey: "inventory_code",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Inventory Code" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold">IVNH23OII</span>
+          <span className="font-semibold">{row.getValue("inventory_code")}</span>
         </div>
       );
     },
@@ -89,13 +93,13 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-            <p>Tools</p>
+          <p>{row.getValue("type")}</p>
         </div>
       );
     },
   },
   {
-    accessorKey: "addedBy",
+    accessorKey: "createdbyname",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Added By" />;
     },
@@ -103,35 +107,38 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">Alison Ogaga</span>
+          <span className="font-semibold">{row.getValue("createdbyname")}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "addedOn",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Added On" />;
     },
     cell: ({ row }) => {
       return (
         <div>
-          <p>6 july, 2023</p>
-          <p>1:00PM</p>
+          <p>{row.getValue("createdAt")}</p>
         </div>
       );
     },
   },
   {
-    accessorKey: "actions",
+    accessorKey: "inventory_id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Actions" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
-        <div className="">
-          <p className="text-primaryLight underline">View</p>
-        </div>
+        <Link
+          href={`/inventory/${row.getValue("inventory_id")}`}
+          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
+        >
+          <ViewUserPageIcon />
+          View
+        </Link>
       );
     },
   },

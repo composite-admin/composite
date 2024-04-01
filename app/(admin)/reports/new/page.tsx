@@ -7,6 +7,7 @@ import { HiChevronRight } from 'react-icons/hi2';
 
 const NewReportsPage = () => {
     const [index, setIndex] = useState(1)
+    const [form, setForm] = useState<any>()
   return (
     <>
         <GoBack />
@@ -38,8 +39,8 @@ const NewReportsPage = () => {
 
                         {
                             index == 1 ?
-                                <FillNewDetails setState={setIndex}/> :
-                                <UploadImages />
+                                <FillNewDetails setState={setIndex} setForm={setForm}/> :
+                                <UploadImages form={form} setForm={setForm}/>
                         }
 
                     </div>

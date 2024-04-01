@@ -3,9 +3,12 @@ import { useSuccessModal } from '@/store/inventory/UseInventoryModal';
 import { useRouter } from 'next/navigation';
 import { HiCloudUpload } from 'react-icons/hi'
 
-const UploadImages = () => {
+const UploadImages = (props: any) => {
     const onOpen = useSuccessModal(state => state.onOpen)
     const router = useRouter()
+
+    
+
     return (
         <div>
             <p>Upload Images</p>
