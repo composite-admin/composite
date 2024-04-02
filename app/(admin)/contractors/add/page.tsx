@@ -42,7 +42,7 @@ const AddContractor = () => {
                             Contractor Name
                         </p>
 
-                        <input type="text" {...register('contractor_name')}/>
+                        <input type="text" {...register('contractor_name', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -50,7 +50,7 @@ const AddContractor = () => {
                             Address
                         </p>
 
-                        <input type="text" {...register('contractor_address')}/>
+                        <input type="text" {...register('contractor_address', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col col-span-2">
@@ -58,7 +58,7 @@ const AddContractor = () => {
                             Service
                         </p>
 
-                        <input type="text" {...register('contractor_service')}/>
+                        <input type="text" {...register('contractor_service', { required: true })}/>
                     </div>
 
 
@@ -68,7 +68,7 @@ const AddContractor = () => {
                             Contractor Phone
                         </p>
 
-                        <input type="text" {...register('contractor_ofc_phone')}/>
+                        <input type="text" {...register('contractor_ofc_phone', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -76,7 +76,7 @@ const AddContractor = () => {
                             Contact Home Phone
                         </p>
 
-                        <input type="text" {...register('contact_home_phone')}/>
+                        <input type="text" {...register('contact_home_phone', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -84,7 +84,7 @@ const AddContractor = () => {
                             Contact Person
                         </p>
 
-                        <input type="text" {...register('contact_person')}/>
+                        <input type="text" {...register('contact_person', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -92,7 +92,7 @@ const AddContractor = () => {
                             Contact Mobile
                         </p>
 
-                        <input type="text"  {...register('contact_mobile')}/>
+                        <input type="text"  {...register('contact_mobile', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -100,7 +100,7 @@ const AddContractor = () => {
                             Email
                         </p>
 
-                        <input type="email" {...register('email')}/>
+                        <input type="email" {...register('email', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -108,7 +108,7 @@ const AddContractor = () => {
                             Website
                         </p>
 
-                        <input type="text" {...register('website')}/>
+                        <input type="text" {...register('website', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col col-span-2">
@@ -116,7 +116,7 @@ const AddContractor = () => {
                             Comment
                         </div>
 
-                        <textarea {...register('comment')}/>
+                        <textarea {...register('comment', { required: true })}/>
                     </div>
 
                     <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={()=> router.back()}>Cancel</button>
