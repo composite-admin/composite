@@ -4,10 +4,14 @@ import { useSuccessModal } from '@/store/modals/useCreateModal'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { HiBellAlert } from 'react-icons/hi2'
+import useSuppliersActionsStore from "@/store/actions/suppliersActions"
 
 const AddSuppliers = () => {
     const onOpen = useSuccessModal(state => state.onOpen);
     const router = useRouter()
+
+    const createSupplier = useSuppliersActionsStore<any>((state) => state.createSupplier)
+
     return (
         <>
             <GoBack />
