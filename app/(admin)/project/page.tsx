@@ -6,7 +6,7 @@ import { columns } from "./columns";
 import { data } from "./data";
 import { useAddProjectModal } from "@/store/inventory/UseInventoryModal";
 import { useRouter } from "next/navigation";
-import useProjectActionsStore, {ProjectStoreState} from "@/store/actions/projectActions"
+import useProjectActionsStore from "@/store/actions/projectActions"
 
 export default function ProjectPage() {
   const onOpen = useAddProjectModal(state => state.onOpen)
@@ -14,9 +14,6 @@ export default function ProjectPage() {
 
   const projects = useProjectActionsStore<any>((state) => state.items);
   const getAllProjects = useProjectActionsStore<any>((state) => state.getAllProjects);
-  const createProject = useProjectActionsStore<any>((state) => state.createProject)
-
-  console.log("projects", projects)
 
   useEffect(() => {
     getAllProjects();
