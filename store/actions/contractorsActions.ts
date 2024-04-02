@@ -1,7 +1,26 @@
 import {create} from 'zustand';
 import { createContractor, getAllContractors, getContractorById, updateContractor, deleteContractor } from '../../api/contractorsRequests';
 
-const useStore = create((set) => ({
+export interface ContractorsStoreState {
+  items: object[];
+  selectedItem: object | null;
+  error: string | null;
+}
+
+// Define the type for your actions
+export interface ContractorsStoreActions {
+  setItems: (items: any) => void;
+  setSelectedItem: (selectedItem: any) => void;
+  setError: (error: any) => void;
+  createContractor: (data: any) => void;
+  getAllContractors: () => void;
+  // Add more action types here as needed
+}
+
+// Define the type for your store combining state and actions
+export type ContractorsStore = ContractorsStoreState & ContractorsStoreActions;
+
+const useStore = create<ContractorsStore>((set) => ({
   items: [],
   selectedItem: null,
   error: null,

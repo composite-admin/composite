@@ -1,7 +1,27 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 import { createSupplier, getAllSuppliers, getSupplierById, updateSupplier, deleteSupplier } from '../../api/suppliersRequests';
 
-const useStore = create((set) => ({
+
+export interface SuppliersStoreState {
+  items: object[];
+  selectedItem: object | null;
+  error: string | null;
+}
+
+// Define the type for your actions
+export interface SuppliersStoreActions {
+  setItems: (items: any) => void;
+  setSelectedItem: (selectedItem: any) => void;
+  setError: (error: any) => void;
+  createSupplier: (data: any) => void;
+  getAllSuppliers: () => void;
+  // Add more action types here as needed
+}
+
+// Define the type for your store combining state and actions
+export type SuppliersStore = SuppliersStoreState & SuppliersStoreActions;
+
+const useStore = create<SuppliersStore>((set) => ({
   items: [],
   selectedItem: null,
   error: null,

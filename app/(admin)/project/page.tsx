@@ -14,7 +14,8 @@ export default function ProjectPage() {
 
   const projects = useProjectActionsStore<any>((state) => state.items);
   const getAllProjects = useProjectActionsStore<any>((state) => state.getAllProjects);
-  
+  const createProject = useProjectActionsStore<any>((state) => state.createProject)
+
   console.log("projects", projects)
 
   useEffect(() => {
@@ -23,8 +24,8 @@ export default function ProjectPage() {
 
   return (
     <>
-      <PageHead headText="Project" subText="View all your Items here" buttonText="Add Project" buttonAction={onOpen}/>
-      <DataTable columns={columns} data={projects}/>
+      <PageHead headText={`Projects (${projects.data ? projects.data.length : 0})`} subText="View all your Items here" buttonText="Add Project" buttonAction={onOpen}/>
+      <DataTable columns={columns} data={projects.data ? projects.data : []}/>
     </>
   )
 }

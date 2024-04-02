@@ -1,7 +1,26 @@
 import {create} from 'zustand';
 import { createStakeholder, getAllStakeholders, getStakeholderById, updateStakeholder, deleteStakeholder } from '../../api/stakeholdersRequests';
 
-const useStore = create((set) => ({
+export interface StakeholderStoreState {
+  items: object[];
+  selectedItem: object | null;
+  error: string | null;
+}
+
+// Define the type for your actions
+export interface StakeholderStoreActions {
+  setItems: (items: any) => void;
+  setSelectedItem: (selectedItem: any) => void;
+  setError: (error: any) => void;
+  createStakeholder: (data: any) => void;
+  getAllStakeholders: () => void;
+  // Add more action types here as needed
+}
+
+// Define the type for your store combining state and actions
+export type StakeholderStore = StakeholderStoreState & StakeholderStoreActions;
+
+const useStore = create<StakeholderStore>((set) => ({
   items: [],
   selectedItem: null,
   error: null,
