@@ -14,7 +14,6 @@ export default function StakeholdersPage() {
   const stakeholders = useStakeholdersActionsStore<any>((state: any) => state.items);
   const getAllStakeholders = useStakeholdersActionsStore<any>((state: any) => state.getAllStakeholders);
 
-  console.log("stakeholders", stakeholders)
   useEffect(() => {
     getAllStakeholders();
   }, [getAllStakeholders]);

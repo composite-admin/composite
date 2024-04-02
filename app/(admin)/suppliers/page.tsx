@@ -13,7 +13,6 @@ export default function SuppliersPage() {
   const suppliers = useSuppliersActionsStore<any>((state: any) => state.items);
   const getAllSuppliers = useSuppliersActionsStore<any>((state: any) => state.getAllSuppliers);
 
-  console.log("suppliers", suppliers)
   useEffect(() => {
     getAllSuppliers();
   }, [getAllSuppliers]);

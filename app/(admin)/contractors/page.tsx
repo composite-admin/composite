@@ -12,8 +12,8 @@ export default function ContractorsPage() {
 
   const contractors = useContractorsActionsStore<any>((state: any) => state.items);
   const getAllContractors = useContractorsActionsStore<any>((state: any) => state.getAllContractors);
-
-  console.log("contractors", contractors)
+  console.log(contractors)
+  
   useEffect(() => {
     getAllContractors();
   }, [getAllContractors]);
