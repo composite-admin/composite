@@ -7,9 +7,9 @@ const useGetAllInventory : any = create((set: any) => ({
   }));
 
 export const useGetEachinventory : any = create((set: any) => ({
-  singleinventoryData: null,
-  setSingleinventoryData: (singleinventoryData: any) => set({ singleinventoryData }),
-  clearData: () => set({ singleinventoryData: null }),
+  singleInventoryData: null,
+  setSingleInventoryData: (singleInventoryData: any) => set({ singleInventoryData }),
+  clearData: () => set({ singleInventoryData: null }),
 }));
   
   export default useGetAllInventory;
