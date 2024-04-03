@@ -36,7 +36,7 @@ export const columns: ColumnDef<ContractorType>[] = [
         },
         cell: ({ row }) => {
             return (
-                <Link href={`/contractor/${row.original["id"]}`}>
+                <Link href={`/contractors/${row.original["id"]}`}>
                     <div className="flex  flex-col">
                         <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
                             {row.original["contractor_code"]}
