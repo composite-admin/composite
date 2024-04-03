@@ -24,6 +24,7 @@ export default function ReportPage() {
 
   useEffect(()=> {
     setData(reportData)
+    console.log(reportData);
   }, [reportData])
 
   return (

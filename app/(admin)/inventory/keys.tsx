@@ -2,15 +2,15 @@ import { Keys } from "@/components/shared/ViewDetails"
 
 const keys: Keys[] = [
     {
-        key: "inventoryCode",
+        key: "inventory_code",
         text: "Inventory Code"
     },
     {
-        key: "addedBy",
+        key: "created_by",
         text: "Added By"
     },
     {
-        key: "dateAdded",
+        key: "createdAt",
         text: "Date Added",
     },
     {
@@ -18,11 +18,7 @@ const keys: Keys[] = [
         text: "Type"
     },
     {
-        key: "description",
-        text: "Description"
-    },
-    {
-        key: "unitPrice",
+        key: "unit_price",
         text: "Unit Price"
     },
     {
@@ -30,15 +26,15 @@ const keys: Keys[] = [
         text: "Quantity"
     },
     {
-        key: "totalPrice",
+        key: "total_price",
         text: "Total Price"
     },
     {
-        key: "totalQuantity",
+        key: "total_quantity",
         text: "Total Quantity"
     },
     {
-        key: "remainingQuantity",
+        key: "remaining_quantity",
         text: "Remaining Quantity"
     },
     {
@@ -46,16 +42,12 @@ const keys: Keys[] = [
         text: "Comment"
     },
     {
-        key: "updatedBy",
+        key: "updated_by",
         text: "Updated By"
     },
     {
-        key: "updatedOn",
+        key: "updatedAt",
         text: "Updated On"
-    },
-    {
-        key: "visitorsToSite",
-        text: "Visitors To SIte"
     }
 ]
 
