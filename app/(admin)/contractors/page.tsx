@@ -21,7 +21,7 @@ export default function ContractorsPage() {
   return(
     <>
     <PageHead headText={`Contractors (${contractors.data ? contractors.data.length : 0})`} subText="View all your contractors here" buttonText="Add Contractor" buttonAction={()=> router.push("/contractors/add")}/>
-    <DataTable columns={columns} data={contractors.data ? contractors.data : []} clickAction={()=> router.push("/contractors/23")} />
+    <DataTable columns={columns} data={contractors.data ? contractors.data : []} clickAction={() => {}} />
   </>
   )
 }

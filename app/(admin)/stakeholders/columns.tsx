@@ -18,7 +18,7 @@ export type ReportType = {
   actions: string;
 };
 
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "stakeHolderName",
     header: ({ column }) => {
@@ -116,7 +116,7 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="">
           <Link href={`/stakeholders/${row.original["id"]}`} className="font-semibold text-primaryLight-500">Details</Link>
-          <span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <Link href={`/stakeholders/${row.original["id"]}/edit`}><span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
         </div>
       );
     },

@@ -6,7 +6,8 @@ import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
+import { HiOutlineCog, HiUserAdd, HiPencilAlt } from "react-icons/hi";
+
 
 export type ContractorType = {
     id: string;
@@ -99,11 +100,14 @@ export const columns: ColumnDef<ContractorType>[] = [
         cell: ({ row }) => {
             // const onOpen = useAddWorkerModal(state => state.onOpen);
             return (
-                <Link href={"/project/add-worker"}>
+                <div className="">
+                    <Link href={"/project/add-worker"}>
                     <div className="cursor-pointer" >
                         <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
                     </div>
                 </Link>
+                <Link href={`/contractors/${row.original["id"]}/edit`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
+              </div>
             );
         },
     },

@@ -18,7 +18,7 @@ export type SupplierType = {
   actions: any;
 };
 
-export const columns: ColumnDef<SupplierType>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "supplierName",
     header: ({ column }) => {
@@ -117,7 +117,7 @@ export const columns: ColumnDef<SupplierType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <Link href={`/suppliers/${row.original["id"]}/edit"`}>
+        <Link href={`/suppliers/${row.original["id"]}/edit`}>
         <div className="">
           <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
         </div>
