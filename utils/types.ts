@@ -23,6 +23,44 @@ export interface LoginResponse {
   message: string;
 }
 
+export interface IClientData {
+  client_id?: number;
+  userid?: string;
+  first_name?: string;
+  last_name: string;
+  email?: string;
+  phone_number?: string;
+  mobile_number: string;
+  address: string;
+  state: string;
+  activation_code: string;
+  createdAt: string;
+  updatedAt: string;
+  image: string | null;
+}
+export interface IClientDetails {
+  data: {
+    client_id?: number;
+    userid?: string;
+    first_name?: string;
+    last_name: string;
+    email?: string;
+    phone_number?: string;
+    mobile_number: string;
+    address: string;
+    state: string;
+    activation_code: string;
+    createdAt: string;
+    updatedAt: string;
+    image: string | null;
+  };
+}
+
+export interface ApiResponse<T> {
+  data: T[];
+  message: string;
+}
+
 export type gridDataType = {
   key: string;
   value: string;
@@ -75,3 +113,42 @@ export interface FormStep {
   name: string;
   fields: FormField[];
 }
+
+export const nigerianStates = [
+  "Abia",
+  "Adamawa",
+  "Akwa Ibom",
+  "Anambra",
+  "Bauchi",
+  "Bayelsa",
+  "Benue",
+  "Borno",
+  "Cross River",
+  "Delta",
+  "Ebonyi",
+  "Edo",
+  "Ekiti",
+  "Enugu",
+  "Gombe",
+  "Imo",
+  "Jigawa",
+  "Kaduna",
+  "Kano",
+  "Katsina",
+  "Kebbi",
+  "Kogi",
+  "Kwara",
+  "Lagos",
+  "Nasarawa",
+  "Niger",
+  "Ogun",
+  "Ondo",
+  "Osun",
+  "Oyo",
+  "Plateau",
+  "Rivers",
+  "Sokoto",
+  "Taraba",
+  "Yobe",
+  "Zamfara",
+];

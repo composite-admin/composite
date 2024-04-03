@@ -5,9 +5,65 @@ import { CustomFormField, CustomFormSelect } from "../shared/FormComponent";
 import FormContainer from "../shared/FormContainer";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
+import { nigerianStates } from "@/utils/types";
+import { createAddClientSchema, CreateAddClientType } from "./formTypes";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { api } from "@/config/api";
 
 export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
-  const form = useForm();
+  const { toast } = useToast();
+  const router = useRouter();
+  const form = useForm<CreateAddClientType>({
+    resolver: zodResolver(createAddClientSchema),
+    defaultValues: {
+      "First name": "",
+      "Last name": "",
+      Email: "",
+      "Phone number": "",
+      "Mobile number": "",
+      State: "",
+      Address: "",
+    },
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["addClient"],
+    mutationFn: async (values: CreateAddClientType) => {
+      try {
+        const response = await api.post("/client", {
+          first_name: values["First name"],
+          last_name: values["Last name"],
+          email: values.Email,
+          phone_number: values["Phone number"],
+          mobile_number: values["Mobile number"],
+          state: values.State,
+          address: values.Address,
+          activation_code: "testing123",
+        });
+        return response.data;
+      } catch (error) {}
+    },
+  });
+  function onSubmit(values: CreateAddClientType) {
+    mutate(values, {
+      onSuccess: () => {
+        toast({
+          title: "Job created successfully",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
+
+    // form.reset();
+  }
   return (
     <FormContainer
       title="Add new client"
@@ -15,8 +71,8 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
       isColumn
     >
       <Form {...form}>
-        <form>
-          <div className="flex gap-5 flex-col justify-center lg:items-center lg:flex-row">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className=" mb-5 flex gap-5 flex-col justify-center lg:items-center lg:flex-row">
             <div className="lg:w-1/2 flex flex-col gap-5">
               <CustomFormField
                 name="First name"
@@ -40,23 +96,22 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
                 placeholder="Enter Last name"
                 control={form.control}
               />
-              <CustomFormSelect
-                name="Type"
-                items={["Type 1", "Type 2"]}
-                placeholder="select"
+              <CustomFormField
                 control={form.control}
+                name="Mobile number"
+                placeholder="Enter mobile number"
               />
               <CustomFormSelect
-                name="Type"
-                items={["Type 1", "Type 2"]}
+                name="State"
+                items={nigerianStates}
                 placeholder="select"
                 control={form.control}
               />
             </div>
           </div>
           <CustomFormField
-            name="Website"
-            placeholder="Enter website"
+            name="Address"
+            placeholder="Enter address"
             control={form.control}
           />
           <div className="flex flex-col md:flex-row gap-8 pt-8">
@@ -70,3 +125,4 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
     </FormContainer>
   );
 }
+

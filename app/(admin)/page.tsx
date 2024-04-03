@@ -11,13 +11,6 @@ import SideCards from "@/components/Dashboard/SideCards";
 import { api } from "@/config/api";
 
 export default function DashboardPage() {
-  async function getAllClient() {
-    const response = await api("/client");
-    const data = await response.data;
-    console.log(data);
-  }
-
-  getAllClient();
   return (
     <div>
       {/* page header */}

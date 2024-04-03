@@ -108,7 +108,9 @@ export function CustomFormSelect({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="capitalize">{labelText || name}</FormLabel>
+          <FormLabel className="text-textColor capitalize">
+            {labelText || name}
+          </FormLabel>
           <Select
             onValueChange={field.onChange}
             defaultValue={field.value}
@@ -121,7 +123,7 @@ export function CustomFormSelect({
             </FormControl>
             <SelectContent>
               {items.map((item) => (
-                <SelectItem key={item} value={item}>
+                <SelectItem key={item} value={item} className="text-textColor">
                   {item}
                 </SelectItem>
               ))}

@@ -1,13 +1,12 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { getCookie } from "cookies-next";
+import { data } from "../app/(admin)/cash-advance/data";
 
 export interface AxiosErrorResponse extends AxiosRequestConfig {
   error: string;
   message: string;
   response: { data: { message: string } };
 }
-
-
 
 export const api = axios.create({
   baseURL: "https://composite-port-services.onrender.com",
@@ -20,9 +19,10 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-      const token = getCookie("token");
-      config.headers["Authorization"] = `Bearer ${token}`;
-  
+    const token = getCookie("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)

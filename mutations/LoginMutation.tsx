@@ -27,10 +27,8 @@ const useLogin = () => {
     },
     onSuccess: (data) => {
       setUser(data.data, data.token);
-      setCookie("user_type", data.data.user_type?.toLowerCase(), {
-        maxAge: 60 * 60 * 2,
-      });
-      setCookie("token", data.token, { maxAge: 60 * 60 * 2 });
+      setCookie("user_type", data.data.user_type?.toLowerCase());
+      setCookie("token", data.token);
       setUserStorage(data.token, data.data.user_type?.toLowerCase());
       router.refresh();
     },
