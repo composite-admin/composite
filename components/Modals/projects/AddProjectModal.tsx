@@ -60,14 +60,14 @@ const AddProjectModal = () => {
                                 Project Description
                             </p>
 
-                            <input type="text" placeholder='Enter name' {...register('project_description', { required: true })} />
+                            <input type="text" placeholder='Enter description' {...register('project_description', { required: true })} />
                         </div>
                         <div className="flex flex-col col-span-2">
                             <p className="value">
                                 Project Location
                             </p>
 
-                            <input type="text" placeholder='Enter name' {...register('project_location', { required: true })} />
+                            <input type="text" placeholder='Enter location' {...register('project_location', { required: true })} />
                         </div>
                         <div className="flex flex-col">
                             <p className="value">
@@ -135,7 +135,7 @@ const AddProjectModal = () => {
 
                         <div className="flex flex-col col-span-2">
                             <div className="value">
-                                Description
+                                Comment
                             </div>
 
                             <textarea {...register('comment', { required: true })}/>
