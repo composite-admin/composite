@@ -26,17 +26,33 @@ export const columns: ColumnDef<ContractorType>[] = [
       return <ColumnHeader column={column} title="Contractor Code" />;
     },
     cell: ({ row }) => {
+      console.log("Row data", row)
       return (
         <div className="flex gap-2 items-center">
           <div>
-            {/* <span className="font-semibold">Alison Ogaga</span> */}
-            <p>IVGSH776f</p>
+            <p className="bold">{row.original.contractor_code}</p>
           </div>
         </div>
       );
     },
   },
 
+//   {
+//     "id": 4,
+//     "contractor_code": "con-0003",
+//     "contractor_name": "Demo",
+//     "contractor_service": "Demo",
+//     "contractor_address": "Demo",
+//     "contractor_ofc_phone": "Demo",
+//     "contact_person": "Demo",
+//     "contact_mobile": "Demo",
+//     "contact_home_phone": "Demo",
+//     "email": "Demo@gmail.com",
+//     "website": "Demo",
+//     "comment": "Demo",
+//     "createdAt": "2024-04-02T10:14:53.782Z",
+//     "updatedAt": "2024-04-02T10:14:53.782Z"
+// }
   {
     accessorKey: "projectCode",
     header: ({ column }) => {
@@ -47,7 +63,7 @@ export const columns: ColumnDef<ContractorType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">OHEIWUE78</span>
+          <span className="font-semibold "></span>
         </div>
       );
     },

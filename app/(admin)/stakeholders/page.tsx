@@ -21,7 +21,7 @@ export default function StakeholdersPage() {
   return(
     <>
     <PageHead headText={`Stakeholders (${stakeholders.data ? stakeholders.data.length : 0})`} subText="View all your Stakeholder here" buttonText="Add Stakeholder" buttonAction={()=> router.push("/stakeholders/add")} />
-    <DataTable columns={columns} data={stakeholders.data ? stakeholders.data : []} clickAction={()=> router.push("/stakeholders/23")}/>
+    <DataTable columns={columns} data={stakeholders.data ? stakeholders.data : []} clickAction={() => {}}/>
   </>
   )
 }
