@@ -18,29 +18,30 @@ export type ReportType = {
   worker: string;
   materials: string;
 };
-// {
-//   "id": 1,
-//   "project_name": "Project A",
-//   "project_description": "Description of Project C",
-//   "project_code": "proj-0001",
-//   "project_location": "Location C",
-//   "address": "123 Main St",
-//   "city": "City A",
-//   "state": "State A",
-//   "lga": "LGA C",
-//   "project_duration": "181",
-//   "start_date": "2024-01-01",
-//   "end_date": "2024-06-30",
-//   "comment": "Comment for Project A",
-//   "status": "Active",
-//   "date_added": "2024-02-28 21:54:01.63679+00",
-//   "project_supervisor": "Supervisor A",
-//   "supervisor_id": "SV001",
-//   "createdBy": "admin-102",
-//   "createdAt": "2024-02-28T21:54:01.636Z",
-//   "updatedAt": "2024-03-27T11:59:33.660Z"
+
+// export type ReportType = {
+//   id: string;
+//   project_name: string;
+//   project_description: string;
+//   project_code: string;
+//   project_location: string;
+//   address: string;
+//   city: string;
+//   state: string;
+//   lga: string;
+//   project_duration: string;
+//   start_date: string;
+//   end_date: string;
+//   comment: string;
+//   status: string;
+//   date_added: string;
+//   project_supervisor: string;
+//   supervisor_id: string;
+//   createdBy: string;
+//   createdAt: string;
+//   updatedAt: string;
 // }
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "projectName",
     header: ({ column }) => {
@@ -51,7 +52,7 @@ export const columns: ColumnDef<ReportType>[] = [
         <Link href={`/project/${row.original["id"]}`}>
           <div className="flex  flex-col">
             <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-            {row.original["project_name"]}
+              {row.original["project_name"]}
             </span>
           </div>
         </Link>

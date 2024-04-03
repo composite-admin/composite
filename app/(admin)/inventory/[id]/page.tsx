@@ -8,7 +8,7 @@ import useFetchEachInventoryData from '@/mutations/EachInventoryMutation';
 import { useGetEachinventory } from '@/store/inventory/InventoryStore';
 import useUpdateEachInventoryData from '@/mutations/UpdateInventoryMutation';
 
-const page = (props:any) => {
+const Page = (props:any) => {
   const router = useRouter();
 
   let id: any = props.params.id;
@@ -44,4 +44,4 @@ const page = (props:any) => {
   )
 }
 
-export default page
+export default Page

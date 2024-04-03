@@ -30,7 +30,7 @@ export const columns: ColumnDef<ContractorType>[] = [
       return (
         <div className="flex gap-2 items-center">
           <div>
-            <p className="bold">{row.original.contractor_code}</p>
+            <p className="bold">c-0001</p>
           </div>
         </div>
       );
