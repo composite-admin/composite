@@ -3,12 +3,12 @@ import { useGetEachinventory } from '@/store/inventory/InventoryStore';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useFetchEachInventoryData = () => {
-    const {setSingleInventoryData} = useGetEachinventory()
+const useNewInventoryData = () => {
+
     const { mutate, isSuccess, isError, error } = useMutation({
-        mutationFn: async (id) => {
+        mutationFn: async (data: any) => {
             try {
-                const response = await api.get(`/inventory/${id}`);
+                const response = await api.post('/inventory', data);
                 return response.data.data;
             }
             catch (err) {
@@ -20,14 +20,14 @@ const useFetchEachInventoryData = () => {
             }
         },
         onSuccess: (data) => {
-            setSingleInventoryData(data)
+            console.log(data);
         },
         onError: (error: Error) => {
             return error;
         }
     });
 
-    return { action: mutate, isSuccess, isError, error };
+    return { create: mutate, isSuccess, isError, error };
 };
 
-export default useFetchEachInventoryData;
+export default useNewInventoryData;

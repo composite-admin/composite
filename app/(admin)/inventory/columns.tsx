@@ -5,6 +5,7 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useInventoryDetails } from "@/store/inventory/UseInventoryModal";
+import { convertDateFormat } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
@@ -120,7 +121,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <p>{row.getValue("createdAt")}</p>
+          <p>{convertDateFormat(row.getValue("createdAt"))}</p>
         </div>
       );
     },

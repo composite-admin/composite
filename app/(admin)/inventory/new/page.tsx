@@ -1,18 +1,50 @@
 "use client"
-import GoBack from '@/components/shared/GoBack'
+import GoBack from '@/components/shared/GoBack';
+import useNewInventoryData from '@/mutations/NewInventoryMutation';
 import { useSuccessModal } from '@/store/inventory/UseInventoryModal';
 import { useRouter } from 'next/navigation';
-import React from 'react'
-import { HiBellAlert } from 'react-icons/hi2'
+import React, { useEffect, useState } from 'react';
+import { HiBellAlert } from 'react-icons/hi2';
 
 const NewInventory = () => {
     const onOpen = useSuccessModal((state) => state.onOpen);
-    const router = useRouter()
-  return (
-    <div>
-        <GoBack />
+    const {create, isSuccess} = useNewInventoryData()
+    const router = useRouter();
 
-        <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
+    const [formData, setFormData] = useState({
+        name: '',
+        type: '',
+        quantity: '',
+        unit_price: '',
+        comment: ''
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = () => {
+        // Handle form submission here
+        console.log(formData);
+        create(formData);
+         // Example usage of opening success modal
+    };
+
+    useEffect(()=>{
+        if(isSuccess){
+            onOpen();
+        }
+    }, [isSuccess])
+
+    return (
+        <div>
+            <GoBack />
+
+            <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
                 <div className="flex gap-2 items-center border-b border-b-gray-200 py-3">
                     <HiBellAlert />
 
@@ -25,7 +57,7 @@ const NewInventory = () => {
                             Description
                         </p>
 
-                        <input type="text" />
+                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col">
@@ -33,15 +65,15 @@ const NewInventory = () => {
                             Type
                         </p>
 
-                        <input type="text" />
+                        <input type="text" name="type" value={formData.type} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col">
                         <p className="value">
-                            Quality
+                            Quantity
                         </p>
 
-                        <input type="text" />
+                        <input type="text" name="quantity" value={formData.quantity} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col">
@@ -49,7 +81,7 @@ const NewInventory = () => {
                             Unit Price
                         </p>
 
-                        <input type="text" />
+                        <input type="text" name="unit_price" value={formData.unit_price} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col col-span-2">
@@ -57,15 +89,15 @@ const NewInventory = () => {
                             Comment
                         </div>
 
-                        <textarea />
+                        <textarea name="comment" value={formData.comment} onChange={handleInputChange} />
                     </div>
 
-                    <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={()=> router.back()} >Cancel</button>
-                    <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={()=> onOpen()} >Submit</button>
+                    <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={() => router.back()} >Cancel</button>
+                    <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={handleSubmit} >Submit</button>
                 </div>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
-export default NewInventory
+export default NewInventory;
