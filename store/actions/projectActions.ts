@@ -15,6 +15,8 @@ export interface ProjectStoreActions {
     setError: (error: any) => void;
     createProject: (data: any) => void;
     getAllProjects: () => void;
+    getProjectById: (id: number) => void;
+    updateProject: (id: number, data: any) => void;
     // Add more action types here as needed
 }
 
@@ -51,7 +53,7 @@ const useStore = create<ProjectStore>((set) => ({
     getProjectById: async (id: number) => {
         try {
             const item = await getProjectById(id);
-            set({ selectedItem: item });
+            set({ selectedItem: item.data });
         } catch (error) {
             set((state: any) => ({ error: "" }));
         }

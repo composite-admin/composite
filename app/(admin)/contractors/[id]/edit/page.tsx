@@ -26,7 +26,7 @@ const SingleContractorEdit = () => {
         // Pass the form data to your submitForm action
         console.log(data)
         delete data.id;
-        
+        onOpen();
         updateContractor(selectedItem.id, data);
         reset()
         return;

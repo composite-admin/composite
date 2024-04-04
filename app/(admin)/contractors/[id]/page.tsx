@@ -37,7 +37,7 @@ const SingleContractor = () => {
 
                     <div className='col-span-2 bg-white rounded-lg border-[#D0D5DD] '>
                         <div className='p-5 border-b border-b-gray-300'>
-                            <h1 className='text-[#101928] text-[18px] font-[600]'>Project Details</h1>
+                            <h1 className='text-[#101928] text-[18px] font-[600]'>Contractor Details</h1>
                         </div>
 
                         <div className="grid grid-cols-4 p-5 gap-5">
