@@ -1,7 +1,5 @@
-import { ICashAdvanceTable } from "./columns";
-
 // add data
-export const data: Array<ICashAdvanceTable> = [
+export const data = [
   {
     requestType: "construction",
     projectCode: "21000233",

@@ -26,7 +26,6 @@ export default function LoginForm() {
 
   function onSubmit(values: LoginType) {
     login(values);
-    console.log(isSuccess);
   }
 
   return (

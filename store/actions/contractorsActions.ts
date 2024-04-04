@@ -9,12 +9,14 @@ export interface ContractorsStoreState {
 
 // Define the type for your actions
 export interface ContractorsStoreActions {
+  selectedItem: object;
   setItems: (items: any) => void;
   setSelectedItem: (selectedItem: any) => void;
   setError: (error: any) => void;
   createContractor: (data: any) => void;
   getAllContractors: () => void;
-  // Add more action types here as needed
+  getContractorById: (id: number) => void;
+  updateContractor: (id: number, data: any) => void;
 }
 
 // Define the type for your store combining state and actions
@@ -22,7 +24,7 @@ export type ContractorsStore = ContractorsStoreState & ContractorsStoreActions;
 
 const useStore = create<ContractorsStore>((set) => ({
   items: [],
-  selectedItem: null,
+  selectedItem: {},
   error: null,
 
   setItems: (items: any) => set({ items }),
@@ -50,7 +52,7 @@ const useStore = create<ContractorsStore>((set) => ({
   getContractorById: async (id: number) => {
     try {
       const item = await getContractorById(id);
-      set({ selectedItem: item });
+      set({ selectedItem: item.data });
     } catch (error) {
       set((state: any) => ({ error: "" }));
     }

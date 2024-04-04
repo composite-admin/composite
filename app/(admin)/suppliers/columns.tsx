@@ -18,7 +18,7 @@ export type SupplierType = {
   actions: any;
 };
 
-export const columns: ColumnDef<SupplierType>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "supplierName",
     header: ({ column }) => {
@@ -26,12 +26,11 @@ export const columns: ColumnDef<SupplierType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <Link href={"/suppliers/12"}>
+        <Link href={`/suppliers/${row.original["id"]}`}>
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div>
-            <span className="font-semibold">{row.getValue("supplierName")}</span>
-            <p>IVGSH776f</p>
+            <span className="font-semibold">{row.original["supplier_name"]}</span>
           </div>
         </div>
         </Link>
@@ -49,7 +48,7 @@ export const columns: ColumnDef<SupplierType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.getValue('address')}</span>
+          <span className="font-semibold ">{row.original["supplier_address"]}</span>
         </div>
       );
     },
@@ -65,7 +64,7 @@ export const columns: ColumnDef<SupplierType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{ row.getValue('officePhone')}</span>
+          <span className="font-semibold ">{row.original["supplier_ofc_phone"]}</span>
         </div>
       );
     },
@@ -79,7 +78,7 @@ export const columns: ColumnDef<SupplierType>[] = [
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">{row.getValue("contactPerson")}</span>
+          <span className="font-semibold">{row.original["contact_person"]}</span>
         </div>
       );
     },
@@ -92,7 +91,7 @@ export const columns: ColumnDef<SupplierType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">0810933290</span>
+          <span className="font-semibold text-primaryLight-500 text-center">{row.original["contact_mobile"]}</span>
         </div>
       );
     },
@@ -105,20 +104,20 @@ export const columns: ColumnDef<SupplierType>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <p>6th July, 2002</p>
-          <p>10am</p>
+          <p>{row.original["createdAt"]}</p>
+          
         </div>
       );
     },
   },
   {
-    accessorKey: "worker",
+    accessorKey: "action",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Worker" />;
+      return <ColumnHeader column={column} title="Action" />;
     },
     cell: ({ row }) => {
       return (
-        <Link href={"/suppliers/12/edit"}>
+        <Link href={`/suppliers/${row.original["id"]}/edit`}>
         <div className="">
           <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
         </div>

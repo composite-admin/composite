@@ -19,7 +19,29 @@ export type ReportType = {
   materials: string;
 };
 
-export const columns: ColumnDef<ReportType>[] = [
+// export type ReportType = {
+//   id: string;
+//   project_name: string;
+//   project_description: string;
+//   project_code: string;
+//   project_location: string;
+//   address: string;
+//   city: string;
+//   state: string;
+//   lga: string;
+//   project_duration: string;
+//   start_date: string;
+//   end_date: string;
+//   comment: string;
+//   status: string;
+//   date_added: string;
+//   project_supervisor: string;
+//   supervisor_id: string;
+//   createdBy: string;
+//   createdAt: string;
+//   updatedAt: string;
+// }
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "projectName",
     header: ({ column }) => {
@@ -27,12 +49,11 @@ export const columns: ColumnDef<ReportType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <Link href={"/project/22"}>
+        <Link href={`/project/${row.original["id"]}`}>
           <div className="flex  flex-col">
             <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-              High Tower Cost Renovation
+              {row.original["project_name"]}
             </span>
-            <span>RCPD119548</span>
           </div>
         </Link>
       );
@@ -49,7 +70,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">6 July, 2023</span>
+          <span className="font-semibold ">{row.original["start_date"]}</span>
         </div>
       );
     },
@@ -65,7 +86,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">6 july, 2023</span>
+          <span className="font-semibold ">{row.original["end_date"]}</span>
         </div>
       );
     },
@@ -78,37 +99,22 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>Completed</p>
+          <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>{row.original["status"]}</p>
         </div>
       );
     },
   },
+  
   {
-    accessorKey: "totalWorker",
+    accessorKey: "supervisor",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Total Worker" />;
+      return <ColumnHeader column={column} title="Supervisor" withSort={false}/>;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">12</span>
+          <span className="font-semibold text-primaryLight-500 text-center">{row.original["project_supervisor"]}</span>
         </div>
-      );
-    },
-  },
-  {
-    accessorKey: "worker",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Worker" />;
-    },
-    cell: ({ row }) => {
-      // const onOpen = useAddWorkerModal(state => state.onOpen);
-      return (
-        <Link href={"/project/add-worker"}>
-          <div className="cursor-pointer" >
-            <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
-          </div>
-        </Link>
       );
     },
   },

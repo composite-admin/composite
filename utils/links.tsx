@@ -27,15 +27,15 @@ const SidebarLinks: NavLinkType[] = [
     href: "/reports",
     label: "Reports",
     icon: <ReportsIcon />,
-    isCollapsible: true,
-    childHref: "/reports",
-    childLabel: "Items picked from store",
   },
 
   {
     href: "/inventory",
     label: "Inventory",
     icon: <InventoryNewIcon />,
+    childHref: "/inventory/picked",
+    isCollapsible: true,
+    childLabel: "Items picked from store",
   },
   {
     href: "/facility",

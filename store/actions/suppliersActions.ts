@@ -15,7 +15,8 @@ export interface SuppliersStoreActions {
   setError: (error: any) => void;
   createSupplier: (data: any) => void;
   getAllSuppliers: () => void;
-  // Add more action types here as needed
+  getSupplierById: (id: number) => void;
+  updateSupplier: (id: number, data: any) => void;
 }
 
 // Define the type for your store combining state and actions
@@ -51,7 +52,7 @@ const useStore = create<SuppliersStore>((set) => ({
   getSupplierById: async (id: number) => {
     try {
       const item = await getSupplierById(id);
-      set({ selectedItem: item });
+      set({ selectedItem: item.data });
     } catch (error) {
       set((state: any) => ({ error: "" }));
     }

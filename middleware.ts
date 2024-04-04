@@ -17,24 +17,19 @@ export function middleware(request: NextRequest) {
   // Handle public routes
   if (publicRoutes.includes(currentURL)) {
     if (token) {
-      // Redirect authenticated users to the appropriate dashboard
-      console.log('Redirecting authenticated user to dashboard');
+      console.log("Redirecting authenticated user to dashboard");
       return redirectToDashboard(userType, request);
     } else {
-      // Allow access to public routes for unauthenticated users
-      console.log('Allowing access to public route');
+      console.log("Allowing access to public route");
       return NextResponse.next();
     }
   }
 
-  // Handle protected routes
   if (!token) {
-    // Redirect unauthenticated users to the login page
-    console.log('Redirecting unauthenticated user to login');
-    return NextResponse.redirect(new URL('/login', request.url));
+    console.log("Redirecting unauthenticated user to login");
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Handle route access based on user type
   console.log('Checking route access for user type:', userType);
   return handleRouteAccess(userType, currentURL, request);
 }
@@ -86,34 +81,3 @@ function handleRouteAccess(userType: string | null, currentURL: string, request:
 export const config = {
   matcher: ['/', '/client/:path*', '/staff/:path*', '/login', '/forgot-password'],
 };
-
-// import { NextResponse } from "next/server";
-// import type { NextRequest } from "next/server";
-
-// export function middleware(request: NextRequest) {
-//   const token = request.cookies.get("token")?.value || null;
-//   const user_type = request.cookies.get("user_type")?.value || null;
-//   console.log({
-//     user_type: user_type,
-//     token: token,
-//   });
-//   const currentURL = request.nextUrl.pathname;
-
-//   const protectedRoutes = ["/", "/client/dashboard", "/staff/dashboard"];
-//   const publicRoutes = ["/login", "/forgot-password"];
-
-//   if (publicRoutes.includes(currentURL) && token) {
-//     console.log(token);
-//     return NextResponse.redirect(new URL("/", request.url));
-//   }
-
-//   if (!publicRoutes.includes(currentURL) && !token) {
-//     return NextResponse.redirect(new URL("/login", request.url));
-//   }
-
-//   return NextResponse.next();
-// }
-
-// export const config = {
-//   matcher: ["/", "/client/", "/staff/", "/login", "/forgot-password"],
-// };

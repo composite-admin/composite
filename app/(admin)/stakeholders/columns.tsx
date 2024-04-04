@@ -18,7 +18,7 @@ export type ReportType = {
   actions: string;
 };
 
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "stakeHolderName",
     header: ({ column }) => {
@@ -29,8 +29,7 @@ export const columns: ColumnDef<ReportType>[] = [
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div>
-            <span className="font-semibold">Alison Ogaga</span>
-            <p>IVGSH776f</p>
+            <span className="font-semibold">{row.original["stakeholder_name"]}</span>
           </div>
         </div>
       );
@@ -47,7 +46,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Grace Land Avenue, Lagos</span>
+          <span className="font-semibold ">{row.original["stakeholder_address"]}</span>
         </div>
       );
     },
@@ -63,7 +62,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">0810933290</span>
+          <span className="font-semibold ">{row.original["stakeholder_ofc_phone"]}</span>
         </div>
       );
     },
@@ -77,7 +76,7 @@ export const columns: ColumnDef<ReportType>[] = [
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">Alison Ogaga</span>
+          <span className="font-semibold">{row.original["contact_person"]}</span>
         </div>
       );
     },
@@ -90,7 +89,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">0810933290</span>
+          <span className="font-semibold text-primaryLight-500 text-center">{row.original["contact_mobile"]}</span>
         </div>
       );
     },
@@ -103,21 +102,21 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <p>6th July, 2002</p>
-          <p>10am</p>
+           <p>{row.original["createdAt"]}</p>
         </div>
       );
     },
   },
   {
-    accessorKey: "worker",
+    accessorKey: "action",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Worker" />;
+      return <ColumnHeader column={column} title="Action" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <Link href={`/stakeholders/${row.original["id"]}`} className="font-semibold text-primaryLight-500">Details</Link>
+          <Link href={`/stakeholders/${row.original["id"]}/edit`}><span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
         </div>
       );
     },

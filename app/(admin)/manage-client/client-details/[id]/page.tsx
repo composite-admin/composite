@@ -1,13 +1,43 @@
-// import { columns } from "@/app/(admin)/inventory/columns";
-import {columns as columnTwo} from "@/app/(admin)/consultants/columns";
+// "use client";
+import { cookies } from "next/headers";
+import { columns as columnTwo } from "@/app/(admin)/consultants/columns";
 import { data as dataTwo } from "@/app/(admin)/consultants/data";
-// import { data } from "@/app/(admin)/inventory/data";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { DataTable } from "@/components/shared/DataTable";
 import GoBack from "@/components/shared/GoBack";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { api } from "@/config/api";
+import { IClientData, IClientDetails } from "@/utils/types";
+import { data } from "../../../cash-advance/data";
+import axios from "axios";
 
-export default function ClientDetailsPage() {
+type Params = {
+  params: {
+    id: string;
+  };
+};
+
+const getClientDetails = async (id: string) => {
+  try {
+    const res = await api.get<IClientDetails>(`/client/${id}`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${cookies().get("token")?.value}`,
+      },
+    });
+    console.log(res.data.data);
+    return res.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw error;
+    }
+  }
+};
+
+export default async function ClientDetailsPage({ params }: Params) {
+  const details = await getClientDetails(params.id);
   return (
     <>
       <GoBack />
@@ -15,10 +45,12 @@ export default function ClientDetailsPage() {
         <div className="pt-1 flex gap-2.5">
           <AvatarComponent height="h-16" width="w-16" />
           <div className="flex flex-col">
-            <span className="text-responsive font-semibold">
-              Amarachi Okoro
+            <span className="text-responsive font-semibold capitalize">
+              {details.first_name} {details.last_name}
             </span>
-            <span className="text-xs text-subtext">DIN28372928</span>
+            <span className="text-xs text-subtext uppercase">
+              {details.activation_code}
+            </span>
           </div>
         </div>
 
@@ -26,19 +58,27 @@ export default function ClientDetailsPage() {
           {/* details */}
           <div className="bg-white rounded-lg md:col-span-4 ">
             <h2 className="border-b p-7 text-lg font-semibold">
-              Consultant Details
+              Client Details
             </h2>
             <div className="p-7 flex flex-col gap-5 md:flex-row pb-28">
-              {[1, 1, 1, 1].map((i) => {
-                return (
-                  <div className="flex flex-col gap-1 md:w-1/4 flex-1 " key={i}>
-                    <span>Type</span>
-                    <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
-                      Structural Engineer
-                    </span>
-                  </div>
-                );
-              })}
+              <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
+                <span>Contact Person:</span>
+                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg capitalize">
+                  {details.first_name} {details.last_name}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
+                <span>Contact Mobile:</span>
+                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                  {details.mobile_number}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
+                <span>Office Phone:</span>
+                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                  {details.phone_number}
+                </span>
+              </div>
             </div>
           </div>
 

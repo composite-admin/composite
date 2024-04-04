@@ -2,12 +2,14 @@
 import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
-import React from 'react'
-import { columns } from '../apartment/columns'
+import React, {useEffect} from 'react'
+import { columns } from '../columns'
 import { data } from '../apartment/data'
 import { HiDocument } from 'react-icons/hi2'
 import { useAddContractorModal, useAddMaterial, useAddProjectModal, useAddStakeHolderModal, useAddStartupModal } from '@/store/inventory/UseInventoryModal'
 import StartUpIcon from '@/components/icons/StartUpIcon'
+import { useRouter, useParams } from 'next/navigation'
+import useProjectActionsStore from "@/store/actions/projectActions"
 
 const SingleProject = () => {
     const onOpenAddStakeHolder = useAddStakeHolderModal(state => state.onOpen);
@@ -55,10 +57,31 @@ const SingleProject = () => {
     }
 ]
 
+const router = useRouter()
+const params = useParams<{ id: string }>()
+
+const selectedItem = useProjectActionsStore<any>((state) => state.selectedItem)
+const getProjectById = useProjectActionsStore<any>((state) => state.getProjectById)
+const projects = useProjectActionsStore<any>((state: any) => state.items);
+const getAllProjects = useProjectActionsStore<any>((state: any) => state.getAllProjects);
+
+console.log(selectedItem)
+
+useEffect(() => {
+  getAllProjects();
+}, [getAllProjects]);
+
+useEffect(() => {
+
+  if (params.id) {
+    getProjectById(params.id);
+  }
+}, [getProjectById, params.id]);
+
   return (
     <>
         <GoBack />
-        <PageHead headText='High Cost Tower Renovation' subText='Date Added, 6th July' buttonText='Edit Project' buttonAction={onOpenAddProjectModal}/>
+        <PageHead headText={selectedItem && selectedItem.project_name} subText={selectedItem && selectedItem.project_code} buttonText='Edit Project' buttonAction={() => router.push("/Stakeholders/23/edit")} />
 
         <div className='grid grid-cols-3 gap-5 my-10'>
 
@@ -70,32 +93,42 @@ const SingleProject = () => {
                     <div className="grid grid-cols-4 p-5 gap-5">
                         <div>
                             <p className='text-[#475367] text-sm'>Project Name:</p>
-                            <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.project_name}</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Project Name:</p>
-                            <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
+                            <p className='text-[#475367] text-sm'>Project Description:</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.project_description}</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Project Name:</p>
-                            <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
+                            <p className='text-[#475367] text-sm'>Project Location:</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.project_location}</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Project Name:</p>
-                            <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
+                            <p className='text-[#475367] text-sm'>Start Date:</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.start_date}</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Project Name:</p>
-                            <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
+                            <p className='text-[#475367] text-sm'>End Date:</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.end_date}</p>
                         </div>
 
                         <div>
-                            <p className='text-[#475367] text-sm'>Project Name:</p>
-                            <p className='text-[#101928] text-[16px] font-[600]'>Allison Ogaga</p>
+                            <p className='text-[#475367] text-sm'>Project Supervisor:</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.project_supervisor}</p>
+                        </div>
+
+                        <div>
+                            <p className='text-[#475367] text-sm'>Status:</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.status}</p>
+                        </div>
+
+                        <div>
+                            <p className='text-[#475367] text-sm'>Comment:</p>
+                            <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.comment}</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +148,7 @@ const SingleProject = () => {
 
             </div>
 
-        <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={projects.data ? projects.data : []} clickAction={() => { }} />
     </>
   )
 }
