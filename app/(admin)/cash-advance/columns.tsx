@@ -2,21 +2,11 @@
 
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { ICashAdvanceData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-export interface ICashAdvanceTable {
-  requestType: string;
-  projectCode: string;
-  staffName: string;
-  status: "approved" | "inactive";
-  amountCall: string;
-  amountRec: string;
-  balance: string;
-  dateAdded: string;
-  comment: string;
-}
 
-export const columns: ColumnDef<ICashAdvanceTable>[] = [
+export const columns: ColumnDef<ICashAdvanceData>[] = [
   {
     accessorKey: "requestType",
     header: ({ column }) => {
@@ -37,13 +27,13 @@ export const columns: ColumnDef<ICashAdvanceTable>[] = [
     },
   },
   {
-    accessorKey: "projectCode",
+    accessorKey: "project_code",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Project Code" />;
     },
   },
   {
-    accessorKey: "staffName",
+    accessorKey: "staff_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Staff Name" />;
     },
@@ -55,7 +45,7 @@ export const columns: ColumnDef<ICashAdvanceTable>[] = [
     },
   },
   {
-    accessorKey: "amountCall",
+    accessorKey: "amount_collected",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount Called" />;
     },
@@ -69,7 +59,7 @@ export const columns: ColumnDef<ICashAdvanceTable>[] = [
     },
   },
   {
-    accessorKey: "amountRec",
+    accessorKey: "amount_recorded",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount Received" />;
     },
@@ -97,7 +87,7 @@ export const columns: ColumnDef<ICashAdvanceTable>[] = [
     },
   },
   {
-    accessorKey: "dateAdded",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Date Added" />;
     },

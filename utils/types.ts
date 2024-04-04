@@ -152,3 +152,137 @@ export const nigerianStates = [
   "Yobe",
   "Zamfara",
 ];
+
+export interface IRequestData {
+  id: number;
+  request_code: string;
+  carttemp_sess: string;
+  staff_id: string;
+  staff_name: string;
+  staff_email: string;
+  request_type: string;
+  project_name: string;
+  project_code: string;
+  supplier_code: string;
+  supplier_name: string;
+  supplier_material: string;
+  description: string;
+  quantity: number;
+  unit_price: string;
+  total_price: string;
+  worker_name: string;
+  worker_code: string;
+  worker_service: string;
+  amount: string;
+  job_code: string;
+  comment: string;
+  response: string;
+  status: string;
+  date: string;
+  company: string;
+  company_address: string;
+  contact_person: string;
+  contact_mobile: string;
+  ofc_phone: string;
+  cash_advance_purpose: string;
+  tool_name: string;
+  approved_by: string;
+  approved_on: string;
+  approved_amount: string;
+  approved_quantity: number;
+  approved_unit_price: string;
+  approved_total_amount: string;
+  tool_machinery_type: string;
+  inventory_type_id: number;
+  supervisor_comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ICashAdvanceData {
+  cash_id: number;
+  project_code: string;
+  project_name: string;
+  cash_advance_type: string;
+  request_code: string;
+  staff_id: string;
+  staff_name: string;
+  amount_collected: string;
+  amount_recorded: string;
+  balance: string;
+  status: string;
+  purpose: string;
+  bank_to: string;
+  payment_method: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ITenantData {
+  tenant_id: number;
+  tenant_code: string;
+  title: string;
+  full_name: string;
+  phone_number: string;
+  email: string;
+  password: string;
+  project_name: string;
+  project_details: string;
+  flat_description: string;
+  flat_code: string;
+  annual_rent: string;
+  comment: string;
+  status: string;
+  rent_payment: string;
+  reminder: string;
+  createdAt: string;
+  updatedAt: string;
+  fees: string; // Assuming fees will be parsed when needed
+}
+
+export interface IManageStaffData {
+  id: number;
+  userid: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  dob: string;
+  stateOfOrigin: string;
+  lga: string;
+  sex: string;
+  marital_status: string;
+  address: string;
+  home_phone: string;
+  cell_phone: string;
+  email: string;
+  nextOfKin: string;
+  relationship: string;
+  addressOfNOK: string;
+  emailOfNOK: string;
+  phoneOfNOK: string;
+  date_employed: string;
+  deptid: string;
+  gradeid: string;
+  branchcode: string;
+  employee_status: string;
+  role: string;
+  staff_type: string;
+  createdAt: string;
+  updatedAt: string;
+  bank_name: string | null;
+  account_name: string | null;
+  account_number: string | null;
+  image: string | null;
+}
+
+export interface IFlatData {
+  flat_id: number;
+  flat_code: string;
+  project_name: string;
+  project_code: string;
+  flat_desc: string;
+  comment: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}

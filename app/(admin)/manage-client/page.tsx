@@ -34,13 +34,13 @@ export default function ManageClientPage() {
     <div className="space-y-8">
       <div>
         <PageHeaderComponent
-          title={`Client (${tableData?.length || 0})`}
+          title={`Client (${clientData?.length || 0})`}
           subTitle="View all staff here"
           buttonText="Add Client"
           href="manage-client/add-new-client"
         />
       </div>
-      <DataTable columns={columns} data={tableData || []} />
+      <DataTable columns={columns} data={clientData || []} />
     </div>
   );
 }

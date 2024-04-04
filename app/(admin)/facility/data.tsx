@@ -1,6 +1,4 @@
-import { IFacilityTableColumns } from "./columns";
-
-export const data: Array<IFacilityTableColumns> = [
+export const data = [
   {
     tenantCode: "R0001",
     title: "Mr.",
