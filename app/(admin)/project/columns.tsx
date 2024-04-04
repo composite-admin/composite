@@ -104,15 +104,16 @@ export const columns: ColumnDef<any>[] = [
       );
     },
   },
+  
   {
-    accessorKey: "totalWorker",
+    accessorKey: "supervisor",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Total Worker" />;
+      return <ColumnHeader column={column} title="Supervisor" withSort={false}/>;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">99</span>
+          <span className="font-semibold text-primaryLight-500 text-center">{row.original["project_supervisor"]}</span>
         </div>
       );
     },
