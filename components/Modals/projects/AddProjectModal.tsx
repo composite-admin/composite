@@ -12,14 +12,16 @@ const AddProjectModal = () => {
 
     const isSucessOpen = useSuccessModal(state => state.onOpen)
 
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset } = useForm({});
 
     const createProject = useProjectActionsStore<any>((state) => state.createProject)
 
     const onSubmit = (data: any) => {
         // Pass the form data to your submitForm action
         console.log(data)
-
+        data.date_added = new Date()
+        data.supervisor_id = "231"
+        
         createProject(data);
         isSucessOpen()
         reset()
@@ -119,18 +121,19 @@ const AddProjectModal = () => {
 
                         <div className="flex flex-col">
                             <p className="value">
-                                Team Member
+                                Supervisor
                             </p>
 
-                            <input type="text" {...register('team_member', { required: true })}/>
+                            <input type="text" {...register('project_supervisor', { required: true })}/>
                         </div>
 
+                       
                         <div className="flex flex-col">
                             <p className="value">
-                                Role
+                                Status
                             </p>
 
-                            <input type="text" {...register('role', { required: true })}/>
+                            <input type="text" {...register('status', { required: true })}/>
                         </div>
 
                         <div className="flex flex-col col-span-2">
