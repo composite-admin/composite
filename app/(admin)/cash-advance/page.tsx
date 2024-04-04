@@ -13,26 +13,49 @@ import {
   CashAdvanceTables,
   cashAdvanceTablesStore,
 } from "@/store/tables/useCreateTableStore";
+import { ApiResponse, ICashAdvanceData } from "@/utils/types";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/config/api";
+import axios from "axios";
 
 export default function CashAdvancePage() {
-  const { setTableType, cashAdvanceTableState } = cashAdvanceTablesStore();
+  const { cashAdvanceData, setCashAvance } = cashAdvanceTablesStore();
 
-  function renderTable(arg: CashAdvanceTables) {
-    switch (arg) {
-      case "advances":
-        setTableType("advances");
-        break;
-      case "retirement":
-        setTableType("retirement");
-        break;
-      case "approved":
-        setTableType("approved");
-        break;
-      case "pending":
-        setTableType("pending");
-        break;
-    }
-  }
+  const { data, error, isPending } = useQuery({
+    queryKey: ["get cash advance"],
+    queryFn: async () => {
+      try {
+        const response = await api.get<ApiResponse<ICashAdvanceData>>(
+          "/cash-advances"
+        );
+        setCashAvance(response.data.data);
+        return response.data.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+
+  // function renderTable(arg: CashAdvanceTables) {
+  //   switch (arg) {
+  //     case "advances":
+  //       setTableType("advances");
+  //       break;
+  //     case "retirement":
+  //       setTableType("retirement");
+  //       break;
+  //     case "approved":
+  //       setTableType("approved");
+  //       break;
+  //     case "pending":
+  //       setTableType("pending");
+  //       break;
+  //   }
+  // }
 
   return (
     <div className="space-y-8">
@@ -43,7 +66,7 @@ export default function CashAdvancePage() {
           buttonText="Add Client"
           href="manage-client/add-new-client"
         />
-        <div className="flex gap-5">
+        {/* <div className="flex gap-5">
           <SelectTableTypeBadge
             icon={<Plus className="w-4 h-4" />}
             title="Cash Advances"
@@ -68,10 +91,11 @@ export default function CashAdvancePage() {
             notification="3"
             onclick={() => renderTable("pending")}
           />
-        </div>
+        </div> */}
       </div>
 
-      {cashAdvanceTableState === "advances" ? (
+      <DataTable columns={columns} data={data ?? []} />
+      {/* {cashAdvanceTableState === "advances" ? (
         <DataTable columns={columns} data={data} />
       ) : cashAdvanceTableState === "retirement" ? (
         <DataTable columns={columnTwo} data={dataTwo} />
@@ -79,7 +103,7 @@ export default function CashAdvancePage() {
         <DataTable columns={columns} data={data} />
       ) : cashAdvanceTableState === "pending" ? (
         <DataTable columns={columnTwo} data={dataTwo} />
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
