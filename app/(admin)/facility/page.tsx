@@ -1,11 +1,9 @@
 "use client";
-
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { DataTable } from "@/components/shared/DataTable";
 import SelectTableTypeBadge from "@/components/shared/SelectTableTypeBadge";
 import { DashboardIcon } from "@/components/icons";
 import { columns } from "./columns";
-import { data } from "./data";
 import useFacilityStore from "@/store/facility/useFacilityStore";
 import { useQuery } from "@tanstack/react-query";
 import { ApiResponse, ITenantData } from "@/utils/types";
@@ -38,7 +36,7 @@ export default function FacilityPage() {
           title="Tenants"
           subTitle="A request of daily, weekly and monthly activities"
           buttonText="Add new apartment"
-          href="manage-client/add-new-client"
+          href="facility/add-tenant"
           className="py-7"
         />
       </div>

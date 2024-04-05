@@ -15,7 +15,7 @@ export default function ManageStaffPage() {
     queryKey: ["get all staff"],
     queryFn: async () => {
       try {
-        const response = await api.get<ApiResponse<IManageStaffData>>(
+        const response = await api.get<ApiResponse<IManageStaffData[]>>(
           "/staffs"
         );
         setStaffData(response.data.data);

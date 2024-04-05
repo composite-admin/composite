@@ -1,11 +1,16 @@
 import { z } from "zod";
-// field names
-  // "selectProject",
-  //     "selectFlat",
-  //     "title",
-  //     "tenatFullName",
-  //     "phoneNumber",
-  //     "email",
+// export const loginSchema = z.object({
+//   email: z
+//     .string()
+//     .min(1, { message: "Email is required" })
+//     .email({ message: "Email must be a valid email" }),
+//   password: z
+//     .string()
+//     .min(1, { message: "Password is required" })
+//     .min(8, { message: "Password must be at least 8 characters" }),
+// });
+
+// export type LoginType = z.infer<typeof loginSchema>;
 
 interface IFormSteps {
   id: string;
@@ -27,16 +32,18 @@ export const AddTenantFormSteps: IFormSteps[] = [
 ];
 
 export const FormDataSchema = z.object({
-  selectProject: z.string().min(1, "Project is required"),
-  selectFlat: z.string().min(1, "Flat is required"),
-  title: z.string().min(1, "Title is required"),
-  tenatFullName: z.string().min(1, "Full name is required"),
-  phoneNumber: z.string().min(1, "Phone number is required"),
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  annualRentCost: z.string().min(1, "Annual rent cost is required"),
-  rentPayment: z.string().min(1, "Rent payment is required"),
-  setReminder: z.string().min(1, "Set reminder is required"),
-  feeType: z.string().min(1, "Fee type is required"),
-  value: z.string().min(1, "Value is required"),
-  
+    selectProject: z.string().min(1, { message: "Project required" }),
+    selectFlat: z.string().min(1, { message: "Flat required" }),
+    title: z.string().min(1, { message: "Title required" }),
+    tenatFullName: z.string().min(1, { message: "Name required" }),
+    phoneNumber: z.string().min(1, { message: "Phone number required" }),
+    email: z.string().email({ message: "Email is invalid" }),
+    annualRentCost: z.string().min(1, { message: "Annual rent cost required" }),
+    rentPayment: z.string().min(1, { message: "Rent payment required" }),
+    setReminder: z.string().min(1, { message: "Set reminder required" }),
+    feeType: z.string().min(1, { message: "Fee type required" }),
+    value: z.string().min(1, { message: "Value required" }),
 });
+
+export type addTenantType = z.infer<typeof FormDataSchema>;
+
