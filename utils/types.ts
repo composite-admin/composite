@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { data } from "../app/(admin)/cash-advance/data";
 
 export interface UserData {
   id: number;
@@ -57,7 +58,7 @@ export interface IClientDetails {
 }
 
 export interface ApiResponse<T> {
-  data: T[];
+  data: T;
   message: string;
 }
 
