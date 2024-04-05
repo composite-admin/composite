@@ -17,7 +17,7 @@ export default function FacilityPage() {
     queryKey: ["get all tenants"],
     queryFn: async () => {
       try {
-        const response = await api.get<ApiResponse<ITenantData>>("/tenants");
+        const response = await api.get<ApiResponse<ITenantData[]>>("/tenants");
         setTenantData(response.data.data);
         return response.data.data;
       } catch (error) {
