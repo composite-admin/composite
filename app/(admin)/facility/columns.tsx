@@ -3,22 +3,12 @@
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { ColumnDef } from "@tanstack/react-table";
 import EditCell, { ViewCell } from "./all-flats/EditCell";
+import { ITenantData } from "@/utils/types";
+import { formatDate } from "../../../utils/formatDate";
 
-export interface IFacilityTableColumns {
-  tenantCode: string;
-  title: string;
-  fullName: string;
-  phoneNumber: string;
-  emailAddress: string;
-  dateAdded: string;
-  status: "active" | "inactive";
-  editAction: string;
-  viewAction: string;
-}
-
-export const columns: ColumnDef<IFacilityTableColumns>[] = [
+export const columns: ColumnDef<ITenantData>[] = [
   {
-    accessorKey: "tenantCode",
+    accessorKey: "tenant_code",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title={"Tenant Code"} withSort={false} />
@@ -26,8 +16,8 @@ export const columns: ColumnDef<IFacilityTableColumns>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="font-semibold text-primaryLight-500 underline w-24 truncate">
-          {row.getValue("tenantCode")}
+        <div className="font-semibold uppercase text-primaryLight-500 underline w-24 truncate">
+          {row.getValue("tenant_code")}
         </div>
       );
     },
@@ -42,29 +32,29 @@ export const columns: ColumnDef<IFacilityTableColumns>[] = [
     },
   },
   {
-    accessorKey: "fullName",
+    accessorKey: "full_name",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title={"Full Name"} withSort={false} />
       );
     },
     cell: ({ row }) => {
-      return <div>{row.getValue("fullName")}</div>;
+      return <div>{row.getValue("full_name")}</div>;
     },
   },
   {
-    accessorKey: "phoneNumber",
+    accessorKey: "phone_number",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title={"Phone Number"} withSort={false} />
       );
     },
     cell: ({ row }) => {
-      return <div>{row.getValue("phoneNumber")}</div>;
+      return <div>{row.getValue("phone_number")}</div>;
     },
   },
   {
-    accessorKey: "emailAddress",
+    accessorKey: "email",
     header: ({ column }) => {
       return (
         <ColumnHeader
@@ -75,18 +65,20 @@ export const columns: ColumnDef<IFacilityTableColumns>[] = [
       );
     },
     cell: ({ row }) => {
-      return <div>{row.getValue("emailAddress")}</div>;
+      return <div>{row.getValue("email")}</div>;
     },
   },
   {
-    accessorKey: "dateAdded",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title={"Date Added"} withSort={false} />
       );
     },
     cell: ({ row }) => {
-      return <div>{row.getValue("dateAdded")}</div>;
+      const { createdAt } = row.original;
+      const formattedDate = formatDate(createdAt);
+      return <div>{formattedDate}</div>;
     },
   },
   {
@@ -95,7 +87,7 @@ export const columns: ColumnDef<IFacilityTableColumns>[] = [
       return <ColumnHeader column={column} title={"Status"} withSort={false} />;
     },
     cell: ({ row }) => {
-      const status = row.getValue("status") as IFacilityTableColumns["status"];
+      const status = row.getValue("status") as ITenantData["status"];
       return (
         <div className="flex gap-2 items-center">
           <span

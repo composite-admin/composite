@@ -1,21 +1,45 @@
 "use client";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { data } from "../consultants/data";
-import { columns } from "../consultants/columns";
 import { DataTable } from "@/components/shared/DataTable";
+import { columns } from "./columns";
+import useManageStaffStore from "@/store/manage-staff/useManageStaffStore";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/config/api";
+import { ApiResponse, IManageStaffData } from "@/utils/types";
+import axios from "axios";
 
 export default function ManageStaffPage() {
+  const { setStaffData } = useManageStaffStore();
+  const { data, error, isPending } = useQuery({
+    queryKey: ["get all staff"],
+    queryFn: async () => {
+      try {
+        const response = await api.get<ApiResponse<IManageStaffData>>(
+          "/staffs"
+        );
+        setStaffData(response.data.data);
+        return response.data.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
   return (
     <div className="space-y-8">
       <div>
         <PageHeaderComponent
-          title="Manane Staff(22)"
+          title={`Manage Staff (${data?.length ?? ""})`}
           subTitle="View all staff here"
           buttonText="Add Client"
           href="manage-client/add-new-client"
         />
       </div>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={data ?? []} />
     </div>
   );
 }

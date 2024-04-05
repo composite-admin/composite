@@ -1,8 +1,5 @@
 import { create } from "zustand";
-import { IClientData, ApiResponse } from "@/utils/types";
-import { useMutation } from "@tanstack/react-query";
-import { api } from "@/config/api";
-import axios from "axios";
+import { IClientData } from "@/utils/types";
 
 interface ManageClientStore {
   clientData: IClientData[] | null;
