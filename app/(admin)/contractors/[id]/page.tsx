@@ -31,7 +31,7 @@ const SingleContractor = () => {
             <GoBack />
 
             <div>
-                <PageHead headText={selectedItem && selectedItem.contractor_name} subText={selectedItem && selectedItem.contractor_code} buttonText='Edit Contractor' buttonAction={() => router.push("/contractors/23/edit")} />
+                <PageHead headText={selectedItem && selectedItem.contractor_name} subText={selectedItem && selectedItem.contractor_code} buttonText='Edit Contractor' buttonAction={() => selectedItem && router.push(`/contractors/${selectedItem.id}/edit`)}/>
 
                 <div className='gap-5 my-10'>
 
