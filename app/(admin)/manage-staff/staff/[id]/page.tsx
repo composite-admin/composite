@@ -56,7 +56,7 @@ export default function ManageStaffPage({ params }: IProps) {
         <div className="flex flex-wrap justify-between gap-10 lg:flex-nowrap mt-10">
           <div className="w-full lg:w-1/2">
             <div className="flex justify-between items-center w-full">
-              <div className="flex flex-col gap-16 text-sm text-textColor w-1/2 border">
+              <div className="flex flex-col gap-16 text-sm text-textColor w-1/2 ">
                 <span>Staff Code:</span>
                 <span>Employee Status:</span>
                 <span>Email:</span>
@@ -69,7 +69,7 @@ export default function ManageStaffPage({ params }: IProps) {
                 <span>Phone Number (Next of Kin)</span>
                 <span>Grade</span>
               </div>
-              <div className="flex flex-col text-sm font-semibold gap-16 w-1/2 border">
+              <div className="flex flex-col text-sm font-semibold gap-16 w-1/2 ">
                 <span>{staffDetails?.userid}</span>
                 <span>{staffDetails?.employee_status}</span>
                 <span>{staffDetails?.email}</span>
