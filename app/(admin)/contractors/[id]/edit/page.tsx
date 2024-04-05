@@ -2,11 +2,9 @@
 import GoBack from '@/components/shared/GoBack'
 import { useSuccessModal } from '@/store/inventory/UseInventoryModal'
 import React, { useEffect } from 'react'
-import { HiBellAlert } from 'react-icons/hi2'
 import { useRouter, useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form';
 import useContractorsActionsStore from "@/store/actions/contractorsActions"
-import axios from 'axios';
 import { getContractorById} from '@/api/contractorsRequests';
 
 const SingleContractorEdit = () => {
