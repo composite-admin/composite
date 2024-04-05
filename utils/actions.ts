@@ -6,7 +6,7 @@ import { ApiResponse, IClientData } from "./types";
 
 export async function getAllClients(): Promise<IClientData[] | null> {
   try {
-    const response = await api.get<ApiResponse<IClientData>>("/clients");
+    const response = await api.get<ApiResponse<IClientData[]>>("/clients");
     return response.data.data;
   } catch (error) {
     console.error(error);
