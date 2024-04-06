@@ -1,0 +1,27 @@
+<svg width="48" height="47" viewBox="0 0 48 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect opacity="0.01" x="0.209473" y="0.435547" width="45.8194" height="45.8194" fill="white"/>
+<circle cx="15.3005" cy="25.7996" r="7.85475" fill="#D7DBEC"/>
+<mask id="mask0_1231_110090" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="7" y="17" width="17" height="17">
+<circle cx="15.3005" cy="25.7996" r="7.85475" fill="white"/>
+</mask>
+<g mask="url(#mask0_1231_110090)">
+<circle cx="15.3004" cy="23.8355" r="2.61825" fill="#131523"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.73682 31.6223C10.6115 29.362 12.7727 27.7627 15.3003 27.7627C17.8279 27.7627 19.9892 29.3622 20.8638 31.6226C19.4547 33.0771 17.4829 33.9808 15.3005 33.9808C13.1179 33.9808 11.146 33.077 9.73682 31.6223Z" fill="#131523"/>
+</g>
+<circle cx="39.9612" cy="25.7996" r="7.85475" fill="#D7DBEC"/>
+<mask id="mask1_1231_110090" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="32" y="17" width="16" height="17">
+<circle cx="39.9612" cy="25.7996" r="7.85475" fill="white"/>
+</mask>
+<g mask="url(#mask1_1231_110090)">
+<circle cx="39.961" cy="23.8355" r="2.61825" fill="#131523"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M34.3975 31.6223C35.2722 29.362 37.4334 27.7627 39.9609 27.7627C42.4886 27.7627 44.6499 29.3622 45.5245 31.6226C44.1154 33.0771 42.1435 33.9808 39.9611 33.9808C37.7786 33.9808 35.8066 33.077 34.3975 31.6223Z" fill="#131523"/>
+</g>
+<circle cx="27.5371" cy="24.4902" r="13.2549" fill="#336DFF"/>
+<mask id="mask2_1231_110090" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="14" y="11" width="27" height="27">
+<circle cx="27.5371" cy="24.4902" r="13.2549" fill="white"/>
+</mask>
+<g mask="url(#mask2_1231_110090)">
+<circle cx="27.5374" cy="21.2176" r="4.41829" fill="#B6CBFF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8364 34.2476C19.389 30.3444 23.0743 27.5996 27.3734 27.5996C31.8543 27.5996 35.6684 30.5814 37.0958 34.7488C34.6752 37.2097 31.3589 38.7272 27.7006 38.7272C23.8001 38.7272 20.2882 37.002 17.8364 34.2476Z" fill="#B6CBFF"/>
+</g>
+</svg>

@@ -100,7 +100,7 @@ export const columns: ColumnDef<IRequestData>[] = [
     cell: ({ row }) => {
       return (
         <Link
-          href={`/reports/${row.getValue("id")}`}
+          href={`/requests/${row.getValue("id")}`}
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
           <ViewUserPageIcon />
