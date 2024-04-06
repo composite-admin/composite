@@ -2,43 +2,44 @@
 import GoBack from '@/components/shared/GoBack'
 import { useSuccessModal } from '@/store/inventory/UseInventoryModal'
 import React, { useEffect } from 'react'
-import { HiBellAlert } from 'react-icons/hi2'
 import { useRouter, useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form';
 import useContractorsActionsStore from "@/store/actions/contractorsActions"
+import { getContractorById} from '@/api/contractorsRequests';
 
 const SingleContractorEdit = () => {
     const router = useRouter();
     const onOpen = useSuccessModal(state => state.onOpen);
 
     const params = useParams<{ id: string }>()
-
-
-
-    const selectedItem = useContractorsActionsStore<any>((state) => state.selectedItem)
-    const getContractorById = useContractorsActionsStore<any>((state) => state.getContractorById)
+ 
     const updateContractor = useContractorsActionsStore<any>((state) => state.updateContractor)
 
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, setValue } = useForm();
 
-    console.log("SI", selectedItem)
     const onSubmit = (data: any) => {
         // Pass the form data to your submitForm action
         console.log(data)
         delete data.id;
         onOpen();
-        updateContractor(selectedItem.id, data);
-        reset()
+        updateContractor(Number(params.id), data);
+        router.back()
         return;
     };
 
     useEffect(() => {
+        const fetchContractor = async () => {
+          try {
+            const response = await getContractorById(Number(params.id));
+            reset(response.data);
+          } catch (error) {
+            console.error('Error fetching contractor data:', error);
+          }
+        };
+    
+        fetchContractor();
+      }, [params.id]);
 
-        if (params.id) {
-            getContractorById(params.id);
-        }
-        selectedItem && reset(selectedItem)
-    }, [getContractorById, params.id, reset]);
 
     return (
         <>
@@ -50,7 +51,7 @@ const SingleContractorEdit = () => {
                 <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
                     <div className="flex gap-2 flex-col border-b border-b-gray-200 py-3">
 
-                        <h2 className="text-[#101928] font-[600] text-[22px]">Add Contractor</h2>
+                        <h2 className="text-[#101928] font-[600] text-[22px]">Edit Contractor</h2>
                         <p>Update Contractor Details here.</p>
                     </div>
 

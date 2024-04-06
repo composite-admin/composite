@@ -81,7 +81,7 @@ useEffect(() => {
   return (
     <>
         <GoBack />
-        <PageHead headText={selectedItem && selectedItem.project_name} subText={selectedItem && selectedItem.project_code} buttonText='Edit Project' buttonAction={() => router.push("/Stakeholders/23/edit")} />
+        <PageHead headText={selectedItem && selectedItem.project_name} subText={selectedItem && selectedItem.project_code} buttonText='Edit Project' buttonAction={() => selectedItem && router.push(`/project/${selectedItem.id}/edit`)} />
 
         <div className='grid grid-cols-3 gap-5 my-10'>
 

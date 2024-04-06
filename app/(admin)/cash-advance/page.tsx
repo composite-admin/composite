@@ -25,7 +25,7 @@ export default function CashAdvancePage() {
     queryKey: ["get cash advance"],
     queryFn: async () => {
       try {
-        const response = await api.get<ApiResponse<ICashAdvanceData>>(
+        const response = await api.get<ApiResponse<ICashAdvanceData[]>>(
           "/cash-advances"
         );
         setCashAvance(response.data.data);

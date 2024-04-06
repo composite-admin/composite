@@ -101,10 +101,10 @@ export const columns: ColumnDef<IManageStaffData>[] = [
       return <ColumnHeader column={column} title={"View"} withSort={false} />;
     },
     cell: ({ row }) => {
-      let href = String(row.getValue("viewAction"));
+      let { userid } = row.original;
       return (
         <>
-          <ViewCell href={`facility/tenant/${href}`} />
+          <ViewCell href={`manage-staff/staff/${userid}`} isLink={true} />
         </>
       );
     },

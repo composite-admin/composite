@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export const columns: ColumnDef<ICashAdvanceData>[] = [
   {
-    accessorKey: "requestType",
+    accessorKey: "req",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Request Type" />;
     },

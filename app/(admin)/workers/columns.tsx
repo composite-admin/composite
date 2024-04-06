@@ -5,7 +5,7 @@ import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
 export type ReportType = {
   id: string;
@@ -18,40 +18,63 @@ export type ReportType = {
   actions: string;
 };
 
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<ReportType|any>[] = [
   {
-    accessorKey: "stakeHolderName",
+    accessorKey: "workerCode",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="StakeHolder Name" />;
+        return <ColumnHeader column={column} title="Worker Code" />;
     },
     cell: ({ row }) => {
-      return (
-        <div className="flex gap-2 items-center">
-          <AvatarComponent />
-          <div>
-            <span className="font-semibold">Alison Ogaga</span>
-            <p>IVGSH776f</p>
-          </div>
-        </div>
-      );
+        return (
+            <Link href={`/workers/${row.original["id"]}`}>
+                <div className="flex  flex-col">
+                    <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+                        {row.original["worker_code"]}
+                    </span>
+                </div>
+            </Link>
+        );
     },
-  },
-
+},
   {
-    accessorKey: "address",
+    accessorKey: "workerName",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Address" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Worker Name" withSort={false}/>;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Grace Land Avenue, Lagos</span>
-        </div>
+                    <span className="font-semibold ">{row.original["worker_name"]}</span>
+                </div>
       );
     },
   },
+  {
+    accessorKey: "workerCompany",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Worker Company" withSort={false}/>;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+                    <span className="font-semibold ">{row.original["worker_company"]}</span>
+                </div>
+      );
+    },
+  },  {
+    accessorKey: "workerAddress",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Worker Address" withSort={false}/>;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+                    <span className="font-semibold ">{row.original["worker_address"]}</span>
+                </div>
+      );
+    },
+  },
+
 
   {
     accessorKey: "officePhone",
@@ -63,61 +86,35 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">0810933290</span>
+          <span className="font-semibold ">{row.original["worker_ofc_phone"]}</span>
         </div>
       );
     },
   },
+
   {
-    accessorKey: "contactPerson",
+    accessorKey: "createdOn",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Contact Person" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="flex gap-2 items-center">
-          <AvatarComponent />
-          <span className="font-semibold">Alison Ogaga</span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "contactPhone",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Contact Phone" />;
+      return <ColumnHeader column={column} title="Created On" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">0810933290</span>
-        </div>
+        <span className=" ">{row.original["createdAt"]}</span>
+    </div>
       );
     },
   },
   {
-    accessorKey: "addedOn",
+    accessorKey: "action",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Added On" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div>
-          <p>6th July, 2002</p>
-          <p>10am</p>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "worker",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Worker" />;
+      return <ColumnHeader column={column} title="Action" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <Link href={`/workers/${row.original["id"]}`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiEye />Details </span></Link>
+          <Link href={`/workers/${row.original["id"]}/edit`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
         </div>
       );
     },

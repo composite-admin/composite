@@ -53,6 +53,7 @@ const useStore = create<ContractorsStore>((set) => ({
     try {
       const item = await getContractorById(id);
       set({ selectedItem: item.data });
+      return item.data
     } catch (error) {
       set((state: any) => ({ error: "" }));
     }

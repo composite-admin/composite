@@ -5,7 +5,7 @@ import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
 export type ReportType = {
   id: string;
@@ -115,9 +115,9 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <Link href={`/stakeholders/${row.original["id"]}`} className="font-semibold text-primaryLight-500">Details</Link>
-          <Link href={`/stakeholders/${row.original["id"]}/edit`}><span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
-        </div>
+        <Link href={`/stakeholders/${row.original["id"]}`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiEye />Details </span></Link>
+        <Link href={`/stakeholders/${row.original["id"]}/edit`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
+      </div>
       );
     },
   },

@@ -2,49 +2,83 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 import { z } from "zod";
-import { AddTenantFormSteps, FormDataSchema } from "./formtypes";
+import { addTenantType, FormDataSchema } from "./formtypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import StepNavigation from "./StepBottomNav";
 import StepTopNav from "./StepTopNav";
-import FormContainer from "../../shared/FormContainer";
-import InputComponent from "./InputComponent";
+import StepBottomNav from "./StepBottomNav";
+import FormContainer from "@/components/shared/FormContainer";
+import { Form } from "@/components/ui/form";
+import {
+  CustomFormField,
+  CustomFormSelect,
+} from "@/components/shared/FormComponent";
 
 type Inputs = z.infer<typeof FormDataSchema>;
+
+const steps = [
+  {
+    id: "1",
+    name: "Basic Information",
+    fields: [
+      "selectProject",
+      "selectFlat",
+      "title",
+      "tenatFullName",
+      "phoneNumber",
+      "email",
+    ],
+  },
+  {
+    id: "2",
+    name: "Address",
+    field: ["anualRentCost", "rentPayment", "setReminder", "feeType", "value"],
+  },
+  { id: "3", name: "Complete" },
+];
 
 export default function AddTenantForm() {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    trigger,
-    formState: { errors },
-  } = useForm<Inputs>({
+  const form = useForm<addTenantType>({
     resolver: zodResolver(FormDataSchema),
+    defaultValues: {
+      selectProject: "",
+      selectFlat: "",
+      title: "",
+      tenatFullName: "",
+      phoneNumber: "",
+      email: "",
+      annualRentCost: "",
+      rentPayment: "",
+      setReminder: "",
+      feeType: "",
+      value: "",
+    },
   });
 
-  const processForm: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    reset();
+  const processForm: SubmitHandler<Inputs> = (values: addTenantType) => {
+    console.log(values);
+    form.reset();
   };
 
   type FieldName = keyof Inputs;
 
   const next = async () => {
-    const fields = AddTenantFormSteps[currentStep].fields;
-    const output = await trigger(fields as FieldName[], { shouldFocus: true });
+    const fields = steps[currentStep].fields;
+    const output = await form.trigger(fields as FieldName[], {
+      shouldFocus: true,
+    });
 
     if (!output) return;
 
-    if (currentStep < AddTenantFormSteps.length - 1) {
-      if (currentStep === AddTenantFormSteps.length - 2) {
-        await handleSubmit(processForm)();
+    if (currentStep < steps.length - 1) {
+      if (currentStep === steps.length - 2) {
+        await form.handleSubmit(processForm)();
       }
       setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
@@ -62,97 +96,144 @@ export default function AddTenantForm() {
     <section className="flex flex-col justify-between">
       {/* steps */}
       <StepTopNav
-        steps={AddTenantFormSteps}
+        steps={steps}
         currentStep={currentStep}
         next={next}
         prev={prev}
       />
       {/* Form */}
-      <form className="" onSubmit={handleSubmit(processForm)}>
-        {currentStep === 0 && (
-          <motion.div
-            initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <FormContainer
-              title="Add Tenant"
-              description="Create a new staff profile here"
-              isColumn={false}
+      <Form {...form}>
+        <form className="mt-12 py-12" onSubmit={form.handleSubmit(processForm)}>
+          {currentStep === 0 && (
+            <motion.div
+              initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="space-y-9">
-          <div className="space-y-9">
-          <select
-                className="w-full p-2 border border-borderColor h-[56px] rounded-md"
-                {...register("selectProject")}  >
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </select>
-                <select
-                className="w-full p-2 border border-borderColor h-[56px] rounded-md"
-                {...register("selectFlat")}  >
-                  <option value="option1">Option we</option>
-                  <option value="option2">Option wo</option>
-                  <option value="option3">Option we</option>
-                </select>
-          </div>
-                <div className="flex flex-col md:flex-row gap-5 ">
-                  <div className=' flex-1 md:w-1/2 space-y-9'>
-                    <InputComponent
-                      placeholder="Select Title"
-                      label="Title"
-                      name="title"
-                      register={register}
-                      errors={errors}
-                    />
-                    <InputComponent
-                      label="Last Name"
-                      name="tenatFullName"
-                      register={register}
-                      errors={errors}
-                    />
-                  </div>
-                  <div className=' flex-1 md:w-1/2 space-y-9'>
-                    <InputComponent
-                      label="Phone number"
-                      name="phoneNumber"
-                      register={register}
-                      errors={errors}
-                    />
-                    <InputComponent
-                      label="Email"
-                      name="email"
-                      register={register}
-                      errors={errors}
-                    />
+              <FormContainer
+                title="Add tenant"
+                isColumn={false}
+                description="Create a new staff profile here"
+              >
+                <div className="flex flex-col gap-5">
+                  <CustomFormSelect
+                    control={form.control}
+                    name="selectProject"
+                    items={["Project 1", "Project 2"]}
+                    labelText="Select Project"
+                  />
+                  <CustomFormSelect
+                    control={form.control}
+                    name="selectFlat"
+                    items={["Flat 1", "Flat 2"]}
+                    labelText="Select Flat"
+                  />
+                  <div></div>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="title"
+                        placeholder="Enter title"
+                        label="Title"
+                      />
+
+                      <CustomFormField
+                        control={form.control}
+                        name="tenatFullName"
+                        placeholder="Enter full name"
+                        label="Full name"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="phoneNumber"
+                        placeholder="Enter phone number"
+                        label="Phone number"
+                      />
+                      <CustomFormField
+                        control={form.control}
+                        name="email"
+                        placeholder="Enter email"
+                        label="Email"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </FormContainer>
-          </motion.div>
-        )}
+              </FormContainer>
+            </motion.div>
+          )}
 
-        {currentStep === 1 && (
-          <motion.div
-            initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Address
-            </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
-              Address where you can receive mail.
-            </p>
+          {currentStep === 1 && (
+            <motion.div
+              initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <FormContainer
+                title="Address"
+                isColumn={false}
+                description="Create a new staff profile here"
+              >
+                <div className="flex flex-col gap-5">
+                  <CustomFormField
+                    control={form.control}
+                    name="annualRentCost"
+                    placeholder="Enter annual rent cost"
+                    label="Annual rent cost"
+                  />
+                  <CustomFormField
+                    control={form.control}
+                    name="rentPayment"
+                    placeholder="Enter rent payment"
+                    label="Rent payment"
+                  />
+                  <CustomFormField
+                    control={form.control}
+                    name="setReminder"
+                    placeholder="Enter set reminder"
+                    label="Set reminder"
+                  />
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"></div>
-          </motion.div>
-        )}
-      </form>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormSelect
+                        control={form.control}
+                        name="feeType"
+                        items={["Type 1", "Type 2"]}
+                        labelText="Fee type"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="value"
+                        placeholder="Enter value"
+                        label="Value"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </FormContainer>
+            </motion.div>
+          )}
+
+          {currentStep === 2 && (
+            <>
+              <h2 className="text-base font-semibold leading-7 text-gray-900">
+                Complete
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                Thank you for your submission.
+              </p>
+            </>
+          )}
+        </form>
+      </Form>
       {/* Navigation */}
-      <StepNavigation
-        steps={AddTenantFormSteps}
+      <StepBottomNav
+        steps={steps}
         currentStep={currentStep}
         next={next}
         prev={prev}

@@ -16,7 +16,7 @@ export default function ManageClientPage() {
     queryKey: ["get all clients"],
     queryFn: async () => {
       try {
-        const response = await api.get<ApiResponse<IClientData>>("/client");
+        const response = await api.get<ApiResponse<IClientData[]>>("/client");
         setClientData(response.data.data);
         setTableData(response.data.data);
         return response.data.data;

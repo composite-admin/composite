@@ -52,14 +52,12 @@ const InputComponent = <TFormValues extends FieldValues>({
           type={type}
           id={String(name)}
           withIcon={false}
-          {...register && register(name)}
+          {...(register && register(name))}
           placeholder={placeholder}
           autoComplete={autoComplete}
           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
         />
-        {/* {errors?[name].message && (
-          <p className="mt-2 text-sm text-red-400">{errors[name]?.message}</p>
-        )} */}
+        {errors && <p className="text-red-500">{errors[name]?.message}</p>}
       </div>
     </div>
   );
@@ -67,50 +65,40 @@ const InputComponent = <TFormValues extends FieldValues>({
 
 export default InputComponent;
 
-
-
-  const FormSelect = <TFormValues extends FieldValues>({
-    label,
-    name,
-    register,
-    errors,
-    options,
-    placeholder,
-  }: FormSelectProps<TFormValues>) => {
-    return (
-      <div className="sm:col-span-3">
-        <label
-          htmlFor={String(name)}
-          className="block text-sm font-medium leading-6 text-gray-900"
-        >
-          {label}
-        </label>
-        <div className="mt-2">
-          <Select
-            {...register(name)}
-            defaultValue={placeholder}
-            onValueChange={(value) => {
-              register(name).onChange({ target: { value } });
-            }}
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors[name]?.message && (
-            <p className="mt-2 text-sm text-red-400">{errors[name]?.message}</p>
-          )}
-        </div>
+const FormSelect = <TFormValues extends FieldValues>({
+  label,
+  name,
+  register,
+  errors,
+  options,
+  placeholder,
+}: FormSelectProps<TFormValues>) => {
+  return (
+    <div className="sm:col-span-3">
+      <label
+        htmlFor={label}
+        className="block text-sm font-medium leading-6 text-gray-900"
+      >
+        {label}
+      </label>
+      <div className="mt-2">
+        <Select {...(register && register(name))}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {errors && <p className="text-red-500">{errors[name]?.message}</p>}
       </div>
-    );
-  };
+    </div>
+  );
+};
   
   interface FormTextareaProps<TFormValues extends FieldValues> {
     label: string;
