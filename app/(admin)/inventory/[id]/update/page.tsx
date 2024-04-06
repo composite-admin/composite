@@ -67,7 +67,7 @@ const UpdateInventory = (props: any) => {
                             Description
                         </p>
 
-                        <input type="text" name="description" value={formData?.name} onChange={handleInputChange} />
+                        <input type="text" name="name" value={formData?.name} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col">
@@ -83,7 +83,7 @@ const UpdateInventory = (props: any) => {
                             Quantity
                         </p>
 
-                        <input type="text" name="quantity" value={formData?.quantity} onChange={handleInputChange} />
+                        <input type="number" name="quantity" value={formData?.quantity} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col">
@@ -91,7 +91,7 @@ const UpdateInventory = (props: any) => {
                             Unit Price
                         </p>
 
-                        <input type="text" name="unit_price" value={formData?.unit_price} onChange={handleInputChange} />
+                        <input type="number" name="unit_price" value={formData?.unit_price} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col col-span-2">

@@ -11,6 +11,7 @@ import StartUpIcon from '@/components/icons/StartUpIcon'
 import { useRouter, useParams } from 'next/navigation'
 import useProjectActionsStore from "@/store/actions/projectActions"
 import Image from 'next/image'
+import SwitchTabs, { Key } from '@/components/ui/switchTabs'
 
 const SingleProject = () => {
     const onOpenAddStakeHolder = useAddStakeHolderModal(state => state.onOpen);
@@ -88,6 +89,45 @@ const SingleProject = () => {
         }
     }, [getProjectById, params.id]);
 
+    const keys: Key[] = [
+        {
+          title: "Project Cost",
+          component: null
+        },
+        {
+          title: "Project Team",
+          component: null
+        },
+        {
+            title: "Startup Cost",
+            component: null
+          },
+          {
+            title: "Stakeholder",
+            component: null
+          },
+          {
+            title: "Contractor",
+            component: null
+          },
+          {
+            title: "Workers",
+            component: null
+          },
+          {
+            title: "Material",
+            component: null
+          },
+          {
+            title: "Tools and Machinery",
+            component: null
+          },
+          {
+            title: "Cash Advanced",
+            component: null
+          }
+      ]
+
     return (
         <>
             <GoBack />
@@ -157,6 +197,8 @@ const SingleProject = () => {
                 </div>
 
             </div>
+
+            <SwitchTabs keys={keys} />
 
             <DataTable columns={columns} data={projects.data ? projects.data : []} clickAction={() => { }} />
         </>

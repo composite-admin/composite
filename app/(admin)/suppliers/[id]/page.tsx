@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { columns } from '../columns'
 import { useRouter, useParams } from 'next/navigation'
 import useSuppliersActionsStore from "@/store/actions/suppliersActions"
+import SwitchTabs, { Key } from '@/components/ui/switchTabs'
 
 const SingleSupplier = () => {
   const router = useRouter()
@@ -30,6 +31,17 @@ const SingleSupplier = () => {
       getSupplierById(params.id);
     }
   }, [getSupplierById, params.id]);
+
+  const keys: Key[] = [
+    {
+      title: "Materials",
+      component: null
+    },
+    {
+      title: "Tools and Machine",
+      component: null
+    }
+  ]
 
   return (
     <div>
@@ -105,7 +117,9 @@ const SingleSupplier = () => {
 
       </div>
 
-      <DataTable columns={columns} data={suppliers.data ? suppliers.data : []} clickAction={() => { }} />
+      <SwitchTabs keys={keys} />
+
+      <DataTable showSearch={false} columns={columns} data={suppliers.data ? suppliers.data : []} clickAction={() => { }} />
     </div>
   )
 }
