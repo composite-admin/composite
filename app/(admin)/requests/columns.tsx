@@ -10,6 +10,25 @@ import Link from "next/link";
 
 export const columns: ColumnDef<IRequestData>[] = [
   {
+    accessorKey: "request_type",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Request Type" />;
+    },
+    cell: ({ row }) => {
+      const { request_type, request_code } = row.original;
+      return (
+        <div className="flex flex-col">
+          <span className="w-28 truncate underline text-primaryLight-500 font-semibold">
+            {request_type}
+          </span>
+          <span className="uppercase text-textColor font-semibold">
+            {request_code}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "project_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Project Name" />;
