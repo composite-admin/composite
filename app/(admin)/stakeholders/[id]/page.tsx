@@ -32,7 +32,7 @@ const SingleStakeholder = () => {
             <GoBack />
 
             <div>
-                <PageHead headText={selectedItem && selectedItem.stakeholder_name} subText={selectedItem && selectedItem.stakeholder_code} buttonText='Edit Stakeholder' buttonAction={() => router.push("/Stakeholders/23/edit")} />
+                <PageHead headText={selectedItem && selectedItem.stakeholder_name} subText={selectedItem && selectedItem.stakeholder_code} buttonText='Edit Stakeholder' buttonAction={() => selectedItem && router.push(`/stakeholders/${selectedItem.id}/edit`)} />
 
                 <div className='gap-5 my-10'>
 

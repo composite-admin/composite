@@ -73,7 +73,7 @@ const NewInventory = () => {
                             Quantity
                         </p>
 
-                        <input type="text" name="quantity" value={formData.quantity} onChange={handleInputChange} />
+                        <input type="number" name="quantity" value={formData.quantity} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col">
@@ -81,7 +81,7 @@ const NewInventory = () => {
                             Unit Price
                         </p>
 
-                        <input type="text" name="unit_price" value={formData.unit_price} onChange={handleInputChange} />
+                        <input type="number" name="unit_price" value={formData.unit_price} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col col-span-2">
