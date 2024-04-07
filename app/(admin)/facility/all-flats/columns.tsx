@@ -7,92 +7,97 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import EditCell from "./EditCell";
 import { useEditFlatModal } from "@/store/modals/useCreateModal";
+import { IFlatData } from "@/utils/types";
+import { formatDate } from "@/utils/formatDate";
 
-export type AllFlatsType = {
-  flatCode: string;
-  projectName: string;
-  flatDescription: string;
-  dateAdded: string;
-  status: "occupied" | "vacant";
-  actions: string;
-};
-
-export const columns: ColumnDef<AllFlatsType>[] = [
+export const columns: ColumnDef<IFlatData>[] = [
   {
-    accessorKey: "flatCode",
+    accessorKey: "flat_code",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Flat Code" withSort={false} />
       );
     },
-
     cell: ({ row }) => {
       return (
-        <div className="flex gap-2 items-center">
-          <AvatarComponent />
-          <div className="flex-col flex">
-            <span className="font-semibold">{row.getValue("flatCode")}</span>
-          </div>
-        </div>
+        <p className="text-primaryLight underline uppercase font-semibold">
+          {row.getValue("flat_code")}
+        </p>
       );
     },
   },
   {
-    accessorKey: "projectName",
+    accessorKey: "project_name",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Project Name" />;
+      return (
+        <ColumnHeader column={column} title="Project Name" withSort={false} />
+      );
     },
   },
   {
-    accessorKey: "flatDescription",
+    accessorKey: "flat_desc",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Flat Description" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Flat Description"
+          withSort={false}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      return <span>{row.getValue("flat_desc")}</span>;
     },
   },
   {
-    accessorKey: "dateAdded",
+    accessorKey: "createdAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Date Added" />;
+      return (
+        <ColumnHeader column={column} title="Created At" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      const { createdAt } = row.original;
+      const formattedDate = formatDate(createdAt);
+      return <span>{formattedDate}</span>;
     },
   },
   {
     accessorKey: "status",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Website" withSort={false} />;
+      return <ColumnHeader column={column} title="Status" withSort={false} />;
     },
-
     cell: ({ row }) => {
-      let currentStatus = String(row.getValue("status"));
-
+      const status = row.getValue("status") as IFlatData["status"];
       return (
         <div className="flex gap-2 items-center">
           <span
             className={`capitalize p-2 w-max font-semibold rounded-3xl text-xs ${
-              currentStatus === "occupied"
+              status === "active"
                 ? "text-green-500 bg-[#E7F6EC]"
                 : "text-[#865503] bg-[#FEF6E7]"
             }`}
           >
-            {currentStatus}
+            {status}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "actions",
+    accessorKey: "flat_id",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
+      return <ColumnHeader column={column} title="Action" withSort={false} />;
     },
     cell: ({ row }) => {
-      let action = String(row.getValue("actions"));
+      let { flat_id } = row.original;
       return (
         <>
           <EditCellWithModal
             isLink={false}
-            action={action}
+            action={String(flat_id)}
             onClick={() => {
-              console.log(action);
+              console.log(flat_id);
               // No need to call handleEditClick here, it's handled by the HOC
             }}
           />

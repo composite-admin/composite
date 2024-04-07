@@ -1,9 +1,32 @@
 /* eslint-disable react/no-unescaped-entities */
+"use client";
 import DashboardCard from "@/components/Dashboard/DashboardCard";
 import SideCards from "@/components/Dashboard/SideCards";
 import GoBack from "@/components/shared/GoBack";
+import { api } from "@/config/api";
+import { ITenantData, ITenantDetails } from "@/utils/types";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-export default function TenantPage() {
+export default function TenantPage({ params }: { params: { id: string } }) {
+  const { data, isPending, error } = useQuery({
+    queryKey: ["get tenant details"],
+    queryFn: async () => {
+      try {
+        const response = await api.get<ITenantDetails>(`/tenants/${params.id}`);
+        console.log(response.data.data);
+
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+
   return (
     <div>
       <GoBack />
