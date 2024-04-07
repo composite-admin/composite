@@ -7,9 +7,9 @@ const useGetAllReport : any = create((set: any) => ({
   }));
 
 export const useGetEachReport : any = create((set: any) => ({
-  singleReportData: null,
+  singleReportData: {},
   setSingleReportData: (singleReportData: any) => set({ singleReportData }),
-  clearData: () => set({ singleReportData: null }),
+  clearData: () => set({ singleReportData: {} }),
 }));
 
 export const useGetNewReport : any = create((set: any) => ({

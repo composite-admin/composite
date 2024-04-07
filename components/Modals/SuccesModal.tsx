@@ -2,9 +2,11 @@ import { useSuccessModal } from "@/store/modals/useCreateModal";
 import ManageStaffModalIcon from "../icons/ManageStaffModalIcon";
 import { Modal } from "../shared/Modal";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 export default function SuccesModal() {
     const {isOpen, onClose} = useSuccessModal()
+    const router = useRouter()
   return (
     <Modal
       title="Successful"
@@ -24,7 +26,7 @@ export default function SuccesModal() {
           </p>
         </div>
         <div>
-          <Button className='w-full'>Done</Button>
+          <Button className='w-full' onClick={()=> router.back()}>Done</Button>
         </div>
       </div>
     </Modal>

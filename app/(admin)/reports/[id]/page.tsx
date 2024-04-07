@@ -13,13 +13,13 @@ const SingleReport = (props: any) => {
   const router = useRouter();
   let id = props.params.id;
 
-  const { action, isError, isSuccess, error } = useFetchEachReportData();
+  const { eachReportAction, isError, isSuccess, error } = useFetchEachReportData();
 
   const { singleReportData } = useGetEachReport();
 
 
   useEffect(() => {
-    action(id);
+    eachReportAction(id);
   }, [])
 
   const [data, setData] = useState<any>({});
@@ -36,7 +36,7 @@ const SingleReport = (props: any) => {
 
      {
       data &&
-      <ViewDetails keys={keys} title='Report Details' dateSubmitted='6th July, 2023' editAction={() => router.push("/reports/78/edit")} data={data}>
+      <ViewDetails keys={keys} title='Report Details' dateSubmitted='6th July, 2023' editAction={() => router.push(`/reports/${id}/edit`)} data={data}>
       <div className="grid grid-cols-[1fr_3fr] my-10">
         <div className="flex gap-3 flex-col">
           <div className="">

@@ -28,7 +28,7 @@ const useFetchEachReportData = () => {
         }
     });
 
-    return { action: mutate, isSuccess, isError, error };
+    return { eachReportAction: mutate, isSuccess, isError, error };
 };
 
 export default useFetchEachReportData;

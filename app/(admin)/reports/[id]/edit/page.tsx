@@ -1,38 +1,59 @@
 "use client";
 import GoBack from "@/components/shared/GoBack";
 import useAddReportMutation from "@/mutations/AddReportMutation";
+import useFetchEachReportData from "@/mutations/EachReportMutation";
 import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
+import { useGetEachReport } from "@/store/report/ReportStore";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { HiBellAlert } from "react-icons/hi2";
 
-export default function ReportEditPage() {
+export default function ReportEditPage(props: any) {
   const onOpen = useSuccessModal((state) => state.onOpen);
   const router = useRouter();
 
-  const {action, isSuccess} = useAddReportMutation()
+  let id = props.params.id;
 
-  const [formData, setFormData] = useState({
-    report_type: "",
-    project_name: "",
-    report_summary: "",
-    project_supervisor: "",
-    challenges: "",
-    solutions: "",
-    recommendation: "",
-    materials_on_site: "",
-    visitors: "",
-    weather: "",
-    photograph_id: "",
-  });
+  const { eachReportAction } = useFetchEachReportData();
+
+  const { singleReportData } = useGetEachReport();
+
+
+  useEffect(() => {
+    eachReportAction(id);
+  }, [])
+
+  const [formData, setFormData] = useState(singleReportData)
+
+  useEffect(() => {
+    setFormData(singleReportData)
+    console.log(singleReportData)
+  }, [singleReportData])
+
+  // const [formData, setFormData] = useState({
+  //   report_type: "",
+  //   project_name: "",
+  //   report_summary: "",
+  //   project_supervisor: "",
+  //   challenges: "",
+  //   solutions: "",
+  //   recommendation: "",
+  //   materials_on_site: "",
+  //   visitors: "",
+  //   weather: "",
+  //   photograph_id: "",
+  // });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
+    setFormData((prevState: any) => ({
       ...prevState,
       [name]: value,
     }));
   };
+
+
+  const { action, isSuccess } = useAddReportMutation()
 
   const handleSubmit = () => {
     // Handle form submission here
@@ -40,8 +61,8 @@ export default function ReportEditPage() {
     action(formData)
   };
 
-  useEffect(()=> {
-    if(isSuccess){
+  useEffect(() => {
+    if (isSuccess) {
       onOpen()
     }
   }, [isSuccess])
@@ -73,39 +94,21 @@ export default function ReportEditPage() {
             <div>
               <p className="value">Report Type</p>
               <div className="flex items-center gap-5 radio my-2">
-                <div>
-                  <input
-                    type="radio"
-                    name="report_type"
-                    id="Daily"
-                    value="daily"
-                    onChange={handleInputChange}
-                  />
-                  <p>Daily</p>
-                </div>
+                    <div>
+                        <input type="radio" name="report_type" id="Daily" checked={formData.report_type == "Daily"} value="Daily" onChange={handleInputChange} />
+                        <label htmlFor="Daily">Daily</label>
+                    </div>
 
-                <div>
-                  <input
-                    type="radio"
-                    name="report_type"
-                    id="Weekly"
-                    value="weekly"
-                    onChange={handleInputChange}
-                  />
-                  <p>Weekly</p>
-                </div>
+                    <div>
+                        <input type="radio" name="report_type" id="Weekly" checked={formData.report_type == "Weekly"} value="Weekly" onChange={handleInputChange} />
+                        <label htmlFor="Weekly">Weekly</label>
+                    </div>
 
-                <div>
-                  <input
-                    type="radio"
-                    name="report_type"
-                    id="Monthly"
-                    value="monthly"
-                    onChange={handleInputChange}
-                  />
-                  <p>Monthly</p>
+                    <div>
+                        <input type="radio" name="report_type" id="Monthly" checked={formData.report_type == "Monthly"} value="Monthly" onChange={handleInputChange} />
+                        <label htmlFor="Monthly">Monthly</label>
+                    </div>
                 </div>
-              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-5 edit">
