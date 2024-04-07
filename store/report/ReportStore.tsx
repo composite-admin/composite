@@ -11,5 +11,11 @@ export const useGetEachReport : any = create((set: any) => ({
   setSingleReportData: (singleReportData: any) => set({ singleReportData }),
   clearData: () => set({ singleReportData: null }),
 }));
+
+export const useGetNewReport : any = create((set: any) => ({
+  newReport: {},
+  setNewReport: (newReport: any) => set({ newReport }),
+  clearData: () => set({ newReport: {} }),
+}));
   
   export default useGetAllReport;

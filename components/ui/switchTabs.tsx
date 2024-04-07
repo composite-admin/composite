@@ -18,7 +18,7 @@ const SwitchTabs = ({ keys }: TabsInterface) => {
             {
                 keys.map((key: any, i: number) => {
                     return (
-                        <div key={i} className={`text-center py-3 text-[12px] ${i == active && "bg-outline-300 rounded-l-2xl"} cursor-pointer`}>
+                        <div key={i} className={`text-center py-3 text-[12px] ${i == active && "bg-outline-300 rounded-2xl"} cursor-pointer`} onClick={() => setActive(i)}>
                             {key.title}
                         </div>
                     )
