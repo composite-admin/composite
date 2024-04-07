@@ -123,10 +123,10 @@ export const columns: ColumnDef<ITenantData>[] = [
       return <ColumnHeader column={column} title={"View"} withSort={false} />;
     },
     cell: ({ row }) => {
-      let href = String(row.getValue("viewAction"));
+      let { tenant_id } = row.original;
       return (
         <>
-          <ViewCell href={`facility/tenant/${href}`} />
+          <ViewCell href={`facility/tenant/${tenant_id}`} isLink={true} />
         </>
       );
     },
