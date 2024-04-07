@@ -101,11 +101,7 @@ export const columns: ColumnDef<ContractorType>[] = [
             // const onOpen = useAddWorkerModal(state => state.onOpen);
             return (
                 <div className="">
-                    <Link href={"/project/add-worker"}>
-                    <div className="cursor-pointer" >
-                        <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
-                    </div>
-                </Link>
+                    
                 <Link href={`/contractors/${row.original["id"]}/edit`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
               </div>
             );

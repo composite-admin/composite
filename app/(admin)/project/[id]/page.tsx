@@ -91,42 +91,42 @@ const SingleProject = () => {
 
     const keys: Key[] = [
         {
-          title: "Project Cost",
-          component: null
+            title: "Project Cost",
+            component: null
         },
         {
-          title: "Project Team",
-          component: null
+            title: "Project Team",
+            component: null
         },
         {
             title: "Startup Cost",
             component: null
-          },
-          {
+        },
+        {
             title: "Stakeholder",
             component: null
-          },
-          {
+        },
+        {
             title: "Contractor",
             component: null
-          },
-          {
+        },
+        {
             title: "Workers",
             component: null
-          },
-          {
+        },
+        {
             title: "Material",
             component: null
-          },
-          {
+        },
+        {
             title: "Tools and Machinery",
             component: null
-          },
-          {
+        },
+        {
             title: "Cash Advanced",
             component: null
-          }
-      ]
+        }
+    ]
 
     return (
         <>
