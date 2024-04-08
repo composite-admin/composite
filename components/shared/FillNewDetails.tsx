@@ -123,7 +123,7 @@ const FillNewDetails = (props: any) => {
                     <textarea name="status" value={formData.status} onChange={handleInputChange}></textarea>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                {/* <div className="flex flex-col gap-2">
                     <p className="value">Submitted By</p>
                     <textarea name="submitted_by" value={formData.submitted_by} onChange={handleInputChange}></textarea>
                 </div>
@@ -131,7 +131,7 @@ const FillNewDetails = (props: any) => {
                 <div className="flex flex-col gap-2">
                     <p className="value">Submitted On</p>
                     <textarea name="submitted_on" value={formData.submitted_on} onChange={handleInputChange}></textarea>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col gap-2">
                     <p className="value">Visitor</p>
