@@ -174,7 +174,7 @@ export interface IRequestData {
   worker_name: string;
   worker_code: string;
   worker_service: string;
-  amount: string;
+  amount: number;
   job_code: string;
   comment: string;
   response: string;
@@ -189,7 +189,7 @@ export interface IRequestData {
   tool_name: string;
   approved_by: string;
   approved_on: string;
-  approved_amount: string;
+  approved_amount: number;
   approved_quantity: number;
   approved_unit_price: string;
   approved_total_amount: string;

@@ -7,7 +7,7 @@ import { formatDate } from "@/utils/formatDate";
 import { ApiResponse, IManageStaffData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { gridDataType } from "../../../../../utils/types";
+
 
 interface IProps {
   params: { id: string };
@@ -33,6 +33,8 @@ export default function ManageStaffPage({ params }: IProps) {
       }
     },
   });
+  const date = staffDetails?.createdAt;
+  const formattedDate = formatDate(date as string);
   return (
     <div className="bg-white border-borderColor shadow-lg rounded-lg max-w-4xl">
       <div className="p-5">
