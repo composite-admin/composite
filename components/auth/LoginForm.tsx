@@ -48,6 +48,7 @@ export default function LoginForm() {
               name="email"
               control={form.control}
               placeholder="Email Address"
+              label="Email Address"
               icon={<RiMailCloseLine className=" text-primaryLight-500" />}
               withIcon
             />
@@ -56,6 +57,7 @@ export default function LoginForm() {
               type="password"
               control={form.control}
               name="password"
+              label="Password"
               placeholder="Enter Password"
               icon={<RiLock2Fill className=" text-primaryLight-500" />}
               withIcon

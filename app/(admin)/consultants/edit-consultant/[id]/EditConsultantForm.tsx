@@ -1,36 +1,50 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { CustomFormField, CustomFormSelect } from "../shared/FormComponent";
-import FormContainer from "../shared/FormContainer";
-import { Form } from "../ui/form";
-import { Button } from "../ui/button";
+import {
+  CustomFormField,
+  CustomFormSelect,
+} from "@/components/shared/FormComponent";
+import FormContainer from "@/components/shared/FormContainer";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddConsultantSchema, AddConsultantType } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "@/config/api";
+import { IConsultantDetailsData } from "@/utils/types";
+const EditConsultantSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, { message: "Email is required" })
+      .email({ message: "Email is invalid" }),
+    website: z.string().min(1, { message: "Website is required" }),
+  })
+  .required();
 
-export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
-  const form = useForm<AddConsultantType>({
-    resolver: zodResolver(AddConsultantSchema),
+type EditConsultantType = z.infer<typeof EditConsultantSchema>;
+
+export default function EditConsultantForm({ data }: IConsultantDetailsData) {
+  const form = useForm<EditConsultantType>({
+    resolver: zodResolver(EditConsultantSchema),
     defaultValues: {
-      name: "",
-      contact: "",
       email: "",
-      type: "",
       website: "",
     },
   });
 
   const { mutate, isPending, isSuccess, isError, error } = useMutation({
-    mutationKey: ["add consultant"],
-    mutationFn: async (data: { [Key in keyof AddConsultantType]: string }) => {
+    mutationKey: ["edit consultant", data.id],
+    mutationFn: async (args: { formData: EditConsultantType; id: number }) => {
       try {
-        const response = await api.post("/consultants", data);
-        return response.data;
-      } catch (error) {
+        const response = await api.put(
+          `/consultants/${args.id}`,
+          args.formData
+        );
+        return response.data.data;
+      } catch (err) {
         if (axios.isAxiosError(error) && error.response) {
           throw new Error(error.response.data.message);
         } else {
@@ -40,12 +54,12 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
     },
   });
 
-  const onSubmit = (data: AddConsultantType) => {
-    mutate(data);
+  const onSubmit = (formData: EditConsultantType) => {
+    mutate({ formData, id: data.id });
   };
   return (
     <FormContainer
-      title={isEdit ? "Edit Consultant" : "Add New Consultant"}
+      title="Edit Consultant"
       description=""
       isColumn={true}
       className="w-full lg:max-w-3xl px-8"
@@ -59,21 +73,27 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
                 placeholder="Enter full name"
                 control={form.control}
                 label="Full name"
+                disabled
+                value={data.name}
               />
               <CustomFormField
                 control={form.control}
                 name="contact"
                 placeholder="Enter phone number"
                 label="contact"
+                disabled
+                value={data.contact}
               />
             </div>
             <div className="lg:w-1/2 flex flex-col gap-5">
               <CustomFormSelect
                 name="type"
                 items={["Type 1", "Type 2"]}
-                placeholder="select"
+                placeholder={data.type}
+                disabled
                 control={form.control}
                 labelText="Type"
+                value={data.type}
               />
               <CustomFormField
                 name="email"

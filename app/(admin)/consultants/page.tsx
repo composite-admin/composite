@@ -2,10 +2,16 @@
 
 import { DataTable } from "@/components/shared/DataTable";
 import { columns } from "./columns";
-import { data } from "./data";
+
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
+import { useQuery } from "@tanstack/react-query";
+import { getAllConsultantData } from "@/store/consultants/useConsultantStore";
 
 export default function ConsultantsPage() {
+  const { data, error, isPending } = useQuery({
+    queryKey: ["get all consultants"],
+    queryFn: getAllConsultantData,
+  });
   return (
     <div className="space-y-8">
       <div>
@@ -16,7 +22,7 @@ export default function ConsultantsPage() {
           href="consultants/add-consultant"
         />
       </div>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} isLoading={isPending} data={data ?? []} />
     </div>
   );
 }

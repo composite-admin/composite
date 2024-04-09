@@ -1,8 +1,37 @@
+"use client";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import GoBack from "@/components/shared/GoBack";
+import { api } from "@/config/api";
+import { IConsultantDetailsData } from "@/utils/types";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import Link from "next/link";
 
-export default function page() {
+type Params = {
+  params: {
+    id: string;
+  };
+};
+
+export default function ConsultantDetailsPage({ params }: Params) {
+  const { data, isPending, error } = useQuery({
+    queryKey: ["get consultant details"],
+    queryFn: async () => {
+      try {
+        const response = await api.get<IConsultantDetailsData>(
+          `/consultants/${params.id}`
+        );
+
+        return response.data.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
   return (
     <>
       <GoBack />
@@ -10,10 +39,10 @@ export default function page() {
         <div className="pt-10 flex gap-2.5">
           <AvatarComponent height="h-16" width="w-16" />
           <div className="flex flex-col">
-            <span className="text-responsive font-semibold">
-              Amarachi Okoro
+            <span className="text-responsive font-semibold">{data?.name}</span>
+            <span className="text-xs text-subtext">
+              {data?.consultant_code}
             </span>
-            <span className="text-xs text-subtext">DIN28372928</span>
           </div>
         </div>
 
@@ -23,17 +52,31 @@ export default function page() {
             <h2 className="border-b p-7 text-lg font-semibold">
               Consultant Details
             </h2>
-            <div className="p-7 flex flex-col gap-5 md:flex-row pb-28">
-              {[1, 1, 1, 1].map((i) => {
-                return (
-                  <div className="flex flex-col gap-1 md:w-1/4 flex-1 " key={i}>
-                    <span>Type</span>
-                    <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
-                      Structural Engineer
-                    </span>
-                  </div>
-                );
-              })}
+            <div className="p-7 flex flex-col justify-between flex-wrap gap-5 md:flex-row pb-28">
+              <div className="flex flex-col gap-1 ">
+                <span>Type:</span>
+                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                  {data?.type}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 ">
+                <span>Contact Mobile:</span>
+                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                  {data?.contact}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span>Email:</span>
+                <p className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                  {data?.email}
+                </p>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span>Website:</span>
+                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                  {data?.website}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -48,7 +91,7 @@ export default function page() {
                   <AvatarComponent />
                 </div>
                 <Link
-                  href="/consultants/edit-consultant"
+                  href={`/consultants/edit-consultant/ ${data?.id}`}
                   className="text-primaryLight-500 font-semibold"
                 >
                   <span className="text-sm">Edit Consultant Information</span>

@@ -312,3 +312,49 @@ export interface IFlatData {
   createdAt: string;
   updatedAt: string;
 }
+
+
+export interface IConsultantData {
+  id: number;
+  consultant_code: string;
+  name: string;
+  type: string;
+  contact: string;
+  email: string;
+  website: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IConsultantDetailsData {
+  data: {
+    id: number;
+    consultant_code: string;
+    name: string;
+    type: string;
+    contact: string;
+    email: string;
+    website: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message?: string;
+}
+
+export const AddConsultantSchema = z
+  .object({
+    name: z
+      .string()
+      .min(3, { message: "Full name must be at least 3 characters" }),
+    contact: z
+      .string()
+      .min(10, { message: "Phone number must be at least 10 characters" }),
+    email: z.string().email({ message: "Invalid email" }),
+    type: z.string().optional(),
+    website: z
+      .string()
+      .min(6, { message: "This website might not be valid, please try again" }),
+  })
+  .required();
+
+export type AddConsultantType = z.infer<typeof AddConsultantSchema>;

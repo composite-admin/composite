@@ -40,7 +40,11 @@ export default function ManageClientPage() {
           href="manage-client/add-new-client"
         />
       </div>
-      <DataTable columns={columns} data={clientData || []} />
+      <DataTable
+        columns={columns}
+        isLoading={isPending}
+        data={clientData || []}
+      />
     </div>
   );
 }

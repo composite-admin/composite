@@ -13,7 +13,9 @@ export default function TenantPage({ params }: { params: { id: string } }) {
     queryKey: ["get tenant details"],
     queryFn: async () => {
       try {
-        const response = await api.get<ITenantDetails>(`/tenants/${params.id}`);
+        const response = await api.get<ITenantDetails>(
+          `/consultants/${params.id}`
+        );
         console.log(response.data.data);
 
         return response.data;
