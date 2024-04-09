@@ -3,6 +3,7 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
+import { convertDateFormatToAllString } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
@@ -41,6 +42,13 @@ export const columns: ColumnDef<ReportType>[] = [
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Submitted On" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">{convertDateFormatToAllString(row.getValue("submitted_on"))}</span>
+        </div>
       );
     },
   },

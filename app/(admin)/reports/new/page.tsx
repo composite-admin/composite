@@ -42,7 +42,6 @@ const NewReportsPage = () => {
                                 <FillNewDetails setState={setIndex} setForm={setForm}/> :
                                 <UploadImages form={form} setForm={setForm}/>
                         }
-
                     </div>
                 </div>
             </div>

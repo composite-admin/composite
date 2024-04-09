@@ -1,3 +1,4 @@
+import { convertDateFormat, convertDateFormatToAllString, formatDateToString } from "@/utils/formatDate";
 import React from "react";
 
 export interface Keys {
@@ -13,7 +14,8 @@ interface KeysInterface {
   children?: any,
   overideHeader?: boolean,
   headerChildren?: any,
-  data?: any
+  data?: any,
+
 }
 
 const ViewDetails = React.forwardRef<any, KeysInterface>(
@@ -33,13 +35,13 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
                     {title}
                   </h2>
                   <p className="text-sm text-textColor">
-                    Submitted on {dateSubmitted}
+                    Submitted on {formatDateToString(data?.createdAt)}
                   </p>
                   <button
                     className="bg-primaryLight text-sm text-white rounded-md py-2 px-5 w-fit"
                     onClick={editAction}
                   >
-                    Edit Report
+                    Edit {title}
                   </button>
                 </div>
             }
@@ -51,10 +53,17 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
             data &&
             <div className="grid grid-cols-2 gap-10 info">
               {keys.map((key: Keys, i: number) => {
+                let date;
+                if (key.key == "createdAt"){
+                  date = formatDateToString(data?.createdAt)
+                  console.log(date)
+                }
+                  
+                  
                 return (
                   <div key={i}>
                     <p className="key">{key.text}</p>
-                    <p className="value">{data[key.key]}</p>
+                    <p className="value">{!date ? data[key.key]: date}</p>
                   </div>
                 );
               })}

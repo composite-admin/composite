@@ -19,7 +19,7 @@ const NewInventory = () => {
         comment: ''
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
@@ -65,7 +65,11 @@ const NewInventory = () => {
                             Type
                         </p>
 
-                        <input type="text" name="type" value={formData.type} onChange={handleInputChange} />
+                        {/* <input type="text" name="type"  /> */}
+                        <select name="type" id="" onChange={handleInputChange} value={formData.type} >
+                            <option value="Tools">Tools</option>
+                            <option value="Machines">Machines</option>
+                        </select>
                     </div>
 
                     <div className="flex flex-col">
