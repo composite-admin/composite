@@ -9,7 +9,7 @@ export interface Key {
 
 interface TabsInterface {
     keys: Key[],
-    setComp: any
+    setComp?: any
 }
 
 const SwitchTabs = ({ keys, setComp }: TabsInterface) => {
