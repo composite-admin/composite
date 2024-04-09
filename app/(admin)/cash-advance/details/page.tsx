@@ -93,7 +93,7 @@ export default function CashAdvanceDetailsPage() {
         </div>
       </div>
       <div className="py-5">
-        <DataTable columns={columns} data={data} />
+        {/* <DataTable columns={columns} data={data } /> */}
       </div>
     </div>
   );
