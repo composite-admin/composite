@@ -19,6 +19,9 @@ import { AddStaffFormSchema, addStaffType } from "./addStaffFormtypes";
 import { nigerianStates } from "@/utils/types";
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import { api } from "@/config/api";
+import axios from "axios";
 
 type Inputs = z.infer<typeof AddStaffFormSchema>;
 
@@ -58,13 +61,61 @@ export default function AddStaffForm() {
     },
   });
 
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationKey: ["add consultant"],
+    mutationFn: async (data: { [Key in keyof addStaffType]: string }) => {
+      try {
+        const response = await api.post("/staffs", {
+          firstname: data.firstName,
+          middlename: data.middleName,
+          lastname: data.lastName,
+          dob: "test date",
+          stateOfOrigin: data.stateOfOrigin,
+          lga: data.lga,
+          sex: data.gender,
+          marital_status: data.maritalStatus,
+          address: data.address,
+          home_phone: data.homePhone,
+          cell_phone: data.cellPhone,
+          email: data.email,
+          nextOfKin: data.nextOfKinFullName,
+          relationship: data.relationship,
+          addressOfNOK: data.addressOfNextOfKin,
+          emailOfNOK: data.emailnextOfKin,
+          phoneOfNOK: data.cellPhoneOfNextOfKin,
+          date_employed: "2022-01-01",
+          deptid: "test0001 ",
+          gradeid: "testgrade0001",
+          branchcode: "testbranch0001",
+          employee_status: "Active",
+          role: "Plumber", // this exists, need to know the type
+          staff_type: "Contractor", //this exists, need to know the type
+          bank_name: data.bankName,
+          account_name: data.accountName,
+          account_number: data.accountNumber,
+          password: data.password,
+          user_type: data.typeOfStaff,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+
   const processForm: SubmitHandler<Inputs> = (data, event) => {
     console.log(data);
     const { password, confirmPassword } = form.getValues();
 
     if (password !== confirmPassword) {
       console.log("passwords do not match");
+      return;
     }
+    mutate(data);
   };
 
   type FieldName = keyof Inputs;
