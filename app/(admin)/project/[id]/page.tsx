@@ -2,7 +2,7 @@
 import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { columns } from '../columns'
 import { data } from '../apartment/data'
 import { HiDocument } from 'react-icons/hi2'
@@ -12,6 +12,15 @@ import { useRouter, useParams } from 'next/navigation'
 import useProjectActionsStore from "@/store/actions/projectActions"
 import Image from 'next/image'
 import SwitchTabs, { Key } from '@/components/ui/switchTabs'
+import ProjectCost from '@/components/Project/ProjectCost'
+import ProjectTeam from '@/components/Project/ProjectTeam'
+import StartupCost from '@/components/Project/StartupCost'
+import Stakeholder from '@/components/Project/Stakeholder'
+import Contractor from '@/components/Project/Contractor.tsx'
+import Worker from '@/components/Project/Worker'
+import Materials from '@/components/Project/Materials'
+import ToolsAndMachine from '@/components/Project/ToolsAndMachine'
+import CashAdvanced from '@/components/Project/CashAdvanced'
 
 const SingleProject = () => {
     const onOpenAddStakeHolder = useAddStakeHolderModal(state => state.onOpen);
@@ -92,41 +101,43 @@ const SingleProject = () => {
     const keys: Key[] = [
         {
             title: "Project Cost",
-            component: null
+            component: <ProjectCost />
         },
         {
             title: "Project Team",
-            component: null
+            component: <ProjectTeam />
         },
         {
             title: "Startup Cost",
-            component: null
+            component: <StartupCost />
         },
         {
             title: "Stakeholder",
-            component: null
+            component: <Stakeholder />
         },
         {
             title: "Contractor",
-            component: null
+            component: <Contractor />
         },
         {
             title: "Workers",
-            component: null
+            component: <Worker />
         },
         {
             title: "Material",
-            component: null
+            component: <Materials />
         },
         {
             title: "Tools and Machinery",
-            component: null
+            component: <ToolsAndMachine />
         },
         {
             title: "Cash Advanced",
-            component: null
+            component: <CashAdvanced />
         }
     ]
+
+    const [comp, setComp] = useState(<ProjectCost />)
 
     return (
         <>
@@ -198,9 +209,12 @@ const SingleProject = () => {
 
             </div>
 
-            <SwitchTabs keys={keys} />
+            <SwitchTabs keys={keys} setComp={setComp} />
 
-            <DataTable columns={columns} data={projects.data ? projects.data : []} clickAction={() => { }} />
+            <div className='mt-10'>
+                {comp}
+            </div>
+
         </>
     )
 }
