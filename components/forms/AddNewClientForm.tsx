@@ -69,6 +69,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
       title="Add new client"
       description="Add new client here"
       isColumn
+      className="w-full lg:max-w-4xl"
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -78,16 +79,19 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
                 name="First name"
                 placeholder="Enter First name"
                 control={form.control}
+                label="First name"
               />
               <CustomFormField
                 name="Email"
                 placeholder="Enter email"
                 control={form.control}
+                label="Email"
               />
               <CustomFormField
                 control={form.control}
                 name="Phone number"
                 placeholder="Enter phone number"
+                label="Phone number"
               />
             </div>
             <div className="lg:w-1/2 flex flex-col gap-5">
@@ -95,17 +99,20 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
                 name="Last name"
                 placeholder="Enter Last name"
                 control={form.control}
+                label="Last name"
               />
               <CustomFormField
                 control={form.control}
                 name="Mobile number"
                 placeholder="Enter mobile number"
+                label="Mobile number"
               />
               <CustomFormSelect
                 name="State"
                 items={nigerianStates}
                 placeholder="select"
                 control={form.control}
+                label="State"
               />
             </div>
           </div>
@@ -113,6 +120,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
             name="Address"
             placeholder="Enter address"
             control={form.control}
+            label="Address"
           />
           <div className="flex flex-col md:flex-row gap-8 pt-8">
             <Button variant={"secondary"} className="w-full">

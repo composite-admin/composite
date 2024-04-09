@@ -16,8 +16,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../ui/input";
+import React from "react";
 
-type CustomFormFieldProps = {
+interface CustomFormFieldProps extends React.HTMLProps<HTMLInputElement> {
   name: string;
   placeholder?: string;
   control: Control<any>;
@@ -25,15 +26,15 @@ type CustomFormFieldProps = {
   label?: string;
   type?: string;
   icon?: React.ReactNode;
-};
+}
 
-type CustomFormSelectProps = {
+interface CustomFormSelectProps extends React.HTMLProps<HTMLSelectElement> {
   name: string;
   control: Control<any>;
   placeholder?: string;
   items: string[];
   labelText?: string;
-};
+}
 
 export function CustomFormField({
   name,
@@ -43,6 +44,7 @@ export function CustomFormField({
   icon,
   label,
   type,
+  ...props
 }: CustomFormFieldProps) {
   return (
     <FormField
@@ -58,6 +60,7 @@ export function CustomFormField({
               placeholder={placeholder}
               withIcon={withIcon}
               icon={icon}
+              {...props}
             />
           </FormControl>
           <FormMessage />
@@ -67,16 +70,18 @@ export function CustomFormField({
   );
 }
 
-type CustomFormTextareaFieldProps = {
+interface CustomFormTextareaFieldProps
+  extends React.HTMLProps<HTMLTextAreaElement> {
   name: string;
   control?: Control<any>;
   placeholder?: string;
-};
+}
 
 export function CustomFormTextareaField({
   name,
   control,
   placeholder,
+  ...props
 }: CustomFormTextareaFieldProps) {
   return (
     <FormField
@@ -86,16 +91,13 @@ export function CustomFormTextareaField({
         <FormItem>
           <FormLabel className="capitalize">{name}</FormLabel>
           <FormControl>
-            <Textarea
-              {...field}
-              placeholder={placeholder}
-            />
+            <Textarea {...field} {...props} placeholder={placeholder} />
           </FormControl>
           <FormMessage />
         </FormItem>
       )}
     />
-  )
+  );
 }
 
 export function CustomFormSelect({
@@ -103,6 +105,7 @@ export function CustomFormSelect({
   control,
   items,
   labelText,
+  ...props
 }: CustomFormSelectProps) {
   return (
     <FormField
@@ -117,10 +120,11 @@ export function CustomFormSelect({
             onValueChange={field.onChange}
             defaultValue={field.value}
             value={field.value}
+            disabled={props.disabled}
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue />
+                <SelectValue {...props} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

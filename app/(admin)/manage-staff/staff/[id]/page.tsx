@@ -33,8 +33,8 @@ export default function ManageStaffPage({ params }: IProps) {
       }
     },
   });
-  const date = staffDetails?.createdAt;
-  const formattedDate = formatDate(date as string);
+  // const date = staffDetails?.createdAt;
+  // const formattedDate = formatDate(date as string);
   return (
     <div className="bg-white border-borderColor shadow-lg rounded-lg max-w-4xl">
       <div className="p-5">
@@ -47,7 +47,8 @@ export default function ManageStaffPage({ params }: IProps) {
                 {staffDetails?.lastname}
               </span>
               <span className="text-xs text-textColor">
-                {/* Added on {formatDate(staffDetails?.createdAt as string)} */}
+                Added on{" "}
+                {staffDetails?.createdAt && formatDate(staffDetails?.createdAt)}
               </span>
             </div>
           </aside>

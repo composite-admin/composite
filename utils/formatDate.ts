@@ -1,10 +1,5 @@
-export function formatDate(dateString: string): string {
+export function formatDate(dateString: string) {
   const date = new Date(dateString);
-
-  if (isNaN(date.getTime())) {
-    throw new Error("Invalid date string");
-  }
-
   const options: Intl.DateTimeFormatOptions = {
     day: "numeric",
     month: "short",

@@ -35,11 +35,11 @@ export default function ManageStaffPage() {
         <PageHeaderComponent
           title={`Manage Staff (${data?.length ?? ""})`}
           subTitle="View all staff here"
-          buttonText="Add Client"
-          href="manage-client/add-new-client"
+          buttonText="Add Staff"
+          href="manage-staff/add"
         />
       </div>
-      <DataTable columns={columns} data={data ?? []} />
+      <DataTable columns={columns} isLoading={isPending} data={data ?? []} />
     </div>
   );
 }
