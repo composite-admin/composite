@@ -3,6 +3,7 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
+import { formatDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
@@ -20,19 +21,39 @@ export type SupplierType = {
 
 export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "supplierName",
+    accessorKey: "id",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Supplier Name" />;
+      return (
+        <ColumnHeader column={column} title="ID" />
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">{row.original["id"]}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "supplier",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Supplier" />;
     },
     cell: ({ row }) => {
       return (
         <Link href={`/suppliers/${row.original["id"]}`}>
-        <div className="flex gap-2 items-center">
-          <AvatarComponent />
-          <div>
-            <span className="font-semibold">{row.original["supplier_name"]}</span>
+          <div className="flex gap-2 items-center">
+            <AvatarComponent />
+            <div className="flex flex-col">
+              <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+                {row.original["supplier_name"]}
+              </span>
+              <span className="text-xs font-semibold text-gray-500">
+                {row.original["supplier_code"]}
+              </span>
+            </div>
           </div>
-        </div>
         </Link>
       );
     },
@@ -104,8 +125,8 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <p>{row.original["createdAt"]}</p>
-          
+          <p>{formatDate(row.original["createdAt"])}</p>
+
         </div>
       );
     },
@@ -118,9 +139,9 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <Link href={`/suppliers/${row.original["id"]}/edit`}>
-        <div className="">
-          <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
-        </div>
+          <div className="">
+            <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          </div>
         </Link>
       );
     },

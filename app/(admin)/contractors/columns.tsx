@@ -4,6 +4,7 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
+import { formatDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd, HiPencilAlt } from "react-icons/hi";
@@ -28,83 +29,127 @@ export type ContractorType = {
 
 
 
-export const columns: ColumnDef<ContractorType>[] = [
-    {
-        accessorKey: "contractorCode",
-        header: ({ column }) => {
-            return <ColumnHeader column={column} title="Contractor Code" />;
-        },
-        cell: ({ row }) => {
-            return (
-                <Link href={`/contractors/${row.original["id"]}`}>
-                    <div className="flex  flex-col">
-                        <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-                            {row.original["contractor_code"]}
-                        </span>
-                    </div>
-                </Link>
-            );
-        },
+export const columns: ColumnDef<ContractorType>[] = [{
+    accessorKey: "id",
+    header: ({ column }) => {
+        return (
+            <ColumnHeader column={column} title="ID" />
+        );
     },
+    cell: ({ row }) => {
+        return (
+            <div className="">
+                <span className="font-semibold ">{row.original["id"]}</span>
+            </div>
+        );
+    },
+},
+{
+    accessorKey: "contractor",
+    header: ({ column }) => {
+        return <ColumnHeader column={column} title="Contractor" />;
+    },
+    cell: ({ row }) => {
+        return (
+            <Link href={`/contractors/${row.original["id"]}`}>
+                <div className="flex  flex-col">
+                    <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+                        {row.original["contractor_name"]}
+                    </span>
+                    <span className="text-xs font-semibold text-gray-500">
+                        {row.original["contractor_code"]}
+                    </span>
+                </div>
+            </Link>
+        );
+    },
+},
+{
+    accessorKey: "address",
+    header: ({ column }) => {
+        return (
+            <ColumnHeader column={column} title="Address" withSort={false} />
+        );
+    },
+    cell: ({ row }) => {
+        return (
+            <div className="">
+                <span className="font-semibold ">{row.original["contractor_address"]}</span>
+            </div>
+        );
+    },
+},
 
-    {
-        accessorKey: "contractorName",
-        header: ({ column }) => {
-            return (
-                <ColumnHeader column={column} title="Contractor Name" withSort={false} />
-            );
-        },
-        cell: ({ row }) => {
-            return (
-                <div className="">
-                    <span className="font-semibold ">{row.original["contractor_name"]}</span>
-                </div>
-            );
-        },
+{
+    accessorKey: "officePhone",
+    header: ({ column }) => {
+        return (
+            <ColumnHeader column={column} title="Office Phone" withSort={false} />
+        );
     },
+    cell: ({ row }) => {
+        return (
+            <div className="">
+                <span className="font-semibold ">{row.original["contractor_ofc_phone"]}</span>
+            </div>
+        );
+    },
+},
+{
+    accessorKey: "contactPerson",
+    header: ({ column }) => {
+        return <ColumnHeader column={column} title="Contact Person" withSort={false} />;
+    },
+    cell: ({ row }) => {
+        return (
+            <div className="flex gap-2 items-center">
+                <AvatarComponent />
+                <span className="font-semibold">{row.original["contact_person"]}</span>
+            </div>
+        );
+    },
+},
+{
+    accessorKey: "contactPhone",
+    header: ({ column }) => {
+        return <ColumnHeader column={column} title="Contact Phone" />;
+    },
+    cell: ({ row }) => {
+        return (
+            <div className="">
+                <span className="font-semibold text-primaryLight-500 text-center">{row.original["contact_mobile"]}</span>
+            </div>
+        );
+    },
+},
+{
+    accessorKey: "createdOn",
+    header: ({ column }) => {
+        return (
+            <ColumnHeader column={column} title="Added On" withSort={false} />
+        );
+    },
+    cell: ({ row }) => {
+        return (
+            <div className="">
+                <span className=" ">{formatDate(row.original["createdAt"])}</span>
+            </div>
+        );
+    },
+},
+{
+    accessorKey: "action",
+    header: ({ column }) => {
+        return <ColumnHeader column={column} title="Action" />;
+    },
+    cell: ({ row }) => {
+        // const onOpen = useAddWorkerModal(state => state.onOpen);
+        return (
+            <div className="">
 
-   
-    {
-        accessorKey: "contractorService",
-        header: ({ column }) => {
-            return <ColumnHeader column={column} title="Service" withSort={false} />;
-        },
-        cell: ({ row }) => {
-            return (
-                <div className="">
-                    <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>{row.original["contractor_service"]}</p>
-                </div>
-            );
-        },
-    },
-    {
-        accessorKey: "createdOn",
-        header: ({ column }) => {
-            return (
-                <ColumnHeader column={column} title="Created On" withSort={false} />
-            );
-        },
-        cell: ({ row }) => {
-            return (
-                <div className="">
-                    <span className=" ">{row.original["createdAt"]}</span>
-                </div>
-            );
-        },
-    },
-    {
-        accessorKey: "action",
-        header: ({ column }) => {
-            return <ColumnHeader column={column} title="Action" />;
-        },
-        cell: ({ row }) => {
-            // const onOpen = useAddWorkerModal(state => state.onOpen);
-            return (
-                <div className="">
-                    
                 <Link href={`/contractors/${row.original["id"]}/edit`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
-              </div>
-            );
-        },
+            </div>
+        );
     },
+},
 ];
