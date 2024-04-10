@@ -55,7 +55,7 @@ const AddStakeholder = () => {
                             Stakeholder Phone
                         </p>
 
-                        <input type="text" {...register('stakeholder_ofc_phone', { required: true })}/>
+                        <input type="number" {...register('stakeholder_ofc_phone', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -71,7 +71,7 @@ const AddStakeholder = () => {
                             Contact Home Phone
                         </p>
 
-                        <input type="text" {...register('contact_home_phone', { required: true })}/>
+                        <input type="number" {...register('contact_home_phone', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -79,7 +79,7 @@ const AddStakeholder = () => {
                             Contact Mobile
                         </p>
 
-                        <input type="text" {...register('contact_mobile', { required: true })}/>
+                        <input type="number" {...register('contact_mobile', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
