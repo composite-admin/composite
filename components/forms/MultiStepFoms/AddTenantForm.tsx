@@ -113,7 +113,7 @@ export default function AddTenantForm() {
               <FormContainer
                 title="Add tenant"
                 isColumn={false}
-                description="Create a new staff profile here"
+                description="Create a new client profile here"
               >
                 <div className="flex flex-col gap-5">
                   <CustomFormSelect

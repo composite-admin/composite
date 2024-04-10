@@ -12,8 +12,8 @@ export default function RequestsPage() {
         subTitle="View all your projects here"
       />
       {/* grid container */}
-      <div className="grid-cols-1">      
-          <DataTable columns={columns} data={data} />
+      <div className="grid-cols-1">
+        {/* <DataTable columns={columns} data={data} /> */}
       </div>
     </div>
   );

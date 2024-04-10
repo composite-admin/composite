@@ -87,12 +87,13 @@ export const columns: ColumnDef<ITenantData>[] = [
       return <ColumnHeader column={column} title={"Status"} withSort={false} />;
     },
     cell: ({ row }) => {
-      const status = row.getValue("status") as ITenantData["status"];
+      const { status } = row.original;
+
       return (
         <div className="flex gap-2 items-center">
           <span
             className={`capitalize p-2 w-max font-semibold rounded-3xl text-xs ${
-              status === "active"
+              status === "Active"
                 ? "text-green-500 bg-[#E7F6EC]"
                 : "text-[#865503] bg-[#FEF6E7]"
             }`}
@@ -123,10 +124,10 @@ export const columns: ColumnDef<ITenantData>[] = [
       return <ColumnHeader column={column} title={"View"} withSort={false} />;
     },
     cell: ({ row }) => {
-      let href = String(row.getValue("viewAction"));
+      let { tenant_id } = row.original;
       return (
         <>
-          <ViewCell href={`facility/tenant/${href}`} />
+          <ViewCell href={`facility/tenant/${tenant_id}`} isLink={true} />
         </>
       );
     },

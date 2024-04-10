@@ -1,33 +1,43 @@
-import React, { useState } from 'react';
+import { useGetNewReport } from '@/store/report/ReportStore';
+import React, { useEffect, useState } from 'react';
 
 const FillNewDetails = (props: any) => {
-    const [formData, setFormData] = useState({
-        report_type: '',
-        created_for: '',
-        project_name: '',
-        project_code: '',
-        project_supervisor: '',
-        report_summary: '',
-        challenges: '',
-        solutions: '',
-        recommendation: '',
-        weekly_projection: '',
-        materials_required_for_projection: '',
-        materials_on_site: '',
-        status: '',
-        submitted_by: '',
-        submitted_on: '',
-        visitor: '',
-        weather: ''
-    });
+    const { newReport, setNewReport } = useGetNewReport()
+
+    const [formData, setFormData] = useState({ ...newReport })
+    // const [formData, setFormData] = useState({
+    //     report_type: '',
+    //     created_for: '',
+    //     project_name: '',
+    //     project_code: '',
+    //     project_supervisor: '',
+    //     report_summary: '',
+    //     challenges: '',
+    //     solutions: '',
+    //     recommendation: '',
+    //     weekly_projection: '',
+    //     materials_required_for_projection: '',
+    //     materials_on_site: '',
+    //     status: '',
+    //     submitted_by: '',
+    //     submitted_on: '',
+    //     visitor: '',
+    //     weather: ''
+    // });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
+        setFormData((prevState: any) => ({
             ...prevState,
             [name]: value
         }));
+
     };
+
+    useEffect(() => {
+        setNewReport(formData);
+        console.log(newReport)
+    }, [formData])
 
     return (
         <div className="flex flex-col gap-3">
@@ -35,17 +45,17 @@ const FillNewDetails = (props: any) => {
                 <p className="value">Report Type</p>
                 <div className="flex items-center gap-5 radio my-2">
                     <div>
-                        <input type="radio" name="report_type" id="Daily" value="Daily" onChange={handleInputChange} />
+                        <input type="radio" name="report_type" id="Daily" checked={formData.report_type == "Daily"} value="Daily" onChange={handleInputChange} />
                         <label htmlFor="Daily">Daily</label>
                     </div>
 
                     <div>
-                        <input type="radio" name="report_type" id="Weekly" value="Weekly" onChange={handleInputChange} />
+                        <input type="radio" name="report_type" id="Weekly" checked={formData.report_type == "Weekly"} value="Weekly" onChange={handleInputChange} />
                         <label htmlFor="Weekly">Weekly</label>
                     </div>
 
                     <div>
-                        <input type="radio" name="report_type" id="Monthly" value="Monthly" onChange={handleInputChange} />
+                        <input type="radio" name="report_type" id="Monthly" checked={formData.report_type == "Monthly"} value="Monthly" onChange={handleInputChange} />
                         <label htmlFor="Monthly">Monthly</label>
                     </div>
                 </div>
@@ -113,7 +123,7 @@ const FillNewDetails = (props: any) => {
                     <textarea name="status" value={formData.status} onChange={handleInputChange}></textarea>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                {/* <div className="flex flex-col gap-2">
                     <p className="value">Submitted By</p>
                     <textarea name="submitted_by" value={formData.submitted_by} onChange={handleInputChange}></textarea>
                 </div>
@@ -121,28 +131,25 @@ const FillNewDetails = (props: any) => {
                 <div className="flex flex-col gap-2">
                     <p className="value">Submitted On</p>
                     <textarea name="submitted_on" value={formData.submitted_on} onChange={handleInputChange}></textarea>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col gap-2">
                     <p className="value">Visitor</p>
                     <textarea name="visitor" value={formData.visitor} onChange={handleInputChange}></textarea>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 col-span-2">
                     <p className="value">Weather</p>
                     <textarea name="weather" value={formData.weather} onChange={handleInputChange}></textarea>
                 </div>
-            </div>
 
-            <div className="flex justify-between">
-                <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
-                <button className="bg-primaryLight text-white p-3 rounded-md" onClick={() => { props.setState(false) }}>Next</button>
-            </div>
-
-            <div className="flex justify-between">
+                {/* <div className="flex justify-between"> */}
                 <button className="bg-[#EBEBEB] text-textColor rounded-md">Cancel</button>
                 <button className="bg-primaryLight text-white p-3 rounded-md" onClick={() => { props.setState(false); props.setForm(formData) }}>Next</button>
+                {/* </div> */}
             </div>
+
+
         </div>
     )
 }

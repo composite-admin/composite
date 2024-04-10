@@ -2,7 +2,7 @@
 import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import { columns } from '../columns'
 import { data } from '../apartment/data'
 import { HiDocument } from 'react-icons/hi2'
@@ -10,80 +10,141 @@ import { useAddContractorModal, useAddMaterial, useAddProjectModal, useAddStakeH
 import StartUpIcon from '@/components/icons/StartUpIcon'
 import { useRouter, useParams } from 'next/navigation'
 import useProjectActionsStore from "@/store/actions/projectActions"
+import Image from 'next/image'
+import SwitchTabs, { Key } from '@/components/ui/switchTabs'
+import ProjectCost from '@/components/Project/ProjectCost'
+import ProjectTeam from '@/components/Project/ProjectTeam'
+import StartupCost from '@/components/Project/StartupCost'
+import Stakeholder from '@/components/Project/Stakeholder'
+import Contractor from '@/components/Project/Contractor.tsx'
+import Worker from '@/components/Project/Worker'
+import Materials from '@/components/Project/Materials'
+import ToolsAndMachine from '@/components/Project/ToolsAndMachine'
+import CashAdvanced from '@/components/Project/CashAdvanced'
 
 const SingleProject = () => {
     const onOpenAddStakeHolder = useAddStakeHolderModal(state => state.onOpen);
     const onOpenAddContractor = useAddContractorModal(state => state.onOpen);
-    const onOpenStartupModal = useAddStartupModal(state=> state.onOpen);
+    const onOpenStartupModal = useAddStartupModal(state => state.onOpen);
     const onOpenAddMaterialMOdal = useAddMaterial(state => state.onOpen);
     const onOpenAddProjectModal = useAddProjectModal(state => state.onOpen)
-    
-  const options = [
-    {
-        title: "Add Startup Cost",
-        action: onOpenStartupModal
-    },
-    {
-        title: "Add Management Cost",
-        action: onOpenAddStakeHolder
-    },
-    {
-        title: "Add stakeholder",
-        action: onOpenAddStakeHolder
-    },
-    {
-        title: "Add Worker",
-        action: onOpenAddStakeHolder
-    },
-    {
-        title: "Add Material",
-        action: onOpenAddMaterialMOdal
-    },
-    {
-        title: "View Apartment",
-        action: onOpenAddStakeHolder
-    },
-    {
-        title: "View Tenant",
-        action: onOpenAddStakeHolder
-    },
-    {
-        title: "View Images",
-        action: onOpenAddStakeHolder
-    },
-    {
-        title: "Add Contractor",
-        action: onOpenAddContractor
-    }
-]
 
-const router = useRouter()
-const params = useParams<{ id: string }>()
+    const options = [
+        {
+            title: "Add Startup Cost",
+            action: onOpenStartupModal,
+            icon: "/./illustration.svg"
+        },
+        {
+            title: "Add Management Cost",
+            action: onOpenAddStakeHolder,
+            icon: "/./addM.svg"
+        },
+        {
+            title: "Add stakeholder",
+            action: onOpenAddStakeHolder,
+            icon: "/./st.svg"
+        },
+        {
+            title: "Add Worker",
+            action: onOpenAddStakeHolder,
+            icon: "/./wk.svg"
+        },
+        {
+            title: "Add Material",
+            action: onOpenAddMaterialMOdal,
+            icon: "/./mt.svg"
+        },
+        {
+            title: "View Apartment",
+            action: onOpenAddStakeHolder,
+            icon: "/./hs.png"
+        },
+        {
+            title: "View Tenant",
+            action: onOpenAddStakeHolder,
+            icon: "/./tn.svg"
+        },
+        {
+            title: "View Images",
+            action: onOpenAddStakeHolder,
+            icon: "/./im.svg"
+        },
+        {
+            title: "Add Contractor",
+            action: onOpenAddContractor,
+            icon: "/./ct.svg"
+        }
+    ]
 
-const selectedItem = useProjectActionsStore<any>((state) => state.selectedItem)
-const getProjectById = useProjectActionsStore<any>((state) => state.getProjectById)
-const projects = useProjectActionsStore<any>((state: any) => state.items);
-const getAllProjects = useProjectActionsStore<any>((state: any) => state.getAllProjects);
+    const router = useRouter()
+    const params = useParams<{ id: string }>()
 
-console.log(selectedItem)
+    const selectedItem = useProjectActionsStore<any>((state) => state.selectedItem)
+    const getProjectById = useProjectActionsStore<any>((state) => state.getProjectById)
+    const projects = useProjectActionsStore<any>((state: any) => state.items);
+    const getAllProjects = useProjectActionsStore<any>((state: any) => state.getAllProjects);
 
-useEffect(() => {
-  getAllProjects();
-}, [getAllProjects]);
+    console.log(selectedItem)
 
-useEffect(() => {
+    useEffect(() => {
+        getAllProjects();
+    }, [getAllProjects]);
 
-  if (params.id) {
-    getProjectById(params.id);
-  }
-}, [getProjectById, params.id]);
+    useEffect(() => {
 
-  return (
-    <>
-        <GoBack />
-        <PageHead headText={selectedItem && selectedItem.project_name} subText={selectedItem && selectedItem.project_code} buttonText='Edit Project' buttonAction={() => selectedItem && router.push(`/project/${selectedItem.id}/edit`)} />
+        if (params.id) {
+            getProjectById(params.id);
+        }
+    }, [getProjectById, params.id]);
 
-        <div className='grid grid-cols-3 gap-5 my-10'>
+    const keys: Key[] = [
+        {
+            title: "Project Cost",
+            component: <ProjectCost />
+        },
+        {
+            title: "Project Team",
+            component: <ProjectTeam />
+        },
+        {
+            title: "Startup Cost",
+            component: <StartupCost />
+        },
+        {
+            title: "Stakeholder",
+            component: <Stakeholder />
+        },
+        {
+            title: "Contractor",
+            component: <Contractor />
+        },
+        {
+            title: "Workers",
+            component: <Worker />
+        },
+        {
+            title: "Material",
+            component: <Materials />
+        },
+        {
+            title: "Tools and Machinery",
+            component: <ToolsAndMachine />
+        },
+        {
+            title: "Cash Advanced",
+            component: <CashAdvanced />
+        }
+    ]
+
+    const [comp, setComp] = useState(<ProjectCost />)
+
+    return (
+        <>
+            <GoBack />
+            <PageHead headText={selectedItem && selectedItem.project_name} subText={selectedItem && selectedItem.project_code} buttonText='Edit Project' buttonAction={() => selectedItem && router.push(`/project/${selectedItem.id}/edit`)} />
+
+            <div className='grid grid-cols-3 gap-5 my-10'>
 
                 <div className='col-span-2 bg-white rounded-lg border-[#D0D5DD] '>
                     <div className='p-5 border-b border-b-gray-300'>
@@ -138,7 +199,7 @@ useEffect(() => {
                         options.map((item, i) => {
                             return (
                                 <div key={i} className='flex items-center justify-center flex-col cursor-pointer' onClick={item.action}>
-                                    <StartUpIcon />
+                                    <Image alt='' src={String(item.icon)} width={30} height={30} />
                                     <p className='text-center text-[10.37px] text-[#6E6E6E]'>{item.title}</p>
                                 </div>
                             )
@@ -148,9 +209,14 @@ useEffect(() => {
 
             </div>
 
-            <DataTable columns={columns} data={projects.data ? projects.data : []} clickAction={() => { }} />
-    </>
-  )
+            <SwitchTabs keys={keys} setComp={setComp} />
+
+            <div className='mt-10'>
+                {comp}
+            </div>
+
+        </>
+    )
 }
 
 export default SingleProject

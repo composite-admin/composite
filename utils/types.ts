@@ -174,7 +174,7 @@ export interface IRequestData {
   worker_name: string;
   worker_code: string;
   worker_service: string;
-  amount: string;
+  amount: number;
   job_code: string;
   comment: string;
   response: string;
@@ -189,7 +189,7 @@ export interface IRequestData {
   tool_name: string;
   approved_by: string;
   approved_on: string;
-  approved_amount: string;
+  approved_amount: number;
   approved_quantity: number;
   approved_unit_price: string;
   approved_total_amount: string;
@@ -238,7 +238,32 @@ export interface ITenantData {
   reminder: string;
   createdAt: string;
   updatedAt: string;
-  fees: string; // Assuming fees will be parsed when needed
+  fees: string;
+}
+
+export interface ITenantDetails {
+  data: {
+    tenant_id: number;
+    tenant_code: string;
+    title: string;
+    full_name: string;
+    phone_number: string;
+    email: string;
+    password: string;
+    project_name: string;
+    project_details: string;
+    flat_description: string;
+    flat_code: string;
+    annual_rent: string;
+    comment: string;
+    status: string;
+    rent_payment: string;
+    reminder: string;
+    createdAt: string;
+    updatedAt: string;
+    fees: string;
+  };
+  message: string;
 }
 
 export interface IManageStaffData {
@@ -287,3 +312,49 @@ export interface IFlatData {
   createdAt: string;
   updatedAt: string;
 }
+
+
+export interface IConsultantData {
+  id: number;
+  consultant_code: string;
+  name: string;
+  type: string;
+  contact: string;
+  email: string;
+  website: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IConsultantDetailsData {
+  data: {
+    id: number;
+    consultant_code: string;
+    name: string;
+    type: string;
+    contact: string;
+    email: string;
+    website: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  message?: string;
+}
+
+export const AddConsultantSchema = z
+  .object({
+    name: z
+      .string()
+      .min(3, { message: "Full name must be at least 3 characters" }),
+    contact: z
+      .string()
+      .min(10, { message: "Phone number must be at least 10 characters" }),
+    email: z.string().email({ message: "Invalid email" }),
+    type: z.string().optional(),
+    website: z
+      .string()
+      .min(6, { message: "This website might not be valid, please try again" }),
+  })
+  .required();
+
+export type AddConsultantType = z.infer<typeof AddConsultantSchema>;

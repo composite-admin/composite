@@ -6,7 +6,7 @@ import axios from 'axios';
 const useAddReportMutation = () => {
     
     const { mutate, isPending ,isSuccess, isError, error } = useMutation({
-        mutationFn: async (data) => {
+        mutationFn: async (data: any) => {
             try {
                 const response = await api.post(`/project_report/`, data);
                 return response.data.data;

@@ -1,6 +1,4 @@
-import { AllFlatsType } from "./columns";
-
-export const data: Array<AllFlatsType> = [
+export const data = [
   {
     flatCode: "RCPD-001",
     projectName: "High Cost Renovation",

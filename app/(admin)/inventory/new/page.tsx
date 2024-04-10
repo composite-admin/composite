@@ -19,7 +19,7 @@ const NewInventory = () => {
         comment: ''
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
@@ -65,7 +65,11 @@ const NewInventory = () => {
                             Type
                         </p>
 
-                        <input type="text" name="type" value={formData.type} onChange={handleInputChange} />
+                        {/* <input type="text" name="type"  /> */}
+                        <select name="type" id="" onChange={handleInputChange} value={formData.type} >
+                            <option value="Tools">Tools</option>
+                            <option value="Machines">Machines</option>
+                        </select>
                     </div>
 
                     <div className="flex flex-col">
@@ -73,7 +77,7 @@ const NewInventory = () => {
                             Quantity
                         </p>
 
-                        <input type="text" name="quantity" value={formData.quantity} onChange={handleInputChange} />
+                        <input type="number" name="quantity" value={formData.quantity} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col">
@@ -81,7 +85,7 @@ const NewInventory = () => {
                             Unit Price
                         </p>
 
-                        <input type="text" name="unit_price" value={formData.unit_price} onChange={handleInputChange} />
+                        <input type="number" name="unit_price" value={formData.unit_price} onChange={handleInputChange} />
                     </div>
 
                     <div className="flex flex-col col-span-2">
