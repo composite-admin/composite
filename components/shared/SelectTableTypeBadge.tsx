@@ -4,7 +4,7 @@ type Props = {
   icon: React.ReactNode;
   onclick?: () => void;
   title: string;
-  notification: string;
+  notification: number;
 };
 
 export default function SelectTableTypeBadge({

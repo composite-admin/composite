@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 import { z } from "zod";
 import { addTenantType, FormDataSchema } from "./formtypes";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,15 +43,14 @@ const steps = [
   },
 ];
 
-export default function AddTenantForm() {
+export default function EditTenantForm({ id }: { id: string }) {
+  const router = useRouter();
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
   const { flats } = useFlats();
   const { projectsData } = useProjectData();
   const { toast } = useToast();
-  const router = useRouter();
-
   const projects = projectsData?.map((item: any) => item.project_name);
   const flatList = flats?.map((item) => item.flat_code);
 
@@ -73,7 +73,7 @@ export default function AddTenantForm() {
 
   const processForm: SubmitHandler<Inputs> = async (values: addTenantType) => {
     try {
-      const res = await api.post("/tenants", {
+      const res = await api.put(`/tenants/${id}`, {
         project_details: projectsData?.find(
           (item: any) => item.project_name === values.project_name
         )?.project_description,
@@ -86,25 +86,26 @@ export default function AddTenantForm() {
         status: projectsData?.find(
           (item: any) => item.project_name === values.project_name
         )?.status,
-        ...values,
+        // ...values,
         // fees: {
         //   value: values.value,
         //   fees: values.fees,
         // },
-        // project_name: values.project_name,
-        // flat_code: values.flat_code,
-        // title: values.title,
-        // full_name: values.full_name,
-        // phone_number: values.phone_number,
-        // email: values.email,
-        // annual_rent: values.annual_rent,
-        // rent_payment: values.rent_payment,
-        // reminder: values.reminder,
+        fees: values.fees,
+        project_name: values.project_name,
+        flat_code: values.flat_code,
+        title: values.title,
+        full_name: values.full_name,
+        phone_number: values.phone_number,
+        email: values.email,
+        annual_rent: values.annual_rent,
+        rent_payment: values.rent_payment,
+        reminder: values.reminder,
       });
-      if (res) {
+      if (res.status === 200) {
         toast({
-          title: "Success",
-          description: "Tenant added successfully",
+          title: "Tenant Updated",
+          description: "Tenant Updated Successfully",
           variant: "success",
         });
         router.push("/facility");
