@@ -17,8 +17,6 @@ export default function TenantPage({ params }: { params: { id: string } }) {
     queryFn: async () => {
       try {
         const response = await api.get<ITenantDetails>(`/tenants/${params.id}`);
-        console.log(response.data.data);
-
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

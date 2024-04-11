@@ -28,7 +28,7 @@ export const columns: ColumnDef<ITenantData>[] = [
       return <ColumnHeader column={column} title={"Title"} withSort={false} />;
     },
     cell: ({ row }) => {
-      return <div>{row.getValue("title")}</div>;
+      return <div className="capitalize">{row.getValue("title")}</div>;
     },
   },
   {
@@ -105,21 +105,22 @@ export const columns: ColumnDef<ITenantData>[] = [
     },
   },
   {
-    accessorKey: "editAction",
+    accessorKey: "tenant_id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title={"Edit"} withSort={false} />;
     },
     cell: ({ row }) => {
-      let href = String(row.getValue("editAction"));
+      let { tenant_id } = row.original;
+      let href = tenant_id;
       return (
         <>
-          <EditCell href={`facility/edit-tenant/${href}`} />
+          <EditCell href={`facility/edit-tenant/${href}`} isLink />
         </>
       );
     },
   },
   {
-    accessorKey: "viewAction",
+    accessorKey: "tenant_id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title={"View"} withSort={false} />;
     },
