@@ -145,7 +145,6 @@ const AddProjectModal = () => {
                             <p className="value">
                                 Role
                             </p>
-
                             <input type="text" {...register('project_supervisor', { required: true })}/>
                         </div>
 

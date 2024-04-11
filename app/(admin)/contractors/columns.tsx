@@ -29,21 +29,7 @@ export type ContractorType = {
 
 
 
-export const columns: ColumnDef<ContractorType>[] = [{
-    accessorKey: "id",
-    header: ({ column }) => {
-        return (
-            <ColumnHeader column={column} title="ID" />
-        );
-    },
-    cell: ({ row }) => {
-        return (
-            <div className="">
-                <span className="font-semibold ">{row.original["id"]}</span>
-            </div>
-        );
-    },
-},
+export const columns: ColumnDef<ContractorType>[] = [
 {
     accessorKey: "contractor",
     header: ({ column }) => {

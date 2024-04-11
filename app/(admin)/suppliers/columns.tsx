@@ -20,21 +20,21 @@ export type SupplierType = {
 };
 
 export const columns: ColumnDef<any>[] = [
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="ID" />
-      );
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold ">{row.original["id"]}</span>
-        </div>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return (
+  //       <ColumnHeader column={column} title="ID" />
+  //     );
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="">
+  //         <span className="font-semibold ">{row.original["id"]}</span>
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "supplier",
     header: ({ column }) => {
