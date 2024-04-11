@@ -46,22 +46,22 @@ const SingleWorker = () => {
 
                         <div className="grid grid-cols-4 p-5 gap-5">
                             <div>
-                                <p className='text-[#475367] text-sm'>Worker Name:</p>
+                                <p className='text-[#475367] text-sm'>Name:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.worker_name}</p>
                             </div>
 
                             <div>
-                                <p className='text-[#475367] text-sm'>Worker Company:</p>
+                                <p className='text-[#475367] text-sm'>Company:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.worker_company}</p>
                             </div>
 
                             <div>
-                                <p className='text-[#475367] text-sm'>Worker Address:</p>
+                                <p className='text-[#475367] text-sm'>Address:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.worker_address}</p>
                             </div>
 
                             <div>
-                                <p className='text-[#475367] text-sm'>Worker Phone:</p>
+                                <p className='text-[#475367] text-sm'>Phone:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.worker_ofc_phone}</p>
                             </div>
 
@@ -76,19 +76,19 @@ const SingleWorker = () => {
                             </div>
 
                             <div>
-                                <p className='text-[#475367] text-sm'>Worker Service:</p>
+                                <p className='text-[#475367] text-sm'>Service:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.worker_service}</p>
                             </div>
 
                             <div>
-                                <p className='text-[#475367] text-sm'> Worker Email:</p>
+                                <p className='text-[#475367] text-sm'>Email:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.worker_email}</p>
                             </div>
 
 
 
 
-                            <div>
+                            {/* <div>
                                 <p className='text-[#475367] text-sm'>Bank Name:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.bank_name}</p>
                             </div>
@@ -101,7 +101,7 @@ const SingleWorker = () => {
                             <div>
                                 <p className='text-[#475367] text-sm'>Account Number:</p>
                                 <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.account_number}</p>
-                            </div>
+                            </div> */}
 
                             <div>
                                 <p className='text-[#475367] text-sm'>Comment:</p>

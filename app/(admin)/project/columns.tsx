@@ -130,7 +130,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
-        <Link href={"/project/add-worker"}>
+        <Link href={`/project/add-worker?name=${row.original["project_name"]}`}>
           <div className="cursor-pointer" >
             <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
           </div>

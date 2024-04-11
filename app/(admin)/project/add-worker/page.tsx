@@ -3,12 +3,15 @@ import GoBack from '@/components/shared/GoBack'
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
 import { useAddWorkerModal, useSuccessModal } from '@/store/inventory/UseInventoryModal';
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 import { HiHome } from 'react-icons/hi';
 
 const AddWorkerToProject = () => {
     const router = useRouter();
+    const searchParams = useSearchParams()
+ 
+    const name = searchParams.get('name')
     const onOpenSucess = useSuccessModal(state => state.onOpen);
     const onOpenCreateWorker = useAddWorkerModal(state => state.onOpen)
     return (
@@ -35,7 +38,7 @@ const AddWorkerToProject = () => {
                             Project Name
                         </p>
 
-                        <input type="text" placeholder='Enter name' />
+                        <input type="text" placeholder='Enter name' value={name || ""} disabled/>
                     </div>
 
                     <div className="flex flex-col col-span-2">

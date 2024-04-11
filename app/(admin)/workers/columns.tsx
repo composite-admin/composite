@@ -19,21 +19,7 @@ export type ReportType = {
   actions: string;
 };
 
-export const columns: ColumnDef<ReportType | any>[] = [{
-  accessorKey: "id",
-  header: ({ column }) => {
-    return (
-      <ColumnHeader column={column} title="ID" />
-    );
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold ">{row.original["id"]}</span>
-      </div>
-    );
-  },
-},
+export const columns: ColumnDef<ReportType | any>[] = [
 {
   accessorKey: "worker",
   header: ({ column }) => {

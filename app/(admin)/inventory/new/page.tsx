@@ -23,19 +23,13 @@ const NewInventory = () => {
         comment: ''
     });
 
-    const inventoryByType = useInventoryActionsStore<any>((state) => state.selectedItem);
     const allInventoryTypes = useInventoryActionsStore<any>((state) => state.items);
     const getAllInventoryTypes = useInventoryActionsStore<any>((state) => state.getAllInventoryTypes);
-    const getInventoryByType = useInventoryActionsStore<any>((state) => state.getInventoryByType);
     console.log(allInventoryTypes)
 
     useEffect(() => {
         getAllInventoryTypes();
     }, [getAllInventoryTypes]);
-
-    useEffect(() => {
-        getInventoryByType(selectedType);
-    }, [getInventoryByType,selectedType]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -79,11 +73,7 @@ const NewInventory = () => {
                             Type
                         </p>
 
-                        <select name="type" id="" onChange={(e: any) => {
-                            handleInputChange(e)
-                            // setSelectedType(formData?.type)
-
-                        }} value={formData.type} >
+                        <select name="type" id="" onChange={handleInputChange} value={formData.type} >
                         {
                             allInventoryTypes && allInventoryTypes?.data?.map((pj: any) => <option key={pj.type} value={pj.type}>{pj.type}</option>)
                         }
@@ -93,11 +83,9 @@ const NewInventory = () => {
                         <p className="value">
                             Description
                         </p>
-                        <select name="name" id="" onChange={handleInputChange} value={formData.name} >
-                        {
-                            inventoryByType && inventoryByType?.data?.map((pj: any) => <option key={pj.type} value={pj.type}>{pj.type}</option>)
-                        }
-                        </select>
+                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
+
+                       
                     </div>
                     <div className="flex flex-col">
                         <p className="value">

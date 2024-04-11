@@ -82,6 +82,8 @@ const useStore = create<ProjectStore>((set) => ({
             set((state: any) => ({ error: "" }));
         }
     },
+
+    
 }));
 
 export default useStore;
