@@ -9,7 +9,7 @@ export function formatDate(dateString: string) {
   const formattedDate = date.toLocaleDateString("en-US", options);
   const [month, day, year] = formattedDate.split(" ");
 
-  return `${day} ${month}, ${year}`;
+  return `${day.slice(0, -1)} ${month}, ${year}`;
 }
 
 export function convertDateFormat(dateString: string) {

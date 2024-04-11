@@ -5,6 +5,7 @@ import React from 'react'
 import { HiHome } from 'react-icons/hi2';
 import { useForm } from 'react-hook-form';
 import useProjectActionsStore from "@/store/actions/projectActions"
+import { nigerianStates } from '@/utils/types';
 
 const AddProjectModal = () => {
     const isOpen = useAddProjectModal((state) => state.isOpen);
@@ -99,8 +100,18 @@ const AddProjectModal = () => {
                             <p className="value">
                                 State
                             </p>
+                            <select {...register('state', { required: true })} >
+                        {
+                            nigerianStates && nigerianStates.map((st: string) => <option key={st} value={st}>{st}</option>)
+                        }
+                        </select>
+                        </div>
+                        <div className="flex flex-col">
+                            <p className="value">
+                                LGA
+                            </p>
 
-                            <input type="text" {...register('state', { required: true })}/>
+                            <input type="text" {...register('lga', { required: true })}/>
                         </div>
 
                         <div className="flex flex-col">
@@ -111,13 +122,7 @@ const AddProjectModal = () => {
                             <input type="text" {...register('city', { required: true })}/>
                         </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                LGA
-                            </p>
-
-                            <input type="text" {...register('lga', { required: true })}/>
-                        </div>
+                       
 
                         <div className="flex flex-col">
                             <p className="value">
@@ -135,6 +140,24 @@ const AddProjectModal = () => {
 
                             <input type="text" {...register('status', { required: true })}/>
                         </div>
+
+                        <div className="flex flex-col">
+                            <p className="value">
+                                Role
+                            </p>
+
+                            <input type="text" {...register('project_supervisor', { required: true })}/>
+                        </div>
+
+                       
+                        <div className="flex flex-col">
+                            <p className="value">
+                                Team Member
+                            </p>
+
+                            <input type="text" {...register('status', { required: true })}/>
+                        </div>
+
 
                         <div className="flex flex-col col-span-2">
                             <div className="value">

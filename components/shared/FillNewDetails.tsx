@@ -1,5 +1,6 @@
 import { useGetNewReport } from '@/store/report/ReportStore';
 import React, { useEffect, useState } from 'react';
+import useProjectActionsStore from "@/store/actions/projectActions"
 
 const FillNewDetails = (props: any) => {
     const { newReport, setNewReport } = useGetNewReport()
@@ -33,6 +34,11 @@ const FillNewDetails = (props: any) => {
         }));
 
     };
+    const projects = useProjectActionsStore<any>((state) => state.items);
+    const getAllProjects = useProjectActionsStore<any>((state) => state.getAllProjects);
+    useEffect(() => {
+        getAllProjects();
+      }, [getAllProjects]);
 
     useEffect(() => {
         setNewReport(formData);
@@ -65,17 +71,17 @@ const FillNewDetails = (props: any) => {
                 <div className="flex flex-col">
                     <p className="value">Project</p>
                     <select name="project_name" value={formData.project_name} onChange={handleInputChange}>
-                        <option value="Project X">Project X</option>
-                        <option value="Project Y">Project Y</option>
+                        {
+                            projects && projects?.data?.map((pj: any) => <option key={pj.id} value={pj.project_name}>{pj.project_name}</option>)
+                        }
+                        
                     </select>
                 </div>
 
                 <div className="flex flex-col">
                     <p className="value">Project Summary</p>
-                    <select name="report_summary" value={formData.report_summary} onChange={handleInputChange}>
-                        <option value="Summary of Project X">Summary of Project X</option>
-                        <option value="Summary of Project Y">Summary of Project Y</option>
-                    </select>
+                    <input name="report_summary" value={formData.report_summary} onChange={handleInputChange}/>
+                       
                 </div>
             </div>
 

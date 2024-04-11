@@ -86,7 +86,7 @@ const AddWorker = () => {
                             Worker Office Phone
                         </p>
 
-                        <input type="text" {...register('worker_ofc_phone', { required: true })}/>
+                        <input type="number" {...register('worker_ofc_phone', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -94,7 +94,7 @@ const AddWorker = () => {
                         Worker Mobile
                         </p>
 
-                        <input type="text" {...register('worker_mobile', { required: true })}/>
+                        <input type="number" {...register('worker_mobile', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -102,7 +102,7 @@ const AddWorker = () => {
                         Worker Home Phone
                         </p>
 
-                        <input type="text" {...register('worker_home_phone', { required: true })}/>
+                        <input type="number" {...register('worker_home_phone', { required: true })}/>
                     </div>
 
                     <div className="flex flex-col">
