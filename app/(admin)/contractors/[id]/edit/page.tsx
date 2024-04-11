@@ -38,7 +38,7 @@ const SingleContractorEdit = () => {
         };
     
         fetchContractor();
-      }, [params.id]);
+      }, [params.id, reset]);
 
 
     return (

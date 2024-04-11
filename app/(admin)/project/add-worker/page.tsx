@@ -4,14 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
 import { useAddWorkerModal, useSuccessModal } from '@/store/inventory/UseInventoryModal';
 import { useRouter, useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { HiHome } from 'react-icons/hi';
 
 const AddWorkerToProject = () => {
     const router = useRouter();
-    const searchParams = useSearchParams()
- 
-    const name = searchParams.get('name')
+    // const searchParams = useSearchParams()
+
+    // const name = searchParams.get('name')
     const onOpenSucess = useSuccessModal(state => state.onOpen);
     const onOpenCreateWorker = useAddWorkerModal(state => state.onOpen)
     return (
@@ -37,8 +37,13 @@ const AddWorkerToProject = () => {
                         <p className="value">
                             Project Name
                         </p>
+                        {/* <Suspense fallback={<p>...</p>}>
+                            <input type="text" placeholder='Enter name' value={name || ""} disabled />
+                        </Suspense> */}
 
-                        <input type="text" placeholder='Enter name' value={name || ""} disabled/>
+                        
+                            <input type="text" placeholder='Enter name' value="" disabled />
+                        
                     </div>
 
                     <div className="flex flex-col col-span-2">
