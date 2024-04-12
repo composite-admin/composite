@@ -25,7 +25,7 @@ export const createCashAdvanceOfficeSchema = z.object({
     "tools_and_machine_store",
   ]),
   project_name: z.string().optional(),
-  amount: z.number().optional(),
+  amount: z.string().optional(),
   purpose: z.string().optional(),
   description: z.string().optional(),
   comment: z.string().optional(),
@@ -44,7 +44,7 @@ export default function CashAdvance() {
     defaultValues: {
       requestType: "cash_advance_project",
       project_name: "",
-      amount: 0,
+      amount: "",
       purpose: "",
       description: "",
       comment: "",
@@ -60,6 +60,7 @@ export default function CashAdvance() {
         staff_id: "10",
         staff_name: "bola@composite",
         status: "PENDING",
+        amount: Number(data.amount),
       });
       console.log(res);
     } catch (error) {
@@ -114,7 +115,6 @@ export default function CashAdvance() {
                   label="Amount"
                   control={form.control}
                   placeholder="Enter Amount"
-                  type="number"
                 />
               </div>
             </div>
