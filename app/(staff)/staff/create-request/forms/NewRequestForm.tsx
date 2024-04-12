@@ -32,13 +32,13 @@ export default function NewRequestForm() {
   const { formType, setFormType } = useStaffStore();
   return (
     <>
-      {formType === "material" && <Material />}
-      {formType === "labour" && <Labour />}
-      {formType === "cash_advance_project" && <CashAdvance />}
-      {formType === "cash_advance_office" && <CashAdvanceOffice />}
-      {formType === "tools_and_machine_buy" && <ToolsAndMachineBuy />}
-      {formType === "tools_and_machine_rent" && <ToolsAndMachineRent />}
-      {formType === "tools_and_machine_store" && <ToolAndMachineStore />}
+      {formType === "Material" && <Material />}
+      {formType === "Labour" && <Labour />}
+      {formType === "Cash Advance Project" && <CashAdvance />}
+      {formType === "Cash Advance Office" && <CashAdvanceOffice />}
+      {formType === "Tools and Machine Buy" && <ToolsAndMachineBuy />}
+      {formType === "Tools and Machine Rent" && <ToolsAndMachineRent />}
+      {formType === "Tools and Machine Store" && <ToolAndMachineStore />}
     </>
   );
 }

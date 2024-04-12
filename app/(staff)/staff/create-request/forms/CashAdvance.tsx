@@ -14,16 +14,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+export enum RequestType {
+  Material = "Material",
+  Labour = "Labour",
+  CashAdvanceProject = "Cash Advance Project",
+  CashAdvanceOffice = "Cash Advance Office",
+  ToolsAndMachineBuy = "Tools and Machine Buy",
+  ToolsAndMachineRent = "Tools and Machine Rent",
+  ToolsAndMachineStore = "Tools and Machine Store",
+}
+
 export const createCashAdvanceOfficeSchema = z.object({
-  request_type: z.enum([
-    "material",
-    "labour",
-    "cash_advance_project",
-    "cash_advance_office",
-    "tools_and_machine_buy",
-    "tools_and_machine_rent",
-    "tools_and_machine_store",
-  ]),
+  request_type: z.nativeEnum(RequestType),
   project_name: z.string().optional(),
   amount: z.string().optional(),
   purpose: z.string().optional(),
@@ -42,7 +44,7 @@ export default function CashAdvance() {
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
-      request_type: "cash_advance_project",
+      request_type: RequestType.CashAdvanceProject,
       project_name: "",
       amount: "",
       purpose: "",
@@ -54,18 +56,18 @@ export default function CashAdvance() {
   const projectName = projectsData?.map((item: any) => item.project_name);
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
-    // try {
-    //   const res = await api.post("/requests", {
-    //     ...data,
-    //     staff_id: "10",
-    //     staff_name: "bola@composite",
-    //     status: "PENDING",
-    //     amount: Number(data.amount),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const res = await api.post("/requests", {
+        ...data,
+        staff_id: "10",
+        staff_name: "bola@composite",
+        status: "PENDING",
+        amount: Number(data.amount),
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     console.log(data);
   };
 
@@ -81,20 +83,20 @@ export default function CashAdvance() {
           <select
             id="request_type"
             {...form.register("request_type")}
-            defaultValue="cash_advance_project"
+            defaultValue="Cash Advance Project"
             onChange={(e: any) => setFormType(e.target.value)}
           >
-            <option value="material">Material</option>
-            <option value="labour">Labour</option>
-            <option value="cash_advance_project">Cash Advance - Project</option>
-            <option value="cash_advance_office">Cash Advance - Office</option>
-            <option value="tools_and_machine_buy">
+            <option value="Material">Material</option>
+            <option value="Labour">Labour</option>
+            <option value="Cash Advance Project">Cash Advance - Project</option>
+            <option value="Cash Advance Office">Cash Advance - Office</option>
+            <option value="Tools and Machine Buy">
               Tools and Machines - Buy
             </option>
-            <option value="tools_and_machine_rent">
+            <option value="Tools and Machine Rent">
               Tools and Machines - Rent
             </option>
-            <option value="tools_and_machine_store">
+            <option value="Tools and Machine Store">
               Tools and Machines - Store
             </option>
           </select>
