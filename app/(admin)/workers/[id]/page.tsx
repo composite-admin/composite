@@ -5,7 +5,7 @@ import keys from '../../inventory/keys'
 import { AvatarComponent } from '@/components/shared/AvatarComponent'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/shared/DataTable'
-import { columns } from '../columns'
+import { columns } from './columns'
 import React, { useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import useWorkersActionsStore from "@/store/actions/workersActions"
@@ -35,7 +35,7 @@ const SingleWorker = () => {
             <GoBack />
 
             <div>
-                <PageHead headText={selectedItem && selectedItem.worker_name} subText={selectedItem && selectedItem.worker_code} buttonText='Edit Worker' buttonAction={() => selectedItem && router.push(`/workers/${selectedItem.id}/edit`)}/>
+                <PageHead headText={selectedItem && selectedItem.worker_name} subText={selectedItem && selectedItem.worker_code} buttonText='View Bank Details' buttonAction={() => { }} />
 
                 <div className='gap-5 my-10'>
 
@@ -111,8 +111,8 @@ const SingleWorker = () => {
                     </div>
 
                 </div>
-
-                <DataTable columns={columns} data={workers.data ? workers.data : []} clickAction={() => { }} />
+                <PageHead headText="Worker&apos;s Jobs" subText="View all your worker&apos;s jobs here" />
+                <DataTable columns={columns} data={[]} clickAction={() => { }} />
             </div>
         </>
     )
