@@ -2,9 +2,16 @@
 import { userStore } from "@/store/auth/AuthStore";
 import { HiOutlineBell } from "react-icons/hi2";
 import { RiSearch2Line } from "react-icons/ri";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const TopNav = () => {
-  const { userType, username } = userStore();
+  const { userType, username, logOut } = userStore();
+  const router = useRouter();
+  const logoutAndRedirectToLogin = () => {
+    logOut();
+    router.push("/login");
+  };
   return (
     <div className="bg-white py-3 pr-8 grid-cols-[1.5fr_1fr] border-b border-borderColor">
       <div className="flex items-center justify-end gap-3">
@@ -24,6 +31,9 @@ const TopNav = () => {
             <p className="font-[400] text-[#667185] capitalize font-semibold">
               {userType}
             </p>
+          </div>
+          <div>
+            <Button onClick={logoutAndRedirectToLogin}>Logout</Button>
           </div>
         </div>
       </div>
