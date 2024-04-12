@@ -31,7 +31,11 @@ const useLogin = () => {
       setUser(data.data, data.token);
       setCookie("user_type", data.data.user_type?.toLowerCase());
       setCookie("token", data.token);
-      setUserStorage(data.token, data.data.user_type?.toLowerCase());
+      setUserStorage(
+        data.token,
+        data.data.user_type?.toLowerCase(),
+        data.data.id
+      );
       toast({ title: "Login Successful", variant: "success" });
       router.refresh();
     },

@@ -5,9 +5,9 @@ import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { columns } from "./columns";
 import { useQuery } from "@tanstack/react-query";
 import { getAllrequest } from "@/store/requests/RequestStore";
-export default function ReportPage() {
+export default function RequestPage() {
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all tenants"],
+    queryKey: ["get all requests"],
     queryFn: getAllrequest,
   });
   return (

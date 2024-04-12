@@ -21,7 +21,12 @@ export default useAuthStore;
 interface IUserStoreType {
   token: string | null;
   userType: string | null;
-  setUserStorage: (token: string, userType: string | undefined) => void;
+  userId: number | null;
+  setUserStorage: (
+    token: string,
+    userType: string | undefined,
+    userId: number
+  ) => void;
 }
 
 export const userStore = create<IUserStoreType>()(
@@ -30,10 +35,12 @@ export const userStore = create<IUserStoreType>()(
       (set) => ({
         token: null,
         userType: null,
-        setUserStorage: (userToken, userType) => {
+        userId: null,
+        setUserStorage: (userToken, userType, userId) => {
           set({
             token: userToken,
-            userType
+            userType,
+            userId,
           });
         },
       }),
@@ -43,7 +50,7 @@ export const userStore = create<IUserStoreType>()(
       }
     )
   )
-)
+);
 
   
   
