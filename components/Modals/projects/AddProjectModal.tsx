@@ -5,6 +5,7 @@ import React from 'react'
 import { HiHome } from 'react-icons/hi2';
 import { useForm } from 'react-hook-form';
 import useProjectActionsStore from "@/store/actions/projectActions"
+import useStaffActionsStore from "@/store/actions/staffActions"
 import { nigerianStates } from '@/utils/types';
 
 const AddProjectModal = () => {
@@ -16,13 +17,14 @@ const AddProjectModal = () => {
     const { register, handleSubmit, reset } = useForm({});
 
     const createProject = useProjectActionsStore<any>((state) => state.createProject)
-
+    const staffRoles = useStaffActionsStore<any>((state) => state.items)
+    
     const onSubmit = (data: any) => {
         // Pass the form data to your submitForm action
         console.log(data)
         data.date_added = new Date()
-        data.supervisor_id = "231"
-        
+
+
         createProject(data);
         isSucessOpen()
         reset()
@@ -77,7 +79,7 @@ const AddProjectModal = () => {
                                 Start Date
                             </p>
 
-                            <input type="date" placeholder='' {...register('start_date', { required: true })}/>
+                            <input type="date" placeholder='' {...register('start_date', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -85,7 +87,7 @@ const AddProjectModal = () => {
                                 End Date
                             </p>
 
-                            <input type="date" placeholder='' {...register('end_date', { required: true })}/>
+                            <input type="date" placeholder='' {...register('end_date', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -93,7 +95,7 @@ const AddProjectModal = () => {
                                 Address
                             </p>
 
-                            <input type="text" {...register('address', { required: true })}/>
+                            <input type="text" {...register('address', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -101,17 +103,17 @@ const AddProjectModal = () => {
                                 State
                             </p>
                             <select {...register('state', { required: true })} >
-                        {
-                            nigerianStates && nigerianStates.map((st: string) => <option key={st} value={st}>{st}</option>)
-                        }
-                        </select>
+                                {
+                                    nigerianStates && nigerianStates.map((st: string) => <option key={st} value={st}>{st}</option>)
+                                }
+                            </select>
                         </div>
                         <div className="flex flex-col">
                             <p className="value">
                                 LGA
                             </p>
 
-                            <input type="text" {...register('lga', { required: true })}/>
+                            <input type="text" {...register('lga', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -119,42 +121,39 @@ const AddProjectModal = () => {
                                 City
                             </p>
 
-                            <input type="text" {...register('city', { required: true })}/>
+                            <input type="text" {...register('city', { required: true })} />
                         </div>
 
-                       
-
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Supervisor
-                            </p>
-
-                            <input type="text" {...register('project_supervisor', { required: true })}/>
-                        </div>
-
-                       
                         <div className="flex flex-col">
                             <p className="value">
                                 Status
                             </p>
 
-                            <input type="text" {...register('status', { required: true })}/>
+                            <input type="text" {...register('status', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
                             <p className="value">
                                 Role
                             </p>
-                            <input type="text" {...register('project_supervisor', { required: true })}/>
+                            <select {...register('role', { required: true })} >
+                                {
+                                    [].map((st: string) => <option key={st} value={st}>{st}</option>)
+                                }
+                            </select>
                         </div>
 
-                       
+
                         <div className="flex flex-col">
                             <p className="value">
                                 Team Member
                             </p>
 
-                            <input type="text" {...register('status', { required: true })}/>
+                            <select {...register('team_member', { required: true })} >
+                                {
+                                   [].map((st: string) => <option key={st} value={st}>{st}</option>)
+                                }
+                            </select>
                         </div>
 
 
@@ -163,7 +162,7 @@ const AddProjectModal = () => {
                                 Comment
                             </div>
 
-                            <textarea {...register('comment', { required: true })}/>
+                            <textarea {...register('comment', { required: true })} />
                         </div>
 
                         <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={() => onClose()}>Cancel</button>

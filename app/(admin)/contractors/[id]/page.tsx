@@ -3,7 +3,7 @@ import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
 import React, { useEffect } from 'react'
-import { columns } from "@/app/(admin)/contractors/columns";
+import { columns } from "./columns";
 import { useRouter, useParams } from 'next/navigation'
 import useContractorsActionsStore from "@/store/actions/contractorsActions"
 
@@ -31,7 +31,7 @@ const SingleContractor = () => {
             <GoBack />
 
             <div>
-                <PageHead headText={selectedItem && selectedItem.contractor_name} subText={selectedItem && selectedItem.contractor_code} buttonText='Edit Contractor' buttonAction={() => selectedItem && router.push(`/contractors/${selectedItem.id}/edit`)}/>
+                <PageHead headText={selectedItem && selectedItem.contractor_name} subText={selectedItem && selectedItem.contractor_code} buttonText='Edit Contractor' buttonAction={() => selectedItem && router.push(`/contractors/${selectedItem.id}/edit`)} />
 
                 <div className='gap-5 my-10'>
 
@@ -95,8 +95,8 @@ const SingleContractor = () => {
 
                 </div>
 
-                <DataTable columns={columns} data={contractors.data ? contractors.data : []} clickAction={() => { }} />
-            </div>
+                <PageHead headText="Projects" subText="View all your contractor&apos;s projects here" />
+                <DataTable columns={columns} data={[]} clickAction={() => { }} />            </div>
         </>
     )
 }
