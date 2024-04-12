@@ -169,8 +169,8 @@ export interface IRequestData {
   supplier_material: string;
   description: string;
   quantity: number;
-  unit_price: string;
-  total_price: string;
+  unit_price: string | number;
+  total_price: number;
   worker_name: string;
   worker_code: string;
   worker_service: string;
