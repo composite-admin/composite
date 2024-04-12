@@ -27,10 +27,10 @@ export default function StaffDashboardPage() {
       <div className="grid-cols-1">
         <div className="xl:col-span-6">
           <div className="pb-12 flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">
-            <DashboardCard title="Total Requests" />
-            <DashboardCard />
-            <DashboardCard />
-            <DashboardCard />
+            <DashboardCard title="Total Requests" description="123" />
+            <DashboardCard title="Approved Requests" description="13" />
+            <DashboardCard title="Pending Requests" description="32" />
+            <DashboardCard title="Rejected Requests" description="233" />
           </div>
           <DataTable
             columns={columns}

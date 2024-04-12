@@ -6,7 +6,9 @@ import {
 import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { api } from "@/config/api";
 import { useProjectData } from "@/hooks/useTenantsAndFlat";
+import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,7 +25,7 @@ export const createCashAdvanceOfficeSchema = z.object({
     "tools_and_machine_store",
   ]),
   project_name: z.string().optional(),
-  amount: z.string().optional(),
+  amount: z.number().optional(),
   purpose: z.string().optional(),
   description: z.string().optional(),
   comment: z.string().optional(),
@@ -36,12 +38,13 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function CashAdvance() {
   const { projectsData } = useProjectData();
   const { formType, setFormType } = useStaffStore();
+  const { userId } = userStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       requestType: "cash_advance_project",
       project_name: "",
-      amount: "",
+      amount: 0,
       purpose: "",
       description: "",
       comment: "",
@@ -50,7 +53,18 @@ export default function CashAdvance() {
 
   const projectName = projectsData?.map((item: any) => item.project_name);
 
-  const handleSubmit = (data: CreateCashAdvanceOfficeType) => {
+  const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
+    try {
+      const res = await api.post("/requests", {
+        ...data,
+        staff_id: "10",
+        staff_name: "bola@composite",
+        status: "PENDING",
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     console.log(data);
   };
 
@@ -100,6 +114,7 @@ export default function CashAdvance() {
                   label="Amount"
                   control={form.control}
                   placeholder="Enter Amount"
+                  type="number"
                 />
               </div>
             </div>

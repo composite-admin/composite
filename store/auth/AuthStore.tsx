@@ -22,10 +22,12 @@ interface IUserStoreType {
   token: string | null;
   userType: string | null;
   userId: number | null;
+  username: string | null;
   setUserStorage: (
     token: string,
     userType: string | undefined,
-    userId: number
+    userId: number,
+    username: string | null
   ) => void;
 }
 
@@ -36,11 +38,13 @@ export const userStore = create<IUserStoreType>()(
         token: null,
         userType: null,
         userId: null,
-        setUserStorage: (userToken, userType, userId) => {
+        username: null,
+        setUserStorage: (userToken, userType, userId, username) => {
           set({
             token: userToken,
             userType,
             userId,
+            username,
           });
         },
       }),

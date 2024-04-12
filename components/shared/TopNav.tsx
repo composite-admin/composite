@@ -1,7 +1,10 @@
+"use client";
+import { userStore } from "@/store/auth/AuthStore";
 import { HiOutlineBell } from "react-icons/hi2";
 import { RiSearch2Line } from "react-icons/ri";
 
 const TopNav = () => {
+  const { userType, username } = userStore();
   return (
     <div className="bg-white py-3 pr-8 grid-cols-[1.5fr_1fr] border-b border-borderColor">
       <div className="flex items-center justify-end gap-3">
@@ -17,8 +20,10 @@ const TopNav = () => {
           />
 
           <div className="text-sm">
-            <p className="text-[#344054]">Adebola Salami</p>
-            <p className="font-[400] text-[#667185]">Admin</p>
+            <p className="text-[#344054]">{username}</p>
+            <p className="font-[400] text-[#667185] capitalize font-semibold">
+              {userType}
+            </p>
           </div>
         </div>
       </div>
