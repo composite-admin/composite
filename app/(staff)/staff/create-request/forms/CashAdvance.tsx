@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const createCashAdvanceOfficeSchema = z.object({
-  requestType: z.enum([
+  request_type: z.enum([
     "material",
     "labour",
     "cash_advance_project",
@@ -42,7 +42,7 @@ export default function CashAdvance() {
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
-      requestType: "cash_advance_project",
+      request_type: "cash_advance_project",
       project_name: "",
       amount: "",
       purpose: "",
@@ -54,18 +54,18 @@ export default function CashAdvance() {
   const projectName = projectsData?.map((item: any) => item.project_name);
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
-    try {
-      const res = await api.post("/requests", {
-        ...data,
-        staff_id: "10",
-        staff_name: "bola@composite",
-        status: "PENDING",
-        amount: Number(data.amount),
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const res = await api.post("/requests", {
+    //     ...data,
+    //     staff_id: "10",
+    //     staff_name: "bola@composite",
+    //     status: "PENDING",
+    //     amount: Number(data.amount),
+    //   });
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
     console.log(data);
   };
 
@@ -79,8 +79,8 @@ export default function CashAdvance() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <select
-            id="requestType"
-            {...form.register("requestType")}
+            id="request_type"
+            {...form.register("request_type")}
             defaultValue="cash_advance_project"
             onChange={(e: any) => setFormType(e.target.value)}
           >
