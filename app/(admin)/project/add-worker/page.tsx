@@ -6,12 +6,13 @@ import { useAddWorkerModal, useSuccessModal } from '@/store/inventory/UseInvento
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { Suspense } from 'react'
 import { HiHome } from 'react-icons/hi';
+import useWorkersActionsStore from "@/store/actions/workersActions"
 
 const AddWorkerToProject = () => {
     const router = useRouter();
-    // const searchParams = useSearchParams()
-
-    // const name = searchParams.get('name')
+    const searchParams = useSearchParams()
+    const worker = useWorkersActionsStore<any>((state) => state.selectedItem);
+    const name: any = searchParams.get('name')
     const onOpenSucess = useSuccessModal(state => state.onOpen);
     const onOpenCreateWorker = useAddWorkerModal(state => state.onOpen)
     return (
@@ -37,21 +38,41 @@ const AddWorkerToProject = () => {
                         <p className="value">
                             Project Name
                         </p>
-                        {/* <Suspense fallback={<p>...</p>}>
-                            <input type="text" placeholder='Enter name' value={name || ""} disabled />
-                        </Suspense> */}
-
-                        
-                            <input type="text" placeholder='Enter name' value="" disabled />
-                        
+                            <input type="text" placeholder='Enter name' value={name} disabled />
+     
                     </div>
 
                     <div className="flex flex-col col-span-2">
                         <p className="value">
                             Service Type
                         </p>
+                        <select>
+                            <option value=""></option>
+                            <option value="Borehole Drilling">Borehole Drilling</option>
+                            <option value="Carpentry">Carpentry</option>
+                            <option value="Cabinetry/Furniture" >Cabinetry / Furniture</option>
+                            <option value="Cable TV Installation">Cable TV Installation</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="Concret Casting">Concret Casting</option>
+                            <option value="CCTV / Security Installation">CCTV / Security Installation</option>
+                            <option value="Data / Video / Voice Cabling">Data / Video / Voice Cabling</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="House Painting">House Painting</option>
+                            <option value="Gardening">Gardening</option>
+                            <option value="Mable Work">Mable Work</option>
+                            <option value="Masonry">Masonry</option>
+                            <option value="Paving">Paving</option>
+                            <option value="Piling Work">Piling Work</option>
+                            <option value="Plumbing">Plumbing</option>
+                            <option value="PoP Work">PoP Work</option>
+                            <option value="Roofing">Roofing</option>
+                            <option value="Scalfolding" >Scalfolding</option>
+                            <option value="Spray Painting">Spray Painting</option>
+                            <option value="Steel Bending">Steel Bending</option>
+                            <option value="Tiling">Tiling</option>
+                            <option value="Welding">Welding</option>
+                        </select>
 
-                        <input type="text" placeholder='' />
                     </div>
 
                     <div className="flex flex-col col-span-2">

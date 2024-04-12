@@ -9,6 +9,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
 
+
 export type ReportType = {
   id: string;
   projectName: string;
@@ -131,7 +132,7 @@ export const columns: ColumnDef<any>[] = [
       // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
         <Link href={`/project/add-worker?name=${row.original["project_name"]}`}>
-          <div className="cursor-pointer" >
+          <div className="cursor-pointer">
             <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
           </div>
         </Link>
@@ -146,7 +147,7 @@ export const columns: ColumnDef<any>[] = [
       // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
         <Link href="#">
-          <div className="cursor-pointer" >
+          <div className="cursor-pointer">
             <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
           </div>
         </Link>

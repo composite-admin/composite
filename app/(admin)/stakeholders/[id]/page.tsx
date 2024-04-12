@@ -3,7 +3,7 @@ import { DataTable } from '@/components/shared/DataTable'
 import GoBack from '@/components/shared/GoBack'
 import PageHead from '@/components/ui/pageHead'
 import React, { useEffect } from 'react'
-import { columns } from '../columns'
+import { columns } from './columns'
 import { useRouter, useParams } from 'next/navigation'
 import useStakeholdersActionsStore from "@/store/actions/stakeholdersActions"
 
@@ -91,7 +91,8 @@ const SingleStakeholder = () => {
 
                 </div>
 
-                <DataTable columns={columns} data={stakeholders.data ? stakeholders.data : []} clickAction={() => { }} />
+                <PageHead headText="Projects" subText="View all your stakeholder&apos;s projects here" />
+                <DataTable columns={columns} data={[]} clickAction={() => { }} />
             </div>
         </>
     )
