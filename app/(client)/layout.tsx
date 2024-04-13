@@ -1,4 +1,4 @@
-import TopNav from "@/components/shared/TopNav";
+import TopNav from "@/components/Layout/Navbar/TopNav";
 import Sidebar from "@/components/shared/Sidebar";
 import { PropsWithChildren } from "react";
 import ClientSidebar from "@/components/shared/ClientSidebar";
