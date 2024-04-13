@@ -3,35 +3,25 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { convertDateFormatToAllString } from "@/utils/formatDate";
+import { formatDate } from "@/utils/formatDate";
+import { IProjectReport } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
-export type ReportType = {
-  id: string;
-  name: string;
-  submitted_on: string;
-  report_type: string;
-  project_name: string;
-  createdBy: string;
-  created_for: string;
-  actions: string;
-  report_code: string;
-};
-
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<IProjectReport>[] = [
   {
     accessorKey: "reportTitle",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Report Title" />;
     },
     cell: ({ row }) => {
+      const { project_name, project_code } = row.original;
       return (
-        <div className="flex  flex-col">
-          <span className="w-32 font-semibold text-primaryLight-500 truncate">
-          {row.getValue("project_name")}
+        <div className="flex flex-col w-20 truncate">
+          <span className="font-semibold text-primaryLight-500 ">
+            {project_name}
           </span>
-          <span>{row.getValue("report_code")}</span>
+          <span>{project_code}</span>
         </div>
       );
     },
@@ -45,9 +35,11 @@ export const columns: ColumnDef<ReportType>[] = [
       );
     },
     cell: ({ row }) => {
+      const { createdAt } = row.original;
+      const formatted = formatDate(createdAt);
       return (
         <div className="">
-          <span className="font-semibold ">{convertDateFormatToAllString(row.getValue("submitted_on"))}</span>
+          <span className="font-semibold ">{formatted}</span>
         </div>
       );
     },
@@ -61,9 +53,14 @@ export const columns: ColumnDef<ReportType>[] = [
       );
     },
     cell: ({ row }) => {
+      const { report_type } = row.original;
       return (
         <div className="">
-          <span className="rounded-full w-12 text-[0.8rem] text-center bg-[#E7F6EC] text-[#036B26] font-semibold  p-1 px-2">
+          <span
+            className={`rounded-full w-12 text-[0.8rem] text-center bg-[#E7F6EC] text-[#036B26] font-semibold p-1 px-2 ${
+              report_type == "Daily" ? "bg-[#E7F6EC]" : "bg-[#E7F6EC]"
+            }`}
+          >
             {row.getValue("report_type")}
           </span>
         </div>
@@ -89,10 +86,11 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Created By" />;
     },
     cell: ({ row }) => {
+      const { name } = row.original;
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">{row.getValue("createdBy")}</span>
+          <span className="font-semibold">{name}</span>
         </div>
       );
     },
