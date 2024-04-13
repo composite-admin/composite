@@ -93,7 +93,7 @@ export default function Material() {
             <div className="flex flex-col lg:flex-row gap-4 w-full">
               <div className="w-full">
                 <CustomFormSelect
-                  name="project"
+                  name="project_name"
                   control={form.control}
                   labelText="Project"
                   items={projectName && projectName}
