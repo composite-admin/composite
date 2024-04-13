@@ -18,8 +18,10 @@ import { RequestType } from "./CashAdvance";
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   project_name: z.string().optional(),
-  amount: z.string().optional(),
-  purpose: z.string().optional(),
+  supplier: z.string().optional(),
+  material_description: z.string().optional(),
+  quantity: z.string().optional(),
+  unit_price: z.string().optional(),
   description: z.string().optional(),
   comment: z.string().optional(),
 });
@@ -30,6 +32,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function Material() {
   const { projectsData } = useProjectData();
+  const projectName = projectsData?.map((item: any) => item.project_name);
   const { formType, setFormType } = useStaffStore();
   const { userId } = userStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
@@ -37,14 +40,14 @@ export default function Material() {
     defaultValues: {
       request_type: RequestType.Material,
       project_name: "",
-      amount: "",
-      purpose: "",
+      supplier: "",
+      material_description: "",
+      quantity: "",
+      unit_price: "",
       description: "",
       comment: "",
     },
   });
-
-  const projectName = projectsData?.map((item: any) => item.project_name);
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     // try {
@@ -63,12 +66,7 @@ export default function Material() {
   };
 
   return (
-    <FormContainer
-      title="New Request"
-      description=""
-      isColumn={true}
-      className="w-full max-w-[50rem]"
-    >
+    <FormContainer title="New Request" description="" isColumn={true}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <select
@@ -98,7 +96,7 @@ export default function Material() {
                   name="project"
                   control={form.control}
                   labelText="Project"
-                  items={["item1", "item2"]}
+                  items={projectName && projectName}
                 />
               </div>
               <div className="w-full">

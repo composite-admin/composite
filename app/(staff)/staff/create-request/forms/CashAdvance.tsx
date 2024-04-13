@@ -39,6 +39,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function CashAdvance() {
   const { projectsData } = useProjectData();
+  const projectName = projectsData?.map((item: any) => item.project_name);
   const { formType, setFormType } = useStaffStore();
   const { userId } = userStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
@@ -53,7 +54,6 @@ export default function CashAdvance() {
     },
   });
 
-  const projectName = projectsData?.map((item: any) => item.project_name);
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {

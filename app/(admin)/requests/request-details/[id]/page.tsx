@@ -28,7 +28,12 @@ export default function RequestDetailsPage({
       <div className="flex flex-col gap-6">
         <div className="flex flex-col md:grid grid-cols-1 xl:grid-cols-6 gap-8">
           <aside className="bg-white border-borderColor shadow-sm col-span-4 p-3 lg:p-8 lg:px-12 ">
-            <h2 className="pb-5 font-bold capitalize">Request details</h2>
+            <div className="flex justify-between items-center flex-col lg:flex-row pb-5">
+              <h2 className="pb-5 font-bold capitalize">Request details</h2>
+              <p className="capitalize bg-green-100 text-green-700 font-semibold p-1.5 rounded-lg">
+                {data?.request_type}
+              </p>
+            </div>
             <div className="flex flex-col gap-5 md:flex-row">
               <div className="flex-1 w-full pb-5 md:w-1/2 flex flex-col justify-between lg:pr-8 gap-3 ">
                 <div className="flex justify-between items-center w-full">
