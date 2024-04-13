@@ -57,11 +57,15 @@ export const columns: ColumnDef<IProjectReport>[] = [
       return (
         <div className="">
           <span
-            className={`rounded-full w-12 text-[0.8rem] text-center bg-[#E7F6EC] text-[#036B26] font-semibold p-1 px-2 ${
-              report_type == "Daily" ? "bg-[#E7F6EC]" : "bg-[#E7F6EC]"
+            className={`rounded-full w-12 text-[0.8rem] text-center  font-semibold p-1 px-2 ${
+              report_type == "Daily"
+                ? "bg-[#E7F6EC] text-[#036B26]"
+                : report_type == "Weekly"
+                ? "bg-[#FEF6E7] text-[#865503]"
+                : "bg-[#FFECE5] text-[#8A0000]"
             }`}
           >
-            {row.getValue("report_type")}
+            {report_type}
           </span>
         </div>
       );
