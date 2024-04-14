@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import MaterialsTable from "./materials";
+import ToolsTable from "./tools-and-machine";
 
 export type MaterialTab = "materials" | "tools-and-machine";
 
@@ -20,7 +21,7 @@ const MaterialTableArea = () => {
       case "materials":
         return <MaterialsTable key={"material"} />;
       case "tools-and-machine":
-        return <MaterialsTable key={"tools"} />;
+        return <ToolsTable key={"tools"} />;
       // no default
     }
   };

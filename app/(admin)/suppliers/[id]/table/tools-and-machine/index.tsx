@@ -4,13 +4,13 @@ import { materialsData } from "./data";
 import { motion } from "framer-motion";
 import { opacityVariant } from "@/utils/variants";
 import { useEffect, useState } from "react";
-import useSupplierMaterialsStore from "@/store/actions/materials-and-tools/materialsActions";
+import useSupplierToolsStore from "@/store/actions/materials-and-tools/toolsAnMachineryActions";
 
-const MaterialsTable = () => {
-  const store = useSupplierMaterialsStore();
+const ToolsTable = () => {
+  const store = useSupplierToolsStore();
 
   useEffect(() => {
-    store.getAllMaterials();
+    store.getAllTools();
   }, []);
 
   return (
@@ -18,12 +18,12 @@ const MaterialsTable = () => {
       <DataTable
         showSearch={false}
         columns={materialsColumns}
-        data={store.materials ?? []}
+        data={store.tools ?? []}
         isLoading={store.requestLoading}
-        withTitle={{ title: "Materials", data: store.materials.length }}
+        withTitle={{ title: "Tools and Machine", data: store.tools.length }}
       />
     </motion.div>
   );
 };
 
-export default MaterialsTable;
+export default ToolsTable;

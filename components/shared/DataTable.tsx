@@ -26,6 +26,10 @@ interface DataTableProps<TData, TValue> {
   showSearch?: boolean;
   isLoading?: boolean;
   showFilters?: boolean;
+  withTitle?: {
+    title: string;
+    data: string | number;
+  };
 }
 
 export function DataTable<TData, TValue>({
@@ -35,6 +39,7 @@ export function DataTable<TData, TValue>({
   showSearch = true,
   showFilters = true,
   isLoading,
+  withTitle,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState<string>("");
@@ -55,10 +60,16 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="my-5 flex items-center gap-4 text-zinc-500">
-        {showSearch && (
-          <>
-            {/* <Input
+      <div className={withTitle ? "flex items-center justify-between mt-4" : ""}>
+        {withTitle && (
+          <p className="font-bold text-xl capitalize">
+            {withTitle.title} ({withTitle.data})
+          </p>
+        )}
+        <div className="my-5 flex items-center gap-4 text-zinc-500">
+          {showSearch && (
+            <>
+              {/* <Input
               type="text"
               placeholder="Search..."
               className="w-full md:min-w-[15rem] placeholder:text-textColor"
@@ -68,24 +79,25 @@ export function DataTable<TData, TValue>({
               icon={<Search className="w-4 h-4 text-textColor" />}
             /> */}
 
-            <div className="flex items-center gap-2">
-              <Search />
-              <span>Search</span>
-            </div>
-          </>
-        )}
-        {showFilters && (
-          <>
-            <div className="flex items-center gap-2">
-              <IoFilterOutline />
-              <span>Filter</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FaSort />
-              <span>Sort</span>
-            </div>
-          </>
-        )}
+              <div className="flex items-center gap-2">
+                <Search />
+                <span>Search</span>
+              </div>
+            </>
+          )}
+          {showFilters && (
+            <>
+              <div className="flex items-center gap-2">
+                <IoFilterOutline />
+                <span>Filter</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FaSort />
+                <span>Sort</span>
+              </div>
+            </>
+          )}
+        </div>
       </div>
       <div className="rounded-lg border border-borderColor shadow-sm">
         <Table>

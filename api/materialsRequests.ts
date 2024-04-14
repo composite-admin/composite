@@ -1,4 +1,4 @@
-import { AddMaterialData, UpdateMaterialData } from "@/store/actions/materials/types";
+import { AddMaterialData, UpdateMaterialData } from "@/store/actions/materials-and-tools/types";
 import axiosInstance from ".";
 import axios from "axios";
 import { ApiResponse } from "@/utils/types";

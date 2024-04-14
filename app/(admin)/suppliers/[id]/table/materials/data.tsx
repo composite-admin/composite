@@ -1,4 +1,4 @@
-import { Material } from "@/store/actions/materials/types";
+import { Material } from "@/store/actions/materials-and-tools/types";
 
 export const materialsData: Material[] = [
   {
