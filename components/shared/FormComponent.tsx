@@ -1,6 +1,5 @@
-import { Control } from "react-hook-form";
-import { Textarea } from "@/components/ui/textarea"
-
+import { Control, useController } from "react-hook-form";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -8,15 +7,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import { Input } from "../ui/input";
+import React from "react";
+
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format, parseISO } from "date-fns";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
+  Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "../ui/input";
-import React from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { toast } from "@/components/ui/use-toast";
+import { Matcher } from "react-day-picker";
 
 interface CustomFormFieldProps extends React.HTMLProps<HTMLInputElement> {
   name: string;
@@ -135,6 +151,122 @@ export function CustomFormSelect({
               ))}
             </SelectContent>
           </Select>
+
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+// interface DatePickerProps {
+//   label: string;
+//   value: Date | undefined;
+//   control: Control<any>;
+//   onChange: (date: Date | undefined) => void;
+//   minDate?: Date;
+//   maxDate?: Date;
+// }
+
+interface DatePickerProps {
+  name: string;
+  placeholder?: string;
+  control: Control<any>;
+  label?: string;
+  minDate?: Date;
+  maxDate?: Date;
+}
+
+// export const CustomDatePicker: React.FC<DatePickerProps> = ({
+//   name,
+//   control,
+//   label,
+//   minDate,
+//   maxDate,
+// }) => {
+//   const {
+//     field: { value, onChange },
+//   } = useController({
+//     name,
+//     control,
+//   });
+
+//   return (
+//     <div className="flex flex-col">
+//       <label className="mb-2 font-semibold">{label}</label>
+//       <Popover>
+//         <PopoverTrigger asChild>
+//           <Button
+//             variant={"outline"}
+//             className={cn(
+//               "w-[240px] pl-3 text-left font-normal",
+//               !value && "text-muted-foreground"
+//             )}
+//           >
+//             {value ? format(value, "PPP") : <span>Pick a date</span>}
+//             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+//           </Button>
+//         </PopoverTrigger>
+//         <PopoverContent className="w-auto p-0" align="start">
+//           <Calendar
+//             mode="single"
+//             selected={value}
+//             onSelect={onChange}
+//             // disabled={(date) =>
+//             //   (minDate && date < minDate) || (maxDate && date > maxDate)
+//             // }
+//             initialFocus
+//           />
+//         </PopoverContent>
+//       </Popover>
+//     </div>
+//   );
+// };
+
+export function CustomDatePicker({
+  name,
+  control,
+  label,
+  placeholder,
+}: DatePickerProps) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className="flex flex-col">
+          <FormLabel> {label}</FormLabel>
+          <Popover>
+            <PopoverTrigger asChild>
+              <FormControl>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "text-left font-normal h-[46px]",
+                    !field.value && "text-muted-foreground"
+                  )}
+                >
+                  {field.value ? (
+                    format(field.value, "yyyy-MM-dd")
+                  ) : (
+                    <span>{placeholder || "Pick a date"}</span>
+                  )}
+                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                </Button>
+              </FormControl>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={field.value?.toString()}
+                onSelect={field.onChange}
+                // disabled={(date) =>
+                //   date > new Date() || date < new Date("1900-01-01")
+                // }
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
 
           <FormMessage />
         </FormItem>
