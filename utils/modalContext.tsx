@@ -13,7 +13,7 @@ interface ModalProviderProps {
   children: ReactNode;
 }
 
-export function ModalProvider({ children }: ModalProviderProps): JSX.Element {
+export function FramerModalProvider({ children }: ModalProviderProps): JSX.Element {
   const [modalContent, setModalContent] = useState<ReactNode | null>(null);
 
   const showModal = (content: ReactNode) => setModalContent(content);
