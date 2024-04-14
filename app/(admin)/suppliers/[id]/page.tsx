@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import Image from "next/image";
-import MaterialTableArea from "./table";
+import MaterialTableArea from "./(table)";
 
 const SingleSupplier = () => {
   const router = useRouter();

@@ -8,6 +8,7 @@ import {
   updateMaterial,
 } from "@/api/materialsRequests";
 import { ID } from "@/utils/types";
+import { toast } from "@/components/ui/use-toast";
 
 export type SupplierMaterialsStoreState = {
   materials: Material[];
@@ -52,9 +53,11 @@ const useSupplierMaterialsStore = create<SupplierMaterialsStore>((set) => ({
       const newMaterial = await createMaterial<Material>(data);
 
       if (newMaterial) set((state) => ({ ...state, materials: [...state.materials, newMaterial] }));
+      toast({ title: "Material Added Successfully" });
     } catch (err) {
       // do something with error
       console.log("error", err);
+      toast({ title: "An error occurred", variant: "destructive" });
     } finally {
       set((state) => ({ ...state, requestLoading: false }));
     }

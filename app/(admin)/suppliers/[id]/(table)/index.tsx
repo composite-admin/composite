@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import MaterialsTable from "./materials";
-import ToolsTable from "./tools-and-machine";
+import ToolsTable from "./tools-and-machines";
 
 export type MaterialTab = "materials" | "tools-and-machine";
 

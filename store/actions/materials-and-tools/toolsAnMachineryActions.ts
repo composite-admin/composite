@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { ToolAndMachinery, AddToolData, UpdateToolData } from "./types";
 import { createTool, deleteTool, getAllTools, getToolById, updateTool } from "@/api/toolsAndMachineriesRequests";
 import { ID } from "@/utils/types";
+import { toast } from "@/components/ui/use-toast";
 
 export type SupplierMaterialsStoreState = {
   tools: ToolAndMachinery[];
@@ -46,9 +47,11 @@ const useSupplierToolsStore = create<SupplierMaterialsStore>((set) => ({
       const newTool = await createTool<ToolAndMachinery>(data);
 
       if (newTool) set((state) => ({ ...state, tools: [...state.tools, newTool] }));
+      toast({ title: "Tool Added Successfully" });
     } catch (err) {
       // do something with error
       console.log("error", err);
+      toast({ title: "An error occurred", variant: "destructive" });
     } finally {
       set((state) => ({ ...state, requestLoading: false }));
     }

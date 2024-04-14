@@ -1,6 +1,5 @@
 import { DataTable } from "@/components/shared/DataTable";
 import { materialsColumns } from "./columns";
-import { materialsData } from "./data";
 import { motion } from "framer-motion";
 import { opacityVariant } from "@/utils/variants";
 import { useEffect, useState } from "react";
