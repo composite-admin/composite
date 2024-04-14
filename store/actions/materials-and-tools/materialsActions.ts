@@ -52,8 +52,10 @@ const useSupplierMaterialsStore = create<SupplierMaterialsStore>((set) => ({
       // request
       const newMaterial = await createMaterial<Material>(data);
 
-      if (newMaterial) set((state) => ({ ...state, materials: [...state.materials, newMaterial] }));
-      toast({ title: "Material Added Successfully" });
+      if (newMaterial) {
+        set((state) => ({ ...state, materials: [...state.materials, newMaterial] }));
+        toast({ title: "Material Added Successfully" });
+      }
     } catch (err) {
       // do something with error
       console.log("error", err);

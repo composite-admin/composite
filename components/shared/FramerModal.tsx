@@ -47,7 +47,7 @@ const FramerModal: FC<ModalProps> = ({ children, isOpen, onClose, isAutomatic = 
           ></motion.div>
 
           {/* modal */}
-          <motion.div {...variant} className="md:max-h-3/4 mx-auto w-[90%] relative z-[300]">
+          <motion.div {...variant} className="md:max-w-3/4 mx-auto grid place-content-center w-[90%] relative z-[1000]">
             <div ref={ref}>{children}</div>
           </motion.div>
         </div>
