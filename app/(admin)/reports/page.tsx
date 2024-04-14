@@ -1,20 +1,20 @@
 "use client";
-import { DataTable } from "@/components/shared/DataTable";
-import { columns } from "./columns";
-// import { data } from "./data";
-import PageHead from "@/components/ui/pageHead";
+
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { HiHome, HiOutlineClock, HiPlus } from "react-icons/hi2";
-import useFetchReportData from "@/mutations/ReportMutation";
-import { useEffect, useState } from "react";
-import useGetAllReport from "@/store/report/ReportStore";
 import axios from "axios";
 import { api } from "@/config/api";
 import { useQuery } from "@tanstack/react-query";
 import { ApiResponse, IProjectReport } from "@/utils/types";
+import { DataTable } from "@/components/shared/DataTable";
+import { columns } from "./columns";
+import PageHead from "@/components/ui/pageHead";
+import { HiHome, HiOutlineClock, HiPlus } from "react-icons/hi2";
+import useGetAllReport from "@/store/report/ReportStore";
 
 export default function ReportPage() {
   const router = useRouter();
+  const { reportData, setData } = useGetAllReport();
   const { data, error, isPending } = useQuery({
     queryKey: ["get all project report"],
     queryFn: async () => {
@@ -33,9 +33,19 @@ export default function ReportPage() {
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      setData(data);
+    }
+  }, [data, setData]);
+
   const filter = (type: string) => {
-    let newData = data?.filter((item: any) => item.report_type == type);
-    // setData(newData);
+    if (type === "All") {
+      setData(data);
+    } else {
+      const filteredData = data?.filter((item) => item.report_type === type);
+      setData(filteredData);
+    }
   };
 
   return (
@@ -48,13 +58,13 @@ export default function ReportPage() {
       />
 
       <div className="flex gap-3 my-5">
-        {/* <div
+        <div
           className="bg-[#007BFF08] text-sm rounded-md flex items-center p-3 gap-1 cursor-pointer"
-          onClick={() => setData(reportData)}
+          onClick={() => filter("All")}
         >
           <HiPlus className="text-primaryLight" />
           <p>All Report</p>
-        </div> */}
+        </div>
 
         <div
           className="bg-[#E7F6EC] text-sm rounded-md flex items-center p-3 gap-1 cursor-pointer"
@@ -62,7 +72,6 @@ export default function ReportPage() {
         >
           <HiOutlineClock className="text-[#036B26]" />
           <p className="text-[#036B26]">Daily Report</p>
-          {/* <p className='text-white px-3 text-[12px] flex items-center justify-center rounded-full bg-[#036B26]'>10</p> */}
         </div>
 
         <div
@@ -71,7 +80,6 @@ export default function ReportPage() {
         >
           <HiHome className="text-[#865503]" />
           <p className="text-[#865503]">Weekly Report</p>
-          {/* <p className='text-white px-3 text-[12px] flex items-center justify-center rounded-full bg-[#865503]'>10</p> */}
         </div>
 
         <div
@@ -80,11 +88,14 @@ export default function ReportPage() {
         >
           <HiHome className="text-[#8A0000]" />
           <p className="text-[#8A0000]">Monthly Report</p>
-          {/* <p className='text-white px-3 text-[12px] flex items-center justify-center rounded-full bg-[#8A0000]'>10</p> */}
         </div>
       </div>
 
-      <DataTable columns={columns} isLoading={isPending} data={data || []} />
+      <DataTable
+        columns={columns}
+        isLoading={isPending}
+        data={reportData || []}
+      />
     </div>
   );
 }
