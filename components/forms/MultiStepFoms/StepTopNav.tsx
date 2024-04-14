@@ -6,7 +6,7 @@ interface Step {
   name: string;
 }
 
-interface StepNavigationProps {
+interface StepNavigationProps extends React.HTMLProps<HTMLDivElement> {
   steps: Step[];
   currentStep: number;
   next: () => void;
@@ -18,9 +18,12 @@ const StepTopNav: React.FC<StepNavigationProps> = ({
   currentStep,
   next,
   prev,
+  ...props
 }) => {
   return (
-    <div className="bg-white justify-between items-center w-full px-10 py-5 rounded-md">
+    <div
+      className={` bg-white justify-between items-center w-full px-10 py-5 rounded-md ${props.className}`}
+    >
       <nav aria-label="Progress">
         <ol
           role="list"
@@ -39,7 +42,9 @@ const StepTopNav: React.FC<StepNavigationProps> = ({
                 </div>
                 <p
                   className={`${
-                    currentStep === index ? "text-primaryLight" : "text-[#959595]"
+                    currentStep === index
+                      ? "text-primaryLight"
+                      : "text-[#959595]"
                   } font-[600] text-[16px]`}
                 >
                   {step.name}
