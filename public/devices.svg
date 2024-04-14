@@ -1,0 +1,21 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect opacity="0.01" width="36" height="36" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.02832 5.91504H29.8283V25.4579H1.02832V5.91504Z" fill="#D7DBEC"/>
+<rect x="4.11426" y="10.0283" width="7.71429" height="5.65714" fill="#A1A7C4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.02832 5.91504H29.8283V7.97218H1.02832V5.91504Z" fill="#131523"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.8857 11.0576H26.7429V12.0862H13.8857V11.0576Z" fill="#A1A7C4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.8857 13.1152H19.5429V14.1438H13.8857V13.1152Z" fill="#A1A7C4"/>
+<rect x="4.11426" y="17.2295" width="7.71429" height="5.65714" fill="#A1A7C4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.8857 18.2568H26.7429V19.2854H13.8857V18.2568Z" fill="#A1A7C4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.8857 20.3145H19.5429V21.343H13.8857V20.3145Z" fill="#A1A7C4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M24.6855 18.1426C24.6855 15.9334 26.4764 14.1426 28.6855 14.1426H30.9713C33.1804 14.1426 34.9713 15.9334 34.9713 18.1426V26.0854C34.9713 28.2946 33.1804 30.0854 30.9713 30.0854H28.6855C26.4764 30.0854 24.6855 28.2946 24.6855 26.0854L24.6855 18.1426Z" fill="#336DFF"/>
+<mask id="mask0_109_24552" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="24" y="14" width="11" height="17">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M24.6855 18.1426C24.6855 15.9334 26.4764 14.1426 28.6855 14.1426H30.9713C33.1804 14.1426 34.9713 15.9334 34.9713 18.1426V26.0854C34.9713 28.2946 33.1804 30.0854 30.9713 30.0854H28.6855C26.4764 30.0854 24.6855 28.2946 24.6855 26.0854L24.6855 18.1426Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_109_24552)">
+<path d="M27.771 14.1426H31.8853C31.8853 14.7106 31.4248 15.1711 30.8567 15.1711H28.7996C28.2315 15.1711 27.771 14.7106 27.771 14.1426Z" fill="#0030A6"/>
+<rect x="26.2285" y="17.999" width="7.2" height="4.62857" fill="#0030A6"/>
+<rect x="26.2285" y="23.6562" width="7.2" height="1.02857" fill="#0030A6"/>
+<rect x="28.0278" y="25.7129" width="3.6" height="1.02857" fill="#0030A6"/>
+</g>
+</svg>

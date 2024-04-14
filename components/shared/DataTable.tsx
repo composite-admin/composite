@@ -11,18 +11,13 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import React from "react";
 import { DataTablePagination } from "./PaginationComponent";
 import { Input } from "../ui/input";
 import { Search } from "lucide-react";
+import { IoFilterOutline } from "react-icons/io5";
+import { FaSort } from "react-icons/fa";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -30,6 +25,7 @@ interface DataTableProps<TData, TValue> {
   clickAction?: any;
   showSearch?: boolean;
   isLoading?: boolean;
+  showFilters?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -37,6 +33,7 @@ export function DataTable<TData, TValue>({
   data,
   clickAction,
   showSearch = true,
+  showFilters = true,
   isLoading,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -58,17 +55,36 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="my-6">
+      <div className="my-5 flex items-center gap-4 text-zinc-500">
         {showSearch && (
-          <Input
-            type="text"
-            placeholder="Search..."
-            className="w-full md:w-1/3 placeholder:text-textColor"
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            withIcon
-            icon={<Search className="w-4 h-4 text-textColor" />}
-          />
+          <>
+            {/* <Input
+              type="text"
+              placeholder="Search..."
+              className="w-full md:min-w-[15rem] placeholder:text-textColor"
+              value={globalFilter}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+              withIcon
+              icon={<Search className="w-4 h-4 text-textColor" />}
+            /> */}
+
+            <div className="flex items-center gap-2">
+              <Search />
+              <span>Search</span>
+            </div>
+          </>
+        )}
+        {showFilters && (
+          <>
+            <div className="flex items-center gap-2">
+              <IoFilterOutline />
+              <span>Filter</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaSort />
+              <span>Sort</span>
+            </div>
+          </>
         )}
       </div>
       <div className="rounded-lg border border-borderColor shadow-sm">
@@ -78,16 +94,8 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      className="text-xs sm:text-sm font-semibold text-[#344054]"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                    <TableHead key={header.id} className="text-xs sm:text-sm font-semibold text-[#344054]">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -98,14 +106,8 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  <div
-                    role="status"
-                    className=" w-full flex justify-center items-center"
-                  >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  <div role="status" className=" w-full flex justify-center items-center">
                     <svg
                       aria-hidden="true"
                       className="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -128,27 +130,17 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  onClick={clickAction}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} onClick={clickAction}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="py-6">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
