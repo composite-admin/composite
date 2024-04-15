@@ -337,6 +337,34 @@ export interface IConsultantDetailsData {
   message?: string;
 }
 
+export type IWorkerData = {
+  id: number;
+  worker_code: string;
+  worker_name: string;
+  worker_company: string;
+  worker_address: string;
+  worker_email: string;
+  worker_mobile: string;
+  worker_home_phone: string;
+  worker_ofc_phone: string;
+  service_type: string;
+  section: string;
+  worker_source: string;
+  site_management: string;
+  project_code: string;
+  worker_service: string;
+  worker_service_charge: number | null;
+  amount_paid: number | null;
+  outstanding_balance: number | null;
+  date_assigned_to_project: string | null;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+  bank_name: string;
+  account_name: string;
+  account_number: string;
+};
+
 export type ID = string | number;
 
 export const AddConsultantSchema = z

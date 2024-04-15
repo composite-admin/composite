@@ -1,22 +1,25 @@
-import {create} from 'zustand';
-import { createWorker, getAllWorkers, getWorkerById, updateWorker, deleteWorker } from '../../api/workersRequests';
+import { create } from "zustand";
+import { createWorker, getAllWorkers, getWorkerById, updateWorker, deleteWorker } from "../../api/workersRequests";
+import { ID, IWorkerData } from "@/utils/types";
 
 export interface WorkersStoreState {
-  items: object[];
-  selectedItem: object | null;
+  items: IWorkerData[];
+  selectedItem: IWorkerData | null;
   error: string | null;
+
+  // loading
+  fetching?: boolean;
 }
 
 // Define the type for your actions
 export interface WorkersStoreActions {
-  selectedItem: object;
-  setItems: (items: any) => void;
-  setSelectedItem: (selectedItem: any) => void;
+  setItems: (items: IWorkerData[]) => void;
+  setSelectedItem: (selectedItem: IWorkerData) => void;
   setError: (error: any) => void;
   createWorker: (data: any) => void;
   getAllWorkers: () => void;
-  getWorkerById: (id: number) => void;
-  updateWorker: (id: number, data: any) => void;
+  getWorkerById: (id: ID) => void;
+  updateWorker: (id: ID, data: any) => void;
 }
 
 // Define the type for your store combining state and actions
@@ -24,11 +27,12 @@ export type WorkersStore = WorkersStoreState & WorkersStoreActions;
 
 const useStore = create<WorkersStore>((set) => ({
   items: [],
-  selectedItem: {},
+  selectedItem: null,
   error: null,
+  fetching: true,
 
-  setItems: (items: any) => set({ items }),
-  setSelectedItem: (selectedItem: any) => set({ selectedItem }),
+  setItems: (items) => set((state) => ({ ...state, items })),
+  setSelectedItem: (selectedItem) => set((state) => ({ ...state, selectedItem })),
   setError: (error: any) => set({ error }),
 
   createWorker: async (data: any) => {
@@ -41,25 +45,33 @@ const useStore = create<WorkersStore>((set) => ({
   },
 
   getAllWorkers: async () => {
+    set((state) => ({ ...state, fetching: true }));
+
     try {
       const items = await getAllWorkers();
       set({ items });
     } catch (error) {
       set((state: any) => ({ error: "" }));
+    } finally {
+      set((state) => ({ ...state, fetching: false }));
     }
   },
 
-  getWorkerById: async (id: number) => {
+  getWorkerById: async (id: ID) => {
+    set((state) => ({ ...state, fetching: true }));
     try {
       const item = await getWorkerById(id);
-      set({ selectedItem: item.data });
-      return item.data
+      set({ selectedItem: item });
+
+      return item;
     } catch (error) {
       set((state: any) => ({ error: "" }));
+    } finally {
+      set((state) => ({ ...state, fetching: false }));
     }
   },
 
-  updateWorker: async (id: number, data: any) => {
+  updateWorker: async (id: ID, data: any) => {
     try {
       const updatedItem = await updateWorker(id, data);
       set((state: any) => ({
