@@ -21,7 +21,11 @@ export type AddMaterialData = {
   unit_price: number;
 };
 
-export type UpdateMaterialData = { mat_desc: string };
+export type UpdateMaterialData = {
+  mat_desc: string;
+  quantity: number;
+  unit_price: number;
+};
 
 // FOR TOOLS AND MACHINERIES
 export type ToolAndMachinery = {

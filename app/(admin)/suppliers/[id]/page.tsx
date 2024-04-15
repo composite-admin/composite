@@ -7,7 +7,7 @@ import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import Image from "next/image";
 import MaterialTableArea from "./(table)";
 import { useModal } from "@/utils/modalContext";
-import MaterialModal from "./(modal)/materials";
+import AddMaterialModal from "./(modal)/materials/add-material";
 
 const SingleSupplier = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const SingleSupplier = () => {
     }
   }, [getSupplierById, params.id]);
 
-  const showMaterialModal = () => showModal(<MaterialModal />);
+  const showMaterialModal = () => showModal(<AddMaterialModal />);
 
   return (
     <div>
@@ -106,7 +106,7 @@ const SingleSupplier = () => {
               Edit Supplier Information
             </p>
           </div>
-          
+
           <div className="flex items-center gap-4 py-3 px-5 cursor-pointer" onClick={showMaterialModal}>
             <Image src={"/devices.svg"} width={40} height={40} alt="supplier info" />
             <p className="font-semibold">Add Supplier Material</p>

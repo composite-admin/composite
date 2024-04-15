@@ -4,7 +4,7 @@ import { useModal } from "@/utils/modalContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSupplierMaterialsStore from "@/store/actions/materials-and-tools/materialsActions";
 
-const MaterialModal = () => {
+const AddMaterialModal = () => {
   const { hideModal } = useModal();
   const {
     reset,
@@ -85,4 +85,4 @@ const MaterialModal = () => {
   );
 };
 
-export default MaterialModal;
+export default AddMaterialModal;

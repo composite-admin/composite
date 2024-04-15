@@ -73,6 +73,7 @@ const useSupplierMaterialsStore = create<SupplierMaterialsStore>((set) => ({
     } catch (err) {
       // do something with error
       console.log("error", err);
+      toast({ title: "An error occurred", variant: "destructive" });
     } finally {
       set((state) => ({ ...state, requestLoading: false }));
     }
@@ -86,6 +87,7 @@ const useSupplierMaterialsStore = create<SupplierMaterialsStore>((set) => ({
     } catch (err) {
       // do something with error
       console.log("error", err);
+      toast({ title: "An error occurred", variant: "destructive" });
     } finally {
       set((state) => ({ ...state, requestLoading: false }));
     }
@@ -101,9 +103,11 @@ const useSupplierMaterialsStore = create<SupplierMaterialsStore>((set) => ({
           materials: state.materials.map((mat) => (mat.mat_id === id ? updatedMaterial : mat)),
           singleMaterial: updatedMaterial,
         }));
+      toast({ title: "Material Updated Successfully.", variant: "success" });
     } catch (err) {
       // do something with error
       console.log("error", err);
+      toast({ title: "An error occurred", variant: "destructive" });
     } finally {
       set((state) => ({ ...state, requestLoading: false }));
     }
@@ -116,6 +120,7 @@ const useSupplierMaterialsStore = create<SupplierMaterialsStore>((set) => ({
     } catch (err) {
       // do something with error
       console.log("error", err);
+      toast({ title: "An error occurred", variant: "destructive" });
     } finally {
       set((state) => ({ ...state, requestLoading: false }));
     }

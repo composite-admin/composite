@@ -7,7 +7,7 @@ import { formatToNaira } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiPencilAlt } from "react-icons/hi";
+import EditPartMaterial from "./edit-part";
 
 export const materialsColumns: ColumnDef<Material>[] = [
   {
@@ -96,15 +96,7 @@ export const materialsColumns: ColumnDef<Material>[] = [
     cell: ({ row }) => {
       const {} = row.original;
 
-      return (
-        <Link href={"/suppliers/12/edit"}>
-          <div className="">
-            <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center">
-              <HiPencilAlt className="text-xl" /> <span>Edit</span>
-            </span>
-          </div>
-        </Link>
-      );
+      return <EditPartMaterial {...row} />;
     },
   },
 ];
