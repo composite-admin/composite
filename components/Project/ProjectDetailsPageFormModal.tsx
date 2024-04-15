@@ -24,7 +24,7 @@ export default function ProjectDetailsPageFormModal() {
       case "add_material":
         return "Add Materials";
       case "add_contractor":
-        return "Add Contractor";
+        return "Add Contractor to Project";
       case "add_worker":
         return "Add Worker";
 

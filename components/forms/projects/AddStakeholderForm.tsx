@@ -117,7 +117,7 @@ export default function AddStakeHolderForm() {
         />
 
         <div className="flex gap-4 flex-col lg:flex-row">
-          <Button variant={"secondary"} className="w-full">
+          <Button variant={"secondary"} className="w-full" onClick={onClose}>
             Cancel
           </Button>
           <Button className="w-full">Add</Button>
