@@ -40,7 +40,7 @@ export default function AddContractorForm() {
           control={form.control}
           name="project_name"
           label="Project Name"
-          placeholder="Project Name"
+          placeholder={projectName}
           disabled
         />
         <CustomFormSelect
