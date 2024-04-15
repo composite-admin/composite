@@ -7,7 +7,7 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useTenantsAndFlat";
+import { useProjectData } from "@/hooks/useSelectOptions";
 import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";

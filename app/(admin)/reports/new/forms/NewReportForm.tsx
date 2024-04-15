@@ -23,7 +23,7 @@ import {
 } from "@/components/shared/FormComponent";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useProjectData } from "@/hooks/useTenantsAndFlat";
+import { useProjectData } from "@/hooks/useSelectOptions";
 import { DragDrop, ProgressBar } from "@uppy/react";
 import { Dashboard } from "@uppy/react";
 import Uppy from "@uppy/core";

@@ -105,7 +105,7 @@ export function CustomFormTextareaField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="capitalize">{name}</FormLabel>
+          <FormLabel className="capitalize">{props.label}</FormLabel>
           <FormControl>
             <Textarea {...field} {...props} placeholder={placeholder} />
           </FormControl>
@@ -159,69 +159,12 @@ export function CustomFormSelect({
   );
 }
 
-// interface DatePickerProps {
-//   label: string;
-//   value: Date | undefined;
-//   control: Control<any>;
-//   onChange: (date: Date | undefined) => void;
-//   minDate?: Date;
-//   maxDate?: Date;
-// }
-
 interface DatePickerProps {
   name: string;
   placeholder?: string;
   control: Control<any>;
   label?: string;
-  minDate?: Date;
-  maxDate?: Date;
 }
-
-// export const CustomDatePicker: React.FC<DatePickerProps> = ({
-//   name,
-//   control,
-//   label,
-//   minDate,
-//   maxDate,
-// }) => {
-//   const {
-//     field: { value, onChange },
-//   } = useController({
-//     name,
-//     control,
-//   });
-
-//   return (
-//     <div className="flex flex-col">
-//       <label className="mb-2 font-semibold">{label}</label>
-//       <Popover>
-//         <PopoverTrigger asChild>
-//           <Button
-//             variant={"outline"}
-//             className={cn(
-//               "w-[240px] pl-3 text-left font-normal",
-//               !value && "text-muted-foreground"
-//             )}
-//           >
-//             {value ? format(value, "PPP") : <span>Pick a date</span>}
-//             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-//           </Button>
-//         </PopoverTrigger>
-//         <PopoverContent className="w-auto p-0" align="start">
-//           <Calendar
-//             mode="single"
-//             selected={value}
-//             onSelect={onChange}
-//             // disabled={(date) =>
-//             //   (minDate && date < minDate) || (maxDate && date > maxDate)
-//             // }
-//             initialFocus
-//           />
-//         </PopoverContent>
-//       </Popover>
-//     </div>
-//   );
-// };
 
 export function CustomDatePicker({
   name,
@@ -260,9 +203,7 @@ export function CustomDatePicker({
                 mode="single"
                 selected={field.value?.toString()}
                 onSelect={field.onChange}
-                // disabled={(date) =>
-                //   date > new Date() || date < new Date("1900-01-01")
-                // }
+                disabled={(date) => date < new Date()}
                 initialFocus
               />
             </PopoverContent>

@@ -1,12 +1,12 @@
 "use client"
 import { Modal } from '@/components/shared/Modal'
 import { useAddProjectModal, useSuccessModal } from '@/store/inventory/UseInventoryModal';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiHome } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
 import useProjectActionsStore from "@/store/actions/projectActions";
 import useStaffActionsStore from "@/store/actions/staffActions";
-import { nigerianStates } from "@/utils/types";
+import { nigerianStates, selectOptionsForProjectStatus } from "@/utils/types";
 import { Form } from "@/components/ui/form";
 import { AddProjectFormSchema, AddProjectFormType } from "./formTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,16 +17,93 @@ import {
   CustomFormTextareaField,
 } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
+import { api } from "@/config/api";
+import { useStaffRoles } from "@/hooks/useSelectOptions";
+import { useProjectStore } from "@/store/project/useProjectStore";
+import { data } from "../../../app/(admin)/consultants/data";
 
 const AddProjectModal = () => {
   const isOpen = useAddProjectModal((state) => state.isOpen);
   const onClose = useAddProjectModal((state) => state.onClose);
+  const { setTeamMemberData, teamMemberData } = useProjectStore();
+  const { staffRoles } = useStaffRoles();
+  const allRoles = staffRoles?.map((role: any) => role.role);
 
   const isSucessOpen = useSuccessModal((state) => state.onOpen);
 
   const form = useForm<AddProjectFormType>({
     resolver: zodResolver(AddProjectFormSchema),
   });
+
+  const { watch, setValue } = form;
+
+  const teamMembers = teamMemberData?.map((member: any) => {
+    return `${member.firstname} ${member.middlename} ${member.lastname}`;
+  });
+
+  const teamMemberList = teamMembers?.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+
+  const watchRole = watch("role");
+  useEffect(() => {
+    const fetchStaffByRole = async () => {
+      if (watchRole) {
+        try {
+          const response = await api.get(`/staffs/role/all?role=${watchRole}`);
+
+          if (response.data) {
+            setTeamMemberData(response.data.data);
+          }
+        } catch (error) {
+          console.error("Error fetching staff by role:", error);
+        }
+      }
+    };
+
+    fetchStaffByRole();
+  }, [watchRole, setValue, setTeamMemberData]);
+  const { toast } = useToast();
+
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationKey: ["add project"],
+    mutationFn: async (data: { [Key in keyof AddProjectFormType]: string }) => {
+      try {
+        const response = await api.post("/projects", {
+          supervisor_id: teamMemberData?.find(
+            (member: any) =>
+              `${member.firstname} ${member.middlename} ${member.lastname}` ===
+              data.project_supervisor
+            // @ts-ignore next-line
+          )?.userid as string,
+          ...data,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+    onSuccess: () => {
+      toast({
+        title: "Staff added successfully",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  //watch for when role changes
 
   function onSubmit(formValues: AddProjectFormType) {
     const startDateString = formValues.start_date
@@ -36,7 +113,11 @@ const AddProjectModal = () => {
       ? formValues.end_date.toISOString().slice(0, 19).replace("T", " ")
       : "";
 
-    console.log(formValues);
+    mutate({
+      ...formValues,
+      start_date: startDateString,
+      end_date: endDateString,
+    });
   }
 
   return (
@@ -58,12 +139,19 @@ const AddProjectModal = () => {
     >
       <div>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             <CustomFormField
               name="project_name"
               control={form.control}
               placeholder="Enter project name"
               label="Project Name"
+            />
+            <CustomFormSelect
+              name="status"
+              control={form.control}
+              placeholder="Select Project Status"
+              labelText="Project Status"
+              items={selectOptionsForProjectStatus}
             />
             <div className="grid grid-cols-2 gap-2 my-5  ">
               <div className="space-y-4">
@@ -84,11 +172,12 @@ const AddProjectModal = () => {
                   placeholder="Enter city"
                   label="City"
                 />{" "}
-                <CustomFormField
+                <CustomFormSelect
                   name="role"
                   control={form.control}
                   placeholder="Select role"
-                  label="Role"
+                  labelText="Role"
+                  items={allRoles || []}
                 />
               </div>
 
@@ -110,17 +199,18 @@ const AddProjectModal = () => {
                   placeholder="Enter LGA"
                   label="LGA"
                 />
-                <CustomFormField
-                  name="team_member"
+                <CustomFormSelect
+                  name="project_supervisor"
                   control={form.control}
                   placeholder="Add member"
-                  label="Team MEmeber"
+                  labelText="Team Member"
+                  items={teamMemberList || []}
                 />
               </div>
             </div>
             <div>
               <CustomFormTextareaField
-                label="Description"
+                label="Project Description"
                 name="project_description"
                 control={form.control}
                 placeholder="Enter description"

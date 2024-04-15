@@ -423,3 +423,22 @@ export interface IProjectReport {
   photograph_id: number | null;
   name: string;
 }
+
+
+export const selectOptionForRoles = [ 'Project Manager', 'Architect', 'Structural', 'HR', 'Mechanical', 'Engineer', 'Electrical', 'Quantity Surveyor', 'Site Superintendent' ]
+
+export const selectOptionsForProjectStatus = [ 'Site Prep', 'On-going', 'Finishing Stage', 'Completed' ]
+
+export const selectoptionsForUserType = [ 'Admin', 'Supervisor', 'Staff' ]
+
+export const selectOptionsForType = [ 'In-house','Contractor'  ]
+
+// Project Manager
+// Architecture
+// Structural
+// HR/admin
+// Mechanical
+// Engineer
+// Electrical
+// Quantity Surveyor 
+// Site Superintendent

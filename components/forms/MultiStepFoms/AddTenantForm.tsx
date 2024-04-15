@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
-import { useFlats, useProjectData } from "@/hooks/useTenantsAndFlat";
+import { useFlats, useProjectData } from "@/hooks/useSelectOptions";
 import { useRouter } from "next/navigation";
 
 type Inputs = z.infer<typeof FormDataSchema>;

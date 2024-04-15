@@ -51,3 +51,24 @@ export const useTenantDetails = (id: number) => {
   });
   return { tenantDetails: data };
 };
+
+export const useStaffRoles = () => {
+  const { data } = useQuery({
+    queryKey: ["get roles"],
+    queryFn: getRoles,
+  });
+  return { staffRoles: data };
+};
+
+export const getRoles = async () => {
+  try {
+    const response = await api.get("/staffs/roles/all");
+    return response.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw error;
+    }
+  }
+};
