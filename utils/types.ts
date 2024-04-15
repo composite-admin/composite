@@ -433,12 +433,29 @@ export const selectoptionsForUserType = [ 'Admin', 'Supervisor', 'Staff' ]
 
 export const selectOptionsForType = [ 'In-house','Contractor'  ]
 
-// Project Manager
-// Architecture
-// Structural
-// HR/admin
-// Mechanical
-// Engineer
-// Electrical
-// Quantity Surveyor 
-// Site Superintendent
+export const selectOptionsForStartUpCostType = [ 
+  'Agency',
+  'Community Relation',
+  'Design & Approval Drawing',
+  'Geophysical Survey',
+  'Geotechnical Survey',
+  'Land Acquisition',
+  'Local Government PR',
+  'Omo Onile',
+  'Regulatory Agency PR',
+  'Regulatory Approval Fee',
+  'Security'
+ ]
+
+
+// Agency
+// Community Relation
+// Design & Approval Drawing
+// Geophysical Survey
+// Geotechnical Survey
+// Land Acquisition
+// Local Government PR
+// Omo Onile
+// Regulatory Agency PR
+// Regulatory Approval Fee
+// Security

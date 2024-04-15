@@ -28,8 +28,7 @@ const SingleProject = () => {
   const onOpenAddContractor = useAddContractorModal((state) => state.onOpen);
   const onOpenStartupModal = useAddStartupModal((state) => state.onOpen);
   const onOpenAddMaterialMOdal = useAddMaterial((state) => state.onOpen);
-  const { currentModal, onOpen, setCurrentModal } =
-    useProjectDetailsPageFormModal();
+  const { setProjectName, setCurrentModal } = useProjectDetailsPageFormModal();
 
   const options = [
     {
@@ -120,7 +119,13 @@ const SingleProject = () => {
 
   useEffect(() => {
     getAllProjects();
-  }, [getAllProjects]);
+    setProjectName(selectedItem?.project_name, selectedItem?.project_code);
+  }, [
+    getAllProjects,
+    setProjectName,
+    selectedItem?.project_name,
+    selectedItem?.project_code,
+  ]);
 
   useEffect(() => {
     if (params.id) {
