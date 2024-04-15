@@ -17,67 +17,60 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-interface Props {}
 
-const AddStartUpCostSchema = z.object({
-  project_name: z.string().optional(),
-  startup_desc: z.string().optional(),
-  startup_type: z.string().optional(),
-  startup_cost: z.string().optional(),
-  comment: z.string().optional(),
-});
+const AddStakeHolderSchema = z.object({});
 
-type AddStartUpCostType = z.infer<typeof AddStartUpCostSchema>;
+type AddStakeHolderType = z.infer<typeof AddStakeHolderSchema>;
 
 export default function AddStakeHolderForm() {
   const { projectName, projectCode, onClose } =
     useProjectDetailsPageFormModal();
   const { toast } = useToast();
 
-  const form = useForm<AddStartUpCostType>({
-    resolver: zodResolver(AddStartUpCostSchema),
+  const form = useForm<AddStakeHolderType>({
+    resolver: zodResolver(AddStakeHolderSchema),
     defaultValues: {
       project_name: projectName,
     },
   });
 
-  const { mutate } = useMutation({
-    mutationKey: ["add-startup-cost"],
-    mutationFn: async (values: AddStartUpCostType) => {
-      try {
-        const response = await api.post("/startup-costs", {
-          ...values,
-          startup_cost: Number(values.startup_cost),
-          project_code: projectCode,
-        });
-        return response.data;
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
-      }
-    },
-  });
+  // const { mutate } = useMutation({
+  //   mutationKey: ["add-startup-cost"],
+  //   mutationFn: async (values: AddStartUpCostType) => {
+  //     try {
+  //       const response = await api.post("/startup-costs", {
+  //         ...values,
+  //         startup_cost: Number(values.startup_cost),
+  //         project_code: projectCode,
+  //       });
+  //       return response.data;
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error) && error.response) {
+  //         throw new Error(error.response.data.message);
+  //       } else {
+  //         throw error;
+  //       }
+  //     }
+  //   },
+  // });
 
-  const handleSubmit = (data: AddStartUpCostType) => {
-    mutate(data, {
-      onSuccess: () => {
-        form.reset();
-        onClose();
-        toast({
-          title: "Start up cost added successfully",
-          variant: "success",
-        });
-      },
-      onError: () => {
-        toast({
-          title: "Something went wrong",
-          variant: "destructive",
-        });
-      },
-    });
+  const handleSubmit = (data: AddStakeHolderType) => {
+    // mutate(data, {
+    //   onSuccess: () => {
+    //     form.reset();
+    //     onClose();
+    //     toast({
+    //       title: "Start up cost added successfully",
+    //       variant: "success",
+    //     });
+    //   },
+    //   onError: () => {
+    //     toast({
+    //       title: "Something went wrong",
+    //       variant: "destructive",
+    //     });
+    //   },
+    // });
   };
 
   return (
@@ -93,14 +86,6 @@ export default function AddStakeHolderForm() {
           placeholder="Project Name"
           disabled
         />
-
-        <CustomFormField
-          control={form.control}
-          name="startup_desc"
-          label="Project Description"
-          placeholder="Project Description"
-        />
-
         <CustomFormSelect
           control={form.control}
           name="startup_type"
@@ -109,12 +94,20 @@ export default function AddStakeHolderForm() {
           placeholder="Startup Type"
         />
 
-        <CustomFormField
-          control={form.control}
-          name="startup_cost"
-          label="Startup Cost"
-          placeholder="Startup Cost"
-        />
+        <div className="grid lg:grid-cols-2 gap-2">
+          <CustomFormField
+            name="official_amount"
+            control={form.control}
+            label="Official Amount"
+            placeholder="Official Amount"
+          />
+          <CustomFormField
+            name="other_amount"
+            control={form.control}
+            label="Other Amount"
+            placeholder="Other Amount"
+          />
+        </div>
 
         <CustomFormTextareaField
           control={form.control}
