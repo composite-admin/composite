@@ -1,25 +1,14 @@
 "use client";
 
-import { ViewUserPageIcon } from "@/components/icons";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
+import { formatToNaira } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
+import { IWorkerJobData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
-export type ReportType = {
-  id: string;
-  stakeHolderName: string;
-  address: string;
-  officePhone: string;
-  contactPerson: string;
-  contactPhone: string;
-  addedOn: string;
-  actions: string;
-};
-
-export const columns: ColumnDef<ReportType | any>[] = [
+export const columns: ColumnDef<IWorkerJobData>[] = [
   {
     accessorKey: "jobCode",
     header: ({ column }) => {
@@ -28,7 +17,7 @@ export const columns: ColumnDef<ReportType | any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_company"]}</span>
+          <span className="font-semibold ">{row.original["job_code"]}</span>
         </div>
       );
     },
@@ -41,7 +30,7 @@ export const columns: ColumnDef<ReportType | any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_company"]}</span>
+          <span className="font-semibold ">{row.original["worker_service"]}</span>
         </div>
       );
     },
@@ -54,7 +43,7 @@ export const columns: ColumnDef<ReportType | any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_company"]}</span>
+          <span className="font-semibold ">{formatToNaira(parseFloat(row.original["worker_service_charge"]))}</span>
         </div>
       );
     },
@@ -67,7 +56,7 @@ export const columns: ColumnDef<ReportType | any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_company"]}</span>
+          <span className="font-semibold ">{formatToNaira(parseFloat(row.original["amount_paid"]))}</span>
         </div>
       );
     },
@@ -80,12 +69,24 @@ export const columns: ColumnDef<ReportType | any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_address"]}</span>
+          <span className="font-semibold ">{formatToNaira(parseFloat(row.original["outstanding_balance"]))}</span>
         </div>
       );
     },
   },
-
+  {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="max-w-sm">
+          <span className="font-semibold truncate">{row.original["comment"]}</span>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "createdOn",
     header: ({ column }) => {

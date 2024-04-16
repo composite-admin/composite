@@ -6,7 +6,7 @@ import {
   updateWorkerJob,
   deleteWorkerJob,
 } from "@/api/worker/workersJobRequests";
-import { ID, IWorkerJobCreateData, IWorkerJobData } from "@/utils/types";
+import { ID, IWorkerJobCreateData, IWorkerJobData, IWorkerJobUpdateData } from "@/utils/types";
 
 export interface WorkersStoreState {
   workerJobs: IWorkerJobData[];
@@ -19,29 +19,30 @@ export interface WorkersStoreState {
 
 // Define the type for your actions
 export interface WorkersStoreActions {
-  setItems: (items: IWorkerJobData[]) => void;
-  setSelectedItem: (job: IWorkerJobData) => void;
+  getJobs: (items: IWorkerJobData[]) => void;
+  setSingleJob: (job: IWorkerJobData) => void;
   setError: (error: any) => void;
-  createWorker: (data: IWorkerJobCreateData) => void;
-  getAllWorkers: () => void;
-  getWorkerById: (id: ID) => void;
-  updateWorker: (id: ID, data: any) => void;
+  createWorkerJob: (data: IWorkerJobCreateData) => void;
+  getAllWorkerJobs: () => void;
+  getWorkerJobById: (id: ID) => void;
+  updateWorkerJob: (id: ID, data: IWorkerJobUpdateData) => void;
+  deleteWorker: (id: ID) => void;
 }
 
 // Define the type for your store combining state and actions
 export type WorkersStore = WorkersStoreState & WorkersStoreActions;
 
-const useStore = create<WorkersStore>((set) => ({
+const useWorkerJobsStore = create<WorkersStore>((set) => ({
   workerJobs: [],
   job: null,
   error: null,
-  fetching: true,
+  fetching: false,
 
-  setItems: (workerJobs) => set((state) => ({ ...state, workerJobs })),
-  setSelectedItem: (job) => set((state) => ({ ...state, job })),
+  getJobs: (workerJobs) => set((state) => ({ ...state, workerJobs })),
+  setSingleJob: (job) => set((state) => ({ ...state, job })),
   setError: (error: any) => set({ error }),
 
-  createWorker: async (data: IWorkerJobCreateData) => {
+  createWorkerJob: async (data: IWorkerJobCreateData) => {
     try {
       const newItem = await createWorker(data);
       set((state) => ({ workerJobs: [...state.workerJobs, newItem] }));
@@ -50,7 +51,7 @@ const useStore = create<WorkersStore>((set) => ({
     }
   },
 
-  getAllWorkers: async () => {
+  getAllWorkerJobs: async () => {
     set((state) => ({ ...state, fetching: true }));
 
     try {
@@ -63,11 +64,12 @@ const useStore = create<WorkersStore>((set) => ({
     }
   },
 
-  getWorkerById: async (id: ID) => {
+  getWorkerJobById: async (id) => {
     set((state) => ({ ...state, fetching: true }));
+
     try {
-      const item = await getWorkerJobsById(id);
-      set((state) => ({ ...state, job: item }));
+      const job = await getWorkerJobsById(id);
+      set((state) => ({ ...state, job: job }));
     } catch (error) {
       set((state) => ({ ...state, error: "" }));
     } finally {
@@ -75,7 +77,7 @@ const useStore = create<WorkersStore>((set) => ({
     }
   },
 
-  updateWorker: async (id: ID, data) => {
+  updateWorkerJob: async (id, data) => {
     try {
       const updatedJob = await updateWorkerJob(id, data);
       set((state) => ({
@@ -88,7 +90,7 @@ const useStore = create<WorkersStore>((set) => ({
     }
   },
 
-  deleteWorker: async (id: number) => {
+  deleteWorker: async (id) => {
     try {
       await deleteWorkerJob(id);
       set((state) => ({
@@ -102,4 +104,4 @@ const useStore = create<WorkersStore>((set) => ({
   },
 }));
 
-export default useStore;
+export default useWorkerJobsStore;

@@ -6,26 +6,25 @@ import { DataTable } from "@/components/shared/DataTable";
 import { columns } from "./columns";
 import React, { useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import useWorkersActionsStore from "@/store/actions/worker/workersActions";
 import PageHead from "@/components/ui/pageHead";
 import TextSkeleton from "@/components/shared/TextSkeleton";
 import { formatDate } from "@/utils/formatDate";
+import useWorkerJobsStore from "@/store/actions/worker/workerJobsActions";
+import useWorkersActionsStore from "@/store/actions/worker/workersActions";
+import { AnimatePresence, motion } from "framer-motion";
+import { opacityVariant } from "@/utils/variants";
 
 const SingleWorker = () => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
 
-  const { getAllWorkers, fetching, getWorkerById, selectedItem: worker } = useWorkersActionsStore();
+  const { fetching, worker: worker, getWorkerById } = useWorkersActionsStore();
+  const { fetching: jobsFetching, workerJobs, getAllWorkerJobs } = useWorkerJobsStore();
 
   useEffect(() => {
-    getAllWorkers();
-  }, [getAllWorkers]);
-
-  useEffect(() => {
-    if (params.id) {
-      getWorkerById(params.id);
-    }
-  }, [getWorkerById, params.id]);
+    getWorkerById(params.id);
+    getAllWorkerJobs();
+  }, []);
 
   return (
     <>
@@ -41,7 +40,13 @@ const SingleWorker = () => {
               <AvatarComponent classes="size-24" />
               <div className="space-y-1">
                 <h1 className="font-bold text-2xl capitalize">{worker?.worker_company}</h1>
-                <p className="font-light">Submitted on {formatDate(`${worker?.createdAt}`)}</p>
+                <AnimatePresence mode="wait">
+                  {worker?.createdAt && (
+                    <motion.p {...opacityVariant} className="font-light">
+                      Submitted on {formatDate(`${worker?.createdAt}`)}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
 
               <Button>Edit Worker</Button>
@@ -110,7 +115,7 @@ const SingleWorker = () => {
           </div>
         </div>
         <PageHead headText="Worker's Jobs" subText="View all your worker's jobs here" />
-        <DataTable columns={columns} data={[]} clickAction={() => {}} />
+        <DataTable columns={columns} data={workerJobs ?? []} clickAction={() => {}} isLoading={jobsFetching} />
       </div>
     </>
   );

@@ -3,8 +3,8 @@ import { createWorker, getAllWorkers, getWorkerById, updateWorker, deleteWorker 
 import { ID, IWorkerData } from "@/utils/types";
 
 export interface WorkersStoreState {
-  items: IWorkerData[];
-  selectedItem: IWorkerData | null;
+  workers: IWorkerData[];
+  worker: IWorkerData | null;
   error: string | null;
 
   // loading
@@ -13,8 +13,8 @@ export interface WorkersStoreState {
 
 // Define the type for your actions
 export interface WorkersStoreActions {
-  setItems: (items: IWorkerData[]) => void;
-  setSelectedItem: (selectedItem: IWorkerData) => void;
+  setWorkers: (items: IWorkerData[]) => void;
+  setSingleWorker: (selectedItem: IWorkerData) => void;
   setError: (error: any) => void;
   createWorker: (data: any) => void;
   getAllWorkers: () => void;
@@ -25,20 +25,20 @@ export interface WorkersStoreActions {
 // Define the type for your store combining state and actions
 export type WorkersStore = WorkersStoreState & WorkersStoreActions;
 
-const useStore = create<WorkersStore>((set) => ({
-  items: [],
-  selectedItem: null,
+const useWorkersActionsStore = create<WorkersStore>((set) => ({
+  workers: [],
+  worker: null,
   error: null,
   fetching: true,
 
-  setItems: (items) => set((state) => ({ ...state, items })),
-  setSelectedItem: (selectedItem) => set((state) => ({ ...state, selectedItem })),
+  setWorkers: (items) => set((state) => ({ ...state, workers: items })),
+  setSingleWorker: (selectedItem) => set((state) => ({ ...state, worker: selectedItem })),
   setError: (error: any) => set({ error }),
 
   createWorker: async (data: any) => {
     try {
       const newItem = await createWorker(data);
-      set((state: any) => ({ items: [...state.items, newItem] }));
+      set((state: any) => ({ workers: [...state.items, newItem] }));
     } catch (error) {
       set((state: any) => ({ error: "" }));
     }
@@ -49,7 +49,7 @@ const useStore = create<WorkersStore>((set) => ({
 
     try {
       const items = await getAllWorkers();
-      set({ items });
+      set({ workers: items });
     } catch (error) {
       set((state: any) => ({ error: "" }));
     } finally {
@@ -61,7 +61,7 @@ const useStore = create<WorkersStore>((set) => ({
     set((state) => ({ ...state, fetching: true }));
     try {
       const item = await getWorkerById(id);
-      set({ selectedItem: item });
+      set({ worker: item });
 
       return item;
     } catch (error) {
@@ -75,8 +75,8 @@ const useStore = create<WorkersStore>((set) => ({
     try {
       const updatedItem = await updateWorker(id, data);
       set((state: any) => ({
-        items: state.items.map((item: any) => (item.id === id ? updatedItem : item)),
-        selectedItem: updatedItem.id === state.selectedItem?.id ? updatedItem : state.selectedItem,
+        workers: state.items.map((item: any) => (item.id === id ? updatedItem : item)),
+        worker: updatedItem.id === state.selectedItem?.id ? updatedItem : state.selectedItem,
       }));
     } catch (error) {
       set((state: any) => ({ error: "" }));
@@ -87,8 +87,8 @@ const useStore = create<WorkersStore>((set) => ({
     try {
       await deleteWorker(id);
       set((state: any) => ({
-        items: state.items.filter((item: any) => item.id !== id),
-        selectedItem: state.selectedItem && state.selectedItem.id === id ? null : state.selectedItem,
+        workers: state.items.filter((item: any) => item.id !== id),
+        worker: state.selectedItem && state.selectedItem.id === id ? null : state.selectedItem,
       }));
     } catch (error) {
       set((state: any) => ({ error: "" }));
@@ -96,4 +96,4 @@ const useStore = create<WorkersStore>((set) => ({
   },
 }));
 
-export default useStore;
+export default useWorkersActionsStore;

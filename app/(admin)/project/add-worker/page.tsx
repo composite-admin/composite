@@ -11,7 +11,7 @@ import useWorkersActionsStore from "@/store/actions/worker/workersActions";
 const AddWorkerToProject = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const worker = useWorkersActionsStore<any>((state) => state.selectedItem);
+  const worker = useWorkersActionsStore<any>((state) => state.worker);
   const name: any = searchParams.get("name");
   const onOpenSucess = useSuccessModal((state) => state.onOpen);
   const onOpenCreateWorker = useAddWorkerModal((state) => state.onOpen);
