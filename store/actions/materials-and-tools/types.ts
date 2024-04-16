@@ -26,37 +26,3 @@ export type UpdateMaterialData = {
   quantity: number;
   unit_price: number;
 };
-
-// FOR TOOLS AND MACHINERIES
-export type ToolAndMachinery = {
-  tool_id: number;
-  tool_code: string;
-  supplier_code: string;
-  supplier_name: string;
-  tool_type: string;
-  description: string;
-  others: string;
-  procurement_type: string;
-  created_by: string;
-  comment: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type AddToolData = {
-  supplier_code: string;
-  supplier_name: string;
-  tool_type: string;
-  description: string;
-  others: string;
-  procurement_type: string;
-  comment: string;
-};
-
-export type UpdateToolData = {
-  tool_type: string;
-  description: string;
-  others: string;
-  procurement_type: string;
-  comment: string;
-};

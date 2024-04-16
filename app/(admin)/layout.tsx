@@ -9,7 +9,7 @@ export default function layout({ children }: PropsWithChildren) {
         <div className="hidden lg:block lg:col-span-1 z-50">
           <Sidebar />
         </div>
-        <div className="lg:col-span-4 2xl:container lg:ml-[300px]">
+        <div className="lg:col-span-4 w-full 2xl:container lg:ml-[300px]">
           <TopNav />
           <div className="pb-16 pt-5 px-4 sm:px-8 lg:px-7">{children}</div>
         </div>

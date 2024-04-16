@@ -1,23 +1,11 @@
 "use client";
 
-import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatDate, twelveHourTime } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
-
-export type SupplierType = {
-  id: string;
-  supplierName: string;
-  address: string;
-  officePhone: string;
-  contactPerson: string;
-  contactPhone: string;
-  addedOn: string;
-  actions: any;
-};
+import { HiPencilAlt } from "react-icons/hi";
 
 export const columns: ColumnDef<any>[] = [
   // {
@@ -48,7 +36,9 @@ export const columns: ColumnDef<any>[] = [
           <div className="flex gap-3 items-center">
             <AvatarComponent />
             <div>
-              <p className="text-lg font-medium text-gray-700 capitalize">{supplier_name}</p>
+              <p className="text-lg font-medium w-fit underline capitalize border-b text-primaryLight">
+                {supplier_name}
+              </p>
               <p className="text-gray-500 uppercase">{supplier_code}</p>
             </div>
           </div>

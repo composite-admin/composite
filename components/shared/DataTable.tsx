@@ -59,7 +59,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="">
       <div className={withTitle ? "flex items-center justify-between mt-4" : ""}>
         {withTitle && (
           <p className="font-bold text-xl capitalize">

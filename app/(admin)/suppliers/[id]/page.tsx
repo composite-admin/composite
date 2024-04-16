@@ -8,6 +8,7 @@ import Image from "next/image";
 import MaterialTableArea from "./(table)";
 import { useModal } from "@/utils/modalContext";
 import AddMaterialModal from "./(modal)/materials/add-material";
+import AddToolsModal from "./(modal)/tools/add-tools";
 
 const SingleSupplier = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const SingleSupplier = () => {
   }, [getSupplierById, params.id]);
 
   const showMaterialModal = () => showModal(<AddMaterialModal />);
+  const showAddToolsModal = () => showModal(<AddToolsModal />);
 
   return (
     <div>
@@ -112,7 +114,7 @@ const SingleSupplier = () => {
             <p className="font-semibold">Add Supplier Material</p>
           </div>
 
-          <div className="flex items-center gap-4 py-5 px-5 cursor-pointer">
+          <div className="flex items-center gap-4 py-5 px-5 cursor-pointer" onClick={showAddToolsModal}>
             <Image src={"/truck.svg"} width={40} height={40} alt="supplier info" />
             <p className="font-semibold">Add Tools and Machinery</p>
           </div>
