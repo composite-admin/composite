@@ -89,10 +89,7 @@ export type LoginForm = {
 };
 
 export const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "Email is required" })
-    .email({ message: "Email must be a valid email" }),
+  email: z.string().min(1, { message: "Email is required" }).email({ message: "Email must be a valid email" }),
   password: z
     .string()
     .min(1, { message: "Password is required" })
@@ -169,8 +166,8 @@ export interface IRequestData {
   supplier_material: string;
   description: string;
   quantity: number;
-  unit_price: string;
-  total_price: string;
+  unit_price: string | number;
+  total_price: number;
   worker_name: string;
   worker_code: string;
   worker_service: string;
@@ -313,7 +310,6 @@ export interface IFlatData {
   updatedAt: string;
 }
 
-
 export interface IConsultantData {
   id: number;
   consultant_code: string;
@@ -341,20 +337,117 @@ export interface IConsultantDetailsData {
   message?: string;
 }
 
+export type ID = string | number;
+
 export const AddConsultantSchema = z
   .object({
-    name: z
-      .string()
-      .min(3, { message: "Full name must be at least 3 characters" }),
-    contact: z
-      .string()
-      .min(10, { message: "Phone number must be at least 10 characters" }),
+    name: z.string().min(3, { message: "Full name must be at least 3 characters" }),
+    contact: z.string().min(10, { message: "Phone number must be at least 10 characters" }),
     email: z.string().email({ message: "Invalid email" }),
     type: z.string().optional(),
-    website: z
-      .string()
-      .min(6, { message: "This website might not be valid, please try again" }),
+    website: z.string().min(6, { message: "This website might not be valid, please try again" }),
   })
   .required();
 
 export type AddConsultantType = z.infer<typeof AddConsultantSchema>;
+
+
+export interface IProjectData {
+  id: number;
+  project_name: string;
+  project_description: string;
+  project_code: string;
+  project_location: string;
+  address: string;
+  city: string;
+  state: string;
+  lga: string;
+  project_duration: string;
+  start_date: string;
+  end_date: string;
+  comment: string;
+  status: string;
+  date_added: string;
+  project_supervisor: string;
+  supervisor_id: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface EntityCount {
+  count: string;
+}
+
+export interface IEntityData {
+  totalProject: EntityCount;
+  totalContractor: EntityCount;
+  totalStakeholder: EntityCount;
+  totalStaff: EntityCount;
+  totalWorker: EntityCount;
+  totalClient: EntityCount;
+  totalSuppliers: EntityCount;
+}
+
+export interface IProjectReport {
+  id: number;
+  report_code: string;
+  report_type: string;
+  created_for: string;
+  project_name: string;
+  project_code: string;
+  project_supervisor: string;
+  report_summary: string;
+  challenges: string;
+  solutions: string;
+  recommendation: string;
+  weekly_projection: string;
+  materials_required_for_projection: string;
+  materials_on_site: string;
+  status: string;
+  submitted_by: string;
+  submitted_on: string;
+  visitor: string;
+  weather: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  photograph_id: number | null;
+  name: string;
+}
+
+
+export const selectOptionForRoles = [ 'Project Manager', 'Architect', 'Structural', 'HR', 'Mechanical', 'Engineer', 'Electrical', 'Quantity Surveyor', 'Site Superintendent' ]
+
+export const selectOptionsForProjectStatus = [ 'Site Prep', 'On-going', 'Finishing Stage', 'Completed' ]
+
+export const selectoptionsForUserType = [ 'Admin', 'Supervisor', 'Staff' ]
+
+export const selectOptionsForType = [ 'In-house','Contractor'  ]
+
+export const selectOptionsForStartUpCostType = [ 
+  'Agency',
+  'Community Relation',
+  'Design & Approval Drawing',
+  'Geophysical Survey',
+  'Geotechnical Survey',
+  'Land Acquisition',
+  'Local Government PR',
+  'Omo Onile',
+  'Regulatory Agency PR',
+  'Regulatory Approval Fee',
+  'Security'
+ ]
+
+
+// Agency
+// Community Relation
+// Design & Approval Drawing
+// Geophysical Survey
+// Geotechnical Survey
+// Land Acquisition
+// Local Government PR
+// Omo Onile
+// Regulatory Agency PR
+// Regulatory Approval Fee
+// Security

@@ -59,7 +59,7 @@ const AddSuppliers = () => {
                                 Supplier Phone
                             </p>
 
-                            <input type="text" {...register('supplier_ofc_phone', { required: true })} />
+                            <input type="number" {...register('supplier_ofc_phone', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -75,7 +75,7 @@ const AddSuppliers = () => {
                                 Contact Home Phone
                             </p>
 
-                            <input type="text" {...register('contact_home_phone', { required: true })} />
+                            <input type="number" {...register('contact_home_phone', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -83,7 +83,7 @@ const AddSuppliers = () => {
                                 Contact Mobile
                             </p>
 
-                            <input type="text" {...register('contact_mobile', { required: true })} />
+                            <input type="number" {...register('contact_mobile', { required: true })} />
                         </div>
 
                         <div className="flex flex-col col-span-2">

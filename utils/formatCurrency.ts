@@ -1,4 +1,4 @@
-export const formatCurrency = (amount: number | string) => {
+export const formatCurrency = (amount: number | string | undefined) => {
   const formatter = new Intl.NumberFormat("en-NG", {
     style: "currency",
     currency: "NGN",
@@ -14,4 +14,8 @@ export const formatCurrency = (amount: number | string) => {
   }
 
   return formatter.format(Number(amount));
+};
+
+export const formatToNaira = (amount: number) => {
+  return new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN" }).format(amount);
 };

@@ -29,6 +29,7 @@ export default function FacilityPage() {
       }
     },
   });
+  // console.log(data);
   return (
     <div>
       <div>
@@ -43,16 +44,20 @@ export default function FacilityPage() {
       <div className="flex gap-3 py-5">
         <SelectTableTypeBadge
           icon={<DashboardIcon />}
-          title="Approved IOU/Refund"
-          notification="2"
+          title="All Tenants"
+          notification={data?.length ?? 0}
         />
         <SelectTableTypeBadge
           icon={<DashboardIcon />}
-          title="Pending IOU/Refund"
-          notification="3"
+          title="Upcoming Due Dates"
+          notification={3}
         />
       </div>
-      <DataTable columns={columns} data={tenantData ?? []} />
+      <DataTable
+        columns={columns}
+        isLoading={isPending}
+        data={tenantData ?? []}
+      />
     </div>
   );
 }

@@ -5,19 +5,31 @@ import { useSuccessModal } from '@/store/inventory/UseInventoryModal';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { HiBellAlert } from 'react-icons/hi2';
+import useInventoryActionsStore from "@/store/actions/inventoryActions"
 
 const NewInventory = () => {
     const onOpen = useSuccessModal((state) => state.onOpen);
     const {create, isSuccess} = useNewInventoryData()
     const router = useRouter();
+    const [selectedType, setSelectedType] = useState()
 
     const [formData, setFormData] = useState({
         name: '',
         type: '',
         quantity: '',
+        remaining_quantity: '',
+        total_quantity: '',
         unit_price: '',
         comment: ''
     });
+
+    const allInventoryTypes = useInventoryActionsStore<any>((state) => state.items);
+    const getAllInventoryTypes = useInventoryActionsStore<any>((state) => state.getAllInventoryTypes);
+    console.log(allInventoryTypes)
+
+    useEffect(() => {
+        getAllInventoryTypes();
+    }, [getAllInventoryTypes]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -30,6 +42,8 @@ const NewInventory = () => {
     const handleSubmit = () => {
         // Handle form submission here
         console.log(formData);
+        formData.remaining_quantity = formData.quantity
+        formData.total_quantity = formData.quantity
         create(formData);
          // Example usage of opening success modal
     };
@@ -52,26 +66,27 @@ const NewInventory = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-5 my-5 edit">
-                    <div className="flex flex-col">
-                        <p className="value">
-                            Description
-                        </p>
-
-                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
-                    </div>
+                   
 
                     <div className="flex flex-col">
                         <p className="value">
                             Type
                         </p>
 
-                        {/* <input type="text" name="type"  /> */}
                         <select name="type" id="" onChange={handleInputChange} value={formData.type} >
-                            <option value="Tools">Tools</option>
-                            <option value="Machines">Machines</option>
+                        {
+                            allInventoryTypes && allInventoryTypes?.data?.map((pj: any) => <option key={pj.type} value={pj.type}>{pj.type}</option>)
+                        }
                         </select>
                     </div>
+                    <div className="flex flex-col">
+                        <p className="value">
+                            Description
+                        </p>
+                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
 
+                       
+                    </div>
                     <div className="flex flex-col">
                         <p className="value">
                             Quantity

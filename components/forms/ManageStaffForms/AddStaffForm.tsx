@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
 
 type Inputs = z.infer<typeof AddStaffFormSchema>;
 
@@ -29,6 +30,7 @@ export default function AddStaffForm() {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
+  const { toast } = useToast();
 
   const form = useForm<addStaffType>({
     resolver: zodResolver(AddStaffFormSchema),
@@ -105,10 +107,20 @@ export default function AddStaffForm() {
         }
       }
     },
+    onSuccess: () => {
+      toast({
+        title: "Staff added successfully",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: error.message,
+        variant: "destructive",
+      });
+    },
   });
 
   const processForm: SubmitHandler<Inputs> = (data, event) => {
-    console.log(data);
     const { password, confirmPassword } = form.getValues();
 
     if (password !== confirmPassword) {

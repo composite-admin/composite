@@ -38,7 +38,7 @@ const SingleContractorEdit = () => {
         };
     
         fetchContractor();
-      }, [params.id]);
+      }, [params.id, reset]);
 
 
     return (
@@ -87,7 +87,7 @@ const SingleContractorEdit = () => {
                                 Contractor Phone
                             </p>
 
-                            <input type="text" {...register('contractor_ofc_phone', { required: true })} />
+                            <input type="number" {...register('contractor_ofc_phone', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -95,7 +95,7 @@ const SingleContractorEdit = () => {
                                 Contact Home Phone
                             </p>
 
-                            <input type="text" {...register('contact_home_phone', { required: true })} />
+                            <input type="number" {...register('contact_home_phone', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">
@@ -111,7 +111,7 @@ const SingleContractorEdit = () => {
                                 Contact Mobile
                             </p>
 
-                            <input type="text"  {...register('contact_mobile', { required: true })} />
+                            <input type="number"  {...register('contact_mobile', { required: true })} />
                         </div>
 
                         <div className="flex flex-col">

@@ -101,7 +101,7 @@ export const columns: ColumnDef<ContractorType>[] = [
   {
     accessorKey: "createdOn",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Created On" />;
+      return <ColumnHeader column={column} title="Added On" />;
     },
     cell: ({ row }) => {
       return (

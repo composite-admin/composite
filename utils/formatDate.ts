@@ -9,8 +9,12 @@ export function formatDate(dateString: string) {
   const formattedDate = date.toLocaleDateString("en-US", options);
   const [month, day, year] = formattedDate.split(" ");
 
-  return `${day} ${month}, ${year}`;
+  return `${day.slice(0, -1)} ${month}, ${year}`;
 }
+
+export const twelveHourTime = (date: string) => {
+  return new Date(date).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+};
 
 export function convertDateFormat(dateString: string) {
   const date = new Date(dateString);
@@ -21,14 +25,14 @@ export function convertDateFormat(dateString: string) {
 }
 
 export function convertDateFormatToAllString(dateString: string): string {
-  const [year, month, day] = dateString.split('-').map(Number);
+  const [year, month, day] = dateString.split("-").map(Number);
   const date = new Date(year, month - 1, day);
-  const options: any = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
+  const options: any = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
 }
 
 export function formatDateToString(dateString: string) {
   const date = new Date(dateString);
-  const options: any = { year: 'numeric', month: 'short', day: '2-digit' };
-  return date.toLocaleDateString('en-US', options);
+  const options: any = { year: "numeric", month: "short", day: "2-digit" };
+  return date.toLocaleDateString("en-US", options);
 }

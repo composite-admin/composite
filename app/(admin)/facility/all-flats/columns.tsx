@@ -1,7 +1,6 @@
 "use client";
 
 import { ViewUserPageIcon } from "@/components/icons";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { ColumnDef } from "@tanstack/react-table";
 

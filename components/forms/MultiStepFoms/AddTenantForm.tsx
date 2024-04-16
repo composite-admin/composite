@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-
 import { z } from "zod";
 import { addTenantType, FormDataSchema } from "./formtypes";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +14,11 @@ import {
   CustomFormField,
   CustomFormSelect,
 } from "@/components/shared/FormComponent";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { api } from "@/config/api";
+import { useFlats, useProjectData } from "@/hooks/useSelectOptions";
+import { useRouter } from "next/navigation";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -36,34 +40,79 @@ const steps = [
     name: "Address",
     field: ["anualRentCost", "rentPayment", "setReminder", "feeType", "value"],
   },
-  { id: "3", name: "Complete" },
 ];
 
 export default function AddTenantForm() {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
+  const { flats } = useFlats();
+  const { projectsData } = useProjectData();
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const projects = projectsData?.map((item: any) => item.project_name);
+  const flatList = flats?.map((item) => item.flat_code);
 
   const form = useForm<addTenantType>({
     resolver: zodResolver(FormDataSchema),
     defaultValues: {
-      selectProject: "",
-      selectFlat: "",
-      title: "",
-      tenatFullName: "",
-      phoneNumber: "",
+      project_name: "",
+      flat_code: "",
+      title: "Mr.",
+      full_name: "",
+      phone_number: "",
       email: "",
-      annualRentCost: "",
-      rentPayment: "",
-      setReminder: "",
-      feeType: "",
+      annual_rent: "",
+      rent_payment: "",
+      reminder: "",
+      fees: "",
       value: "",
     },
   });
 
-  const processForm: SubmitHandler<Inputs> = (values: addTenantType) => {
-    console.log(values);
-    form.reset();
+  const processForm: SubmitHandler<Inputs> = async (values: addTenantType) => {
+    try {
+      const res = await api.post("/tenants", {
+        project_details: projectsData?.find(
+          (item: any) => item.project_name === values.project_name
+        )?.project_description,
+        flat_description: flats?.find(
+          (item) => item.flat_code === values.flat_code
+        )?.flat_desc,
+        comment: projectsData?.find(
+          (item: any) => item.project_name === values.project_name
+        )?.comment,
+        status: projectsData?.find(
+          (item: any) => item.project_name === values.project_name
+        )?.status,
+        ...values,
+        // fees: {
+        //   value: values.value,
+        //   fees: values.fees,
+        // },
+        // project_name: values.project_name,
+        // flat_code: values.flat_code,
+        // title: values.title,
+        // full_name: values.full_name,
+        // phone_number: values.phone_number,
+        // email: values.email,
+        // annual_rent: values.annual_rent,
+        // rent_payment: values.rent_payment,
+        // reminder: values.reminder,
+      });
+      if (res) {
+        toast({
+          title: "Success",
+          description: "Tenant added successfully",
+          variant: "success",
+        });
+        router.push("/facility");
+      }
+    } catch (error) {
+      console.log("something went wrong", error);
+    }
+    // form.reset();
   };
 
   type FieldName = keyof Inputs;
@@ -77,9 +126,6 @@ export default function AddTenantForm() {
     if (!output) return;
 
     if (currentStep < steps.length - 1) {
-      if (currentStep === steps.length - 2) {
-        await form.handleSubmit(processForm)();
-      }
       setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
     }
@@ -103,7 +149,7 @@ export default function AddTenantForm() {
       />
       {/* Form */}
       <Form {...form}>
-        <form className="mt-12 py-12" onSubmit={form.handleSubmit(processForm)}>
+        <form className="mt-2 py-2" onSubmit={form.handleSubmit(processForm)}>
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
@@ -118,29 +164,30 @@ export default function AddTenantForm() {
                 <div className="flex flex-col gap-5">
                   <CustomFormSelect
                     control={form.control}
-                    name="selectProject"
-                    items={["Project 1", "Project 2"]}
+                    name="project_name"
+                    items={projects || []}
                     labelText="Select Project"
                   />
                   <CustomFormSelect
                     control={form.control}
-                    name="selectFlat"
-                    items={["Flat 1", "Flat 2"]}
+                    name="flat_code"
+                    items={flatList || []}
                     labelText="Select Flat"
                   />
                   <div></div>
                   <div className="flex gap-5 flex-col lg:flex-row">
                     <div className="lg:w-full">
-                      <CustomFormField
+                      <CustomFormSelect
                         control={form.control}
                         name="title"
                         placeholder="Enter title"
-                        label="Title"
+                        items={["Mr.", "Mrs.", "Miss"]}
+                        labelText="Title"
                       />
 
                       <CustomFormField
                         control={form.control}
-                        name="tenatFullName"
+                        name="full_name"
                         placeholder="Enter full name"
                         label="Full name"
                       />
@@ -148,7 +195,7 @@ export default function AddTenantForm() {
                     <div className="lg:w-full">
                       <CustomFormField
                         control={form.control}
-                        name="phoneNumber"
+                        name="phone_number"
                         placeholder="Enter phone number"
                         label="Phone number"
                       />
@@ -160,6 +207,19 @@ export default function AddTenantForm() {
                       />
                     </div>
                   </div>
+                </div>
+                <div className=" flex flex-col lg:flex-row justify-between items-center gap-8 pt-7">
+                  <Button
+                    className="w-full disabled:"
+                    variant={"secondary"}
+                    disabled={currentStep === 0}
+                    onClick={prev}
+                  >
+                    Back
+                  </Button>
+                  <Button className="w-full" onClick={next}>
+                    Next
+                  </Button>
                 </div>
               </FormContainer>
             </motion.div>
@@ -179,19 +239,19 @@ export default function AddTenantForm() {
                 <div className="flex flex-col gap-5">
                   <CustomFormField
                     control={form.control}
-                    name="annualRentCost"
+                    name="annual_rent"
                     placeholder="Enter annual rent cost"
                     label="Annual rent cost"
                   />
                   <CustomFormField
                     control={form.control}
-                    name="rentPayment"
+                    name="rent_payment"
                     placeholder="Enter rent payment"
                     label="Rent payment"
                   />
                   <CustomFormField
                     control={form.control}
-                    name="setReminder"
+                    name="reminder"
                     placeholder="Enter set reminder"
                     label="Set reminder"
                   />
@@ -200,7 +260,7 @@ export default function AddTenantForm() {
                     <div className="lg:w-full">
                       <CustomFormSelect
                         control={form.control}
-                        name="feeType"
+                        name="fees"
                         items={["Type 1", "Type 2"]}
                         labelText="Fee type"
                       />
@@ -214,20 +274,21 @@ export default function AddTenantForm() {
                       />
                     </div>
                   </div>
+                  <div className=" flex flex-col lg:flex-row justify-between items-center gap-8 pt-7">
+                    <Button
+                      className="w-full"
+                      variant={"secondary"}
+                      onClick={prev}
+                    >
+                      Back
+                    </Button>
+                    <Button className="w-full" onClick={next}>
+                      Next
+                    </Button>
+                  </div>
                 </div>
               </FormContainer>
             </motion.div>
-          )}
-
-          {currentStep === 2 && (
-            <>
-              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Complete
-              </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                Thank you for your submission.
-              </p>
-            </>
           )}
         </form>
       </Form>

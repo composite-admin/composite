@@ -28,42 +28,66 @@ export default function RequestDetailsPage({
       <div className="flex flex-col gap-6">
         <div className="flex flex-col md:grid grid-cols-1 xl:grid-cols-6 gap-8">
           <aside className="bg-white border-borderColor shadow-sm col-span-4 p-3 lg:p-8 lg:px-12 ">
-            <h2 className="pb-5 font-bold capitalize">Request details</h2>
-            <div className="flex flex-col md:flex-row">
-              <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between lg:pr-8 gap-3 ">
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
+            <div className="flex justify-between items-center flex-col lg:flex-row pb-5">
+              <h2 className="pb-5 font-bold capitalize">Request details</h2>
+              <p className="capitalize bg-green-100 text-green-700 font-semibold p-1.5 rounded-lg">
+                {data?.request_type}
+              </p>
+            </div>
+            <div className="flex flex-col gap-5 md:flex-row">
+              <div className="flex-1 w-full pb-5 md:w-1/2 flex flex-col justify-between lg:pr-8 gap-3 ">
+                <div className="flex justify-between items-center w-full">
                   <span>Request code:</span>
-                  <span>Staff Name:</span>
-
-                  <span>Project Name:</span>
-
-                  <span>Supervisor's Comment:</span>
+                  <span className="uppercase text-sm font-semibold">
+                    {data?.request_code}
+                  </span>
                 </div>
-
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm font-semibold">
-                  <span className="uppercase">{data?.request_code}</span>
-
-                  <span>{data?.staff_name}</span>
-
-                  <span>{data?.project_name}</span>
-
-                  <span>{requestDetails?.supervisor_comment}</span>
+                <div className="flex justify-between items-center w-full">
+                  <span>Staff Name:</span>
+                  <span className=" text-sm capitalize font-semibold">
+                    {data?.staff_name}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center w-full">
+                  <span>Project Name:</span>
+                  <span className=" text-sm font-semibold">
+                    {data?.project_name}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center w-full">
+                  <span>Supervisor's Comment:</span>
+                  <span className=" text-sm font-semibold">
+                    {data?.supervisor_comment}
+                  </span>
                 </div>
               </div>
 
               <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8  ">
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                  <span>Date Added:</span>
-                  <span>Status:</span>
-                  <span>Project Code:</span>
-                  <span>Requestor's Comment:</span>
-                </div>
-
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm font-semibold">
-                  <span>{data?.createdAt && formatDate(data?.createdAt)}</span>
-                  <span>{requestDetails?.status}</span>
-                  <span>{requestDetails?.project_code}</span>
-                  <span>{requestDetails?.comment}</span>
+                  <div className="flex justify-between items-center w-full">
+                    <span>Date Added:</span>
+                    <span className=" text-sm capitalize font-semibold">
+                      {data && formatDate(data?.createdAt)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center w-full">
+                    <span>Status:</span>
+                    <span className=" text-sm capitalize font-semibold">
+                      {data?.status}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center w-full">
+                    <span>Project Code:</span>
+                    <span className=" text-sm capitalize font-semibold">
+                      {data?.project_code}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center w-full">
+                    <span>Requestor's Comment:</span>
+                    <span className=" text-sm capitalize font-semibold">
+                      {data?.comment}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,20 +114,14 @@ export default function RequestDetailsPage({
               <div className="bg-[#FEF6e7] p-3 text-[#865503] text-center lg:tracking-widest mb-12">
                 <span>Status:</span>
                 <span className="uppercase lg:text-xl font-semibold">
-                  pending request
+                  {requestDetails?.status}
                 </span>
               </div>
 
               <div className="space-y-2">
                 <h2>Project Summary</h2>
                 <p className="font-semibold pb-6 flex flex-col gap-1">
-                  <span>
-                    Cway Water X4 @650 -N2600 Disel - N20000 Fuel - N5000
-                  </span>
-                  <br />
-                  <span>
-                    Cway Water X4 @650 -N2600 Disel - N20000 Fuel - N5000
-                  </span>
+                  {requestDetails?.description}
                 </p>
               </div>
             </div>
@@ -180,39 +198,39 @@ export default function RequestDetailsPage({
             </aside>
 
             <aside className="bg-white border-borderColor shadow-sm w-full xl:col-span-2">
-              <div className="p-3 lg:p-6">
-                <h2 className="font-semibold mb-4">Request Summary</h2>
-
-                <div className="flex-1 w-full pb-5 flex justify-between items-center">
-                  <div className="flex flex-col gap-7 w-1/2 flex-1 text-textColor text-sm">
-                    <span>Requested Amount:</span>
-                    <span>Approved Amount:</span>
-                  </div>
-
-                  <div className="flex flex-col gap-10 text-xl font-bold">
-                    <span>N100,100</span>
-                    <span>N80,000</span>
-                  </div>
-                </div>
-
-                <div className="bg-[#FEF6e7] p-3 text-[#865503] text-center lg:tracking-widest mb-12">
-                  <span>Status:</span>
-                  <span className="uppercase lg:text-xl font-semibold">
-                    pending request
+              <div className="p-3 lg:p-6 space-y-5">
+                <h2 className="font-semibold mb-4">Cash Summary</h2>
+                <div className="flex justify-between items-center">
+                  <span>Approved quantity</span>
+                  <span>{requestDetails?.approved_quantity}</span>
+                </div>{" "}
+                <div className="flex justify-between items-center">
+                  <span>Approved unit price</span>
+                  <span>
+                    {data && formatCurrency(requestDetails?.unit_price)}
+                  </span>
+                </div>{" "}
+                <div className="flex justify-between items-center">
+                  <span>Requested Total Price</span>
+                  <span>
+                    {data && formatCurrency(requestDetails?.total_price)}
+                  </span>
+                </div>{" "}
+                <div className="flex justify-between items-center">
+                  <span>Approved Total Price</span>
+                  <span>
+                    {data && formatCurrency(requestDetails?.total_price)}
                   </span>
                 </div>
-
-                <div className="space-y-2">
-                  <h2>Project Summary</h2>
-                  <p className="font-semibold pb-6 flex flex-col gap-1">
-                    <span>
-                      Cway Water X4 @650 -N2600 Disel - N20000 Fuel - N5000
-                    </span>
-                    <br />
-                    <span>
-                      Cway Water X4 @650 -N2600 Disel - N20000 Fuel - N5000
-                    </span>
-                  </p>
+                <div className="flex justify-between items-center">
+                  <span>Approved On</span>
+                  <span>
+                    {requestDetails && formatDate(requestDetails?.approved_on)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Approved Total Price</span>
+                  <span>{requestDetails?.comment}</span>
                 </div>
               </div>
             </aside>

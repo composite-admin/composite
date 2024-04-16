@@ -1,6 +1,7 @@
 import { UserData } from '@/utils/types';
 import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import { deleteCookie } from "cookies-next";
 
 interface AuthStore {
   user: UserData | null;
@@ -21,7 +22,15 @@ export default useAuthStore;
 interface IUserStoreType {
   token: string | null;
   userType: string | null;
-  setUserStorage: (token: string, userType: string | undefined) => void;
+  userId: number | null;
+  username: string | null;
+  logOut: () => void;
+  setUserStorage: (
+    token: string,
+    userType: string | undefined,
+    userId: number,
+    username: string | null
+  ) => void;
 }
 
 export const userStore = create<IUserStoreType>()(
@@ -30,11 +39,26 @@ export const userStore = create<IUserStoreType>()(
       (set) => ({
         token: null,
         userType: null,
-        setUserStorage: (userToken, userType) => {
+        userId: null,
+        username: null,
+        setUserStorage: (userToken, userType, userId, username) => {
           set({
             token: userToken,
-            userType
+            userType,
+            userId,
+            username,
           });
+        },
+        logOut: () => {
+          set({
+            token: null,
+            userType: null,
+            userId: null,
+            username: null,
+          });
+
+          deleteCookie("token");
+          deleteCookie("user_type");
         },
       }),
       {
@@ -43,7 +67,7 @@ export const userStore = create<IUserStoreType>()(
       }
     )
   )
-)
+);
 
   
   
