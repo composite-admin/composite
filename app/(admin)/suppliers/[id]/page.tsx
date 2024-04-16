@@ -6,13 +6,10 @@ import { useRouter, useParams } from "next/navigation";
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import Image from "next/image";
 import MaterialTableArea from "./(table)";
-import { useModal } from "@/utils/modalContext";
-import AddMaterialModal from "./(modal)/materials/add-material";
 
 const SingleSupplier = () => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const { showModal, hideModal } = useModal();
 
   const selectedItem = useSuppliersActionsStore<any>((state) => state.selectedItem);
   const getSupplierById = useSuppliersActionsStore<any>((state) => state.getSupplierById);
@@ -28,8 +25,6 @@ const SingleSupplier = () => {
       getSupplierById(params.id);
     }
   }, [getSupplierById, params.id]);
-
-  const showMaterialModal = () => showModal(<AddMaterialModal />);
 
   return (
     <div>
@@ -107,7 +102,7 @@ const SingleSupplier = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-4 py-3 px-5 cursor-pointer" onClick={showMaterialModal}>
+          <div className="flex items-center gap-4 py-3 px-5 cursor-pointer">
             <Image src={"/devices.svg"} width={40} height={40} alt="supplier info" />
             <p className="font-semibold">Add Supplier Material</p>
           </div>

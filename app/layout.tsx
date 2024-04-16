@@ -5,6 +5,7 @@ import { ModalProvider } from "@/providers/modal-provider";
 import QueryProvider from "@/providers/query-provider";
 import AuthProvider from "@/providers/auth-provider";
 import Providers from "@/providers";
+import { FramerModalProvider } from "@/utils/modalContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
         <AuthProvider>
           <QueryProvider>
             <ModalProvider />
+            <FramerModalProvider>
             {children}
+            </FramerModalProvider>
           </QueryProvider>
         </AuthProvider>
       </body>
