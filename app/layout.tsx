@@ -4,6 +4,7 @@ import "./globals.css";
 import { ModalProvider } from "@/providers/modal-provider";
 import QueryProvider from "@/providers/query-provider";
 import AuthProvider from "@/providers/auth-provider";
+import Providers from "@/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 

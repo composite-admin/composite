@@ -89,10 +89,7 @@ export type LoginForm = {
 };
 
 export const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "Email is required" })
-    .email({ message: "Email must be a valid email" }),
+  email: z.string().min(1, { message: "Email is required" }).email({ message: "Email must be a valid email" }),
   password: z
     .string()
     .min(1, { message: "Password is required" })
@@ -313,7 +310,6 @@ export interface IFlatData {
   updatedAt: string;
 }
 
-
 export interface IConsultantData {
   id: number;
   consultant_code: string;
@@ -341,19 +337,15 @@ export interface IConsultantDetailsData {
   message?: string;
 }
 
+export type ID = string | number;
+
 export const AddConsultantSchema = z
   .object({
-    name: z
-      .string()
-      .min(3, { message: "Full name must be at least 3 characters" }),
-    contact: z
-      .string()
-      .min(10, { message: "Phone number must be at least 10 characters" }),
+    name: z.string().min(3, { message: "Full name must be at least 3 characters" }),
+    contact: z.string().min(10, { message: "Phone number must be at least 10 characters" }),
     email: z.string().email({ message: "Invalid email" }),
     type: z.string().optional(),
-    website: z
-      .string()
-      .min(6, { message: "This website might not be valid, please try again" }),
+    website: z.string().min(6, { message: "This website might not be valid, please try again" }),
   })
   .required();
 

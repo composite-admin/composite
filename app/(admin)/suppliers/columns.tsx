@@ -3,7 +3,7 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { formatDate } from "@/utils/formatDate";
+import { formatDate, twelveHourTime } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
@@ -41,17 +41,15 @@ export const columns: ColumnDef<any>[] = [
       return <ColumnHeader column={column} title="Supplier" />;
     },
     cell: ({ row }) => {
+      const { id, supplier_name, supplier_code } = row.original;
+
       return (
-        <Link href={`/suppliers/${row.original["id"]}`}>
-          <div className="flex gap-2 items-center">
+        <Link href={`/suppliers/${id}`}>
+          <div className="flex gap-3 items-center">
             <AvatarComponent />
-            <div className="flex flex-col">
-              <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-                {row.original["supplier_name"]}
-              </span>
-              <span className="text-xs font-semibold text-gray-500">
-                {row.original["supplier_code"]}
-              </span>
+            <div>
+              <p className="text-lg font-medium text-gray-700 capitalize">{supplier_name}</p>
+              <p className="text-gray-500 uppercase">{supplier_code}</p>
             </div>
           </div>
         </Link>
@@ -62,9 +60,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "address",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Address" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Address" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
@@ -78,9 +74,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "officePhone",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Office Phone" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Office Phone" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
@@ -123,10 +117,11 @@ export const columns: ColumnDef<any>[] = [
       return <ColumnHeader column={column} title="Added On" />;
     },
     cell: ({ row }) => {
+      const { createdAt } = row.original;
       return (
         <div>
-          <p>{formatDate(row.original["createdAt"])}</p>
-
+          <p className="font-medium">{formatDate(createdAt)}</p>
+          <p className="text-gray-500">{twelveHourTime(createdAt)}</p>
         </div>
       );
     },
@@ -139,8 +134,9 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <Link href={`/suppliers/${row.original["id"]}/edit`}>
-          <div className="">
-            <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <div className="flex items-center cursor-pointer gap-1 text-primaryLight-500">
+            <HiPencilAlt className="text-lg" />
+            <span className="font-semibold">Edit</span>
           </div>
         </Link>
       );
