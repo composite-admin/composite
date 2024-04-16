@@ -36,7 +36,7 @@ export default function ProjectDetailsPageFormModal() {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      classname="w-full max-w-3xl"
+      classname=" max-w-3xl"
       title={setModalTitle(currentModal)}
     >
       {
