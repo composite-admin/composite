@@ -1,4 +1,4 @@
-import axiosInstance from "./index";
+import axiosInstance from "../index";
 
 export const createSupplier = async (data: any) => {
   try {

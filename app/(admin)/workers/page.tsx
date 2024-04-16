@@ -5,7 +5,7 @@ import { columns } from "./columns";
 import { data } from "./data";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import useWorkersActionsStore from "@/store/actions/workersActions";
+import useWorkersActionsStore from "@/store/actions/worker/workersActions";
 
 export default function WorkersPage() {
   const router = useRouter();

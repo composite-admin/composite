@@ -1,5 +1,7 @@
-import * as z from "zod";
+import z from "zod";
 import { data } from "../app/(admin)/cash-advance/data";
+
+export type ID = string | number;
 
 export interface UserData {
   id: number;
@@ -337,6 +339,19 @@ export interface IConsultantDetailsData {
   message?: string;
 }
 
+export const AddConsultantSchema = z
+  .object({
+    name: z.string().min(3, { message: "Full name must be at least 3 characters" }),
+    contact: z.string().min(10, { message: "Phone number must be at least 10 characters" }),
+    email: z.string().email({ message: "Invalid email" }),
+    type: z.string().optional(),
+    website: z.string().min(6, { message: "This website might not be valid, please try again" }),
+  })
+  .required();
+
+export type AddConsultantType = z.infer<typeof AddConsultantSchema>;
+
+// WORKER AND WORKER JOBS============
 export type IWorkerData = {
   id: number;
   worker_code: string;
@@ -365,16 +380,35 @@ export type IWorkerData = {
   account_number: string;
 };
 
-export type ID = string | number;
+export type IWorkerJobData = {
+  id: number;
+  job_code: string;
+  worker_code: string;
+  project_code: string;
+  worker_service: string;
+  worker_service_charge: string;
+  amount_paid: string;
+  outstanding_balance: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
-export const AddConsultantSchema = z
-  .object({
-    name: z.string().min(3, { message: "Full name must be at least 3 characters" }),
-    contact: z.string().min(10, { message: "Phone number must be at least 10 characters" }),
-    email: z.string().email({ message: "Invalid email" }),
-    type: z.string().optional(),
-    website: z.string().min(6, { message: "This website might not be valid, please try again" }),
-  })
-  .required();
+export type IWorkerJobCreateData = {
+  worker_code: string;
+  project_code: string;
+  worker_service: string;
+  worker_service_charge: number;
+  amount_paid: number;
+  outstanding_balance: number;
+  comment: string;
+};
 
-export type AddConsultantType = z.infer<typeof AddConsultantSchema>;
+export type IWorkerJobUpdateData = {
+  worker_code: string;
+  worker_service: string;
+  worker_service_charge: number;
+  amount_paid: number;
+  outstanding_balance: number;
+  comment: string;
+};

@@ -6,7 +6,7 @@ import { DataTable } from "@/components/shared/DataTable";
 import { columns } from "./columns";
 import React, { useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import useWorkersActionsStore from "@/store/actions/workersActions";
+import useWorkersActionsStore from "@/store/actions/worker/workersActions";
 import PageHead from "@/components/ui/pageHead";
 import TextSkeleton from "@/components/shared/TextSkeleton";
 import { formatDate } from "@/utils/formatDate";

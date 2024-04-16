@@ -1,4 +1,4 @@
-import axiosInstance from ".";
+import axiosInstance from "..";
 import axios from "axios";
 import { ApiResponse, ID } from "@/utils/types";
 import { AddToolData, UpdateToolData } from "@/store/actions/materials-and-tools/types";

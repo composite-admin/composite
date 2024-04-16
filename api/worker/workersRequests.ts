@@ -1,5 +1,5 @@
 import { ApiResponse, ID, IWorkerData } from "@/utils/types";
-import axiosInstance from "./index";
+import axiosInstance from "../index";
 
 export const createWorker = async (data: any) => {
   try {

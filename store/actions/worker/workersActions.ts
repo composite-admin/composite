@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createWorker, getAllWorkers, getWorkerById, updateWorker, deleteWorker } from "../../api/workersRequests";
+import { createWorker, getAllWorkers, getWorkerById, updateWorker, deleteWorker } from "@/api/worker/workersRequests";
 import { ID, IWorkerData } from "@/utils/types";
 
 export interface WorkersStoreState {
