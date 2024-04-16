@@ -13,6 +13,8 @@ import useWorkerJobsStore from "@/store/actions/worker/workerJobsActions";
 import useWorkersActionsStore from "@/store/actions/worker/workersActions";
 import { AnimatePresence, motion } from "framer-motion";
 import { opacityVariant } from "@/utils/variants";
+import BankDetailsModal from "./(modal)/bank-details";
+import { useModal } from "@/utils/modalContext";
 
 const SingleWorker = () => {
   const router = useRouter();
@@ -21,35 +23,53 @@ const SingleWorker = () => {
   const { fetching, worker: worker, getWorkerById } = useWorkersActionsStore();
   const { fetching: jobsFetching, workerJobs, getAllWorkerJobs } = useWorkerJobsStore();
 
+  const { showModal } = useModal();
+
   useEffect(() => {
     getWorkerById(params.id);
     getAllWorkerJobs();
   }, []);
+
+  const editWorker = () => router.push(`/workers/${params.id}/edit`);
+
+  const showBankModal = () =>
+    showModal(
+      worker && (
+        <BankDetailsModal
+          bankName={worker.bank_name}
+          accountName={worker.account_name}
+          accountNumber={worker.account_name}
+        />
+      )
+    );
 
   return (
     <>
       <div>
         <div className="flex justify-between">
           <GoBack />
-          <Button>{"View Bank Details"}</Button>
+          <Button onClick={showBankModal}>{"View Bank Details"}</Button>
         </div>
 
         <div className="bg-white rounded-lg border-[#D0D5DD] py-10 my-10">
           <div className="grid grid-cols-3 p-5 gap-5">
             <div className="space-y-4">
               <AvatarComponent classes="size-24" />
-              <div className="space-y-1">
-                <h1 className="font-bold text-2xl capitalize">{worker?.worker_company}</h1>
-                <AnimatePresence mode="wait">
-                  {worker?.createdAt && (
-                    <motion.p {...opacityVariant} className="font-light">
-                      Submitted on {formatDate(`${worker?.createdAt}`)}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </div>
 
-              <Button>Edit Worker</Button>
+              <AnimatePresence mode="wait">
+                {worker?.createdAt && (
+                  <motion.div {...opacityVariant} className="space-y-4">
+                    <div className="space-y-1">
+                      <h1 className="font-bold text-2xl capitalize">{worker?.worker_company}</h1>
+                      <p className="font-light">Submitted on {formatDate(`${worker?.createdAt}`)}</p>
+                    </div>
+
+                    <div className="pt-4">
+                      <Button onClick={editWorker}>Edit Worker</Button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <div className="col-span-2 grid grid-cols-2 gap-4">
               <div className="">
