@@ -1,10 +1,16 @@
 import { create } from "zustand";
 
-const useGetAllReport : any = create((set: any) => ({
-    reportData: null,
-    setData: (reportData: any) => set({ reportData }),
-    clearData: () => set({ reportData: null }),
-  }));
+interface ReportData {
+  reportData: any;
+  setData: (reportData: any) => void;
+  clearData: () => void;
+}
+
+const useGetAllReport = create<ReportData>((set: any) => ({
+  reportData: null,
+  setData: (reportData: any) => set({ reportData }),
+  clearData: () => set({ reportData: null }),
+}));
 
 export const useGetEachReport : any = create((set: any) => ({
   singleReportData: {},
