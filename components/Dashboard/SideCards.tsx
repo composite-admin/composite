@@ -6,8 +6,8 @@ export default function SideCards() {
     <div className="shadow-sm bg-white border border-[#E4E7EC] rounded-2xl w-full max-w-sm p-3.5 min-h-[270px] flex flex-col justify-center">
       <div>
         <div className="flex justify-between items-center  pb-3.5">
-          <div className="flex items-center gap-5">
-            <h2 className="text-xs lg:text-sm capitalize font-semibold">
+          <div className="flex items-center gap-1.5 p-1 xl:w-max w-1/2">
+            <h2 className="text-xs lg:text-sm capitalize font-semibold w-full">
               pending request
             </h2>
             <Badge
@@ -17,8 +17,8 @@ export default function SideCards() {
               5
             </Badge>
           </div>
-          <div className="  text-xs text-primaryLight-500 underline font-semibold">
-            <p>See all</p>{" "}
+          <div className=" w-1/2 justify-end text-right text-xs text-primaryLight-500 underline font-semibold">
+            <p>View all</p>
           </div>
         </div>
 
