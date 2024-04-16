@@ -1,6 +1,12 @@
 import { create } from "zustand";
 import type { ToolAndMachinery, AddToolData, UpdateToolData } from "./types";
-import { createTool, deleteTool, getAllTools, getToolById, updateTool } from "@/api/toolsAndMachineriesRequests";
+import {
+  createTool,
+  deleteTool,
+  getAllTools,
+  getToolById,
+  updateTool,
+} from "@/api/suppliers-and-tools/toolsAndMachineriesRequests";
 import { ID } from "@/utils/types";
 import { toast } from "@/components/ui/use-toast";
 

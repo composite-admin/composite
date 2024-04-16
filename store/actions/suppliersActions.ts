@@ -1,6 +1,11 @@
-import { create } from 'zustand';
-import { createSupplier, getAllSuppliers, getSupplierById, updateSupplier, deleteSupplier } from '../../api/suppliersRequests';
-
+import { create } from "zustand";
+import {
+  createSupplier,
+  getAllSuppliers,
+  getSupplierById,
+  updateSupplier,
+  deleteSupplier,
+} from "../../api/suppliers-and-tools/suppliersRequests";
 
 export interface SuppliersStoreState {
   items: object[];
