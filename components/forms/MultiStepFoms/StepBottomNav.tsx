@@ -3,16 +3,16 @@ import React from 'react';
 import { HiChevronRight } from 'react-icons/hi';
 import { Button } from '../../ui/button';
 
-type Props = {
+interface Props extends React.HTMLProps<HTMLDivElement> {
   steps: { id: string; name: string }[];
   currentStep: number;
   next: () => void;
   prev: () => void;
-};
+}
 
-const StepBottomNav = ({ steps, currentStep, next, prev }:Props) => {
+const StepBottomNav = ({ steps, currentStep, next, prev, ...props }: Props) => {
   return (
-    <div className="mt-8 pt-5">
+    <div className={`"mt-8 pt-5" ${props.className}`}>
       <div className="flex justify-between">
         <Button
           type="button"
