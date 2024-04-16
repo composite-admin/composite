@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const AddWorkerSchema = z.object({});
 type AddWorkerSchemaType = z.infer<typeof AddWorkerSchema>;
@@ -22,8 +24,41 @@ export default function AddWorkerForm() {
   const { toast } = useToast();
   const { projectName, onClose } = useProjectDetailsPageFormModal();
 
-  const handleSubmit = async (values: AddWorkerSchemaType) => {
-    console.log(values);
+  const { mutate } = useMutation({
+    mutationKey: ["add-stakeholder"],
+    mutationFn: async (values: AddWorkerSchemaType) => {
+      try {
+        const response = await api.post("/stakeholder-project", {
+          ...values,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+
+  const handleSubmit = (data: AddWorkerSchemaType) => {
+    // mutate(data, {
+    //   onSuccess: () => {
+    //     form.reset();
+    //     onClose();
+    //     toast({
+    //       title: "Start up cost added successfully",
+    //       variant: "success",
+    //     });
+    //   },
+    //   onError: () => {
+    //     toast({
+    //       title: "Something went wrong",
+    //       variant: "destructive",
+    //     });
+    //   },
+    // });
   };
   return (
     <Form {...form}>

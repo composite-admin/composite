@@ -11,8 +11,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
-const AddMaterialSchema = z.object({});
+const AddMaterialSchema = z.object({
+  supplier_code: z.string().optional(),
+  supplier_name: z.string().optional(),
+  mat_desc: z.string().optional(),
+  project_code: z.string().optional(),
+  quantity: z.string().optional(),
+  unit_price: z.string().optional(),
+});
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
 
 export default function AddMaterialForm() {
@@ -22,8 +31,41 @@ export default function AddMaterialForm() {
   const { toast } = useToast();
   const { projectName, onClose } = useProjectDetailsPageFormModal();
 
-  const handleSubmit = async (values: AddMaterialType) => {
-    console.log(values);
+  const { mutate } = useMutation({
+    mutationKey: ["add-stakeholder"],
+    mutationFn: async (values: AddMaterialType) => {
+      try {
+        const response = await api.post("/suppliers-materials", {
+          ...values,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+
+  const handleSubmit = (data: AddMaterialType) => {
+    // mutate(data, {
+    //   onSuccess: () => {
+    //     form.reset();
+    //     onClose();
+    //     toast({
+    //       title: "Start up cost added successfully",
+    //       variant: "success",
+    //     });
+    //   },
+    //   onError: () => {
+    //     toast({
+    //       title: "Something went wrong",
+    //       variant: "destructive",
+    //     });
+    //   },
+    // });
   };
   return (
     <Form {...form}>

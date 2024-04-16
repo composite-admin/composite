@@ -37,7 +37,7 @@ const SingleProject = () => {
       icon: "/./illustration.svg",
     },
     {
-      title: "Add Management Cost",
+      title: "Add Management Member",
       action: onOpenAddStakeHolder,
       icon: "/./addM.svg",
     },

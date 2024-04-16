@@ -11,8 +11,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
-const AddContractorSchema = z.object({});
+const AddContractorSchema = z.object({
+  contractor_code: z.string().optional(),
+  contractor_project_code: z.string().optional(),
+  contractor_amount: z.string().optional(),
+  service: z.string().optional(),
+  createdBy: z.string().optional(),
+  comment: z.string().optional(),
+});
 
 type AddContractorType = z.infer<typeof AddContractorSchema>;
 export default function AddContractorForm() {
@@ -22,13 +31,44 @@ export default function AddContractorForm() {
 
   const form = useForm<AddContractorType>({
     resolver: zodResolver(AddContractorSchema),
-    defaultValues: {
-      project_name: projectName,
+    defaultValues: {},
+  });
+
+  const { mutate } = useMutation({
+    mutationKey: ["add-stakeholder"],
+    mutationFn: async (values: AddContractorType) => {
+      try {
+        const response = await api.post("/contractor-projects", {
+          ...values,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
     },
   });
 
-  const handleSubmit = async (values: AddContractorType) => {
-    console.log(values);
+  const handleSubmit = (data: AddContractorType) => {
+    // mutate(data, {
+    //   onSuccess: () => {
+    //     form.reset();
+    //     onClose();
+    //     toast({
+    //       title: "Start up cost added successfully",
+    //       variant: "success",
+    //     });
+    //   },
+    //   onError: () => {
+    //     toast({
+    //       title: "Something went wrong",
+    //       variant: "destructive",
+    //     });
+    //   },
+    // });
   };
   return (
     <Form {...form}>

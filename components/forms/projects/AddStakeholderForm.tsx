@@ -18,7 +18,23 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 
-const AddStakeHolderSchema = z.object({});
+// zod schema
+// "stakeholder_code": "STKH-002",
+// "stakeholder_amount": 75000,
+// "approved_amount": 70000,
+// "other_amount": 5000,
+// "comment": "Pending approval",
+// "status": "PENDING"
+
+
+const AddStakeHolderSchema = z.object({
+  stakeholder_code: z.string().optional(),
+  stakeholder_amount: z.string().optional(),
+  approved_amount: z.string().optional(),
+  other_amount: z.string().optional(),
+  comment: z.string().optional(),
+  status: z.string().optional(),
+});
 
 type AddStakeHolderType = z.infer<typeof AddStakeHolderSchema>;
 
@@ -30,29 +46,26 @@ export default function AddStakeHolderForm() {
   const form = useForm<AddStakeHolderType>({
     resolver: zodResolver(AddStakeHolderSchema),
     defaultValues: {
-      project_name: projectName,
     },
   });
 
-  // const { mutate } = useMutation({
-  //   mutationKey: ["add-startup-cost"],
-  //   mutationFn: async (values: AddStartUpCostType) => {
-  //     try {
-  //       const response = await api.post("/startup-costs", {
-  //         ...values,
-  //         startup_cost: Number(values.startup_cost),
-  //         project_code: projectCode,
-  //       });
-  //       return response.data;
-  //     } catch (error) {
-  //       if (axios.isAxiosError(error) && error.response) {
-  //         throw new Error(error.response.data.message);
-  //       } else {
-  //         throw error;
-  //       }
-  //     }
-  //   },
-  // });
+  const { mutate } = useMutation({
+    mutationKey: ["add-stakeholder"],
+    mutationFn: async (values: AddStakeHolderType) => {
+      try {
+        const response = await api.post("/stakeholder-project", {
+          ...values,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
 
   const handleSubmit = (data: AddStakeHolderType) => {
     // mutate(data, {
