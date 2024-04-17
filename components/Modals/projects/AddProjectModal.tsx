@@ -81,6 +81,10 @@ const AddProjectModal = () => {
           )?.userid as string,
           ...data,
         });
+        if (response.data) {
+          router.push("/project");
+          window.location.reload();
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -92,12 +96,13 @@ const AddProjectModal = () => {
     },
     onSuccess: () => {
       toast({
-        title: "Staff added successfully",
+        title: "Project created successfully",
         variant: "success",
       });
-
+      window.location.reload();
       router.push("/project");
       router.refresh();
+      onClose();
     },
     onError: (error: Error) => {
       toast({
