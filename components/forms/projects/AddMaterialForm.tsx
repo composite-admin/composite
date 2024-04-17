@@ -110,7 +110,7 @@ export default function AddMaterialForm() {
               name="payment_mode"
               labelText="Payment Mode"
               placeholder="Payment Mode"
-              items={["Option 1", "Option 2", "Option 3"]}
+              items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
             />
           </div>
         </div>

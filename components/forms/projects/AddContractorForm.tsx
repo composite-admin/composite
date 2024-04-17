@@ -44,6 +44,7 @@ export default function AddContractorForm() {
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
+          console.log(error.response.data);
           throw new Error(error.response.data.message);
         } else {
           throw error;
@@ -53,22 +54,22 @@ export default function AddContractorForm() {
   });
 
   const handleSubmit = (data: AddContractorType) => {
-    // mutate(data, {
-    //   onSuccess: () => {
-    //     form.reset();
-    //     onClose();
-    //     toast({
-    //       title: "Start up cost added successfully",
-    //       variant: "success",
-    //     });
-    //   },
-    //   onError: () => {
-    //     toast({
-    //       title: "Something went wrong",
-    //       variant: "destructive",
-    //     });
-    //   },
-    // });
+    mutate(data, {
+      onSuccess: () => {
+        form.reset();
+        onClose();
+        toast({
+          title: "Contactor added successfully",
+          variant: "success",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
   };
   return (
     <Form {...form}>

@@ -24,27 +24,61 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useProjectData } from "@/hooks/useSelectOptions";
-import { DragDrop, ProgressBar } from "@uppy/react";
-import { Dashboard } from "@uppy/react";
-import Uppy from "@uppy/core";
-import XHRUpload from "@uppy/xhr-upload";
-import "@uppy/core/dist/style.css";
-import "@uppy/dashboard/dist/style.css";
-import "@uppy/drag-drop/dist/style.css";
 import { api } from "@/config/api";
-
-const uppy = new Uppy({
-  meta: { type: "avatar" },
-  restrictions: { maxNumberOfFiles: 3 },
-  autoProceed: false,
-}).use(XHRUpload, {
-  endpoint: "https://your-upload-endpoint.com/upload",
-  formData: true,
-  bundle: true,
-});
+import { getCookie } from "cookies-next";
+import XHR from "@uppy/xhr-upload";
 
 type Inputs = z.infer<typeof ProjectReportSchema>;
 export default function NewReportForm() {
+  const [files, setFiles] = useState<File[]>([]);
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    const newFiles = [...files, ...droppedFiles].slice(0, 5);
+    setFiles(newFiles);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = Array.from(e.target.files || []);
+    const newFiles = [...files, ...selectedFiles].slice(0, 5);
+    setFiles(newFiles);
+  };
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      files.forEach((file) => formData.append("images", file));
+
+      const response = await api.put("/project_report/images/9", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // Add other necessary headers here
+        },
+      });
+
+      if (response.status === 201) {
+        console.log("Files uploaded successfully");
+        setFiles([]);
+      } else {
+        console.error("Failed to upload files");
+      }
+    } catch (error) {
+      console.error("Error uploading files:", error);
+    }
+  };
+
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
@@ -95,14 +129,14 @@ export default function NewReportForm() {
 
   const processForm: SubmitHandler<Inputs> = async (data, event) => {
     event?.preventDefault();
-    const response = await api.post("/project_report", data);
-    if (response.status === 201) {
-      toast({
-        title: "Report created successfully",
-        description: "Report has been created successfully",
-        variant: "success",
-      });
-    }
+    // // const response = await api.post("/project_report", data);
+    // if (response.status === 201) {
+    //   toast({
+    //     title: "Report created successfully",
+    //     description: "Report has been created successfully",
+    //     variant: "success",
+    //   });
+    // }
   };
 
   return (
@@ -263,22 +297,60 @@ export default function NewReportForm() {
                 description="Create a new report here."
               >
                 <div>
-                  <Dashboard
-                    showProgressDetails={true}
-                    height={350}
-                    className="w-full mx-auto flex justify-center items-center"
-                    note={
-                      "SVG, PNG, JPG or GIF (max. 800x400px) maximum of 5 files"
-                    }
-                    uppy={uppy}
-                    plugins={["DragDrop"]}
-                  >
-                    <ProgressBar uppy={uppy} />
-                  </Dashboard>
-                </div>
+                  <div className="flex flex-col items-center">
+                    <div
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      className={`border-2 border-dashed ${
+                        isDragOver ? "border-blue-500" : "border-gray-300"
+                      } p-6 rounded-md w-full max-w-md`}
+                    >
+                      <input
+                        type="file"
+                        multiple
+                        onChange={handleFileChange}
+                        className="hidden"
+                        id="file-input"
+                      />
+                      <label
+                        htmlFor="file-input"
+                        className="cursor-pointer text-gray-500 text-center"
+                      >
+                        <span className="text-lg font-semibold">
+                          Drag and drop files here or click to select
+                        </span>
+                        <p className="text-sm">
+                          Maximum {5} files allowed. Supported types: images.
+                        </p>
+                      </label>
+                    </div>
 
-                <div className="py-5">
-                  <Button className="w-full">Submit</Button>
+                    <div className="mt-4">
+                      <ul className="list-disc list-inside">
+                        {files.map((file, index) => (
+                          <li key={index} className="text-sm text-gray-500">
+                            {file.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {files.length > 0 && (
+                      <button
+                        onClick={handleUpload}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                      >
+                        Upload Files
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="py-5 flex flex-col lg:flex-row gap-6">
+                  <Button className="w-full" variant="secondary" onClick={prev}>
+                    Cancel
+                  </Button>
+                  <Button className="w-full">Done</Button>
                 </div>
               </FormContainer>
             </motion.div>
