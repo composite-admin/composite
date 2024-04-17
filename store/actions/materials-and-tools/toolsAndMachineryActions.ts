@@ -126,6 +126,7 @@ const useSupplierToolsAndMachineriesStore = create<SupplierMaterialsStore>((set)
           tools: state.tools.map((tool) => (tool.tool_id === id ? updatedTool : tool)),
           singleTool: updatedTool,
         }));
+      toast({ title: "Tool Updated Successfully" });
     } catch (err) {
       // do something with error
       console.log("error", err);

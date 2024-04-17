@@ -91,13 +91,7 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
       return <ColumnHeader column={column} title="Action" withSort={false} />;
     },
     cell: ({ row }) => {
-      const {} = row.original;
-
-      return (
-        <Link href={"/suppliers/12/edit"}>
-          <EditColumn />
-        </Link>
-      );
+      return <EditColumn row={row} />;
     },
   },
 ];

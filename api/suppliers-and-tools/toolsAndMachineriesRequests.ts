@@ -37,7 +37,7 @@ export const getToolById = async <T = any>(id: ID) => {
 
 export const updateTool = async <T = any>(id: ID, data: IUpdateToolAndMachineryData) => {
   try {
-    const response = await axiosInstance.put<ApiResponse<T>>(`/tools/machinery/${id}`);
+    const response = await axiosInstance.put<ApiResponse<T>>(`/suppliers/tools/machinery/${id}`);
     return response.data.data;
   } catch (error) {
     logErr(error);
