@@ -7,7 +7,7 @@ import { formatDate, twelveHourTime } from "@/utils/formatDate";
 import { IToolAndMachineryData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiPencilAlt } from "react-icons/hi";
+import EditColumn from "./edit-column-component";
 
 export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
   {
@@ -95,11 +95,7 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
 
       return (
         <Link href={"/suppliers/12/edit"}>
-          <div className="">
-            <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center">
-              <HiPencilAlt className="text-xl" /> <span>Edit</span>
-            </span>
-          </div>
+          <EditColumn />
         </Link>
       );
     },

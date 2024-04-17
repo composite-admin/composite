@@ -33,7 +33,9 @@ const AddToolsModal = () => {
 
   useEffect(() => {
     // initial subtype fetch
-    if (materialTypes) getMaterialSubTypes(materialTypes[0].material_type_id);
+    if (!materialTypes || materialTypes.length === 0) return;
+
+    getMaterialSubTypes(materialTypes[0].material_type_id);
   }, [materialTypes]);
 
   const onTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
