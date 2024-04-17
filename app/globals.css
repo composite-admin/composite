@@ -113,7 +113,6 @@ img {
   @apply object-cover;
 }
 
-
 body::-webkit-scrollbar {
   display: none;
 }
@@ -124,51 +123,51 @@ body::-webkit-scrollbar {
   overflow: -moz-scrollbars-none;
 }
 
-.key{
-  @apply text-textColor
+.key {
+  @apply text-textColor;
 }
 
-.value{
-  @apply text-[#475367] font-[600]
+.value {
+  @apply text-[#475367] font-[600];
 }
 
-.line{
-  @apply h-[1px] w-full
+.line {
+  @apply h-[1px] w-full;
 }
 
-.radio > div{
-  @apply flex gap-2 key
+.radio > div {
+  @apply flex gap-2 key;
 }
 
-select{
-  @apply bg-transparent border border-outline-600 focus:outline-none p-4 rounded-lg
+select {
+  @apply bg-transparent border border-outline-600 focus:outline-none p-4 rounded-lg;
 }
 
-.edit > div{
-  @apply gap-2
+.edit > div {
+  @apply gap-2;
 }
 
-select, textarea{
-  @apply text-sm text-textColor w-full
+select,
+textarea {
+  @apply text-sm text-textColor w-full;
 }
 
-.edit-info > div > textarea, .edit > div > textarea {
-    @apply border border-outline-600 resize-none rounded-lg h-20 w-full p-3 focus:outline-none
+.edit-info > div > textarea,
+.edit > div > textarea {
+  @apply border border-outline-600 resize-none rounded-lg h-20 w-full p-3 focus:outline-none;
 }
 
-.edit > div > input{
-  @apply border border-outline-600 rounded-lg w-full p-3 focus:outline-none
+.edit > div > input {
+  @apply border border-outline-600 rounded-lg w-full p-3 focus:outline-none;
 }
 
-.supplierActions p{
-  @apply p-5 border-t border-t-outline-600 cursor-pointer
+.supplierActions p {
+  @apply p-5 border-t border-t-outline-600 cursor-pointer;
 }
-
-
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1d2739 ;
+  scrollbar-color: #1d2739;
 }
 
 /* Width and height for Chrome, Edge, and Safari */

@@ -9,7 +9,7 @@ export interface PageHeaderComponentProps extends React.HTMLAttributes<HTMLDivEl
   onclick?: () => void;
   buttonText?: string;
   href?: string;
-};
+}
 
 export default function PageHeaderComponent({
   title,
@@ -27,11 +27,9 @@ export default function PageHeaderComponent({
       </div>
       <div>
         {buttonText ? (
-        <Link href={href || ' '}>
-          <Button onClick={onclick}>
-            {buttonText ? buttonText : "Create"}
-          </Button>
-        </Link>
+          <Link href={href || " "}>
+            <Button onClick={onclick}>{buttonText ? buttonText : "Create"}</Button>
+          </Link>
         ) : null}
       </div>
     </div>

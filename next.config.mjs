@@ -7,6 +7,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "variety.com",
+      },
+    ],
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
         hostname: "composite-portal.s3.amazonaws.com",
       },
     ],
@@ -14,4 +22,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
