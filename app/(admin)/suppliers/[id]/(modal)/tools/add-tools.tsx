@@ -6,6 +6,7 @@ import useSupplierToolsAndMachineriesStore from "@/store/actions/materials-and-t
 import { IAddToolsAndMachineryData, ISupplierMaterialSubTypesData, ISupplierMaterialTypesData } from "@/utils/types";
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 const AddToolsModal = () => {
   const { hideModal } = useModal();
@@ -13,7 +14,6 @@ const AddToolsModal = () => {
   const { selectedItem } = useSuppliersActionsStore();
 
   const {
-    reset,
     handleSubmit,
     register,
     formState: { errors },
@@ -21,32 +21,70 @@ const AddToolsModal = () => {
     defaultValues: { supplier_name: selectedItem?.supplier_name, supplier_code: selectedItem?.supplier_code },
   });
 
-  const { requestLoading, getMaterialSubTypes, getMaterialTypes, materialTypes, materialSubTypes } =
+  const { requestLoading, getMaterialSubTypes, getMaterialTypes, materialTypes, materialSubTypes, createTool } =
     useSupplierToolsAndMachineriesStore();
 
-  const [types, setTypes] = useState<ISupplierMaterialTypesData[] | null>(materialTypes);
-  const [subTypes, setSubTypes] = useState<ISupplierMaterialSubTypesData[] | null>(materialSubTypes);
-
-  console.log({ selectedItem });
+  const [selectedMaterialType, setSelectedMaterialType] = useState("");
+  const [selectedMaterialSubType, setSelectedMaterialSubType] = useState("");
 
   useEffect(() => {
     getMaterialTypes();
   }, [getMaterialTypes]);
 
+  useEffect(() => {
+    // initial subtype fetch
+    if (materialTypes) getMaterialSubTypes(materialTypes[0].material_type_id);
+  }, [materialTypes]);
+
   const onTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
+    const value = e.target.value;
+    if (!value) {
+      setSelectedMaterialType("");
+      return;
+    }
+
+    const matType = JSON.parse(value) as ISupplierMaterialTypesData;
+
+    const materialId = matType.material_type_id;
+    getMaterialSubTypes(materialId);
+
+    const materialDesc = matType.material_type_desc;
+
+    setSelectedMaterialType(materialDesc);
+  };
+
+  const onSubTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (!value) {
+      setSelectedMaterialSubType("");
+      return;
+    }
+
+    const subType = value;
+    setSelectedMaterialSubType(subType);
   };
 
   const onSubmit: SubmitHandler<IAddToolsAndMachineryData> = (data) => {
-    reset();
+    if (!selectedMaterialType || !selectedMaterialSubType) {
+      // toast({ title: "Incomplete Data", variant: "destructive" });
+      return;
+    }
+
+    const mainData: IAddToolsAndMachineryData = {
+      ...data,
+      tool_type: `${selectedMaterialType}`,
+      procurement_type: `${selectedMaterialSubType}`,
+    };
+
+    createTool(mainData);
     hideModal();
   };
 
   return (
     <FramerModal isOpen={true} isAutomatic={false} onClose={hideModal}>
-      <div className="lg:min-w-[50rem] md:min-w-[40rem] max-w-[60rem] w-full bg-white rounded-lg p-10 sm:grid space-y-6 sm:space-y-0 grid-cols-[1.5fr_4fr]">
+      <div className="lg:min-w-[50rem] md:min-w-[40rem] max-w-[60rem] max-h-[35rem] lg:max-h-[38rem] gap-4 overflow-y-auto w-full bg-white rounded-lg p-10 md:grid space-y-6 md:space-y-0 grid-cols-[1.5fr_4fr]">
         <div className="space-y-2">
-          <p className="text-3xl font-bold">Add Tools and Machinery</p>
+          <p className="lg:text-3xl md:text-2xl font-bold">Add Tools and Machinery</p>
           <p className="text-zinc-500">Make changes to tools and machinery</p>
         </div>
         <div className="space-y-4">
@@ -67,7 +105,17 @@ const AddToolsModal = () => {
                 className={`w-full outline-none p-4 border rounded-lg placeholder:text-zinc-500 ${
                   errors.tool_type ? "border-red-500" : "border-zinc-300"
                 }`}
-              ></select>
+                onChange={onTypeChange}
+              >
+                <option value="" className="text-zinc-400">
+                  Select
+                </option>
+                {materialTypes?.map((materialType, id) => (
+                  <option value={JSON.stringify(materialType)} key={id}>
+                    {materialType.material_type_desc}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="space-y-1">
@@ -76,7 +124,17 @@ const AddToolsModal = () => {
                 className={`w-full outline-none p-4 border rounded-lg placeholder:text-zinc-500 ${
                   errors.procurement_type ? "border-red-500" : "border-zinc-300"
                 }`}
-              ></select>
+                onChange={onSubTypeChange}
+              >
+                <option value="" className="text-zinc-400">
+                  Select
+                </option>
+                {materialSubTypes?.map((subType, id) => (
+                  <option value={subType.sub_type_desc} key={id}>
+                    {subType.sub_type_desc}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="space-y-1">
@@ -95,7 +153,7 @@ const AddToolsModal = () => {
               <label className="font-semibold">Comment</label>
               <textarea
                 rows={5}
-                className={`w-full outline-none p-4 border rounded-lg placeholder:text-zinc-500 ${
+                className={`w-full outline-none p-4 border rounded-lg placeholder:text-zinc-500 resize-none text-zinc-800 ${
                   errors.comment ? "border-red-500" : "border-zinc-300"
                 }`}
                 placeholder="Enter Description"
@@ -105,15 +163,15 @@ const AddToolsModal = () => {
             <div className="grid grid-cols-2 gap-2">
               <input
                 role="button"
-                className="w-full py-4 font-semibold rounded-lg bg-zinc-300 text-center"
+                className="w-full md:py-4 py-3 text-sm md:text-base font-semibold rounded-lg bg-zinc-300 text-center"
                 onClick={hideModal}
                 value={"Cancel"}
               />
 
               <input
-                className="w-full py-4 font-semibold cursor-pointer rounded-lg bg-primaryLight text-white duration-300 disabled:opacity-30"
-                disabled={requestLoading}
-                value={requestLoading ? "Wait..." : "Add Material"}
+                className="w-full md:py-4 py-3 text-sm md:text-base font-semibold cursor-pointer rounded-lg bg-primaryLight text-white duration-300 disabled:opacity-30"
+                disabled={requestLoading || !selectedMaterialType || !selectedMaterialSubType}
+                value={requestLoading ? "Wait..." : "Add Tools & Machinery"}
                 type="submit"
               />
             </div>

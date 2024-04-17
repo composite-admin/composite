@@ -53,9 +53,10 @@ export const deleteTool = async <T = any>(id: ID) => {
   }
 };
 
+// MATERIAL TYPES=========================
 export const getMaterialTypes = async <T = any>() => {
   try {
-    const response = await axiosInstance.put<ApiResponse<T>>(`/suppliers-materials/types/all`);
+    const response = await axiosInstance.get<ApiResponse<T>>(`/suppliers-materials/types/all`);
     return response.data.data;
   } catch (error) {
     logErr(error);
@@ -64,7 +65,7 @@ export const getMaterialTypes = async <T = any>() => {
 
 export const getMaterialSubTypes = async <T = any>(id: ID) => {
   try {
-    const response = await axiosInstance.put<ApiResponse<T>>(`/suppliers-materials/sub-type/${id}`);
+    const response = await axiosInstance.get<ApiResponse<T>>(`/suppliers-materials/sub-type/${id}`);
     return response.data.data;
   } catch (error) {
     logErr(error);
@@ -73,7 +74,7 @@ export const getMaterialSubTypes = async <T = any>(id: ID) => {
 
 export const getMaterialDescription = async <T = any>(subType: string) => {
   try {
-    const response = await axiosInstance.put<ApiResponse<T>>(
+    const response = await axiosInstance.get<ApiResponse<T>>(
       `/suppliers-materials/type/description?materialSubType=${subType}`
     );
     return response.data.data;

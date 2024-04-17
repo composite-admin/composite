@@ -92,7 +92,7 @@ const EditMaterialModal: React.FC<Props> = (row) => {
               <input
                 className="w-full py-4 font-semibold cursor-pointer rounded-lg bg-primaryLight text-white duration-300 disabled:opacity-30"
                 disabled={store.requestLoading}
-                value={store.requestLoading ? "Wait..." : "Add Material"}
+                value={store.requestLoading ? "Wait..." : "Submit Changes"}
                 type="submit"
               />
             </div>
