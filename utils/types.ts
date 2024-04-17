@@ -351,7 +351,68 @@ export const AddConsultantSchema = z
 
 export type AddConsultantType = z.infer<typeof AddConsultantSchema>;
 
-// WORKER AND WORKER JOBS============
+// SUPPLIER AND TOOLS=======================
+export type ISupplierData = {
+  id: ID;
+  supplier_code: string;
+  supplier_name: string;
+  supplier_address: string;
+  supplier_ofc_phone: string;
+  contact_person: string;
+  contact_mobile: string;
+  contact_home_phone: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ISupplierMaterialTypesData = {
+  material_type_id: ID;
+  material_type_desc: string;
+};
+
+export type ISupplierMaterialSubTypesData = {
+  sub_type_desc: string;
+};
+
+export type ISupplierMaterialDescriptionData = {
+  description: string;
+};
+
+export type IToolAndMachineryData = {
+  tool_id: number;
+  tool_code: string;
+  supplier_code: string;
+  supplier_name: string;
+  tool_type: string;
+  description: string;
+  others: string;
+  procurement_type: string;
+  created_by: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type IAddToolsAndMachineryData = {
+  supplier_code: string;
+  supplier_name: string;
+  tool_type: string;
+  description: string;
+  others: string;
+  procurement_type: string;
+  comment: string;
+};
+
+export type IUpdateToolAndMachineryData = {
+  tool_type: string;
+  description: string;
+  others: string;
+  procurement_type: string;
+  comment: string;
+};
+
+// WORKER AND WORKER-JOBS===================
 export type IWorkerData = {
   id: number;
   worker_code: string;

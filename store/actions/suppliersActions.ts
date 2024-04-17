@@ -6,10 +6,11 @@ import {
   updateSupplier,
   deleteSupplier,
 } from "../../api/suppliers-and-tools/suppliersRequests";
+import { ISupplierData } from "@/utils/types";
 
 export interface SuppliersStoreState {
-  items: object[];
-  selectedItem: object | null;
+  items: ISupplierData[];
+  selectedItem: ISupplierData | null;
   error: string | null;
 }
 
@@ -39,9 +40,9 @@ const useStore = create<SuppliersStore>((set) => ({
   createSupplier: async (data: any) => {
     try {
       const newItem = await createSupplier(data);
-      set((state: any) => ({ items: [...state.items, newItem] }));
+      set((state) => ({ items: [...state.items, newItem] }));
     } catch (error) {
-      set((state: any) => ({ error: "" }));
+      set((state) => ({ error: "" }));
     }
   },
 
@@ -50,7 +51,7 @@ const useStore = create<SuppliersStore>((set) => ({
       const items = await getAllSuppliers();
       set({ items });
     } catch (error) {
-      set((state: any) => ({ error: "" }));
+      set((state) => ({ error: "" }));
     }
   },
 
@@ -59,31 +60,31 @@ const useStore = create<SuppliersStore>((set) => ({
       const item = await getSupplierById(id);
       set({ selectedItem: item.data });
     } catch (error) {
-      set((state: any) => ({ error: "" }));
+      set((state) => ({ error: "" }));
     }
   },
 
   updateSupplier: async (id: number, data: any) => {
     try {
       const updatedItem = await updateSupplier(id, data);
-      set((state: any) => ({
+      set((state) => ({
         items: state.items.map((item: any) => (item.id === id ? updatedItem : item)),
         selectedItem: updatedItem.id === state.selectedItem?.id ? updatedItem : state.selectedItem,
       }));
     } catch (error) {
-      set((state: any) => ({ error: "" }));
+      set((state) => ({ error: "" }));
     }
   },
 
   deleteSupplier: async (id: number) => {
     try {
       await deleteSupplier(id);
-      set((state: any) => ({
+      set((state) => ({
         items: state.items.filter((item: any) => item.id !== id),
         selectedItem: state.selectedItem && state.selectedItem.id === id ? null : state.selectedItem,
       }));
     } catch (error) {
-      set((state: any) => ({ error: "" }));
+      set((state) => ({ error: "" }));
     }
   },
 }));

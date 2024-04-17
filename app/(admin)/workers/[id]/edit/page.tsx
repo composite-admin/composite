@@ -34,7 +34,7 @@ const SingleWorker = () => {
     const fetchWorker = async () => {
       try {
         const response = await getWorkerById(Number(params.id));
-        reset(response.data);
+        reset(response);
       } catch (error) {
         console.error("Error fetching worker data:", error);
       }

@@ -1,56 +1,80 @@
 import { create } from "zustand";
-import type { ToolAndMachinery, AddToolData, UpdateToolData } from "./types";
 import {
   createTool,
   deleteTool,
   getAllTools,
+  getMaterialDescription,
+  getMaterialSubTypes,
+  getMaterialTypes,
   getToolById,
   updateTool,
 } from "@/api/suppliers-and-tools/toolsAndMachineriesRequests";
-import { ID } from "@/utils/types";
+import {
+  IAddToolsAndMachineryData,
+  ID,
+  ISupplierMaterialDescriptionData,
+  ISupplierMaterialSubTypesData,
+  ISupplierMaterialTypesData,
+  IToolAndMachineryData,
+  IUpdateToolAndMachineryData,
+} from "@/utils/types";
 import { toast } from "@/components/ui/use-toast";
 
 export type SupplierMaterialsStoreState = {
-  tools: ToolAndMachinery[];
-  singleTool: ToolAndMachinery | null;
+  tools: IToolAndMachineryData[];
+  singleTool: IToolAndMachineryData | null;
   error: string | null;
 
-  // for requests
+  // MATERIALS
+  materialTypes: ISupplierMaterialTypesData[];
+  materialSubTypes: ISupplierMaterialSubTypesData[];
+  materialDescription: ISupplierMaterialDescriptionData[];
+
+  // REQUEST
   requestLoading: boolean;
 };
 
 export type SupplierMaterialsActions = {
-  setTools: (materials: ToolAndMachinery[]) => void;
-  setSingleMaterial: (material: ToolAndMachinery) => void;
+  setTools: (materials: IToolAndMachineryData[]) => void;
+  setSingleMaterial: (material: IToolAndMachineryData) => void;
   setError: (error: string) => void;
 
-  // ops
-  createTool: (data: AddToolData) => void;
+  // SUPPLIER ACTIONS
+  createTool: (data: IAddToolsAndMachineryData) => void;
   getAllTools: () => void;
   getToolById: (id: ID) => void;
-  updateTool: (id: ID, data: UpdateToolData) => void;
+  updateTool: (id: ID, data: IUpdateToolAndMachineryData) => void;
   deleteTool: (id: ID) => void;
+
+  // MATERIAL ACTIONS
+  getMaterialTypes: () => void;
+  getMaterialSubTypes: (id: ID) => void;
+  getMaterialDescription: (subType: string) => void;
 };
 
 export type SupplierMaterialsStore = SupplierMaterialsStoreState & SupplierMaterialsActions;
 
-const useSupplierToolsStore = create<SupplierMaterialsStore>((set) => ({
+const useSupplierToolsAndMachineriesStore = create<SupplierMaterialsStore>((set) => ({
   tools: [],
   singleTool: null,
   error: null,
   requestLoading: false,
 
+  materialTypes: [],
+  materialSubTypes: [],
+  materialDescription: [],
+
   setTools: (tool) => set((state) => ({ ...state, tools: tool })),
   setSingleMaterial: (tool) => set((state) => ({ ...state, singleTool: tool })),
   setError: (error) => set(() => ({ error })),
 
-  createTool: async (data: AddToolData) => {
+  createTool: async (data: IAddToolsAndMachineryData) => {
     try {
       // loading state
       set((state) => ({ ...state, requestLoading: true }));
 
       // request
-      const newTool = await createTool<ToolAndMachinery>(data);
+      const newTool = await createTool<IToolAndMachineryData>(data);
 
       if (newTool) set((state) => ({ ...state, tools: [...state.tools, newTool] }));
       toast({ title: "Tool Added Successfully" });
@@ -62,11 +86,12 @@ const useSupplierToolsStore = create<SupplierMaterialsStore>((set) => ({
       set((state) => ({ ...state, requestLoading: false }));
     }
   },
+
   getAllTools: async () => {
     set((state) => ({ ...state, requestLoading: true }));
 
     try {
-      const tools = await getAllTools<ToolAndMachinery[]>();
+      const tools = await getAllTools<IToolAndMachineryData[]>();
       set((state) => ({ ...state, tools: tools ?? [] }));
     } catch (err) {
       // do something with error
@@ -75,11 +100,12 @@ const useSupplierToolsStore = create<SupplierMaterialsStore>((set) => ({
       set((state) => ({ ...state, requestLoading: false }));
     }
   },
+
   getToolById: async (id) => {
     set((state) => ({ ...state, requestLoading: true }));
 
     try {
-      const tool = await getToolById<ToolAndMachinery>(id);
+      const tool = await getToolById<IToolAndMachineryData>(id);
       set((state) => ({ ...state, singleTool: tool }));
     } catch (err) {
       // do something with error
@@ -88,11 +114,12 @@ const useSupplierToolsStore = create<SupplierMaterialsStore>((set) => ({
       set((state) => ({ ...state, requestLoading: false }));
     }
   },
-  updateTool: async (id: ID, data: UpdateToolData) => {
+
+  updateTool: async (id: ID, data: IUpdateToolAndMachineryData) => {
     set((state) => ({ ...state, requestLoading: true }));
 
     try {
-      const updatedTool = await updateTool<ToolAndMachinery>(id, data);
+      const updatedTool = await updateTool<IToolAndMachineryData>(id, data);
       if (updatedTool)
         set((state) => ({
           ...state,
@@ -106,6 +133,7 @@ const useSupplierToolsStore = create<SupplierMaterialsStore>((set) => ({
       set((state) => ({ ...state, requestLoading: false }));
     }
   },
+
   deleteTool: async (id: ID) => {
     set((state) => ({ ...state, requestLoading: true }));
 
@@ -118,6 +146,28 @@ const useSupplierToolsStore = create<SupplierMaterialsStore>((set) => ({
       set((state) => ({ ...state, requestLoading: false }));
     }
   },
+
+  // MATERIALS
+  getMaterialTypes: async () => {
+    try {
+      const materialTypes = await getMaterialTypes<ISupplierMaterialTypesData[]>();
+      set((state) => ({ ...state, materialTypes: materialTypes ?? [] }));
+    } catch (err) {}
+  },
+
+  getMaterialSubTypes: async (id) => {
+    try {
+      const subTypes = await getMaterialSubTypes<ISupplierMaterialSubTypesData[]>(id);
+      set((state) => ({ ...state, materialSubTypes: subTypes ?? [] }));
+    } catch (err) {}
+  },
+
+  getMaterialDescription: async (subType) => {
+    try {
+      const description = await getMaterialDescription<ISupplierMaterialDescriptionData[]>(subType);
+      set((state) => ({ ...state, materialDescription: description ?? [] }));
+    } catch (err) {}
+  },
 }));
 
-export default useSupplierToolsStore;
+export default useSupplierToolsAndMachineriesStore;

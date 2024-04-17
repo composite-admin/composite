@@ -142,6 +142,19 @@ textarea {
   @apply text-sm text-textColor w-full;
 }
 
+select,
+text,
+button,
+input,
+a {
+  outline: none !important;
+}
+
+body,
+html {
+  overflow-x: hidden;
+}
+
 .edit-info > div > textarea,
 .edit > div > textarea {
   @apply border border-outline-600 resize-none rounded-lg h-20 w-full p-3 focus:outline-none;
