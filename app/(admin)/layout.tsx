@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 export default function layout({ children }: PropsWithChildren) {
   return (
-    <main className="bg-[#F5F6F8] min-h-screen">
+    <main className="bg-[#F5F6F8] min-h-screen overflow-y-auto">
       <div className="flex max-w-[120rem] mx-auto">
         <div className="hidden lg:block lg:col-span-1 z-50">
           <Sidebar />
