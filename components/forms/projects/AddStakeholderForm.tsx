@@ -20,6 +20,7 @@ import { z } from "zod";
 
 const AddStakeHolderSchema = z.object({
   stakeholder_code: z.string().optional(),
+  stakeholder_name: z.string().optional(),
   stakeholder_amount: z.string().optional(),
   approved_amount: z.string().optional(),
   other_amount: z.string().optional(),
@@ -33,11 +34,9 @@ export default function AddStakeHolderForm() {
   const { projectName, projectCode, onClose } =
     useProjectDetailsPageFormModal();
   const { toast } = useToast();
-  console.log(stakeholders);
   const stakeHolderName = stakeholders?.map(
     (item: any) => item.stakeholder_name
   );
-  console.log(stakeHolderName);
   const form = useForm<AddStakeHolderType>({
     resolver: zodResolver(AddStakeHolderSchema),
     defaultValues: {},
@@ -49,7 +48,10 @@ export default function AddStakeHolderForm() {
       try {
         const response = await api.post("/stakeholder-project", {
           ...values,
-          status: "Pending",
+          stakeholder_code: stakeholders.find(
+            (item: any) => item.stakeholder_name === values.stakeholder_name
+          )?.stakeholder_code,
+          status: "PENDING",
         });
         return response.data;
       } catch (error) {
