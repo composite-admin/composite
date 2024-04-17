@@ -89,7 +89,6 @@ export const columns: ColumnDef<IConsultantData>[] = [
           href={`consultants/consultant/${id}`}
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
-          <ViewUserPageIcon />
           View
         </Link>
       );

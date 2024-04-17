@@ -21,6 +21,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useStaffRoles } from "@/hooks/useSelectOptions";
 import { useProjectStore } from "@/store/project/useProjectStore";
+import { useRouter } from "next/navigation";
 
 const AddProjectModal = () => {
   const isOpen = useAddProjectModal((state) => state.isOpen);
@@ -28,6 +29,7 @@ const AddProjectModal = () => {
   const { setTeamMemberData, teamMemberData } = useProjectStore();
   const { staffRoles } = useStaffRoles();
   const { toast } = useToast();
+  const router = useRouter();
 
   const allRoles = staffRoles?.map((role: any) => role.role);
 
@@ -91,7 +93,11 @@ const AddProjectModal = () => {
     onSuccess: () => {
       toast({
         title: "Staff added successfully",
+        variant: "success",
       });
+
+      router.push("/project");
+      router.refresh();
     },
     onError: (error: Error) => {
       toast({
