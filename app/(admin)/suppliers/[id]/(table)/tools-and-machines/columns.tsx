@@ -2,14 +2,14 @@
 
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { ToolAndMachinery } from "@/store/actions/materials-and-tools/types";
 import { formatToNaira } from "@/utils/formatCurrency";
 import { formatDate, twelveHourTime } from "@/utils/formatDate";
+import { IToolAndMachineryData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiPencilAlt } from "react-icons/hi";
 
-export const materialsColumns: ColumnDef<ToolAndMachinery>[] = [
+export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
   {
     accessorKey: "mat_desc",
     header: ({ column }) => {
