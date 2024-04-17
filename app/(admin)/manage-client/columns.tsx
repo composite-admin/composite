@@ -63,9 +63,9 @@ export const columns: ColumnDef<IClientData>[] = [
       return (
         <Link
           href={`manage-client/client-details/${client_id}`}
-          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
+          className="text-primaryLight-500 underline flex items-center font-medium"
         >
-          <ViewUserPageIcon /> View
+          View
         </Link>
       );
     },

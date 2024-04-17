@@ -78,7 +78,7 @@ const NewInventory = () => {
     mutationKey: ["add inventory"],
     mutationFn: async (data: any) => {
       try {
-        const response = await api.post("/inventorys", {
+        const response = await api.post("/inventory", {
           ...data,
           total_price: Number(data.unit_price) * Number(data.quantity),
           total_quantity: Number(data.quantity),
@@ -108,19 +108,7 @@ const NewInventory = () => {
     },
   });
 
-  // {
-  //   "name": "Product B",
-  //   "type": "Type B",
-  //   "unit_price": 20,
-  //   "quantity": 50,
-  //   "total_price": 1000,
-  //   "total_quantity": 100,
-  //   "remaining_quantity": 20,
-  //   "comment": "Sample comment for Product B"
-  // }
-
   const submit = (data: newInventoryFormDataType) => {
-    console.log(data);
     mutate(data);
   };
 
