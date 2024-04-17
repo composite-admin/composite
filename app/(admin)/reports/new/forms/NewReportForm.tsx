@@ -25,8 +25,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useProjectData } from "@/hooks/useSelectOptions";
 import { api } from "@/config/api";
-import { getCookie } from "cookies-next";
-import XHR from "@uppy/xhr-upload";
 
 type Inputs = z.infer<typeof ProjectReportSchema>;
 export default function NewReportForm() {
