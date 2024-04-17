@@ -21,12 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}  xl:overflow-hidden`}>
-        <AuthProvider>
-          <QueryProvider>
-            <ModalProvider />
-            {children}
-          </QueryProvider>
-        </AuthProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
