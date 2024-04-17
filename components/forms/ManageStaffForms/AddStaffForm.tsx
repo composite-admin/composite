@@ -16,13 +16,14 @@ import {
   CustomFormSelect,
 } from "@/components/shared/FormComponent";
 import { AddStaffFormSchema, addStaffType } from "./addStaffFormtypes";
-import { nigerianStates } from "@/utils/types";
+import { nigerianStates, selectOptionForRoles } from "@/utils/types";
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 type Inputs = z.infer<typeof AddStaffFormSchema>;
 
@@ -31,6 +32,7 @@ export default function AddStaffForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<addStaffType>({
     resolver: zodResolver(AddStaffFormSchema),
@@ -54,7 +56,9 @@ export default function AddStaffForm() {
       homePhoneOfNextOfKin: "",
       cellPhoneOfNextOfKin: "",
       userName: "",
-      role: "Admin",
+      role: "",
+      staff_type: "",
+      user_type: "",
       password: "",
       confirmPassword: "",
       bankName: "",
@@ -63,25 +67,21 @@ export default function AddStaffForm() {
     },
   });
 
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const { mutate, isPending, error } = useMutation({
     mutationKey: ["add consultant"],
     mutationFn: async (data: { [Key in keyof addStaffType]: string }) => {
       try {
         const response = await api.post("/staffs", {
+          ...data,
           firstname: data.firstName,
           middlename: data.middleName,
           lastname: data.lastName,
           dob: "test date",
-          stateOfOrigin: data.stateOfOrigin,
-          lga: data.lga,
           sex: data.gender,
           marital_status: data.maritalStatus,
-          address: data.address,
           home_phone: data.homePhone,
           cell_phone: data.cellPhone,
-          email: data.email,
           nextOfKin: data.nextOfKinFullName,
-          relationship: data.relationship,
           addressOfNOK: data.addressOfNextOfKin,
           emailOfNOK: data.emailnextOfKin,
           phoneOfNOK: data.cellPhoneOfNextOfKin,
@@ -90,13 +90,9 @@ export default function AddStaffForm() {
           gradeid: "testgrade0001",
           branchcode: "testbranch0001",
           employee_status: "Active",
-          role: "Plumber", // this exists, need to know the type
-          staff_type: "Contractor", //this exists, need to know the type
           bank_name: data.bankName,
           account_name: data.accountName,
           account_number: data.accountNumber,
-          password: data.password,
-          user_type: data.typeOfStaff,
         });
         return response.data;
       } catch (error) {
@@ -110,7 +106,10 @@ export default function AddStaffForm() {
     onSuccess: () => {
       toast({
         title: "Staff added successfully",
+        variant: "success",
       });
+      form.reset();
+      router.push("/manage-staff");
     },
     onError: (error: Error) => {
       toast({
@@ -223,11 +222,11 @@ export default function AddStaffForm() {
                       name="middleName"
                     />
                     <CustomFormSelect
-                      name="typeOfStaff"
-                      items={["Admin", "Staff"]}
-                      placeholder=" select type of staff"
+                      name="role"
+                      items={selectOptionForRoles || []}
+                      placeholder="Select Staff Role"
                       control={form.control}
-                      labelText="Type of Staff"
+                      labelText="Role"
                     />
 
                     <CustomFormField
@@ -335,35 +334,53 @@ export default function AddStaffForm() {
                 isColumn={false}
                 description="Create a new staff profile here"
               >
-                <div className="flex flex-col lg:flex-row justify-between gap-5">
-                  <div className="flex flex-col gap-5 w-full lg:w-1/2 ">
-                    <CustomFormField
-                      name="userName"
-                      control={form.control}
-                      placeholder="Enter username"
-                      label="Username"
-                    />
+                <div className="flex flex-col  justify-between gap-5">
+                  <div className="flex flex-col md:flex-row gap-5 w-full">
+                    <div className="w-full">
+                      <CustomFormField
+                        name="userName"
+                        control={form.control}
+                        placeholder="Enter username"
+                        label="Username"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <CustomFormSelect
+                        name="user_type"
+                        control={form.control}
+                        placeholder="Select user type"
+                        labelText="User type"
+                        items={["Admin", "Staff", "Supervisor"]}
+                      />
+                    </div>
+                  </div>
+                  <div>
                     <CustomFormSelect
-                      name="role"
+                      name="staff_type"
                       control={form.control}
-                      placeholder="Enter role"
-                      labelText="Role"
-                      items={["Admin", "Staff", "Client"]}
+                      placeholder="Select type"
+                      labelText="Type"
+                      items={["In house", "Contractor"]}
                     />
                   </div>
-                  <div className="flex flex-col gap-5 w-full lg:w-1/2 ">
-                    <CustomFormField
-                      name="password"
-                      control={form.control}
-                      placeholder="Enter password"
-                      label="Password"
-                    />
-                    <CustomFormField
-                      name="confirmPassword"
-                      control={form.control}
-                      placeholder="Enter confirm password"
-                      label="Confirm password"
-                    />
+
+                  <div className="flex flex-col md:flex-row gap-5 w-full">
+                    <div className="w-full">
+                      <CustomFormField
+                        name="password"
+                        control={form.control}
+                        placeholder="Enter password"
+                        label="Password"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <CustomFormField
+                        name="confirmPassword"
+                        control={form.control}
+                        placeholder="Enter confirm password"
+                        label="Confirm password"
+                      />
+                    </div>
                   </div>
                 </div>
               </FormContainer>
@@ -404,7 +421,7 @@ export default function AddStaffForm() {
                 </div>
                 <div className="my-7 ">
                   <Button type="submit" className="mt-4">
-                    Submit
+                    {isPending ? "Saving..." : "Submit"}
                   </Button>
                 </div>
               </FormContainer>

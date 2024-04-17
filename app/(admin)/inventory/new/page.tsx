@@ -1,122 +1,192 @@
 "use client"
-import GoBack from '@/components/shared/GoBack';
-import useNewInventoryData from '@/mutations/NewInventoryMutation';
-import { useSuccessModal } from '@/store/inventory/UseInventoryModal';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import { HiBellAlert } from 'react-icons/hi2';
-import useInventoryActionsStore from "@/store/actions/inventoryActions"
+import {
+  CustomFormField,
+  CustomFormSelect,
+  CustomFormTextareaField,
+} from "@/components/shared/FormComponent";
+import GoBack from "@/components/shared/GoBack";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
+import { api } from "@/config/api";
+import { useGetAllInventoryTypes } from "@/hooks/useSelectOptions";
+import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
+import { useInventoryStore } from "@/store/project/useProjectStore";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { HiBellAlert } from "react-icons/hi2";
+import z from "zod";
+
+const newInventorySchema = z.object({
+  type: z.string({
+    required_error: "Please select a tool type",
+  }),
+  unit_price: z.string({
+    required_error: "Unit price is required",
+  }),
+  name: z.string({
+    required_error: "Please select a tool, then a description",
+  }),
+  quantity: z.string({
+    required_error: "Quantity is required",
+  }),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
+});
+
+type newInventoryFormDataType = z.infer<typeof newInventorySchema>;
 
 const NewInventory = () => {
-    const onOpen = useSuccessModal((state) => state.onOpen);
-    const {create, isSuccess} = useNewInventoryData()
-    const router = useRouter();
-    const [selectedType, setSelectedType] = useState()
+  const onOpen = useSuccessModal((state) => state.onOpen);
+  const router = useRouter();
+  const { inventories } = useGetAllInventoryTypes();
+  const { setToolData, toolData } = useInventoryStore();
+  const { toast } = useToast();
 
-    const [formData, setFormData] = useState({
-        name: '',
-        type: '',
-        quantity: '',
-        remaining_quantity: '',
-        total_quantity: '',
-        unit_price: '',
-        comment: ''
-    });
+  const ToolDescription = toolData?.map((item: any) => item?.description);
 
-    const allInventoryTypes = useInventoryActionsStore<any>((state) => state.items);
-    const getAllInventoryTypes = useInventoryActionsStore<any>((state) => state.getAllInventoryTypes);
-    console.log(allInventoryTypes)
+  const toolType = inventories?.map((item: any) => item?.type);
+  const form = useForm<newInventoryFormDataType>({
+    resolver: zodResolver(newInventorySchema),
+  });
+  const { watch } = form;
+  const watchTools = watch("type");
 
-    useEffect(() => {
-        getAllInventoryTypes();
-    }, [getAllInventoryTypes]);
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-
-    const handleSubmit = () => {
-        // Handle form submission here
-        console.log(formData);
-        formData.remaining_quantity = formData.quantity
-        formData.total_quantity = formData.quantity
-        create(formData);
-         // Example usage of opening success modal
-    };
-
-    useEffect(()=>{
-        if(isSuccess){
-            onOpen();
+  useEffect(() => {
+    const fetchToolDescription = async () => {
+      if (watchTools) {
+        try {
+          const res = await api.get(`/inventory/type/all?type=${watchTools}`);
+          if (res) {
+            setToolData(res.data.data);
+          }
+        } catch (error) {
+          console.log(error);
         }
-    }, [isSuccess])
+      }
+    };
 
-    return (
-        <div>
-            <GoBack />
+    fetchToolDescription();
+  }, [setToolData, watchTools]);
 
-            <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
-                <div className="flex gap-2 items-center border-b border-b-gray-200 py-3">
-                    <HiBellAlert />
+  const { mutate } = useMutation({
+    mutationKey: ["add inventory"],
+    mutationFn: async (data: any) => {
+      try {
+        const response = await api.post("/inventorys", {
+          ...data,
+          total_price: Number(data.unit_price) * Number(data.quantity),
+          total_quantity: Number(data.quantity),
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+    onSuccess: () => {
+      toast({
+        title: "Inventory created successfully",
+        variant: "success",
+      });
 
-                    <h2 className="text-[#101928] font-[600] text-[22px]">New Inventory</h2>
-                </div>
+      router.push("/inventory");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error creating inventory",
+        variant: "destructive",
+      });
+    },
+  });
 
-                <div className="grid grid-cols-2 gap-5 my-5 edit">
-                   
+  // {
+  //   "name": "Product B",
+  //   "type": "Type B",
+  //   "unit_price": 20,
+  //   "quantity": 50,
+  //   "total_price": 1000,
+  //   "total_quantity": 100,
+  //   "remaining_quantity": 20,
+  //   "comment": "Sample comment for Product B"
+  // }
 
-                    <div className="flex flex-col">
-                        <p className="value">
-                            Type
-                        </p>
+  const submit = (data: newInventoryFormDataType) => {
+    console.log(data);
+    mutate(data);
+  };
 
-                        <select name="type" id="" onChange={handleInputChange} value={formData.type} >
-                        {
-                            allInventoryTypes && allInventoryTypes?.data?.map((pj: any) => <option key={pj.type} value={pj.type}>{pj.type}</option>)
-                        }
-                        </select>
-                    </div>
-                    <div className="flex flex-col">
-                        <p className="value">
-                            Description
-                        </p>
-                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
+  return (
+    <div>
+      <GoBack />
 
-                       
-                    </div>
-                    <div className="flex flex-col">
-                        <p className="value">
-                            Quantity
-                        </p>
+      <div className="w-full max-w-4xl mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
+        <div className="flex gap-2 items-center border-b border-b-gray-200 py-3">
+          <HiBellAlert />
 
-                        <input type="number" name="quantity" value={formData.quantity} onChange={handleInputChange} />
-                    </div>
-
-                    <div className="flex flex-col">
-                        <p className="value">
-                            Unit Price
-                        </p>
-
-                        <input type="number" name="unit_price" value={formData.unit_price} onChange={handleInputChange} />
-                    </div>
-
-                    <div className="flex flex-col col-span-2">
-                        <div className="value">
-                            Comment
-                        </div>
-
-                        <textarea name="comment" value={formData.comment} onChange={handleInputChange} />
-                    </div>
-
-                    <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={() => router.back()} >Cancel</button>
-                    <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={handleSubmit} >Submit</button>
-                </div>
-            </div>
+          <h2 className="text-[#101928] font-[600] text-[22px]">
+            New Inventory
+          </h2>
         </div>
-    )
-}
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(submit)}
+            // className="grid grid-cols-2 gap-5 my-5 edit"
+          >
+            <div className="grid  md:grid-cols-2 gap-5 my-5 edit">
+              <CustomFormSelect
+                name="type"
+                labelText="Tool Type"
+                control={form.control}
+                items={toolType || ["Loading ..."]}
+                placeholder="Select Tool Type"
+              />
+              <CustomFormSelect
+                name="name"
+                labelText="Description"
+                control={form.control}
+                items={ToolDescription || ["Loading ..."]}
+                placeholder="Choose description"
+                disabled={!watchTools}
+              />
+              <CustomFormField
+                name="quantity"
+                label="Quantity"
+                control={form.control}
+                placeholder="Enter Quantity"
+              />
+              <CustomFormField
+                name="unit_price"
+                label="Unit Price"
+                control={form.control}
+                placeholder="Enter Unit Price"
+              />
+            </div>
+            <CustomFormTextareaField
+              name="comment"
+              label="Comment"
+              control={form.control}
+              placeholder="Enter Comment"
+            />
+            <div className="flex  gap-6 flex-col md:flex-row mt-5">
+              <Button className="bg-[#EBEBEB] text-textColor w-full">
+                Cancel
+              </Button>
+              <Button className="w-full">Submit</Button>
+            </div>
+          </form>
+        </Form>
+      </div>
+    </div>
+  );
+};
 
 export default NewInventory;

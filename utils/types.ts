@@ -438,16 +438,16 @@ export const selectOptionsForStartUpCostType = [
   'Regulatory Approval Fee',
   'Security'
  ]
+ 
+ export const selectOptionsForStaffRole = [
+   "Project Manager",
+   "Architect",
+   "Structural",
+   "HR",
+   "Mechanical",
+   "Engineer",
+   "Electrical",
+   "Quantity Surveyor",
+   "Site Superintendent",
+ ];
 
-
-// Agency
-// Community Relation
-// Design & Approval Drawing
-// Geophysical Survey
-// Geotechnical Survey
-// Land Acquisition
-// Local Government PR
-// Omo Onile
-// Regulatory Agency PR
-// Regulatory Approval Fee
-// Security

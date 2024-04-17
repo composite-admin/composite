@@ -103,13 +103,7 @@ export default function AddStakeHolderForm() {
           items={stakeHolderName || []}
           placeholder="Select stakeholder"
         />
-        <CustomFormSelect
-          control={form.control}
-          name="startup_type"
-          labelText="Startup Type"
-          items={selectOptionsForStartUpCostType || []}
-          placeholder="Startup Type"
-        />
+
 
         <div className="grid lg:grid-cols-2 gap-2">
           <CustomFormField

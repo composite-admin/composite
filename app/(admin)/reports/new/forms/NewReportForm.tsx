@@ -188,15 +188,10 @@ export default function NewReportForm() {
                     />
                   </div>
                   <div className="w-full">
-                    <CustomFormSelect
-                      labelText="Report Summary"
-                      placeholder="Select Summary"
+                    <CustomFormField
+                      label="Report Summary"
+                      placeholder="Add report Summary"
                       name="report_summary"
-                      items={
-                        ["report summary", "report summary"] || [
-                          "Loading Projects.... 🏠",
-                        ]
-                      }
                       control={form.control}
                     />
                   </div>

@@ -21,8 +21,8 @@ export default function FormContainer({
   return (
     <div
       className={clsx(
-        "grid lg:min-h-[32rem] w-full mx-auto grid-cols-1 bg-white border mt-10 border-[#F0F2F5] shadow-sm rounded-2xl p-7 pb-12",
-        isColumn ? "lg:block max-w-4xl " : "",
+        "grid lg:min-h-[32rem] w-full mx-auto grid-cols-6 bg-white border mt-10 border-[#F0F2F5] shadow-sm rounded-2xl p-7 pb-12",
+        isColumn ? "lg:block max-w-4xl" : "",
         `${props.className}`
       )}
     >

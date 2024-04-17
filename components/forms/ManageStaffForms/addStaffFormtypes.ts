@@ -11,6 +11,7 @@ export const AddStaffSteps: IFormSteps[] = [
       "lastName",
       "typeOfStaff",
       "homePhone",
+      "role",
       "cellPhone",
       "email",
       "address",
@@ -35,7 +36,13 @@ export const AddStaffSteps: IFormSteps[] = [
   {
     id: "3",
     name: "Role and Password",
-    fields: ["userName", "role", "password", "confirmPassword"],
+    fields: [
+      "userName",
+      "user_type",
+      "staff_type",
+      "password",
+      "confirmPassword",
+    ],
   },
   {
     id: "4",
@@ -52,6 +59,8 @@ export const AddStaffFormSchema = z.object({
   lastName: z.string().min(2, "Last name is required"),
   typeOfStaff: z.enum(["Admin", "Staff"]),
   homePhone: z.string().optional(),
+  staff_type: z.string().min(2, "Staff type is required"),
+  user_type: z.string().min(2, "User type is required"),
   cellPhone: z.string().min(11, "Phone number is invalid").max(11),
   email: z.string().email("Invalid email address"),
   address: z.string().min(5, "Address is required"),
@@ -66,7 +75,7 @@ export const AddStaffFormSchema = z.object({
   emailnextOfKin: z.string().min(5, "Email is required").email(),
   relationship: z.enum(["Father", "Mother", "Brother", "Sister", "Relative"]),
   userName: z.string().min(5, "User name is required"),
-  role: z.enum(["Admin", "Staff"]),
+  role: z.string().min(2, "Role is required"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
   confirmPassword: z
     .string()

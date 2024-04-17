@@ -104,6 +104,15 @@ export const useGetContractor = () => {
   return { contractors: data };
 };
 
+
+export const useGetAllInventoryTypes = () => {
+  const { data } = useQuery({
+    queryKey: ["get all inventory types"],
+    queryFn: () => getStuff("/inventory/types/all"),
+  });
+  return { inventories: data };
+};
+
 // export const useGetMaterials = () => {
 //   const { data } = useQuery({
 //     queryKey: ["get all materials"],
