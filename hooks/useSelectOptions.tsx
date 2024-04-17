@@ -72,3 +72,42 @@ export const getRoles = async () => {
     }
   }
 };
+
+const getStuff = async (args: string) => {
+  try {
+    const response = await api.get(`${args}`);
+    return response.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw error;
+    }
+  }
+};
+
+export const useGetStakeHolders = () => {
+  const { data } = useQuery({
+    queryKey: ["get all stakeholders"],
+    queryFn: () => getStuff("/stakeholder"),
+  });
+
+  return { stakeholders: data };
+};
+
+export const useGetContractor = () => {
+  const { data } = useQuery({
+    queryKey: ["get all contractors"],
+    queryFn: () => getStuff("/contractors"),
+  });
+
+  return { contractors: data };
+};
+
+// export const useGetMaterials = () => {
+//   const { data } = useQuery({
+//     queryKey: ["get all materials"],
+//     queryFn: () => getStuff("/materials"),
+//   });
+//   return { materials: data };
+// };
