@@ -1,6 +1,6 @@
 import { useModal } from "@/utils/modalContext";
 import { HiPencilAlt } from "react-icons/hi";
-import EditToolsModal from "../../(modal)/tools/edit-tools";
+import EditToolsModal from "../../(modal)/tools/edit/edit-tools";
 import { Row } from "@tanstack/react-table";
 import { IToolAndMachineryData } from "@/utils/types";
 

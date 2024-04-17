@@ -9,16 +9,14 @@ import MaterialTableArea from "./(table)";
 import { useModal } from "@/utils/modalContext";
 import AddMaterialModal from "./(modal)/materials/add-material";
 import AddToolsModal from "./(modal)/tools/add-tools";
+import TextSkeleton from "@/components/shared/TextSkeleton";
 
 const SingleSupplier = () => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const { showModal, hideModal } = useModal();
 
-  const selectedItem = useSuppliersActionsStore<any>((state) => state.selectedItem);
-  const getSupplierById = useSuppliersActionsStore<any>((state) => state.getSupplierById);
-  const suppliers = useSuppliersActionsStore<any>((state: any) => state.items);
-  const getAllSuppliers = useSuppliersActionsStore<any>((state: any) => state.getAllSuppliers);
+  const { selectedItem: supplier, getSupplierById, getAllSuppliers, requestLoading } = useSuppliersActionsStore();
 
   useEffect(() => {
     getAllSuppliers();
@@ -40,8 +38,8 @@ const SingleSupplier = () => {
       <div className="flex gap-3 items-center">
         <AvatarComponent classes="size-14" />
         <div>
-          <p className="font-semibold text-xl">{selectedItem && selectedItem.supplier_name}</p>
-          <p className="uppercase">{selectedItem && selectedItem.supplier_code}</p>
+          <p className="font-semibold text-xl">{supplier && supplier.supplier_name}</p>
+          <p className="uppercase">{supplier && supplier.supplier_code}</p>
         </div>
       </div>
 
@@ -54,42 +52,42 @@ const SingleSupplier = () => {
           <div className="grid grid-cols-4 p-5 gap-5">
             <div>
               <p className="text-[#475367] text-sm">Supplier Name:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.supplier_name}</p>
+              <TextSkeleton text={supplier?.supplier_name} isLoading={requestLoading} />
             </div>
 
             <div>
               <p className="text-[#475367] text-sm">Supplier Code:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.supplier_code}</p>
+              <TextSkeleton text={supplier?.supplier_code} isLoading={requestLoading} />
             </div>
 
             <div>
               <p className="text-[#475367] text-sm">Address:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.supplier_address}</p>
+              <TextSkeleton text={supplier?.supplier_address} isLoading={requestLoading} />
             </div>
 
             <div>
               <p className="text-[#475367] text-sm">Supplier Phone:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.supplier_ofc_phone}</p>
+              <TextSkeleton text={supplier?.supplier_ofc_phone} isLoading={requestLoading} />
             </div>
 
             <div>
               <p className="text-[#475367] text-sm">Contact Person:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.contact_person}</p>
+              <TextSkeleton text={supplier?.contact_person} isLoading={requestLoading} />
             </div>
 
             <div>
               <p className="text-[#475367] text-sm">Contact Mobile:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.contact_mobile}</p>
+              <TextSkeleton text={supplier?.contact_mobile} isLoading={requestLoading} />
             </div>
 
             <div>
               <p className="text-[#475367] text-sm">Contact Home Phone:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.contact_home_phone}</p>
+              <TextSkeleton text={supplier?.contact_home_phone} isLoading={requestLoading} />
             </div>
 
             <div>
               <p className="text-[#475367] text-sm">Comment:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.comment}</p>
+              <TextSkeleton text={supplier?.comment} isLoading={requestLoading} />
             </div>
           </div>
         </div>
@@ -101,10 +99,7 @@ const SingleSupplier = () => {
 
           <div className="flex items-center gap-4 py-3 px-5">
             <Image src={"/supplier-info.svg"} width={40} height={40} alt="supplier info" />
-            <p
-              className="cursor-pointer font-semibold"
-              onClick={() => router.push(`/suppliers/${selectedItem.id}/edit`)}
-            >
+            <p className="cursor-pointer font-semibold" onClick={() => router.push(`/suppliers/${supplier?.id}/edit`)}>
               Edit Supplier Information
             </p>
           </div>

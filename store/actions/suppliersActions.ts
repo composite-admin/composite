@@ -6,12 +6,15 @@ import {
   updateSupplier,
   deleteSupplier,
 } from "../../api/suppliers-and-tools/suppliersRequests";
-import { ISupplierData } from "@/utils/types";
+import { ID, ISupplierData } from "@/utils/types";
 
 export interface SuppliersStoreState {
   items: ISupplierData[];
   selectedItem: ISupplierData | null;
   error: string | null;
+
+  // REQUEST
+  requestLoading: boolean;
 }
 
 // Define the type for your actions
@@ -21,8 +24,9 @@ export interface SuppliersStoreActions {
   setError: (error: any) => void;
   createSupplier: (data: any) => void;
   getAllSuppliers: () => void;
-  getSupplierById: (id: number) => void;
-  updateSupplier: (id: number, data: any) => void;
+  getSupplierById: (id: ID) => void;
+  updateSupplier: (id: ID, data: any) => void;
+  deleteSupplier: (id: ID) => void;
 }
 
 // Define the type for your store combining state and actions
@@ -32,6 +36,7 @@ const useStore = create<SuppliersStore>((set) => ({
   items: [],
   selectedItem: null,
   error: null,
+  requestLoading: false,
 
   setItems: (items: any) => set({ items }),
   setSelectedItem: (selectedItem: any) => set({ selectedItem }),
@@ -47,24 +52,32 @@ const useStore = create<SuppliersStore>((set) => ({
   },
 
   getAllSuppliers: async () => {
+    set((state) => ({ ...state, requestLoading: true }));
+
     try {
       const items = await getAllSuppliers();
       set({ items });
     } catch (error) {
       set((state) => ({ error: "" }));
+    } finally {
+      set((state) => ({ ...state, requestLoading: false }));
     }
   },
 
-  getSupplierById: async (id: number) => {
+  getSupplierById: async (id) => {
+    set((state) => ({ ...state, requestLoading: true }));
+
     try {
       const item = await getSupplierById(id);
       set({ selectedItem: item.data });
     } catch (error) {
       set((state) => ({ error: "" }));
+    } finally {
+      set((state) => ({ ...state, requestLoading: false }));
     }
   },
 
-  updateSupplier: async (id: number, data: any) => {
+  updateSupplier: async (id, data: any) => {
     try {
       const updatedItem = await updateSupplier(id, data);
       set((state) => ({
@@ -76,7 +89,7 @@ const useStore = create<SuppliersStore>((set) => ({
     }
   },
 
-  deleteSupplier: async (id: number) => {
+  deleteSupplier: async (id) => {
     try {
       await deleteSupplier(id);
       set((state) => ({

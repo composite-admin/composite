@@ -1,3 +1,4 @@
+import { ID } from "@/utils/types";
 import axiosInstance from "../index";
 
 export const createSupplier = async (data: any) => {
@@ -18,7 +19,7 @@ export const getAllSuppliers = async () => {
   }
 };
 
-export const getSupplierById = async <T = any>(id: number) => {
+export const getSupplierById = async <T = any>(id: ID) => {
   try {
     const response = await axiosInstance.get<T>(`/suppliers/${id}`);
     return response.data;
@@ -27,7 +28,7 @@ export const getSupplierById = async <T = any>(id: number) => {
   }
 };
 
-export const updateSupplier = async (id: number, data: any) => {
+export const updateSupplier = async (id: ID, data: any) => {
   try {
     const response = await axiosInstance.put(`/suppliers/${id}`, data);
     return response.data;
@@ -36,7 +37,7 @@ export const updateSupplier = async (id: number, data: any) => {
   }
 };
 
-export const deleteSupplier = async (id: number) => {
+export const deleteSupplier = async (id: ID) => {
   try {
     const response = await axiosInstance.delete(`/suppliers/${id}`);
     return response.data;
