@@ -28,8 +28,8 @@ const SingleSupplier = () => {
     }
   }, [getSupplierById, params.id]);
 
-  const showMaterialModal = () => showModal(<AddMaterialModal />);
-  const showAddToolsModal = () => showModal(<AddToolsModal />);
+  // const showMaterialModal = () => showModal(<AddMaterialModal />);
+  // const showAddToolsModal = () => showModal(<AddToolsModal />);
 
   return (
     <div>
@@ -109,7 +109,7 @@ const SingleSupplier = () => {
             <p className="font-semibold">Add Supplier Material</p>
           </div>
 
-          <div className="flex items-center gap-4 py-5 px-5 cursor-pointer" onClick={showAddToolsModal}>
+          <div className="flex items-center gap-4 py-5 px-5 cursor-pointer" >
             <Image src={"/truck.svg"} width={40} height={40} alt="supplier info" />
             <p className="font-semibold">Add Tools and Machinery</p>
           </div>
