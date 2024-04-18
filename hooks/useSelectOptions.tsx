@@ -113,6 +113,15 @@ export const useGetAllInventoryTypes = () => {
   return { inventories: data };
 };
 
+export const useGetAllStaffs = () => {
+  const { data } = useQuery({
+    queryKey: ["get all staffs"],
+    queryFn: () => getStuff("/staffs"),
+  });
+  return { staffs: data };
+};
+
+
 // export const useGetMaterials = () => {
 //   const { data } = useQuery({
 //     queryKey: ["get all materials"],

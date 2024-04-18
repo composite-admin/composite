@@ -573,18 +573,18 @@ export const selectOptionsForStartUpCostType = [
    "Electrical",
    "Quantity Surveyor",
    "Site Superintendent",
+
  ];
 
 
-// Agency
-// Community Relation
-// Design & Approval Drawing
-// Geophysical Survey
-// Geotechnical Survey
-// Land Acquisition
-// Local Government PR
-// Omo Onile
-// Regulatory Agency PR
-// Regulatory Approval Fee
-// Security
+ export const selectOptionsForConsultantsType = [
+   "Structural Engineers",
+   "Mechanical and Electrical Engineers",
+   "Architects",
+   "Land Surveyors",
+   "Quantity Surveyor",
+   "Estate Surveyors",
+   "Legal Practitioners",
+   "Geo Technical",
+ ];
 

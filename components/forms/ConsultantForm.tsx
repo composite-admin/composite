@@ -7,7 +7,11 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddConsultantSchema, AddConsultantType } from "@/utils/types";
+import {
+  AddConsultantSchema,
+  AddConsultantType,
+  selectOptionsForConsultantsType,
+} from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "@/config/api";
@@ -67,11 +71,11 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
                 label="contact"
               />
             </div>
-            <div className="lg:w-1/2 flex flex-col gap-5">
+            <div className="lg:w-1/2 flex flex-col gap-5 my-5">
               <CustomFormSelect
                 name="type"
-                items={["Type 1", "Type 2"]}
-                placeholder="select"
+                items={selectOptionsForConsultantsType || []}
+                placeholder="Select a type"
                 control={form.control}
                 labelText="Type"
               />

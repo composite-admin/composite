@@ -186,7 +186,7 @@ const SingleProject = () => {
         <div>
           <div>
             <div className="flex flex-col gap-1.5">
-              <h1 className="font-semibold text-base lg:text-responsive">
+              <h1 className="font-semibold text-2xl">
                 {selectedItem && selectedItem.project_name}
               </h1>
               <p className="uppercase font-semibold text-textColor">

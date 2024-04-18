@@ -23,7 +23,7 @@ import {
 } from "@/components/shared/FormComponent";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useProjectData } from "@/hooks/useSelectOptions";
+import { useGetAllStaffs, useProjectData } from "@/hooks/useSelectOptions";
 import { api } from "@/config/api";
 
 type Inputs = z.infer<typeof ProjectReportSchema>;
@@ -54,34 +54,38 @@ export default function NewReportForm() {
     const newFiles = [...files, ...selectedFiles].slice(0, 5);
     setFiles(newFiles);
   };
-  const handleUpload = async () => {
-    try {
-      const formData = new FormData();
-      files.forEach((file) => formData.append("images", file));
+  // const handleUpload = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     files.forEach((file) => formData.append("images", file));
 
-      const response = await api.put("/project_report/images/9", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // Add other necessary headers here
-        },
-      });
+  //     const response = await api.put("/project_report/images/9", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //         // Add other necessary headers here
+  //       },
+  //     });
 
-      if (response.status === 201) {
-        console.log("Files uploaded successfully");
-        setFiles([]);
-      } else {
-        console.error("Failed to upload files");
-      }
-    } catch (error) {
-      console.error("Error uploading files:", error);
-    }
-  };
+  //     if (response.status === 201) {
+  //       console.log("Files uploaded successfully");
+  //       setFiles([]);
+  //     } else {
+  //       console.error("Failed to upload files");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error uploading files:", error);
+  //   }
+  // };
 
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
   const { projectsData } = useProjectData();
+  const { staffs } = useGetAllStaffs();
   const projectName = projectsData?.map((item: any) => item.project_name);
+  const projectSupervisor = staffs?.map(
+    (item: any) => item.firstname + " " + item.middlename + " " + item.lastname
+  );
   const { toast } = useToast();
 
   const form = useForm<ProjectReportFormType>({
@@ -127,14 +131,51 @@ export default function NewReportForm() {
 
   const processForm: SubmitHandler<Inputs> = async (data, event) => {
     event?.preventDefault();
-    // // const response = await api.post("/project_report", data);
-    // if (response.status === 201) {
-    //   toast({
-    //     title: "Report created successfully",
-    //     description: "Report has been created successfully",
-    //     variant: "success",
-    //   });
-    // }
+    try {
+      const response = await api.post("/project_reporttt", data);
+      if (response.status === 201) {
+        // Extract ID from the response data
+        const { id } = response.data.data;
+        console.log(id);
+        toast({
+          title: "Report created successfully",
+          description:
+            "Report has been created successfully, please upload images",
+          variant: "success",
+        });
+        // Call handleUpload function with the extracted ID
+        handleUpload(id);
+      }
+    } catch (error) {
+      console.error("Error creating report:", error);
+    }
+  };
+
+  const handleUpload = async (id: string) => {
+    try {
+      const formData = new FormData();
+      files.forEach((file) => formData.append("images", file));
+
+      // Construct the URL for uploading images with the extracted ID
+      const uploadUrl = `/project_report/images/${id}`;
+
+      // Use the constructed URL for uploading images
+      const response = await api.put(uploadUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // Add other necessary headers here
+        },
+      });
+
+      if (response.status === 201) {
+        console.log("Files uploaded successfully");
+        setFiles([]);
+      } else {
+        console.error("Failed to upload files");
+      }
+    } catch (error) {
+      console.error("Error uploading files:", error);
+    }
   };
 
   return (
@@ -160,7 +201,6 @@ export default function NewReportForm() {
                 isColumn={true}
                 description="Create a new report here."
               >
-                {/* report type should be a radio input with options of Daily, weekly Monthly */}
                 <div className="flex gap-5 ">
                   {["Daily", "Weekly", "Monthly"].map((option) => (
                     <span className="flex gap-2 items-center" key={option}>
@@ -201,11 +241,7 @@ export default function NewReportForm() {
                     labelText="Project Supervisor"
                     placeholder=" Select Project Supervisor"
                     name="project_supervisor"
-                    items={
-                      ["project supervisor 1", "project supervisor 2"] || [
-                        "Loading Projects.... 🏠",
-                      ]
-                    }
+                    items={projectSupervisor || ["Loading Staff.... 👷🏾‍♂️"]}
                     control={form.control}
                   />
                 </div>
@@ -278,6 +314,7 @@ export default function NewReportForm() {
               </FormContainer>
             </motion.div>
           )}
+
           {currentStep === 1 && (
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
@@ -330,10 +367,7 @@ export default function NewReportForm() {
                     </div>
 
                     {files.length > 0 && (
-                      <button
-                        onClick={handleUpload}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-                      >
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
                         Upload Files
                       </button>
                     )}
