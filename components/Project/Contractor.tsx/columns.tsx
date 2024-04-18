@@ -5,78 +5,79 @@ import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
 import { ColumnDef } from "@tanstack/react-table";
-import { DeleteIcon } from "lucide-react";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
 export type ReportType = {
   id: string;
-  worker: string;
-  serviceType: string;
-  address: string;
-  emailAddresses: string;
-  contactPhone: string;
+  description: string;
+  type: string;
+  cost: string;
+  dateAdded: string;
 };
 
 export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "worker",
+    accessorKey: "id",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Worker" />;
+      return <ColumnHeader column={column} title="ID" />;
+    },
+    cell: ({ row }) => {
+      return <p className="text-textColor px-0 font-normal">1</p>;
+    },
+  },
+  {
+    accessorKey: "stakeholder_name",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Stakeholder Name" />;
     },
     cell: ({ row }) => {
       return (
-        // <Link href={`/project/${row.original["id"]}`}>
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col text-primaryLight gap-1 font-semibold">
+          <p className="">Grows TT</p>
+          <p className="text-textColor font-normal">CRN128320182</p>
+        </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "amount",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Amount" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return <span className="font-semibold ">N,100,000</span>;
+    },
+  },
+
+  {
+    accessorKey: "added_by",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Added by" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center gap-2">
           <AvatarComponent />
-          <div>
-            <p className="font-semibold ">Allison Ogaga</p>
-            <p>CRNOWUWUWU</p>
-          </div>
-        </div>
-        // </Link>
-      );
-    },
-  },
-
-  {
-    accessorKey: "serviceType",
-    header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Service Type" withSort={false} />
-      );
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold ">Cable TV Installation</span>
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "address",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Address" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold ">Graceland Avenue Along Ikeja</span>
+          <span className="w-16">Alice Ogaga</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "emailAddress",
+    accessorKey: "dateAdded",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Email Address" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Date Added" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">john@gmail.com</span>
+          <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
+            6 July, 2023
+          </p>
         </div>
       );
     },
@@ -89,7 +90,10 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
+            <HiPencilAlt />
+            Edit{" "}
+          </span>
         </div>
       );
     },
@@ -101,16 +105,12 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div
-          
-          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
-        >
-          <DeleteIcon />
-          Delete
+        <div className="">
+          <span className="hover:underline text-red-500 font-semibold">
+            Delete
+          </span>
         </div>
       );
     },
   },
-
-
 ];

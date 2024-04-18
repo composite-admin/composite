@@ -8,6 +8,7 @@ import AddStakeholderForm from "../forms/projects/AddStakeholderForm";
 import AddMaterialForm from "../forms/projects/AddMaterialForm";
 import AddContractorForm from "../forms/projects/AddContractorForm";
 import AddWorkerForm from "../forms/projects/AddWorkerForm";
+import AddConsultantForm from "../forms/projects/AddConsultantForm";
 
 interface Props {}
 
@@ -27,7 +28,8 @@ export default function ProjectDetailsPageFormModal() {
         return "Add Contractor to Project";
       case "add_worker":
         return "Add Worker";
-
+      case "add_consultant":
+        return "Add Consultant";
       default:
         return "";
     }
@@ -47,6 +49,7 @@ export default function ProjectDetailsPageFormModal() {
           add_material: <AddMaterialForm />,
           add_contractor: <AddContractorForm />,
           add_worker: <AddWorkerForm />,
+          add_consultant: <AddConsultantForm />,
         }[currentModal]
       }
     </Modal>

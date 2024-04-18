@@ -6,6 +6,7 @@ type currentModal =
   | "add_stakeholder"
   | "add_worker"
   | "add_material"
+  | "add_consultant"
   | "add_contractor";
 
 interface ModalStoreState {

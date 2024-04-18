@@ -8,7 +8,6 @@ import GoBack from "@/components/shared/GoBack";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/config/api";
 import { IClientData, IClientDetails } from "@/utils/types";
-import { data } from "../../../cash-advance/data";
 import axios from "axios";
 
 type Params = {
@@ -25,7 +24,6 @@ const getClientDetails = async (id: string) => {
         Authorization: `Bearer ${cookies().get("token")?.value}`,
       },
     });
-    console.log(res.data.data);
     return res.data.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

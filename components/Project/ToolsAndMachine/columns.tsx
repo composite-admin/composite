@@ -29,7 +29,7 @@ export const columns: ColumnDef<any>[] = [
         // <Link href={`/project/${row.original["id"]}`}>
         <div className="flex gap-2 items-center">
           <div>
-            <p className="font-semibold underline text-primaryLight">Allison Ogaga</p>
+            <p className="font-semibold underline text-primaryLight">Hammer</p>
             <p>CRNOWUWUWU</p>
           </div>
         </div>
@@ -39,11 +39,9 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "quantity",
+    accessorKey: "company",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Quantity" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Quantity" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
@@ -55,9 +53,11 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "unitPrice",
+    accessorKey: "procurement_type",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Unit Price" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Unit Price" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -68,9 +68,11 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "totalCost",
+    accessorKey: "unit_price",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Total Cost" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Total Cost" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -81,9 +83,26 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "dateAdded",
+    accessorKey: "totalCost",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Date Added" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Total Cost" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">N100,000</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "date_approved",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Date Added" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -101,10 +120,12 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
+            <HiPencilAlt />
+            Edit{" "}
+          </span>
         </div>
       );
     },
   },
-
 ];
