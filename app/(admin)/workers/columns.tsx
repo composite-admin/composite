@@ -1,12 +1,11 @@
 "use client";
 
-import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import {  HiPencilAlt,  } from "react-icons/hi";
 
 export type ReportType = {
   id: string;
@@ -20,107 +19,110 @@ export type ReportType = {
 };
 
 export const columns: ColumnDef<ReportType | any>[] = [
-{
-  accessorKey: "worker",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Worker" withSort={false} />;
+  {
+    accessorKey: "worker",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Worker" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <Link href={`/workers/${row.original["id"]}`}>
+          <div className="flex items-center gap-4">
+            <AvatarComponent />
+            <div className="flex flex-col">
+              <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+                {row.original["worker_name"]}
+              </span>
+              <span className="text-xs font-semibold text-gray-500">{row.original["worker_code"]}</span>
+            </div>
+          </div>
+        </Link>
+      );
+    },
   },
-  cell: ({ row }) => {
-    return (
-      <Link href={`/workers/${row.original["id"]}`}>
-        <div className="flex flex-col">
-          <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-            {row.original["worker_name"]}
-          </span>
-          <span className="text-xs font-semibold text-gray-500">
-            {row.original["worker_code"]}
-          </span>
+  {
+    accessorKey: "workerCompany",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Company" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">{row.original["worker_company"]}</span>
         </div>
-      </Link>
-    );
+      );
+    },
   },
-},
-{
-  accessorKey: "workerCompany",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Company" withSort={false} />;
+  {
+    accessorKey: "workerAddress",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Address" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">{row.original["worker_address"]}</span>
+        </div>
+      );
+    },
   },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold ">{row.original["worker_company"]}</span>
-      </div>
-    );
-  },
-}, {
-  accessorKey: "workerAddress",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Address" withSort={false} />;
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold ">{row.original["worker_address"]}</span>
-      </div>
-    );
-  },
-},
 
+  {
+    accessorKey: "emailAddress",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Email Address" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">{row.original["worker_email"]}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "officePhone",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Office Phone" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">{row.original["worker_ofc_phone"]}</span>
+        </div>
+      );
+    },
+  },
 
-{
-  accessorKey: "emailAddress",
-  header: ({ column }) => {
-    return (
-      <ColumnHeader column={column} title="Email Address" withSort={false} />
-    );
+  // {
+  //   accessorKey: "createdOn",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Added On" />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="">
+  //         <span className=" ">{formatDate(row.original["createdAt"])}</span>
+  //       </div>
+  //     );
+  //   },
+  // },
+  {
+    accessorKey: "action",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Action" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <Link href={`/workers/${row.original["id"]}/edit`}>
+            <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
+              <HiPencilAlt />
+              Edit{" "}
+            </span>
+          </Link>
+        </div>
+      );
+    },
   },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold ">{row.original["worker_email"]}</span>
-      </div>
-    );
-  },
-},
-{
-  accessorKey: "officePhone",
-  header: ({ column }) => {
-    return (
-      <ColumnHeader column={column} title="Office Phone" withSort={false} />
-    );
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold ">{row.original["worker_ofc_phone"]}</span>
-      </div>
-    );
-  },
-},
-{
-  accessorKey: "createdOn",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Added On" />;
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className=" ">{formatDate(row.original["createdAt"])}</span>
-      </div>
-    );
-  },
-},
-{
-  accessorKey: "action",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Action" />;
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <Link href={`/workers/${row.original["id"]}/edit`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
-      </div>
-    );
-  },
-},
 ];

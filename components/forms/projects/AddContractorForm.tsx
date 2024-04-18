@@ -13,12 +13,11 @@ import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal"
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useGetContractor } from "../../../hooks/useSelectOptions";
 
 const AddContractorSchema = z.object({
-  contractor_code: z.string().optional(),
-  contractor_project_code: z.string().optional(),
   contractor_amount: z.string().optional(),
-  service: z.string().optional(),
+  contractor_name: z.string().optional(),
   createdBy: z.string().optional(),
   comment: z.string().optional(),
 });
@@ -28,22 +27,33 @@ export default function AddContractorForm() {
   const { projectName, projectCode, onClose } =
     useProjectDetailsPageFormModal();
   const { toast } = useToast();
-
+  const { contractors } = useGetContractor();
   const form = useForm<AddContractorType>({
     resolver: zodResolver(AddContractorSchema),
     defaultValues: {},
   });
 
+  const contractorName = contractors?.map(
+    (contractor: any) => contractor.contractor_name
+  );
   const { mutate } = useMutation({
     mutationKey: ["add-stakeholder"],
     mutationFn: async (values: AddContractorType) => {
       try {
         const response = await api.post("/contractor-projects", {
           ...values,
+          contractor_amount: Number(values.contractor_amount),
+          contractor_code: contractors.find(
+            (item: any) => item.contractor_name === values.contractor_name
+          )?.contractor_code,
         });
+        contractor_service: contractors.find(
+          (item: any) => item.contractor_name === values.contractor_name
+        )?.contractor_service;
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
+          console.log(error.response.data);
           throw new Error(error.response.data.message);
         } else {
           throw error;
@@ -53,22 +63,22 @@ export default function AddContractorForm() {
   });
 
   const handleSubmit = (data: AddContractorType) => {
-    // mutate(data, {
-    //   onSuccess: () => {
-    //     form.reset();
-    //     onClose();
-    //     toast({
-    //       title: "Start up cost added successfully",
-    //       variant: "success",
-    //     });
-    //   },
-    //   onError: () => {
-    //     toast({
-    //       title: "Something went wrong",
-    //       variant: "destructive",
-    //     });
-    //   },
-    // });
+    mutate(data, {
+      onSuccess: () => {
+        form.reset();
+        onClose();
+        toast({
+          title: "Contactor added successfully",
+          variant: "success",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
   };
   return (
     <Form {...form}>
@@ -85,14 +95,14 @@ export default function AddContractorForm() {
         />
         <CustomFormSelect
           control={form.control}
-          name="contractor"
+          name="contractor_name"
           labelText="Contractor"
           placeholder="Contractor"
-          items={["Option 1", "Option 2", "Option 3"]}
+          items={contractorName || ["fetching contractors..."]}
         />
 
         <CustomFormField
-          name="amount"
+          name="contractor_amount"
           control={form.control}
           label="Amount"
           placeholder="Enter Amount"

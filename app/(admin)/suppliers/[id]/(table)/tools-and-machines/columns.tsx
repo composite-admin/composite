@@ -2,14 +2,14 @@
 
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { ToolAndMachinery } from "@/store/actions/materials-and-tools/types";
 import { formatToNaira } from "@/utils/formatCurrency";
 import { formatDate, twelveHourTime } from "@/utils/formatDate";
+import { IToolAndMachineryData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiPencilAlt } from "react-icons/hi";
+import EditColumn from "./edit-column-component";
 
-export const materialsColumns: ColumnDef<ToolAndMachinery>[] = [
+export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
   {
     accessorKey: "mat_desc",
     header: ({ column }) => {
@@ -91,17 +91,7 @@ export const materialsColumns: ColumnDef<ToolAndMachinery>[] = [
       return <ColumnHeader column={column} title="Action" withSort={false} />;
     },
     cell: ({ row }) => {
-      const {} = row.original;
-
-      return (
-        <Link href={"/suppliers/12/edit"}>
-          <div className="">
-            <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center">
-              <HiPencilAlt className="text-xl" /> <span>Edit</span>
-            </span>
-          </div>
-        </Link>
-      );
+      return <EditColumn row={row} />;
     },
   },
 ];

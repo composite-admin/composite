@@ -8,7 +8,7 @@ import { useSuccessModal } from "@/store/modals/useCreateModal";
 import { useRouter, useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
-import { getSupplierById } from "@/api/suppliersRequests";
+import { getSupplierById } from "@/api/suppliers-and-tools/suppliersRequests";
 
 const EditSupplier = () => {
   const onOpen = useSuccessModal((state) => state.onOpen);

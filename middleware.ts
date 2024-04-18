@@ -79,5 +79,26 @@ function handleRouteAccess(userType: string | null, currentURL: string, request:
 }
 
 export const config = {
-  matcher: ['/', '/client/:path*', '/staff/:path*', '/login', '/forgot-password'],
+  matcher: [
+    "/",
+    "/reports/:path*",
+    "/cash-advance/:path*",
+    "/consultants/:path*",
+    "/contractors/:path*",
+    "/facility/:path*",
+    "/inventory/:path*",
+    "/manage-clients/:path*",
+    "/manage-staff/:path*",
+    "/projects/:path*",
+    "/reports/:path*",
+    "/requests/:path*",
+    "/settings/:path*",
+    "/stakeholders/:path*",
+    "/suppliers/:path*",
+    "/workers/:path*",
+    "/client/:path*",
+    "/staff/:path*",
+    "/login",
+    "/forgot-password",
+  ],
 };

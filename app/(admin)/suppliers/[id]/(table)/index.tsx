@@ -44,7 +44,9 @@ const MaterialTableArea = () => {
       </div>
 
       {/* table area */}
-      <AnimatePresence mode="wait">{renderTableContent()}</AnimatePresence>
+      <AnimatePresence mode="wait" initial={false}>
+        {renderTableContent()}
+      </AnimatePresence>
     </section>
   );
 };
