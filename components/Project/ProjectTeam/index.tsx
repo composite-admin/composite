@@ -7,10 +7,10 @@ const ProjectTeam = () => {
     
   return (
     <div>
-         <h2 className='text-[20px] font-[600]'>Project Team</h2>
-        <DataTable showSearch={false} columns={columns} data={data}/>
+      <h2 className="font-semibold pt-5 lg:text-2xl">Project Team</h2>
+      <DataTable showSearch={false} columns={columns} data={data} />
     </div>
-  )
+  );
 }
 
 export default ProjectTeam

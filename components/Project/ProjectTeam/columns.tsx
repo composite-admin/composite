@@ -39,9 +39,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "role",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Role" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Role" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
@@ -60,10 +58,25 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>Active</p>
+          <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
+            Active
+          </p>
         </div>
       );
     },
   },
 
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Action" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="cursor-pointer">
+          <p className="px-1 font-semibold w-fit  text-red-500">Remove</p>
+        </div>
+      );
+    },
+  },
 ];

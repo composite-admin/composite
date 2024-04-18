@@ -26,14 +26,28 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       return (
-        // <Link href={`/project/${row.original["id"]}`}>
         <div className="flex gap-2 items-center">
           <div>
-            <p className="font-semibold underline text-primaryLight">Allison Ogaga</p>
+            <p className="font-semibold underline text-primaryLight">
+              Allison Ogaga
+            </p>
             <p>CRNOWUWUWU</p>
           </div>
         </div>
-        // </Link>
+      );
+    },
+  },
+
+  {
+    accessorKey: "supplier",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Supplier" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">Wale Bello</span>
+        </div>
       );
     },
   },
@@ -41,9 +55,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "quantity",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Quantity" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Quantity" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
@@ -57,7 +69,9 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "unitPrice",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Unit Price" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Unit Price" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -70,12 +84,14 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "totalCost",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Total Cost" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Total Price" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">N100,000</span>
+          <span className="font-semibold">N100,000</span>
         </div>
       );
     },
@@ -83,7 +99,9 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "dateAdded",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Date Added" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Date Added" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -101,10 +119,26 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
+            <HiPencilAlt />
+            Edit{" "}
+          </span>
         </div>
       );
     },
   },
 
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Action" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="cursor-pointer">
+          <p className="px-1 font-semibold w-fit  text-red-500">Delete</p>
+        </div>
+      );
+    },
+  },
 ];

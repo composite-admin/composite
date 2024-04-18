@@ -46,10 +46,11 @@ export default function AddContractorForm() {
           contractor_code: contractors.find(
             (item: any) => item.contractor_name === values.contractor_name
           )?.contractor_code,
+          contractor_project_code: projectCode,
+          contractor_service: contractors.find(
+            (item: any) => item.contractor_name === values.contractor_name
+          )?.contractor_service,
         });
-        contractor_service: contractors.find(
-          (item: any) => item.contractor_name === values.contractor_name
-        )?.contractor_service;
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

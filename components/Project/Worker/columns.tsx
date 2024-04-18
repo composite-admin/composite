@@ -1,5 +1,6 @@
 "use client";
 
+import EditCell from "@/app/(admin)/facility/all-flats/EditCell";
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
@@ -17,53 +18,94 @@ export type ReportType = {
 
 export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "worker",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Full Name" />;
+      return <ColumnHeader column={column} title="Worker" />;
     },
     cell: ({ row }) => {
       return (
-        // <Link href={`/project/${row.original["id"]}`}>
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div>
-            <p className="font-semibold ">Allison Ogaga</p>
-            <p>CRNOWUWUWU</p>
+            <p className="font-semibold">Allison Ogaga</p>
+            <p className="text-textColor">CRN128320182</p>
           </div>
         </div>
-        // </Link>
       );
     },
   },
 
   {
-    accessorKey: "role",
+    accessorKey: "service_type",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Role" withSort={false} />
+        <ColumnHeader column={column} title="Service Type" withSort={false} />
       );
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Project Manager</span>
+          <p className="font-semibold w-24 text-wrap">Cable TV Installation</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "status",
+    accessorKey: "email",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Status" withSort={false} />;
-    },
-    cell: ({ row }) => {
       return (
-        <div className="">
-          <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>Active</p>
-        </div>
+        <ColumnHeader column={column} title="Email Address" withSort={false} />
       );
     },
+    cell: ({ row }) => {
+      return <p className="w-24 text-wrap">jarus@gmail. com</p>;
+    },
   },
-
+  {
+    accessorKey: "home_phone",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Home Phone" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return <p>+1 234 567 890</p>;
+    },
+  },
+  {
+    accessorKey: "Office Phone",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Office Phone" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return <p>+1 234 567 890</p>;
+    },
+  },
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Email Address" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return <EditCell />;
+    },
+  },
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Email Address" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return <span className="font-semibold text-red-500">Delete</span>;
+    },
+  },
 ];
+
+

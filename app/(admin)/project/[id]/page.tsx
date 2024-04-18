@@ -22,6 +22,9 @@ import Materials from '@/components/Project/Materials'
 import ToolsAndMachine from '@/components/Project/ToolsAndMachine'
 import CashAdvanced from '@/components/Project/CashAdvanced'
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const SingleProject = () => {
   const onOpenAddStakeHolder = useAddStakeHolderModal((state) => state.onOpen);
@@ -47,6 +50,11 @@ const SingleProject = () => {
       icon: "/./st.svg",
     },
     {
+      title: "Add Consultant",
+      action: onOpenAddStakeHolder,
+      icon: "/./ct.svg",
+    },
+    {
       title: "Add Worker",
       action: onOpenAddStakeHolder,
       icon: "/./wk.svg",
@@ -66,11 +74,7 @@ const SingleProject = () => {
       action: onOpenAddStakeHolder,
       icon: "/./tn.svg",
     },
-    {
-      title: "View Images",
-      action: onOpenAddStakeHolder,
-      icon: "/./im.svg",
-    },
+
     {
       title: "Add Contractor",
       action: onOpenAddContractor,
@@ -97,6 +101,9 @@ const SingleProject = () => {
         break;
       case "Add Contractor":
         setCurrentModal("add_contractor");
+        break;
+      case "Add Consultant":
+        setCurrentModal("add_consultant");
         break;
       default:
         break;
@@ -177,14 +184,36 @@ const SingleProject = () => {
   return (
     <>
       <GoBack />
-      <PageHead
-        headText={selectedItem && selectedItem.project_name}
-        subText={selectedItem && selectedItem.project_code}
-        buttonText="Edit Project"
-        buttonAction={() =>
-          selectedItem && router.push(`/project/${selectedItem.id}/edit`)
-        }
-      />
+      <div className="justify-between relative flex flex-col w-full lg:items-center gap-3 md:flex-row">
+        <div>
+          <div>
+            <div className="flex flex-col gap-1.5">
+              <h1 className="font-semibold text-base lg:text-responsive">
+                {selectedItem && selectedItem.project_name}
+              </h1>
+              <p className="uppercase font-semibold text-textColor">
+                {selectedItem && selectedItem.project_code}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-3 items-center">
+          <div>
+            <Button
+              className=" top-5 right-5 hover:text-primaryLight/80 text-primaryLight border border-primaryLight bg-transparent font-semibold"
+              variant={"outline"}
+            >
+              View Project Images
+            </Button>
+          </div>
+          <div>
+            <Link href={`/project/${selectedItem?.id}/edit`}>
+              <Button className="w-max py-2">Edit Project</Button>
+            </Link>
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-3 gap-5 my-10">
         <div className="col-span-2 bg-white rounded-lg border-[#D0D5DD] ">
@@ -270,10 +299,52 @@ const SingleProject = () => {
           })}
         </div>
       </div>
-
-      <SwitchTabs keys={keys} setComp={setComp} />
-
-      <div className="mt-10">{comp}</div>
+      <Tabs defaultValue="project_cost">
+        <TabsList>
+          <TabsTrigger value="project_cost">Project Cost</TabsTrigger>
+          <TabsTrigger value="project_team">Project Team</TabsTrigger>
+          <TabsTrigger value="start_up_cost">Start-up Cost</TabsTrigger>
+          <TabsTrigger value="stakeholder">Stakeholder</TabsTrigger>
+          <TabsTrigger value="contractors">Contractors</TabsTrigger>
+          <TabsTrigger value="workers">Workers</TabsTrigger>
+          <TabsTrigger value="material">Material</TabsTrigger>
+          <TabsTrigger value="tool_and_machinery">
+            Tool and Machinery
+          </TabsTrigger>
+          <TabsTrigger value="consultants">Consultants</TabsTrigger>
+          <TabsTrigger value="cash_advance">Cash Advance</TabsTrigger>
+        </TabsList>
+        <TabsContent value="project_cost">
+          <ProjectCost />
+        </TabsContent>
+        <TabsContent value="project_team">
+          <ProjectTeam />
+        </TabsContent>{" "}
+        <TabsContent value="start_up_cost">
+          <StartupCost />
+        </TabsContent>{" "}
+        <TabsContent value="stakeholder">
+          <Stakeholder />
+        </TabsContent>{" "}
+        <TabsContent value="contractors">
+          <Contractor />
+        </TabsContent>{" "}
+        <TabsContent value="workers">
+          <Worker />
+        </TabsContent>{" "}
+        <TabsContent value="material">
+          <Materials />
+        </TabsContent>{" "}
+        <TabsContent value="tool_and_machinery">
+          <ToolsAndMachine />
+        </TabsContent>{" "}
+        <TabsContent value="consultants">
+          <Contractor />
+        </TabsContent>
+        <TabsContent value="cash_advance">
+          <CashAdvanced />
+        </TabsContent>
+      </Tabs>
     </>
   );
 };
