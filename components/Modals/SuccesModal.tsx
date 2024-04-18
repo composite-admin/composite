@@ -26,7 +26,7 @@ export default function SuccesModal() {
           </p>
         </div>
         <div>
-          <Button className='w-full' onClick={()=> router.back()}>Done</Button>
+          <Button className='w-full' onClick={()=> {onClose()}}>Done</Button>
         </div>
       </div>
     </Modal>

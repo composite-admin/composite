@@ -95,7 +95,7 @@ const AddSuppliers = () => {
                         </div>
 
                         <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={() => router.back()} >Cancel</button>
-                        <button className="bg-primaryLight text-white  p-3 rounded-md" type="submit" >Submit</button>
+                        <button className="bg-primaryLight text-white  p-3 rounded-md" type="submit" onClick={()=> onOpen()} >Submit</button>
                     </div>
                 </div>
             </form>
