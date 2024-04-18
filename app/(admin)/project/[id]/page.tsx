@@ -179,8 +179,6 @@ const SingleProject = () => {
     },
   ];
 
-  const [comp, setComp] = useState(<ProjectCost />);
-
   return (
     <>
       <GoBack />
@@ -201,7 +199,7 @@ const SingleProject = () => {
         <div className="flex gap-3 items-center">
           <div>
             <Button
-              className=" top-5 right-5 hover:text-primaryLight/80 text-primaryLight border border-primaryLight bg-transparent font-semibold"
+              className=" top-5 right-5 hover:text-primaryLight/80 text-primaryLight border border-primaryLight bg-white font-semibold"
               variant={"outline"}
             >
               View Project Images
