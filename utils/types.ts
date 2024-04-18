@@ -1,5 +1,7 @@
-import * as z from "zod";
+import z from "zod";
 import { data } from "../app/(admin)/cash-advance/data";
+
+export type ID = string | number;
 
 export interface UserData {
   id: number;
@@ -337,8 +339,6 @@ export interface IConsultantDetailsData {
   message?: string;
 }
 
-export type ID = string | number;
-
 export const AddConsultantSchema = z
   .object({
     name: z.string().min(3, { message: "Full name must be at least 3 characters" }),
@@ -351,6 +351,130 @@ export const AddConsultantSchema = z
 
 export type AddConsultantType = z.infer<typeof AddConsultantSchema>;
 
+// SUPPLIER AND TOOLS=======================
+export type ISupplierData = {
+  id: ID;
+  supplier_code: string;
+  supplier_name: string;
+  supplier_address: string;
+  supplier_ofc_phone: string;
+  contact_person: string;
+  contact_mobile: string;
+  contact_home_phone: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ISupplierMaterialTypesData = {
+  material_type_id: ID;
+  material_type_desc: string;
+};
+
+export type ISupplierMaterialSubTypesData = {
+  sub_type_desc: string;
+};
+
+export type ISupplierMaterialDescriptionData = {
+  description: string;
+};
+
+export type IToolAndMachineryData = {
+  tool_id: number;
+  tool_code: string;
+  supplier_code: string;
+  supplier_name: string;
+  tool_type: string;
+  description: string;
+  others: string;
+  procurement_type: string;
+  created_by: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type IAddToolsAndMachineryData = {
+  supplier_code: string;
+  supplier_name: string;
+  tool_type: string;
+  description: string;
+  others: string;
+  procurement_type: string;
+  comment: string;
+};
+
+export type IUpdateToolAndMachineryData = {
+  tool_type: string;
+  description: string;
+  others: string;
+  procurement_type: string;
+  comment: string;
+};
+
+// WORKER AND WORKER-JOBS===================
+export type IWorkerData = {
+  id: number;
+  worker_code: string;
+  worker_name: string;
+  worker_company: string;
+  worker_address: string;
+  worker_email: string;
+  worker_mobile: string;
+  worker_home_phone: string;
+  worker_ofc_phone: string;
+  service_type: string;
+  section: string;
+  worker_source: string;
+  site_management: string;
+  project_code: string;
+  worker_service: string;
+  worker_service_charge: number | null;
+  amount_paid: number | null;
+  outstanding_balance: number | null;
+  date_assigned_to_project: string | null;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+
+  // BANK
+  bank_name: string;
+  account_name: string;
+  account_number: string;
+};
+
+export type IWorkerJobData = {
+  id: number;
+  job_code: string;
+  worker_code: string;
+  project_code: string;
+  worker_service: string;
+  worker_service_charge: string;
+  amount_paid: string;
+  outstanding_balance: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type IWorkerJobCreateData = {
+  worker_code: string;
+  project_code: string;
+  worker_service: string;
+  worker_service_charge: number;
+  amount_paid: number;
+  outstanding_balance: number;
+  comment: string;
+};
+
+export type IWorkerJobUpdateData = {
+  worker_code: string;
+  worker_service: string;
+  worker_service_charge: number;
+  amount_paid: number;
+  outstanding_balance: number;
+  comment: string;
+};
 
 export interface IProjectData {
   id: number;
@@ -450,4 +574,17 @@ export const selectOptionsForStartUpCostType = [
    "Quantity Surveyor",
    "Site Superintendent",
  ];
+
+
+// Agency
+// Community Relation
+// Design & Approval Drawing
+// Geophysical Survey
+// Geotechnical Survey
+// Land Acquisition
+// Local Government PR
+// Omo Onile
+// Regulatory Agency PR
+// Regulatory Approval Fee
+// Security
 

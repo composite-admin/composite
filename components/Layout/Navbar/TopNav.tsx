@@ -7,13 +7,23 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Drop from "./Drop";
 import DropContent from "@/components/shared/Drop";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const TopNav = () => {
   const { userType, username } = userStore();
 
-  const [showDrop, setShowDrop] = useState(false);
+  // const [showDrop, setShowDrop] = useState(false);
 
-  const updateDrop = (update: boolean) => setShowDrop(update);
+  // const updateDrop = (update: boolean) => setShowDrop(update);
+
+  const router = useRouter();
+  const { logOut } = userStore();
+
+  const logoutAndRedirectToLogin = () => {
+    logOut();
+    router.push("/login");
+  };
 
   return (
     <div className="bg-white py-3 px-8 flex items-center justify-end border-b border-borderColor">
@@ -32,11 +42,8 @@ const TopNav = () => {
         </div>
 
         <div className="relative">
-          <div
-            className="flex items-center gap-4 cursor-pointer py-1 px-3 duration-300 hover:bg-zinc-50 rounded-xl"
-            onClick={() => setShowDrop((prev) => !prev)}
-          >
-            <div className="size-[40px] rounded-full overflow-hidden">
+          <div className="flex items-center gap-4 py-1 px-3 duration-300 rounded-xl">
+            <div className="size-[40px] rounded-full overflow-hidden flex-shrink-0">
               <Image
                 className="w-full h-full  object-cover"
                 src="https://variety.com/wp-content/uploads/2023/06/avatar-1.jpg?w=1000&h=563&crop=1&resize=681%2C383"
@@ -52,15 +59,18 @@ const TopNav = () => {
               </p>
               <p className="text-[#667185] capitalize">{userType}</p>
             </div>
+            <Button onClick={logoutAndRedirectToLogin} className="w-full">
+              Logout
+            </Button>
           </div>
 
-          <AnimatePresence mode="wait">
+          {/* <AnimatePresence mode="wait">
             {showDrop && (
               <DropContent isOpen={showDrop} onClose={() => setShowDrop(false)}>
                 <Drop />
               </DropContent>
             )}
-          </AnimatePresence>
+          </AnimatePresence> */}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
-import { Material, ToolAndMachinery } from "@/store/actions/materials-and-tools/types";
+import { IToolAndMachineryData } from "@/utils/types";
 
-export const materialsData: ToolAndMachinery[] = [
+export const materialsData: IToolAndMachineryData[] = [
   {
     tool_id: 1,
     tool_code: "tool-0001",

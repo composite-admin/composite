@@ -59,18 +59,27 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <div
-        className={withTitle ? "flex items-center justify-between mt-4" : ""}
-      >
+    <div className="">
+      <div className={withTitle ? "flex items-center justify-between mt-4" : ""}>
         {withTitle && (
           <p className="font-bold text-xl capitalize">
             {withTitle.title} ({withTitle.data})
           </p>
         )}
         <div className="my-5 flex items-center gap-4 text-zinc-500">
-          {showSearch && (
+          <Input
+            type="text"
+            placeholder="Search..."
+            className="w-full md:min-w-[15rem] placeholder:text-textColor"
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            withIcon
+            icon={<Search className="w-4 h-4 text-textColor" />}
+          />
+
+          {/* {showSearch && (
             <>
+
               <Input
                 type="text"
                 placeholder="Search..."
@@ -93,7 +102,7 @@ export function DataTable<TData, TValue>({
                 <span>Sort</span>
               </div>
             </>
-          )}
+          )} */}
         </div>
       </div>
       <div className="rounded-lg border border-borderColor shadow-sm">

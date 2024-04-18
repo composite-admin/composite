@@ -82,13 +82,17 @@ const EditMaterialModal: React.FC<Props> = (row) => {
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <button role="button" className="w-full py-4 font-semibold rounded-lg bg-zinc-300" onClick={hideModal}>
-                Cancel
-              </button>
+              <input
+                role="button"
+                className="w-full py-4 font-semibold rounded-lg bg-zinc-300 text-center"
+                onClick={hideModal}
+                value={"Cancel"}
+              />
+
               <input
                 className="w-full py-4 font-semibold cursor-pointer rounded-lg bg-primaryLight text-white duration-300 disabled:opacity-30"
                 disabled={store.requestLoading}
-                value={store.requestLoading ? "Wait..." : "Add Material"}
+                value={store.requestLoading ? "Wait..." : "Submit Changes"}
                 type="submit"
               />
             </div>
