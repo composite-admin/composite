@@ -3,10 +3,10 @@ import { materialsColumns } from "./columns";
 import { motion } from "framer-motion";
 import { opacityVariant } from "@/utils/variants";
 import { useEffect, useState } from "react";
-import useSupplierToolsStore from "@/store/actions/materials-and-tools/toolsAnMachineryActions";
+import useSupplierToolsAndMachineriesStore from "@/store/actions/materials-and-tools/toolsAndMachineryActions";
 
 const ToolsTable = () => {
-  const store = useSupplierToolsStore();
+  const store = useSupplierToolsAndMachineriesStore();
 
   useEffect(() => {
     store.getAllTools();
