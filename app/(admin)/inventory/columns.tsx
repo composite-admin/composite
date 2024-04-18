@@ -137,7 +137,6 @@ export const columns: ColumnDef<ReportType>[] = [
           href={`/inventory/${row.getValue("inventory_id")}`}
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
-          <ViewUserPageIcon />
           View
         </Link>
       );

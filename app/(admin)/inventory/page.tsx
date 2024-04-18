@@ -25,8 +25,7 @@ export default function InventoryPage() {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(()=> {
-    setData(inventoryData)
-    console.log(inventoryData)
+    setData(inventoryData);
   }, [inventoryData])
 
   return (

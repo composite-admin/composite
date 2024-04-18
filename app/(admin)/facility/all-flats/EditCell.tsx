@@ -41,7 +41,6 @@ export function ViewCell({ href, isLink, action, ...props }: IProps) {
           className="flex gap-2 items-center text-primaryLight-500 underline font-semibold"
         >
           View
-          <ViewUserPageIcon />
         </Link>
       ) : (
         <div
@@ -49,7 +48,6 @@ export function ViewCell({ href, isLink, action, ...props }: IProps) {
           {...props}
         >
           View
-          <ViewUserPageIcon />
         </div>
       )}
     </div>

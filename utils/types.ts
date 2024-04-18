@@ -562,6 +562,18 @@ export const selectOptionsForStartUpCostType = [
   'Regulatory Approval Fee',
   'Security'
  ]
+ 
+ export const selectOptionsForStaffRole = [
+   "Project Manager",
+   "Architect",
+   "Structural",
+   "HR",
+   "Mechanical",
+   "Engineer",
+   "Electrical",
+   "Quantity Surveyor",
+   "Site Superintendent",
+ ];
 
 
 // Agency

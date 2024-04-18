@@ -11,10 +11,10 @@ import AddMaterialModal from "./(modal)/materials/add-material";
 import AddToolsModal from "./(modal)/tools/add-tools";
 import TextSkeleton from "@/components/shared/TextSkeleton";
 
+
 const SingleSupplier = () => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const { showModal, hideModal } = useModal();
 
   const { selectedItem: supplier, getSupplierById, getAllSuppliers, requestLoading } = useSuppliersActionsStore();
 
@@ -104,7 +104,7 @@ const SingleSupplier = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-4 py-3 px-5 cursor-pointer" onClick={showMaterialModal}>
+          <div className="flex items-center gap-4 py-3 px-5 cursor-pointer">
             <Image src={"/devices.svg"} width={40} height={40} alt="supplier info" />
             <p className="font-semibold">Add Supplier Material</p>
           </div>

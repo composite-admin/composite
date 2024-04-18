@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
+import { useGetStakeHolders } from "@/hooks/useSelectOptions";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 import { selectOptionsForStartUpCostType } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,36 +18,28 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-
-// zod schema
-// "stakeholder_code": "STKH-002",
-// "stakeholder_amount": 75000,
-// "approved_amount": 70000,
-// "other_amount": 5000,
-// "comment": "Pending approval",
-// "status": "PENDING"
-
-
 const AddStakeHolderSchema = z.object({
   stakeholder_code: z.string().optional(),
+  stakeholder_name: z.string().optional(),
   stakeholder_amount: z.string().optional(),
   approved_amount: z.string().optional(),
   other_amount: z.string().optional(),
   comment: z.string().optional(),
-  status: z.string().optional(),
 });
 
 type AddStakeHolderType = z.infer<typeof AddStakeHolderSchema>;
 
 export default function AddStakeHolderForm() {
+  const { stakeholders } = useGetStakeHolders();
   const { projectName, projectCode, onClose } =
     useProjectDetailsPageFormModal();
   const { toast } = useToast();
-
+  const stakeHolderName = stakeholders?.map(
+    (item: any) => item.stakeholder_name
+  );
   const form = useForm<AddStakeHolderType>({
     resolver: zodResolver(AddStakeHolderSchema),
-    defaultValues: {
-    },
+    defaultValues: {},
   });
 
   const { mutate } = useMutation({
@@ -55,6 +48,10 @@ export default function AddStakeHolderForm() {
       try {
         const response = await api.post("/stakeholder-project", {
           ...values,
+          stakeholder_code: stakeholders.find(
+            (item: any) => item.stakeholder_name === values.stakeholder_name
+          )?.stakeholder_code,
+          status: "PENDING",
         });
         return response.data;
       } catch (error) {
@@ -68,22 +65,22 @@ export default function AddStakeHolderForm() {
   });
 
   const handleSubmit = (data: AddStakeHolderType) => {
-    // mutate(data, {
-    //   onSuccess: () => {
-    //     form.reset();
-    //     onClose();
-    //     toast({
-    //       title: "Start up cost added successfully",
-    //       variant: "success",
-    //     });
-    //   },
-    //   onError: () => {
-    //     toast({
-    //       title: "Something went wrong",
-    //       variant: "destructive",
-    //     });
-    //   },
-    // });
+    mutate(data, {
+      onSuccess: () => {
+        form.reset();
+        onClose();
+        toast({
+          title: "Stakeholder added successfully",
+          variant: "success",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
   };
 
   return (
@@ -101,15 +98,16 @@ export default function AddStakeHolderForm() {
         />
         <CustomFormSelect
           control={form.control}
-          name="startup_type"
-          labelText="Startup Type"
-          items={selectOptionsForStartUpCostType || []}
-          placeholder="Startup Type"
+          name="stakeholder_name"
+          labelText="Stakeholder Name"
+          items={stakeHolderName || []}
+          placeholder="Select stakeholder"
         />
+
 
         <div className="grid lg:grid-cols-2 gap-2">
           <CustomFormField
-            name="official_amount"
+            name="approved_amount"
             control={form.control}
             label="Official Amount"
             placeholder="Official Amount"

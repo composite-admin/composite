@@ -4,8 +4,6 @@ import { useAddProjectModal, useSuccessModal } from '@/store/inventory/UseInvent
 import React, { useEffect, useState } from "react";
 import { HiHome } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
-import useProjectActionsStore from "@/store/actions/projectActions";
-import useStaffActionsStore from "@/store/actions/staffActions";
 import { nigerianStates, selectOptionsForProjectStatus } from "@/utils/types";
 import { Form } from "@/components/ui/form";
 import { AddProjectFormSchema, AddProjectFormType } from "./formTypes";
@@ -23,13 +21,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useStaffRoles } from "@/hooks/useSelectOptions";
 import { useProjectStore } from "@/store/project/useProjectStore";
-import { data } from "../../../app/(admin)/consultants/data";
+import { useRouter } from "next/navigation";
 
 const AddProjectModal = () => {
   const isOpen = useAddProjectModal((state) => state.isOpen);
   const onClose = useAddProjectModal((state) => state.onClose);
   const { setTeamMemberData, teamMemberData } = useProjectStore();
   const { staffRoles } = useStaffRoles();
+  const { toast } = useToast();
+  const router = useRouter();
+
   const allRoles = staffRoles?.map((role: any) => role.role);
 
   const isSucessOpen = useSuccessModal((state) => state.onOpen);
@@ -66,9 +67,8 @@ const AddProjectModal = () => {
 
     fetchStaffByRole();
   }, [watchRole, setValue, setTeamMemberData]);
-  const { toast } = useToast();
 
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["add project"],
     mutationFn: async (data: { [Key in keyof AddProjectFormType]: string }) => {
       try {
@@ -81,6 +81,10 @@ const AddProjectModal = () => {
           )?.userid as string,
           ...data,
         });
+        if (response.data) {
+          router.push("/project");
+          window.location.reload();
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -92,8 +96,13 @@ const AddProjectModal = () => {
     },
     onSuccess: () => {
       toast({
-        title: "Staff added successfully",
+        title: "Project created successfully",
+        variant: "success",
       });
+      window.location.reload();
+      router.push("/project");
+      router.refresh();
+      onClose();
     },
     onError: (error: Error) => {
       toast({
