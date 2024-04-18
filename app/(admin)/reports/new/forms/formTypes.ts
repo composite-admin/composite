@@ -34,19 +34,49 @@ export const ProjectReportSchema = z.object({
   report_type: z.enum(["Daily", "Weekly", "Monthly"], {
     required_error: "Report type required",
   }),
-  project_name: z.string().optional(),
-  project_supervisor: z.string().optional(),
-  report_summary: z.string().optional(),
-  challenges: z.string().optional(),
-  solutions: z.string().optional(),
-  recommendation: z.string().optional(),
-  weekly_projection: z.string().optional(),
-  materials_required_for_projection: z.string().optional(),
-  equipment_on_site: z.string().optional(),
-  materials_on_site: z.string().optional(),
-  visitors: z.string().optional(),
-  weather: z.string().optional(),
-  photograph_id: z.array(z.string()).optional(),
+  project_name: z.string({
+    required_error: "Project name required",
+  }),
+  created_for: z.string({
+    required_error: "Created for required",
+  }),
+  project_code: z.string({
+    required_error: "Project code required",
+  }),
+  project_supervisor: z.string({
+    required_error: "Project supervisor required",
+  }),
+  report_summary: z.string({
+    required_error: "Report summary required",
+  }),
+  challenges: z.string({
+    required_error: "Challenges required",
+  }),
+  solutions: z.string({
+    required_error: "Solutions required",
+  }),
+  recommendation: z.string({
+    required_error: "Recommendation required",
+  }),
+  equipment_on_site: z.string({
+    required_error: "Equipment on site required",
+  }),
+  weekly_projection: z.string({
+    required_error: "Weekly projection required",
+  }),
+  materials_required_for_projection: z.string({
+    required_error: "Materials required for projection required",
+  }),
+  materials_on_site: z.string({
+    required_error: "Materials on site required",
+  }),
+  visitors: z.string({
+    required_error: "Visitors required",
+  }),
+  weather: z.string({
+    required_error: "Weather required",
+  }),
+  photograph_id: z.string().array().optional(),
 });
 
 export type ProjectReportFormType = z.infer<typeof ProjectReportSchema>;
