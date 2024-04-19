@@ -25,11 +25,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useGetAllStaffs, useProjectData } from "@/hooks/useSelectOptions";
 import { api } from "@/config/api";
+import { useRouter } from "next/navigation";
 
 type Inputs = z.infer<typeof ProjectReportSchema>;
 export default function NewReportForm() {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const router = useRouter();
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -92,19 +94,6 @@ export default function NewReportForm() {
     resolver: zodResolver(ProjectReportSchema),
     defaultValues: {
       report_type: "Daily",
-      project_name: "",
-      photograph_id: [],
-      project_supervisor: "",
-      report_summary: "",
-      challenges: "",
-      solutions: "",
-      recommendation: "",
-      weekly_projection: "",
-      equipment_on_site: "",
-      materials_required_for_projection: "",
-      materials_on_site: "",
-      visitors: "",
-      weather: "",
     },
   });
 
@@ -132,7 +121,7 @@ export default function NewReportForm() {
   const processForm: SubmitHandler<Inputs> = async (data, event) => {
     event?.preventDefault();
     try {
-      const response = await api.post("/project_reporttt", data);
+      const response = await api.post("/project_report", data);
       if (response.status === 201) {
         // Extract ID from the response data
         const { id } = response.data.data;
@@ -145,6 +134,8 @@ export default function NewReportForm() {
         });
         // Call handleUpload function with the extracted ID
         handleUpload(id);
+        window.location.reload();
+        router.push("/reports");
       }
     } catch (error) {
       console.error("Error creating report:", error);
@@ -249,7 +240,7 @@ export default function NewReportForm() {
                   <div className="w-full">
                     <div className="space-y-5">
                       <CustomFormTextareaField
-                        name="chanllenges"
+                        name="challenges"
                         control={form.control}
                         label="Challenges Encountered"
                         placeholder="Enter Challenges Encountered"

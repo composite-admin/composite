@@ -93,9 +93,6 @@ const SingleProject = () => {
       case "Add stakeholder":
         setCurrentModal("add_stakeholder");
         break;
-      case "Add Worker":
-        setCurrentModal("add_worker");
-        break;
       case "Add Material":
         setCurrentModal("add_material");
         break;

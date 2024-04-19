@@ -1,13 +1,11 @@
 "use client";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 import { Modal } from "../shared/Modal";
-import { HomeIcon } from "lucide-react";
 import AddStartUpForm from "../forms/projects/AddStartUpForm";
 import AddManagementCostForm from "../forms/projects/AddManagementCostForm";
 import AddStakeholderForm from "../forms/projects/AddStakeholderForm";
 import AddMaterialForm from "../forms/projects/AddMaterialForm";
 import AddContractorForm from "../forms/projects/AddContractorForm";
-import AddWorkerForm from "../forms/projects/AddWorkerForm";
 import AddConsultantForm from "../forms/projects/AddConsultantForm";
 
 interface Props {}
@@ -26,8 +24,6 @@ export default function ProjectDetailsPageFormModal() {
         return "Add Materials";
       case "add_contractor":
         return "Add Contractor to Project";
-      case "add_worker":
-        return "Add Worker";
       case "add_consultant":
         return "Add Consultant";
       default:
@@ -48,7 +44,6 @@ export default function ProjectDetailsPageFormModal() {
           add_stakeholder: <AddStakeholderForm />,
           add_material: <AddMaterialForm />,
           add_contractor: <AddContractorForm />,
-          add_worker: <AddWorkerForm />,
           add_consultant: <AddConsultantForm />,
         }[currentModal]
       }

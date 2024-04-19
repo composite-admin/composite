@@ -50,7 +50,7 @@ export default function DashboardPage() {
               description={entities?.totalProject.count}
             />
             <DashboardCard
-              title="Total Contracts"
+              title="Total Contractors"
               description={entities?.totalContractor.count}
             />
             <DashboardCard

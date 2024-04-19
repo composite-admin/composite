@@ -4,7 +4,6 @@ type currentModal =
   | "add_startup_cost"
   | "add_management_cost"
   | "add_stakeholder"
-  | "add_worker"
   | "add_material"
   | "add_consultant"
   | "add_contractor";
