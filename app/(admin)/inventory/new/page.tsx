@@ -30,11 +30,9 @@ const newInventorySchema = z.object({
       required_error: "Unit price is required",
     })
     .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
-  name: z
-    .string({
-      required_error: "Please select a tool, then a description",
-    })
-    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+  name: z.string({
+    required_error: "Please select a tool, then a description",
+  }),
   quantity: z
     .string({
       required_error: "Quantity is required",
