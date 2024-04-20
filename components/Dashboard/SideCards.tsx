@@ -4,7 +4,7 @@ import { Badge } from "../ui/badge";
 
 interface Props {
   title?: string;
-  description?: string;
+  description?: number;
   children?: React.ReactNode;
   href?: string;
 }
@@ -27,7 +27,7 @@ export default function SideCards({
               variant="secondary"
               className="w-7 lg:w-9 bg-primaryLight-500 text-center  text-white hover:bg-primaryLight-500/90"
             >
-              {description}
+              {description || 0}
             </Badge>
           </div>
           <div className=" w-1/2 justify-end text-right text-xs text-primaryLight-500 underline font-semibold">

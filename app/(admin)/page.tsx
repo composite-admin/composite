@@ -80,7 +80,7 @@ export default function DashboardPage() {
           <SideCards
             title="Pending Requests"
             href="/requests"
-            description={String(pendingRequests?.length)}
+            description={pendingRequests?.length ?? 0}
           >
             {trimmedPendingRequests?.map((request) => (
               <div
@@ -108,7 +108,7 @@ export default function DashboardPage() {
           </SideCards>
           <SideCards
             title="Pending Reports"
-            description={String(pendingReports?.length)}
+            description={pendingReports?.length ?? 0}
             href="/reports"
           >
             {trimmedPendingReports?.map((report) => (
