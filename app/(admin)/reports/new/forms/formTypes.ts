@@ -19,7 +19,7 @@ export const ProjectReportSteps: IFormSteps[] = [
       "weekly_projection",
       "materials_required_for_projection",
       "materials_on_site",
-      "visitors",
+      "visitor",
       "weather",
     ],
   },
@@ -79,7 +79,6 @@ export const ProjectReportSteps: IFormSteps[] = [
 //   // photograph_id: z.string().array().optional(),
 // });
 
-
 export const ProjectReportSchema = z.object({
   report_type: z.enum(["Daily", "Weekly", "Monthly", "Yearly"], {
     required_error: "Report type required",
@@ -94,7 +93,8 @@ export const ProjectReportSchema = z.object({
     required_error: "Project supervisor required",
   }),
   challenges: z.string({
-    required_error: "Challenges required",}),
+    required_error: "Challenges required",
+  }),
   solutions: z.string({
     required_error: "Solutions required",
   }),
@@ -105,7 +105,8 @@ export const ProjectReportSchema = z.object({
     required_error: "Equipment on site required",
   }),
   weekly_projection: z.string({
-    required_error: "Weekly projection required",}),
+    required_error: "Weekly projection required",
+  }),
 
   materials_required_for_projection: z.string({
     required_error: "Materials required for projection required",
@@ -113,7 +114,7 @@ export const ProjectReportSchema = z.object({
   materials_on_site: z.string({
     required_error: "Materials on site required",
   }),
-  visitors: z.string({
+  visitor: z.string({
     required_error: "Visitors required",
   }),
   weather: z.string({

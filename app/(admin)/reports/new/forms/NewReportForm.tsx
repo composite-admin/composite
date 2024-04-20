@@ -123,6 +123,10 @@ export default function NewReportForm() {
       const response = await api.post("/project_report", {
         ...data,
         created_for: data.project_supervisor,
+        project_code: projectsData?.find(
+          (project: any) => project.project_name === data.project_name
+        ).project_code,
+        project_name: data.project_name,
       });
       if (response.status === 201) {
         // Extract ID from the response data
@@ -280,7 +284,7 @@ export default function NewReportForm() {
                         control={form.control}
                       />
                       <CustomFormTextareaField
-                        name="visitors"
+                        name="visitor"
                         placeholder="Enter Visitors"
                         label="List Visitors"
                         control={form.control}
