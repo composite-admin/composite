@@ -31,6 +31,16 @@ type Inputs = z.infer<typeof ProjectReportSchema>;
 export default function NewReportForm() {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [previousStep, setPreviousStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
+  const delta = currentStep - previousStep;
+  const { projectsData } = useProjectData();
+  const { staffs } = useGetAllStaffs();
+  const projectName = projectsData?.map((item: any) => item.project_name);
+  const projectSupervisor = staffs?.map(
+    (item: any) => item.firstname + " " + item.middlename + " " + item.lastname
+  );
+  const { toast } = useToast();
   const router = useRouter();
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -79,17 +89,6 @@ export default function NewReportForm() {
   //   }
   // };
 
-  const [previousStep, setPreviousStep] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
-  const delta = currentStep - previousStep;
-  const { projectsData } = useProjectData();
-  const { staffs } = useGetAllStaffs();
-  const projectName = projectsData?.map((item: any) => item.project_name);
-  const projectSupervisor = staffs?.map(
-    (item: any) => item.firstname + " " + item.middlename + " " + item.lastname
-  );
-  const { toast } = useToast();
-
   const form = useForm<ProjectReportFormType>({
     resolver: zodResolver(ProjectReportSchema),
     defaultValues: {
@@ -121,22 +120,17 @@ export default function NewReportForm() {
   const processForm: SubmitHandler<Inputs> = async (data, event) => {
     event?.preventDefault();
     try {
-      const response = await api.post("/project_report", data);
+      const response = await api.post("/project_report", {
+        ...data,
+        created_for: data.project_supervisor,
+      });
       if (response.status === 201) {
         // Extract ID from the response data
         const { id } = response.data.data;
-        console.log(id);
-        toast({
-          title: "Report created successfully",
-          description:
-            "Report has been created successfully, please upload images",
-          variant: "success",
-        });
-        // Call handleUpload function with the extracted ID
         handleUpload(id);
-        window.location.reload();
-        router.push("/reports");
       }
+      // window.location.reload();
+      // router.push("/reports");
     } catch (error) {
       console.error("Error creating report:", error);
     }
@@ -146,21 +140,22 @@ export default function NewReportForm() {
     try {
       const formData = new FormData();
       files.forEach((file) => formData.append("images", file));
-
-      // Construct the URL for uploading images with the extracted ID
       const uploadUrl = `/project_report/images/${id}`;
-
-      // Use the constructed URL for uploading images
       const response = await api.put(uploadUrl, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // Add other necessary headers here
         },
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log("Files uploaded successfully");
         setFiles([]);
+        router.push("/reports");
+        toast({
+          title: "Report created successfully",
+          variant: "success",
+        });
+        window.location.reload();
       } else {
         console.error("Failed to upload files");
       }
@@ -356,19 +351,13 @@ export default function NewReportForm() {
                         ))}
                       </ul>
                     </div>
-
-                    {files.length > 0 && (
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
-                        Upload Files
-                      </button>
-                    )}
                   </div>
                 </div>
                 <div className="py-5 flex flex-col lg:flex-row gap-6">
                   <Button className="w-full" variant="secondary" onClick={prev}>
                     Cancel
                   </Button>
-                  <Button className="w-full">Done</Button>
+                  {files.length > 0 && <Button className="w-full">Done</Button>}
                 </div>
               </FormContainer>
             </motion.div>
