@@ -12,6 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 import { ApiResponse, IEntityData } from "@/utils/types";
 import { api } from "@/config/api";
 import axios from "axios";
+import { GetAllReports, useGetAllRequests } from "@/hooks/useSelectOptions";
+import { AvatarComponent } from "@/components/shared/AvatarComponent";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const {
@@ -35,6 +38,18 @@ export default function DashboardPage() {
       }
     },
   });
+
+  const { requests } = useGetAllRequests();
+  const { reports } = GetAllReports();
+  const pendingRequests = requests?.filter(
+    (request) => request.status === "PENDING"
+  );
+
+  const pendingReports = reports?.filter(
+    (report) => report.status === "Pending" || null
+  );
+  const trimmedPendingRequests = pendingRequests?.slice(0, 3);
+  const trimmedPendingReports = pendingReports?.slice(0, 3);
 
   return (
     <div>
@@ -62,8 +77,63 @@ export default function DashboardPage() {
         </div>
 
         <div className="xl:col-span-2 grid md:grid-cols-2 xl:grid-cols-1 gap-5 auto-rows-min  place-items-center w-full">
-          <SideCards />
-          <SideCards />
+          <SideCards
+            title="Pending Requests"
+            href="/requests"
+            description={String(pendingRequests?.length)}
+          >
+            {trimmedPendingRequests?.map((request) => (
+              <div
+                className="flex justify-between items-center border-b py-3"
+                key={request.id}
+              >
+                <div className="flex gap-2 items-center">
+                  <div className="text-xs flex flex-col">
+                    <span className="text-sm font-semibold">
+                      {request.request_type}
+                    </span>
+                    <span className="font-semibold uppercase">
+                      {request.request_code}
+                    </span>
+                  </div>
+                </div>
+                <Link
+                  href={`/requests/request-details/${request.id}`}
+                  className="text-primaryLight-500 font-semibold"
+                >
+                  View
+                </Link>
+              </div>
+            ))}
+          </SideCards>
+          <SideCards
+            title="Pending Reports"
+            description={String(pendingReports?.length)}
+            href="/reports"
+          >
+            {trimmedPendingReports?.map((report) => (
+              <div
+                className="flex justify-between items-center border-b py-3"
+                key={report.id}
+              >
+                <div className="flex gap-2 items-center">
+                  <AvatarComponent />
+                  <div className="text-xs flex flex-col">
+                    <span className="text-sm font-semibold">{report.name}</span>
+                    <span className="font-semibold uppercase">
+                      {report.report_code}
+                    </span>
+                  </div>
+                </div>
+                <Link
+                  href={`/reports/${report.id}`}
+                  className="text-primaryLight-500 font-semibold"
+                >
+                  View
+                </Link>
+              </div>
+            ))}
+          </SideCards>
         </div>
       </div>
     </div>

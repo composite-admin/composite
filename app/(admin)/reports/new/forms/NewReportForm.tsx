@@ -148,7 +148,6 @@ export default function NewReportForm() {
       });
 
       if (response.status === 200) {
-        console.log("Files uploaded successfully");
         setFiles([]);
         router.push("/reports");
         toast({

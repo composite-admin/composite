@@ -4,7 +4,12 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
-import { ITenantDetails } from "@/utils/types";
+import {
+  ApiResponse,
+  IProjectReport,
+  IRequestData,
+  ITenantDetails,
+} from "@/utils/types";
 
 export const useTenants = () => {
   const { isPending, isSuccess, isError, error, data } = useQuery({
@@ -104,7 +109,6 @@ export const useGetContractor = () => {
   return { contractors: data };
 };
 
-
 export const useGetAllInventoryTypes = () => {
   const { data } = useQuery({
     queryKey: ["get all inventory types"],
@@ -121,6 +125,22 @@ export const useGetAllStaffs = () => {
   return { staffs: data };
 };
 
+export const useGetAllRequests = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["get all requests"],
+    queryFn: () => getStuffTyped<IRequestData[]>("/requests"),
+  });
+
+  return { requests: data, isLoading, isError };
+};
+
+export const GetAllReports = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get all reports"],
+    queryFn: () => getStuffTyped<IProjectReport[]>("/project_report"),
+  });
+  return { reports: data, isLoading };
+};
 
 // export const useGetMaterials = () => {
 //   const { data } = useQuery({
@@ -129,3 +149,16 @@ export const useGetAllStaffs = () => {
 //   });
 //   return { materials: data };
 // };
+
+const getStuffTyped = async <T,>(args: string): Promise<T> => {
+  try {
+    const response = await api.get<ApiResponse<T>>(args);
+    return response.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw error;
+    }
+  }
+};
