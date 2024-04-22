@@ -1,3 +1,120 @@
+import {
+  CustomFormField,
+  CustomFormSelect,
+} from "@/components/shared/FormComponent";
+import { Form } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useToast } from "@/components/ui/use-toast";
+import { api } from "@/config/api";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { selectOptionsForConsultantsType } from "@/utils/types";
+import { useGetAllConsultants } from "@/hooks/useSelectOptions";
+
+const AddConsultantSchema = z.object({
+  consultant_type: z.string().min(1, { message: "Select A Consultant Type" }),
+  consultant: z.string().min(1, { message: "Select A Consultant" }),
+});
+type AddConsultantSchemaType = z.infer<typeof AddConsultantSchema>;
+
 export default function AddConsultantForm() {
-  return <div>AddConsultantForm</div>;
+  const form = useForm<AddConsultantSchemaType>({
+    resolver: zodResolver(AddConsultantSchema),
+  });
+  const { watch } = form;
+  const watchType = watch("consultant_type");
+  const { consultants } = useGetAllConsultants();
+  const filteredConsultants = consultants?.filter(
+    (consultant: any) => consultant.type === watchType
+  );
+  const filteredConsultantNames = filteredConsultants?.map(
+    (consultant: any) => consultant.name
+  );
+  const { toast } = useToast();
+  const { projectName, onClose, projectId, projectCode } =
+    useProjectDetailsPageFormModal();
+  const { mutate } = useMutation({
+    mutationKey: ["add-consultant"],
+    mutationFn: async (values: AddConsultantSchemaType) => {
+      try {
+        const response = await api.post("/consultant-projects", {
+          ...values,
+          project_id: projectId,
+          project_code: projectCode,
+          consultant_id: filteredConsultants?.find(
+            (consultant: any) => consultant.name === values.consultant
+          )?.consultant_code,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+  const handleSubmit = (data: AddConsultantSchemaType) => {
+    mutate(data, {
+      onSuccess: () => {
+        form.reset();
+        onClose();
+        toast({
+          title: "Consultant added successfully",
+          variant: "success",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
+    console.log(data);
+  };
+  return (
+    <Form {...form}>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={form.handleSubmit(handleSubmit)}
+      >
+        <CustomFormField
+          control={form.control}
+          name="project_name"
+          label="Project Name"
+          placeholder={projectName}
+          disabled
+        />
+        <CustomFormSelect
+          control={form.control}
+          name="consultant_type"
+          labelText="Consultant Type"
+          placeholder="Select Consultant Type"
+          items={selectOptionsForConsultantsType || ["Loading..."]}
+        />
+
+        <CustomFormSelect
+          control={form.control}
+          name="consultant"
+          labelText="consultant"
+          placeholder="Select Consultant"
+          items={filteredConsultantNames || [" "]}
+          disabled={!watchType}
+        />
+
+        <div className="flex gap-4 flex-col lg:flex-row">
+          <Button variant={"secondary"} className="w-full" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button className="w-full">Add</Button>
+        </div>
+      </form>
+    </Form>
+  );
 }

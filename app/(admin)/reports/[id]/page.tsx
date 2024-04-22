@@ -37,7 +37,6 @@ const SingleReport = (props: any) => {
 
   useEffect(() => {
     setData(singleReportData);
-    console.log(data);
   }, [singleReportData]);
 
   return (

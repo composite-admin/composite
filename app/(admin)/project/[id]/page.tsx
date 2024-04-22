@@ -102,6 +102,8 @@ const SingleProject = () => {
       case "Add Consultant":
         setCurrentModal("add_consultant");
         break;
+      case "Add Worker":
+        router.push("/workers/add");
       default:
         break;
     }
@@ -123,12 +125,17 @@ const SingleProject = () => {
 
   useEffect(() => {
     getAllProjects();
-    setProjectName(selectedItem?.project_name, selectedItem?.project_code);
+    setProjectName(
+      selectedItem?.project_name,
+      selectedItem?.project_code,
+      selectedItem?.id
+    );
   }, [
     getAllProjects,
     setProjectName,
     selectedItem?.project_name,
     selectedItem?.project_code,
+    selectedItem?.id,
   ]);
 
   useEffect(() => {

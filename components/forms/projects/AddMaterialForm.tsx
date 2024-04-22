@@ -13,6 +13,9 @@ import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal"
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useGetAllSuppliers } from "@/hooks/useSelectOptions";
+import { ISupplierData } from "@/utils/types";
+import { useEffect, useState } from "react";
 
 const AddMaterialSchema = z.object({
   supplier_code: z.string().optional(),
@@ -23,13 +26,42 @@ const AddMaterialSchema = z.object({
   unit_price: z.string().optional(),
 });
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
-
 export default function AddMaterialForm() {
+  const [matDesc, setMatDesc] = useState<string[]>([]);
   const form = useForm<AddMaterialType>({
     resolver: zodResolver(AddMaterialSchema),
   });
   const { toast } = useToast();
   const { projectName, onClose } = useProjectDetailsPageFormModal();
+  const { suppliers } = useGetAllSuppliers();
+  const supplierName = suppliers?.map(
+    (supplier: ISupplierData) => supplier.supplier_name
+  );
+  const watchSupplier = form.watch("supplier_name");
+
+  useEffect(() => {
+    if (watchSupplier) {
+      const supplierCode = suppliers?.find(
+        (supplier: ISupplierData) => supplier.supplier_name === watchSupplier
+      )?.supplier_code;
+      // /suppliers-materials/supplier/description?supplierCode
+      const materialDescription = async () => {
+        try {
+          const response = await api.get(
+            `/suppliers-materials/supplier/description?supplierCode=${supplierCode}`
+          );
+          setMatDesc(response.data.data?.map((item: any) => item.description));
+        } catch (error) {
+          if (axios.isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+          } else {
+            throw error;
+          }
+        }
+      };
+      materialDescription();
+    }
+  }, [watchSupplier, suppliers]);
 
   const { mutate } = useMutation({
     mutationKey: ["add-stakeholder"],
@@ -84,10 +116,10 @@ export default function AddMaterialForm() {
           <div className="space-y-5">
             <CustomFormSelect
               control={form.control}
-              name="supplier"
+              name="supplier_name"
               labelText="Supplier"
               placeholder="Select Supplier"
-              items={["Option 1", "Option 2", "Option 3"]}
+              items={supplierName || []}
             />
             <CustomFormField
               control={form.control}
@@ -102,7 +134,8 @@ export default function AddMaterialForm() {
               name="material_description"
               labelText="Material Description"
               placeholder="Material Description"
-              items={["Option 1", "Option 2", "Option 3"]}
+              items={matDesc ?? ["Loading..."]}
+              disabled={!watchSupplier}
             />
 
             <CustomFormSelect

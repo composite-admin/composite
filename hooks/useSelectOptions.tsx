@@ -6,8 +6,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
 import {
   ApiResponse,
+  IConsultantData,
   IProjectReport,
   IRequestData,
+  ISupplierData,
+  ISupplierMaterial,
+  ISupplierMaterialTypesData,
   ITenantDetails,
 } from "@/utils/types";
 
@@ -142,13 +146,21 @@ export const GetAllReports = () => {
   return { reports: data, isLoading };
 };
 
-// export const useGetMaterials = () => {
-//   const { data } = useQuery({
-//     queryKey: ["get all materials"],
-//     queryFn: () => getStuff("/materials"),
-//   });
-//   return { materials: data };
-// };
+export const useGetAllConsultants = () => {
+  const { data } = useQuery({
+    queryKey: ["get all consultants"],
+    queryFn: () => getStuffTyped<IConsultantData[]>("/consultants"),
+  });
+  return { consultants: data };
+};
+
+export const useGetAllSuppliers = () => {
+  const { data } = useQuery({
+    queryKey: ["get all suppliers"],
+    queryFn: () => getStuffTyped<ISupplierData[]>("/materials"),
+  });
+  return { suppliers: data };
+};
 
 const getStuffTyped = async <T,>(args: string): Promise<T> => {
   try {

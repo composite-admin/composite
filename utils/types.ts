@@ -586,5 +586,20 @@ export const selectOptionsForStartUpCostType = [
    "Estate Surveyors",
    "Legal Practitioners",
    "Geo Technical",
+   "Type 1",
  ];
+
+ export interface ISupplierMaterial {
+   mat_id: number;
+   mat_code: string;
+   supplier_code: string;
+   supplier_name: string;
+   mat_desc: string;
+   project_code: string;
+   quantity: number;
+   unit_price: number;
+   total_price: number;
+   createdAt: string;
+   updatedAt: string;
+ }
 
