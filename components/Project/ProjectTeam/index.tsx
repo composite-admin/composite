@@ -8,7 +8,7 @@ import { IProjectTeamMemberByProjectData } from "@/utils/types";
 
 const ProjectTeam = ({ projectCode }: { projectCode: string }) => {
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all materials by project code", projectCode],
+    queryKey: ["get all project team members by project code", projectCode],
     queryFn: async () =>
       getStuffTyped<IProjectTeamMemberByProjectData[]>(
         `/project-teams/${projectCode}`

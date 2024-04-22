@@ -4,20 +4,14 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
+import { IProjectTeamMemberByProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
 
-export type ReportType = {
-  id: string;
-  role: string;
-  name: string;
-  status: string;
-};
-
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IProjectTeamMemberByProjectData>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "staff_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Full Name" />;
     },
@@ -27,8 +21,10 @@ export const columns: ColumnDef<any>[] = [
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div>
-            <p className="font-semibold ">Allison Ogaga</p>
-            <p>CRNOWUWUWU</p>
+            <p className="font-semibold ">{row.original["staff_name"]}</p>
+            <p className="uppercase font-semibold">
+              {row.original["project_code"]}
+            </p>
           </div>
         </div>
         // </Link>
@@ -41,13 +37,6 @@ export const columns: ColumnDef<any>[] = [
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Role" withSort={false} />;
     },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold ">Project Manager</span>
-        </div>
-      );
-    },
   },
 
   {
@@ -58,9 +47,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
-            Active
-          </p>
+          <p className="font-semibold">{row.original["status"]}</p>
         </div>
       );
     },
