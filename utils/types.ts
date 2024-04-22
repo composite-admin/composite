@@ -603,3 +603,30 @@ export const selectOptionsForStartUpCostType = [
    updatedAt: string;
  }
 
+ export interface IStartupCostProjectData {
+   id: number;
+   startup_code: string;
+   project_code: string;
+   startup_desc: string;
+   startup_type: string;
+   startup_cost: string;
+   comment: string;
+   createdAt: string;
+   updatedAt: string;
+ }
+
+ export interface IContractorProjectData {
+   id: number;
+   contractor_code: string;
+   contractor_project_code: string;
+   contractor_amount: string;
+   approved_amount: string;
+   service: string;
+   createdBy: string;
+   comment: string;
+   status: string;
+   createdAt: string;
+   updatedAt: string;
+   contractor_name: string;
+   created_by: string;
+ }

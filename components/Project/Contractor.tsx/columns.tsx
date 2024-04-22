@@ -4,55 +4,50 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDate } from "@/utils/formatDate";
+import { IContractorProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
-export type ReportType = {
-  id: string;
-  description: string;
-  type: string;
-  cost: string;
-  dateAdded: string;
-};
-
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IContractorProjectData>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="ID" />;
     },
-    cell: ({ row }) => {
-      return <p className="text-textColor px-0 font-normal">1</p>;
-    },
   },
   {
-    accessorKey: "stakeholder_name",
+    accessorKey: "contractor_name",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Stakeholder Name" />;
+      return <ColumnHeader column={column} title="Contractor Name" />;
     },
     cell: ({ row }) => {
+      const { contractor_name, contractor_code } = row.original;
       return (
         <div className="flex flex-col text-primaryLight gap-1 font-semibold">
-          <p className="">Grows TT</p>
-          <p className="text-textColor font-normal">CRN128320182</p>
+          <p className="">{contractor_name}</p>
+          <p className="text-textColor font-normal">{contractor_code}</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "amount",
+    accessorKey: "approved_amount",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount" withSort={false} />;
     },
     cell: ({ row }) => {
+      const amount = row.original.approved_amount;
+      const formattedAmount = formatCurrency(amount);
       return <span className="font-semibold ">N,100,000</span>;
     },
   },
 
   {
-    accessorKey: "added_by",
+    accessorKey: "created_by",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Added by" withSort={false} />;
     },
@@ -60,24 +55,24 @@ export const columns: ColumnDef<any>[] = [
       return (
         <div className="flex items-center gap-2">
           <AvatarComponent />
-          <span className="w-16">Alice Ogaga</span>
+          <span className="w-16">{row.original.created_by}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "dateAdded",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Date Added" withSort={false} />
       );
     },
     cell: ({ row }) => {
+      const { createdAt } = row.original;
+      const formatted = formatDate(createdAt);
       return (
         <div className="">
-          <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
-            6 July, 2023
-          </p>
+          <p className="">{formatted}</p>
         </div>
       );
     },

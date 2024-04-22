@@ -3,69 +3,64 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { IStartupCostProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import { HiOutlineCog, HiPencilAlt } from "react-icons/hi";
 
-export type ReportType = {
-  id: string;
-  description: string;
-  type: string;
-  cost: string,
-  dateAdded: string;
-}
-
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IStartupCostProjectData>[] = [
   {
-    accessorKey: "description",
+    accessorKey: "startup_desc",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Description" />;
     },
     cell: ({ row }) => {
-      return <p className="font-semibold">Electricity</p>;
-    },
-  },
-
-  {
-    accessorKey: "type",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Type" withSort={false} />;
-    },
-    cell: ({ row }) => {
       return (
-        <div className="">
-          <span className="font-semibold ">Agency</span>
-        </div>
+        <p className="font-semibold capitalize">{row.original.startup_desc}</p>
       );
     },
   },
 
   {
-    accessorKey: "cost",
+    accessorKey: "startup_type",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Type" withSort={false} />;
+    },
+  },
+
+  {
+    accessorKey: "startup_cost",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Cost" withSort={false} />;
     },
     cell: ({ row }) => {
+      const { startup_cost } = row.original;
+      const formattedCost = formatCurrency(startup_cost);
       return (
         <div>
-          <p>N100,000</p>
+          <p>{formattedCost}</p>
         </div>
       );
     },
   },
   {
-    accessorKey: "dateAdded",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Date Added" withSort={false} />
       );
     },
     cell: ({ row }) => {
+      const date = new Date(row.original.createdAt);
       return (
         <div className="">
-          <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
-            6 July, 2023
+          <p className=" ">
+            {date.toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
           </p>
         </div>
       );

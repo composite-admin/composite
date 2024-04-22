@@ -31,7 +31,8 @@ const SingleProject = () => {
   const onOpenAddContractor = useAddContractorModal((state) => state.onOpen);
   const onOpenStartupModal = useAddStartupModal((state) => state.onOpen);
   const onOpenAddMaterialMOdal = useAddMaterial((state) => state.onOpen);
-  const { setProjectName, setCurrentModal } = useProjectDetailsPageFormModal();
+  const { setProjectName, setCurrentModal, projectCode } =
+    useProjectDetailsPageFormModal();
 
   const options = [
     {
@@ -143,45 +144,6 @@ const SingleProject = () => {
       getProjectById(params.id);
     }
   }, [getProjectById, params.id]);
-
-  const keys: Key[] = [
-    {
-      title: "Project Cost",
-      component: <ProjectCost />,
-    },
-    {
-      title: "Project Team",
-      component: <ProjectTeam />,
-    },
-    {
-      title: "Startup Cost",
-      component: <StartupCost />,
-    },
-    {
-      title: "Stakeholder",
-      component: <Stakeholder />,
-    },
-    {
-      title: "Contractor",
-      component: <Contractor />,
-    },
-    {
-      title: "Workers",
-      component: <Worker />,
-    },
-    {
-      title: "Material",
-      component: <Materials />,
-    },
-    {
-      title: "Tools and Machinery",
-      component: <ToolsAndMachine />,
-    },
-    {
-      title: "Cash Advanced",
-      component: <CashAdvanced />,
-    },
-  ];
 
   return (
     <>
@@ -323,13 +285,13 @@ const SingleProject = () => {
           <ProjectTeam />
         </TabsContent>{" "}
         <TabsContent value="start_up_cost">
-          <StartupCost />
+          <StartupCost projectCode={projectCode} />
         </TabsContent>{" "}
         <TabsContent value="stakeholder">
           <Stakeholder />
         </TabsContent>{" "}
         <TabsContent value="contractors">
-          <Contractor />
+          <Contractor projectCode={projectCode} />
         </TabsContent>{" "}
         <TabsContent value="workers">
           <Worker />
@@ -341,7 +303,7 @@ const SingleProject = () => {
           <ToolsAndMachine />
         </TabsContent>{" "}
         <TabsContent value="consultants">
-          <Contractor />
+          <Contractor projectCode={projectCode} />
         </TabsContent>
         <TabsContent value="cash_advance">
           <CashAdvanced />
