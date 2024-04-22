@@ -630,3 +630,67 @@ export const selectOptionsForStartUpCostType = [
    contractor_name: string;
    created_by: string;
  }
+
+ export interface IStakeholderProjectData {
+   id: number;
+   stakeholder_code: string;
+   stakeholder_project_code: string;
+   stakeholder_amount: string;
+   approved_amount: string;
+   other_amount: string;
+   createdBy: string;
+   comment: string;
+   status: string;
+   createdAt: string;
+   updatedAt: string;
+   stakeholder_name: string;
+   created_by: string;
+ }
+
+ export interface IMaterialsByProjectData {
+   id: number;
+   project_code: string;
+   supplier_code: string;
+   supplier_name: string;
+   material_code: string;
+   company: string;
+   address: string;
+   contact_person: string;
+   contact_mobile: string;
+   ofc_phone: string;
+   description: string;
+   quantity: number;
+   unit_price: number;
+   total_price: number;
+   payment_mode: string;
+   comment: string;
+   createdAt: string;
+   updatedAt: string;
+ }
+
+ export interface IWorkerByProjectData {
+   id: number;
+   project_code: string;
+   project_name: string;
+   service_type: string;
+   worker_code: string;
+   worker_name: string;
+   createdAt: string;
+   updatedAt: string;
+   worker_email: string;
+   worker_home_phone: string;
+   worker_ofc_phone: string;
+ }
+
+ export interface IProjectTeamMemberByProjectData {
+   id: number;
+   project_name: string;
+   project_code: string;
+   role: string;
+   staff_id: string;
+   staff_name: string;
+   createdAt: string;
+   updatedAt: string;
+   status: string;
+   image: string | null;
+ }

@@ -1,5 +1,3 @@
-import { ReportType } from "./columns";
-
 export const data: Array<any> = [
   {
     id: "string",

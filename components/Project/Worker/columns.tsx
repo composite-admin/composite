@@ -5,30 +5,24 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
+import { IWorkerByProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
 
-export type ReportType = {
-  id: string;
-  role: string;
-  name: string;
-  status: string;
-};
-
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IWorkerByProjectData>[] = [
   {
-    accessorKey: "worker",
+    accessorKey: "worker_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Worker" />;
     },
     cell: ({ row }) => {
+      const { worker_name, worker_code } = row.original;
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
           <div>
-            <p className="font-semibold">Allison Ogaga</p>
-            <p className="text-textColor">CRN128320182</p>
+            <p className="font-semibold">{worker_name}</p>
+            <p className="text-textColor">{worker_code}</p>
           </div>
         </div>
       );
@@ -45,43 +39,39 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <p className="font-semibold w-24 text-wrap">Cable TV Installation</p>
+          <p className="font-semibold w-24 text-wrap">
+            {row.original.service_type}
+          </p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "email",
+    accessorKey: "worker_email",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Email Address" withSort={false} />
       );
     },
     cell: ({ row }) => {
-      return <p className="w-24 text-wrap">jarus@gmail. com</p>;
+      return <p className="w-24 text-wrap">{row.original.worker_email}</p>;
     },
   },
   {
-    accessorKey: "home_phone",
+    accessorKey: "worker_home_phone",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Home Phone" withSort={false} />
       );
     },
-    cell: ({ row }) => {
-      return <p>+1 234 567 890</p>;
-    },
   },
   {
-    accessorKey: "Office Phone",
+    accessorKey: "worker_ofc_phone",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Office Phone" withSort={false} />
       );
-    },
-    cell: ({ row }) => {
-      return <p>+1 234 567 890</p>;
     },
   },
   {

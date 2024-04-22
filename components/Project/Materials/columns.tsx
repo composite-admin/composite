@@ -4,21 +4,15 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDate } from "@/utils/formatDate";
+import { IMaterialsByProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { DeleteIcon } from "lucide-react";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
-export type ReportType = {
-  id: string;
-  description: string;
-  quantity: string;
-  unitPrice: string;
-  totalCost: string;
-  dateAdded: string;
-};
-
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IMaterialsByProjectData>[] = [
   {
     accessorKey: "description",
     header: ({ column }) => {
@@ -29,9 +23,9 @@ export const columns: ColumnDef<any>[] = [
         <div className="flex gap-2 items-center">
           <div>
             <p className="font-semibold underline text-primaryLight">
-              Allison Ogaga
+              {row.original["description"]}
             </p>
-            <p>CRNOWUWUWU</p>
+            <p>{row.original["material_code"]}</p>
           </div>
         </div>
       );
@@ -39,16 +33,9 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "supplier",
+    accessorKey: "supplier_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Supplier" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold ">Wale Bello</span>
-        </div>
-      );
     },
   },
 
@@ -60,38 +47,40 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">x100</span>
+          <span className="font-semibold">x{row.original["quantity"]}</span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "unitPrice",
+    accessorKey: "unit_price",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Unit Price" withSort={false} />
       );
     },
     cell: ({ row }) => {
+      const { unit_price } = row.original;
       return (
         <div className="">
-          <span className="font-semibold ">N200.0</span>
+          <span className="font-semibold">{formatCurrency(unit_price)}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "totalCost",
+    accessorKey: "total_price",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Total Price" withSort={false} />
       );
     },
     cell: ({ row }) => {
+      const { total_price } = row.original;
       return (
         <div className="">
-          <span className="font-semibold">N100,000</span>
+          <span className="font-semibold">{formatCurrency(total_price)}</span>
         </div>
       );
     },
@@ -104,9 +93,11 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
+      const { createdAt } = row.original;
+      const formatted = formatDate(createdAt);
       return (
         <div className="">
-          <span className="font-semibold ">N100,000</span>
+          <span className="font-semibold ">{formatted}</span>
         </div>
       );
     },

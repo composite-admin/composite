@@ -25,7 +25,6 @@ const Contractor = ({ projectCode }: { projectCode: string }) => {
       }
     },
     refetchOnMount: true,
-    refetchInterval: 5000,
   });
 
   return (

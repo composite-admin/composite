@@ -162,7 +162,7 @@ export const useGetAllSuppliers = () => {
   return { suppliers: data };
 };
 
-const getStuffTyped = async <T,>(args: string): Promise<T> => {
+export const getStuffTyped = async <T,>(args: string): Promise<T> => {
   try {
     const response = await api.get<ApiResponse<T>>(args);
     return response.data.data;

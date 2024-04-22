@@ -2,7 +2,6 @@
 import { DataTable } from "@/components/shared/DataTable";
 import React from "react";
 import { columns } from "./columns";
-import { data } from "./data";
 import { useQuery } from "@tanstack/react-query";
 import { ApiResponse, IStartupCostProjectData } from "@/utils/types";
 import axios from "axios";

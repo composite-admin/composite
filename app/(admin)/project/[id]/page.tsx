@@ -282,26 +282,26 @@ const SingleProject = () => {
           <ProjectCost />
         </TabsContent>
         <TabsContent value="project_team">
-          <ProjectTeam />
-        </TabsContent>{" "}
+          <ProjectTeam projectCode={projectCode} />
+        </TabsContent>
         <TabsContent value="start_up_cost">
           <StartupCost projectCode={projectCode} />
-        </TabsContent>{" "}
+        </TabsContent>
         <TabsContent value="stakeholder">
-          <Stakeholder />
-        </TabsContent>{" "}
+          <Stakeholder projectCode={projectCode} />
+        </TabsContent>
         <TabsContent value="contractors">
           <Contractor projectCode={projectCode} />
-        </TabsContent>{" "}
+        </TabsContent>
         <TabsContent value="workers">
-          <Worker />
-        </TabsContent>{" "}
+          <Worker projectCode={projectCode} />
+        </TabsContent>
         <TabsContent value="material">
-          <Materials />
-        </TabsContent>{" "}
+          <Materials projectCode={projectCode} />
+        </TabsContent>
         <TabsContent value="tool_and_machinery">
           <ToolsAndMachine />
-        </TabsContent>{" "}
+        </TabsContent>
         <TabsContent value="consultants">
           <Contractor projectCode={projectCode} />
         </TabsContent>

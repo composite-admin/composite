@@ -1,6 +1,4 @@
-import { ReportType } from "./columns";
-
-export const data: Array<ReportType> = [
+export const data: Array<any> = [
   {
     id: "string",
     description: "string",
@@ -29,5 +27,4 @@ export const data: Array<ReportType> = [
     cost: "string",
     dateAdded: "string",
   },
-
 ];
