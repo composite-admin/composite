@@ -17,7 +17,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="py-4 px-8 bg-primaryDark duration-100 h-full flex flex-col overflow-y-scroll fixed top-0 left-0 lg:min-h-screen ">
+    <aside className="py-4 px-8 bg-primaryDark duration-100 h-full flex flex-col overflow-y-scroll fixed top-0 left-0 lg:min-h-screen landscape:w-[13rem]">
       <div className="flex gap-2 items-center pb-5">
         <Image src="/logo.png" alt="logo" width={30} height={30} />
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
