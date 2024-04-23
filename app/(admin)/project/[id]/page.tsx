@@ -1,26 +1,24 @@
 "use client"
-import { DataTable } from '@/components/shared/DataTable'
-import GoBack from '@/components/shared/GoBack'
-import PageHead from '@/components/ui/pageHead'
-import React, { useEffect, useState } from 'react'
-import { columns } from '../columns'
-import { data } from '../apartment/data'
-import { HiDocument } from 'react-icons/hi2'
-import { useAddContractorModal, useAddMaterial, useAddProjectModal, useAddStakeHolderModal, useAddStartupModal } from '@/store/inventory/UseInventoryModal'
-import StartUpIcon from '@/components/icons/StartUpIcon'
-import { useRouter, useParams } from 'next/navigation'
-import useProjectActionsStore from "@/store/actions/projectActions"
-import Image from 'next/image'
-import SwitchTabs, { Key } from '@/components/ui/switchTabs'
-import ProjectCost from '@/components/Project/ProjectCost'
-import ProjectTeam from '@/components/Project/ProjectTeam'
-import StartupCost from '@/components/Project/StartupCost'
-import Stakeholder from '@/components/Project/Stakeholder'
-import Contractor from '@/components/Project/Contractor.tsx'
-import Worker from '@/components/Project/Worker'
-import Materials from '@/components/Project/Materials'
-import ToolsAndMachine from '@/components/Project/ToolsAndMachine'
-import CashAdvanced from '@/components/Project/CashAdvanced'
+import GoBack from "@/components/shared/GoBack";
+import React, { useEffect } from "react";
+import {
+  useAddContractorModal,
+  useAddMaterial,
+  useAddStakeHolderModal,
+  useAddStartupModal,
+} from "@/store/inventory/UseInventoryModal";
+import { useRouter, useParams } from "next/navigation";
+import useProjectActionsStore from "@/store/actions/projectActions";
+import Image from "next/image";
+import ProjectCost from "@/components/Project/ProjectCost";
+import ProjectTeam from "@/components/Project/ProjectTeam";
+import StartupCost from "@/components/Project/StartupCost";
+import Stakeholder from "@/components/Project/Stakeholder";
+import Contractor from "@/components/Project/Contractor.tsx";
+import Worker from "@/components/Project/Worker";
+import Materials from "@/components/Project/Materials";
+import ToolsAndMachine from "@/components/Project/ToolsAndMachine";
+import CashAdvanced from "@/components/Project/CashAdvanced";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -31,7 +29,7 @@ const SingleProject = () => {
   const onOpenAddContractor = useAddContractorModal((state) => state.onOpen);
   const onOpenStartupModal = useAddStartupModal((state) => state.onOpen);
   const onOpenAddMaterialMOdal = useAddMaterial((state) => state.onOpen);
-  const { setProjectName, setCurrentModal, projectCode } =
+  const { setProjectName, setCurrentModal, projectCode, projectName } =
     useProjectDetailsPageFormModal();
 
   const options = [
@@ -104,7 +102,7 @@ const SingleProject = () => {
         setCurrentModal("add_consultant");
         break;
       case "Add Worker":
-        router.push("/workers/add");
+        router.push(`/project/add-worker?name=${projectName}`);
       default:
         break;
     }

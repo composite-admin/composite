@@ -21,28 +21,6 @@ export type ReportType = {
   materials: string;
 };
 
-// export type ReportType = {
-//   id: string;
-//   project_name: string;
-//   project_description: string;
-//   project_code: string;
-//   project_location: string;
-//   address: string;
-//   city: string;
-//   state: string;
-//   lga: string;
-//   project_duration: string;
-//   start_date: string;
-//   end_date: string;
-//   comment: string;
-//   status: string;
-//   date_added: string;
-//   project_supervisor: string;
-//   supervisor_id: string;
-//   createdBy: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
 export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "projectName",
@@ -68,14 +46,14 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "startDate",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Start Date"/>
-      );
+      return <ColumnHeader column={column} title="Start Date" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{formatDate(row.original["start_date"])}</span>
+          <span className="font-semibold ">
+            {formatDate(row.original["start_date"])}
+          </span>
         </div>
       );
     },
@@ -84,14 +62,14 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "endDate",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="End Date" />
-      );
+      return <ColumnHeader column={column} title="End Date" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{formatDate(row.original["end_date"])}</span>
+          <span className="font-semibold ">
+            {formatDate(row.original["end_date"])}
+          </span>
         </div>
       );
     },
@@ -104,12 +82,14 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>{row.original["status"]}</p>
+          <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
+            {row.original["status"]}
+          </p>
         </div>
       );
     },
   },
-  
+
   {
     accessorKey: "totalWorkers",
     header: ({ column }) => {
@@ -118,7 +98,9 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">{row.original["total_worker"]}</span>
+          <span className="font-semibold text-primaryLight-500 text-center">
+            {row.original["total_worker"]}
+          </span>
         </div>
       );
     },
@@ -133,22 +115,30 @@ export const columns: ColumnDef<any>[] = [
       return (
         <Link href={`/project/add-worker?name=${row.original["project_name"]}`}>
           <div className="cursor-pointer">
-            <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
+            <span className="font-semibold text-primaryLight-500 flex items-center hover:underline">
+              <HiUserAdd />
+              Add{" "}
+            </span>
           </div>
         </Link>
       );
     },
-  },{
+  },
+  {
     accessorKey: "materials",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Materials" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Materials" withSort={false} />
+      );
     },
     cell: ({ row }) => {
-      // const onOpen = useAddWorkerModal(state => state.onOpen);
       return (
         <Link href="#">
           <div className="cursor-pointer">
-            <span className="font-semibold text-primaryLight-500 flex items-center hover:underline"><HiUserAdd />Add </span>
+            <span className="font-semibold text-primaryLight-500 flex items-center hover:underline">
+              <HiUserAdd />
+              Add{" "}
+            </span>
           </div>
         </Link>
       );
