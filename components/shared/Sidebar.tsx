@@ -50,7 +50,7 @@ const Sidebar = () => {
                   <div className="">
                     <ChevronRight
                       onClick={() => handleToggle(item)}
-                      className={`transition-all cursor-pointer ${
+                      className={`w-full h-5 transition-all cursor-pointer ${
                         activeItem === item ? "rotate-90" : ""
                       }`}
                     />
