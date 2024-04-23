@@ -1,14 +1,10 @@
 "use client";
 
-import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { Button } from "@/components/ui/button";
 import { formatDate } from "@/utils/formatDate";
 import { IConsultantData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
-
-import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 
 export const columns: ColumnDef<IConsultantData>[] = [

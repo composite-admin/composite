@@ -28,11 +28,13 @@ const AddMaterialSchema = z.object({
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
 export default function AddMaterialForm() {
   const [matDesc, setMatDesc] = useState<string[]>([]);
+  const [suplierCode, setSuplierCode] = useState<string | undefined>("");
   const form = useForm<AddMaterialType>({
     resolver: zodResolver(AddMaterialSchema),
   });
   const { toast } = useToast();
-  const { projectName, onClose } = useProjectDetailsPageFormModal();
+  const { projectName, onClose, projectCode } =
+    useProjectDetailsPageFormModal();
   const { suppliers } = useGetAllSuppliers();
   const supplierName = suppliers?.map(
     (supplier: ISupplierData) => supplier.supplier_name
@@ -41,14 +43,15 @@ export default function AddMaterialForm() {
 
   useEffect(() => {
     if (watchSupplier) {
-      const supplierCode = suppliers?.find(
+      const supplier_code = suppliers?.find(
         (supplier: ISupplierData) => supplier.supplier_name === watchSupplier
       )?.supplier_code;
+      setSuplierCode(supplier_code);
       // /suppliers-materials/supplier/description?supplierCode
       const materialDescription = async () => {
         try {
           const response = await api.get(
-            `/suppliers-materials/supplier/description?supplierCode=${supplierCode}`
+            `/suppliers-materials/supplier/description?supplierCode=${supplier_code}`
           );
           setMatDesc(response.data.data?.map((item: any) => item.description));
         } catch (error) {
@@ -69,6 +72,9 @@ export default function AddMaterialForm() {
       try {
         const response = await api.post("/suppliers-materials", {
           ...values,
+          project_code: projectCode,
+          supplier_code: suplierCode,
+          mat_desc: matDesc,
         });
         return response.data;
       } catch (error) {
@@ -82,22 +88,22 @@ export default function AddMaterialForm() {
   });
 
   const handleSubmit = (data: AddMaterialType) => {
-    // mutate(data, {
-    //   onSuccess: () => {
-    //     form.reset();
-    //     onClose();
-    //     toast({
-    //       title: "Start up cost added successfully",
-    //       variant: "success",
-    //     });
-    //   },
-    //   onError: () => {
-    //     toast({
-    //       title: "Something went wrong",
-    //       variant: "destructive",
-    //     });
-    //   },
-    // });
+    mutate(data, {
+      onSuccess: () => {
+        form.reset();
+        onClose();
+        toast({
+          title: "Material added successfully",
+          variant: "success",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
   };
   return (
     <Form {...form}>
@@ -131,7 +137,7 @@ export default function AddMaterialForm() {
           <div className="space-y-5">
             <CustomFormSelect
               control={form.control}
-              name="material_description"
+              name="mat_desc"
               labelText="Material Description"
               placeholder="Material Description"
               items={matDesc ?? ["Loading..."]}

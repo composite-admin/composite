@@ -97,8 +97,8 @@ export default function AddStartUpForm() {
         <CustomFormField
           control={form.control}
           name="startup_desc"
-          label="Project Description"
-          placeholder="Project Description"
+          label="Description"
+          placeholder="Description"
         />
 
         <CustomFormSelect
