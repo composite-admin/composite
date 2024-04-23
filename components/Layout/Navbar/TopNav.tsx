@@ -27,15 +27,6 @@ const TopNav = () => {
 
   return (
     <div className="bg-white py-3 px-8 flex items-center justify-end border-b border-borderColor">
-      {/* <div className="bg-grey-500 flex items-center gap-3 px-4 rounded-lg min-w-[30rem]">
-        <RiSearch2Line className="text-lg" />
-        <input
-          type="text"
-          className="bg-transparent flex-grow outline-none py-3"
-          placeholder="Search any code from project, tenant, request..."
-        />
-      </div> */}
-
       <div className="flex items-center justify-end gap-2">
         <div className="flex w-[40px] h-[40px] bg-grey  items-center justify-center rounded-full">
           <HiOutlineBell className="text-xl" />
@@ -63,14 +54,6 @@ const TopNav = () => {
               Logout
             </Button>
           </div>
-
-          {/* <AnimatePresence mode="wait">
-            {showDrop && (
-              <DropContent isOpen={showDrop} onClose={() => setShowDrop(false)}>
-                <Drop />
-              </DropContent>
-            )}
-          </AnimatePresence> */}
         </div>
       </div>
     </div>

@@ -61,7 +61,7 @@ const SidebarLinks: NavLinkType[] = [
     label: "Contractors",
     icon: <SidebarContractorIcon />,
     isCollapsible: true,
-    childHref: "/contractors",
+    childHref: "/contractors/pending-project",
     childLabel: "Pending Contractor Project",
   },
 
@@ -70,7 +70,7 @@ const SidebarLinks: NavLinkType[] = [
     label: "Stakeholders",
     icon: <StakeholderIcon />,
     isCollapsible: true,
-    childHref: "/stakeholders",
+    childHref: "/stakeholders/pending-project",
     childLabel: "Pending Stakeholder Project",
   },
 
