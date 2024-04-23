@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -133,6 +138,8 @@ const config = {
           900: "#030508",
         },
         subtext: "#475467",
+        textPending: "#865503",
+        bgPending: "#FEF6E7",
       },
       fontSize: {
         responsive: "calc(.9rem + 1vw)",

@@ -694,3 +694,5 @@ export const selectOptionsForStartUpCostType = [
    status: string;
    image: string | null;
  }
+
+

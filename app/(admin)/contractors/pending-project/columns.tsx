@@ -3,58 +3,32 @@
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDate } from "@/utils/formatDate";
+import { IContractorProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import { HiPencilAlt } from "react-icons/hi";
 
-export type ContractorType = {
-  id: string;
-  contractorCode: string;
-  projectCode: string;
-  createdBy: string;
-  amount: string;
-  createdOn: string;
-  service: string;
-  status: string;
-  actions: string;
-};
-
-export const columns: ColumnDef<ContractorType>[] = [
+export const columns: ColumnDef<IContractorProjectData>[] = [
   {
-    accessorKey: "contractorCode",
+    accessorKey: "contractor_code",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Contractor Code" />;
     },
     cell: ({ row }) => {
-      console.log("Row data", row)
       return (
-        <div className="flex gap-2 items-center">
-          <div>
-            <p className="bold">c-0001</p>
-          </div>
+        <div>
+          <p className="font-semibold uppercase">
+            {row.original["contractor_code"]}
+          </p>
         </div>
       );
     },
   },
 
-//   {
-//     "id": 4,
-//     "contractor_code": "con-0003",
-//     "contractor_name": "Demo",
-//     "contractor_service": "Demo",
-//     "contractor_address": "Demo",
-//     "contractor_ofc_phone": "Demo",
-//     "contact_person": "Demo",
-//     "contact_mobile": "Demo",
-//     "contact_home_phone": "Demo",
-//     "email": "Demo@gmail.com",
-//     "website": "Demo",
-//     "comment": "Demo",
-//     "createdAt": "2024-04-02T10:14:53.782Z",
-//     "updatedAt": "2024-04-02T10:14:53.782Z"
-// }
   {
-    accessorKey: "projectCode",
+    accessorKey: "contractor_project_code",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Project Code" withSort={false} />
@@ -62,9 +36,9 @@ export const columns: ColumnDef<ContractorType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="">
-          <span className="font-semibold "></span>
-        </div>
+        <p className="font-semibold uppercase">
+          {row.original["contractor_project_code"]}
+        </p>
       );
     },
   },
@@ -80,36 +54,36 @@ export const columns: ColumnDef<ContractorType>[] = [
       return (
         <div className="flex items-center gap-2">
           <AvatarComponent />
-          <span className="font-semibold ">Alison Ogaga</span>
+          <span className="font-semibold ">{row.original["createdBy"]}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "amount",
+    accessorKey: "approved_amount",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount" withSort={false} />;
     },
     cell: ({ row }) => {
+      const { approved_amount } = row.original;
       return (
         <div className="flex gap-2 items-center">
-          <span className="font-semibold">N100,000</span>
+          <span className="font-semibold">
+            {formatCurrency(approved_amount)}
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "createdOn",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Added On" />;
     },
     cell: ({ row }) => {
-      return (
-        <div>
-          <p>6th July, 2002</p>
-          <p>10am</p>
-        </div>
-      );
+      const { createdAt } = row.original;
+      const fromattedDate = formatDate(createdAt);
+      return <p>{fromattedDate}</p>;
     },
   },
   {
@@ -118,35 +92,36 @@ export const columns: ColumnDef<ContractorType>[] = [
       return <ColumnHeader column={column} title="Service" />;
     },
     cell: ({ row }) => {
-      return (
-        <div className="">
-          <span>Interior</span>
-        </div>
-      );
+      return <span>{row.original["service"] ?? "N/A"}</span>;
     },
   },
   {
     accessorKey: "status",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Added On" />;
+      return <ColumnHeader column={column} title="Status" />;
     },
     cell: ({ row }) => {
+      const { status } = row.original;
+
       return (
         <div>
-          <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>Completed</p>
+          <p className="p-1 px-1.5 rounded-lg font-semibold text-textPending bg-bgPending w-max">
+            {row.original["status"] ?? "Pending"}
+          </p>
         </div>
       );
     },
   },
   {
-    accessorKey: "action",
+    accessorKey: "id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Action" />;
     },
     cell: ({ row }) => {
       return (
-        <div className="">
-          <span className="font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span>
+        <div className="font-semibold flex gap-1 text-primaryLight-500">
+          <span className="cursor-pointer">Approve</span>/
+          <span className="cursor-pointer">Reject</span>
         </div>
       );
     },
