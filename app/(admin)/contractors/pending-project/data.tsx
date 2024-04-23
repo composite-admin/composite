@@ -1,6 +1,4 @@
-import { ContractorType } from "./columns";
-
-export const data: Array<ContractorType> = [
+export const data: Array<any> = [
   {
     id: "string",
     contractorCode: "string",
@@ -56,5 +54,5 @@ export const data: Array<ContractorType> = [
     service: "string",
     status: "string",
     actions: "string",
-  }
+  },
 ];
