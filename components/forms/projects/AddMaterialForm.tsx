@@ -74,7 +74,9 @@ export default function AddMaterialForm() {
           ...values,
           project_code: projectCode,
           supplier_code: suplierCode,
-          mat_desc: matDesc,
+          mat_desc: values.mat_desc,
+          quantity: Number(values.quantity),
+          unit_price: Number(values.unit_price),
         });
         return response.data;
       } catch (error) {
@@ -153,6 +155,12 @@ export default function AddMaterialForm() {
             />
           </div>
         </div>
+        <CustomFormField
+          control={form.control}
+          name="quantity"
+          label="Quantity"
+          placeholder="Enter a Quantity"
+        />
         <CustomFormTextareaField
           control={form.control}
           name="comment"
