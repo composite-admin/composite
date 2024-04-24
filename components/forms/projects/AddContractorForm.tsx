@@ -9,7 +9,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import {
+  useProjectDetails,
+  useProjectDetailsPageFormModal,
+} from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -24,8 +27,8 @@ const AddContractorSchema = z.object({
 
 type AddContractorType = z.infer<typeof AddContractorSchema>;
 export default function AddContractorForm() {
-  const { projectName, projectCode, onClose } =
-    useProjectDetailsPageFormModal();
+  const { onClose } = useProjectDetailsPageFormModal();
+  const { projectName, projectId, projectCode } = useProjectDetails();
   const { toast } = useToast();
   const { contractors } = useGetContractor();
   const form = useForm<AddContractorType>({

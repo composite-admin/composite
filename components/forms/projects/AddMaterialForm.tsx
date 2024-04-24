@@ -9,7 +9,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import {
+  useProjectDetails,
+  useProjectDetailsPageFormModal,
+} from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -33,8 +36,8 @@ export default function AddMaterialForm() {
     resolver: zodResolver(AddMaterialSchema),
   });
   const { toast } = useToast();
-  const { projectName, onClose, projectCode } =
-    useProjectDetailsPageFormModal();
+  const { onClose } = useProjectDetailsPageFormModal();
+  const { projectName, projectId, projectCode } = useProjectDetails();
   const { suppliers } = useGetAllSuppliers();
   const supplierName = suppliers?.map(
     (supplier: ISupplierData) => supplier.supplier_name

@@ -44,7 +44,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
   },
 
   {
-    accessorKey: "createdBy",
+    accessorKey: "created_by",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Created By" withSort={false} />
@@ -54,22 +54,22 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
       return (
         <div className="flex items-center gap-2">
           <AvatarComponent />
-          <span className="font-semibold ">{row.original["createdBy"]}</span>
+          <span className="font-semibold ">{row.original["created_by"]}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "approved_amount",
+    accessorKey: "contractor_amount",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount" withSort={false} />;
     },
     cell: ({ row }) => {
-      const { approved_amount } = row.original;
+      const { contractor_amount } = row.original;
       return (
         <div className="flex gap-2 items-center">
           <span className="font-semibold">
-            {formatCurrency(approved_amount)}
+            {formatCurrency(contractor_amount)}
           </span>
         </div>
       );
@@ -121,7 +121,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
       return (
         <div className="font-semibold flex gap-1 text-primaryLight-500">
           <span className="cursor-pointer">Approve</span>/
-          <span className="cursor-pointer">Reject</span>
+          <span className="cursor-pointer text-red-500">Reject</span>
         </div>
       );
     },

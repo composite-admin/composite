@@ -1,7 +1,14 @@
 import { create } from "zustand";
 
+interface TeamMember {
+  userid: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+}
+
 interface IProjectStore {
-  teamMemberData: [] | null;
+  teamMemberData: TeamMember[] | null;
   setTeamMemberData: (data: any) => void;
 }
 

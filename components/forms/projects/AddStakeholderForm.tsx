@@ -10,7 +10,10 @@ import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useGetStakeHolders } from "@/hooks/useSelectOptions";
-import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import {
+  useProjectDetails,
+  useProjectDetailsPageFormModal,
+} from "@/store/project/useProjectModal";
 import { selectOptionsForStartUpCostType } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -31,8 +34,8 @@ type AddStakeHolderType = z.infer<typeof AddStakeHolderSchema>;
 
 export default function AddStakeHolderForm() {
   const { stakeholders } = useGetStakeHolders();
-  const { projectName, projectCode, onClose } =
-    useProjectDetailsPageFormModal();
+  const { onClose } = useProjectDetailsPageFormModal();
+  const { projectName, projectId, projectCode } = useProjectDetails();
   const { toast } = useToast();
   const stakeHolderName = stakeholders?.map(
     (item: any) => item.stakeholder_name
@@ -103,7 +106,6 @@ export default function AddStakeHolderForm() {
           items={stakeHolderName || []}
           placeholder="Select stakeholder"
         />
-
 
         <div className="grid lg:grid-cols-2 gap-2">
           <CustomFormField

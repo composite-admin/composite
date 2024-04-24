@@ -6,18 +6,9 @@ import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
+import { IProjectFlatData } from "./page";
 
-export type ReportType = {
-  id: string;
-  fiatCode: string;
-  projectName: string;
-  fiatDescription: string;
-  dateAdded: string;
-  status: string;
-  actions: string;
-};
-
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<IProjectFlatData>[] = [
   {
     accessorKey: "fiatCode",
     header: ({ column }) => {
@@ -26,8 +17,10 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-        <span className="font-semibold text-primaryLight-500 flex items-center">JHSDB7EIEWE</span>
-      </div>
+          <span className="font-semibold text-primaryLight-500 flex items-center">
+            JHSDB7EIEWE
+          </span>
+        </div>
       );
     },
   },
@@ -52,7 +45,11 @@ export const columns: ColumnDef<ReportType>[] = [
     accessorKey: "fiatDescription",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Fiat Description" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Fiat Description"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -63,36 +60,9 @@ export const columns: ColumnDef<ReportType>[] = [
       );
     },
   },
-  {
-    accessorKey: "dateAdded",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Date Added " withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
 
-          <p>6th July, 2002</p>
-          <p>10am</p>
-        </div>
-      );
-    },
-  },
   {
-    accessorKey: "status",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Status" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>Active</p>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "actions",
+    accessorKey: "flat_id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Actions" />;
     },
@@ -107,5 +77,5 @@ export const columns: ColumnDef<ReportType>[] = [
         </Link>
       );
     },
-  }
+  },
 ];

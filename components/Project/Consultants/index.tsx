@@ -4,7 +4,11 @@ import { columns } from "./columns";
 import { data } from "./data";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/config/api";
-import { ApiResponse, IContractorProjectData } from "@/utils/types";
+import {
+  ApiResponse,
+  IConsultantProjectData,
+  IContractorProjectData,
+} from "@/utils/types";
 import axios from "axios";
 
 const Consultant = ({ projectCode }: { projectCode: string }) => {
@@ -12,8 +16,8 @@ const Consultant = ({ projectCode }: { projectCode: string }) => {
     queryKey: ["get all contractors by project code"],
     queryFn: async () => {
       try {
-        const response = await api.get<ApiResponse<IContractorProjectData[]>>(
-          `/contractor-projects/project-code/${projectCode}`
+        const response = await api.get<ApiResponse<IConsultantProjectData[]>>(
+          `/consultant-projects/project/${projectCode}`
         );
         return response.data.data;
       } catch (error) {

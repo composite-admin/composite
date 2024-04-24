@@ -1,7 +1,7 @@
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
-import { columns } from     "@/app/(admin)/project/tenant/columns";
+import { columns } from "@/app/(admin)/project/tenant/[id]/columns";
 import { DataTable } from "@/components/shared/DataTable";
-import { data } from "@/app/(admin)/project/tenant/data";
+import { data } from "@/app/(admin)/project/tenant/[id]/data";
 
 export default function ManageStaffPage() {
   return (

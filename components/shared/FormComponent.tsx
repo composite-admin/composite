@@ -129,9 +129,7 @@ export function CustomFormSelect({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="text-textColor capitalize">
-            {labelText || name}
-          </FormLabel>
+          <FormLabel className="capitalize">{labelText || name}</FormLabel>
           <Select
             onValueChange={field.onChange}
             defaultValue={field.value}

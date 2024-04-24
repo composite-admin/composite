@@ -9,7 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
-import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import {
+  useProjectDetails,
+  useProjectDetailsPageFormModal,
+} from "@/store/project/useProjectModal";
 import { selectOptionsForStartUpCostType } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -30,8 +33,9 @@ const AddStartUpCostSchema = z.object({
 type AddStartUpCostType = z.infer<typeof AddStartUpCostSchema>;
 
 export default function AddStartUpForm() {
-  const { projectName, projectCode, onClose } =
-    useProjectDetailsPageFormModal();
+  const { projectCode, projectName, projectId } = useProjectDetails();
+  const { onClose } = useProjectDetailsPageFormModal();
+  console.log(projectName, projectCode);
   const { toast } = useToast();
 
   const form = useForm<AddStartUpCostType>({

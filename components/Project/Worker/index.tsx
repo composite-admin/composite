@@ -15,6 +15,7 @@ const Worker = ({ projectCode }: { projectCode: string }) => {
       ),
     refetchOnMount: true,
   });
+
   return (
     <div>
       <h2 className="text-[20px] font-[600]">Worker</h2>

@@ -589,6 +589,32 @@ export const selectOptionsForStartUpCostType = [
    "Type 1",
  ];
 
+ export const selectOtionsForWorkerServiceType = [
+   "Borehole Drilling",
+   "Carpentry",
+   "Cabinetry / Furniture",
+   "Cable TV Installation",
+   "Cleaning",
+   "Concret Casting",
+   "CCTV / Security Installation",
+   "Data / Video / Voice Cabling",
+   "Electrical",
+   "House Painting",
+   "Gardening",
+   "Mable Work",
+   "Masonry",
+   "Paving",
+   "Piling Work",
+   "Plumbing",
+   "PoP Work",
+   "Roofing",
+   "Scaffolding",
+   "Spray Painting",
+   "Steel Bending",
+   "Tiling",
+   "Welding",
+ ];
+
  export interface ISupplierMaterial {
    mat_id: number;
    mat_code: string;
@@ -693,6 +719,17 @@ export const selectOptionsForStartUpCostType = [
    updatedAt: string;
    status: string;
    image: string | null;
+ }
+
+ export interface IConsultantProjectData {
+   id: number;
+   consultant_id: string;
+   project_id: string;
+   project_code: string;
+   project_name: string;
+   createdAt: string;
+   updatedAt: string;
+   name: string;
  }
 
 

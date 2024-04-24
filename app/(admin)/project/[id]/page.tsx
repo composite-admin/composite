@@ -19,18 +19,22 @@ import Worker from "@/components/Project/Worker";
 import Materials from "@/components/Project/Materials";
 import ToolsAndMachine from "@/components/Project/ToolsAndMachine";
 import CashAdvanced from "@/components/Project/CashAdvanced";
-import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import {
+  useProjectDetails,
+  useProjectDetailsPageFormModal,
+} from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Consultant from "@/components/Project/Consultants";
 
 const SingleProject = () => {
   const onOpenAddStakeHolder = useAddStakeHolderModal((state) => state.onOpen);
   const onOpenAddContractor = useAddContractorModal((state) => state.onOpen);
   const onOpenStartupModal = useAddStartupModal((state) => state.onOpen);
   const onOpenAddMaterialMOdal = useAddMaterial((state) => state.onOpen);
-  const { setProjectName, setCurrentModal, projectCode, projectName } =
-    useProjectDetailsPageFormModal();
+  const { setCurrentModal } = useProjectDetailsPageFormModal();
+  const { setProjectName, projectCode, projectName } = useProjectDetails();
 
   const options = [
     {
@@ -101,8 +105,18 @@ const SingleProject = () => {
       case "Add Consultant":
         setCurrentModal("add_consultant");
         break;
+      case "Add Management Member":
+        setCurrentModal("add_management_member");
+        break;
       case "Add Worker":
         router.push(`/project/add-worker?name=${projectName}`);
+        break;
+      case "View Apartment":
+        router.push(`/project/apartment/${projectCode}`);
+        break;
+      case "View Tenant":
+        router.push(`/project/tenant/${projectCode}`);
+        break;
       default:
         break;
     }
@@ -301,7 +315,7 @@ const SingleProject = () => {
           <ToolsAndMachine />
         </TabsContent>
         <TabsContent value="consultants">
-          <Contractor projectCode={projectCode} />
+          <Consultant projectCode={projectCode} />
         </TabsContent>
         <TabsContent value="cash_advance">
           <CashAdvanced />

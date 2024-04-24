@@ -8,10 +8,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import {
+  useProjectDetails,
+  useProjectDetailsPageFormModal,
+} from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { selectOtionsForWorkerServiceType } from "@/utils/types";
 
 const AddWorkerSchema = z.object({});
 type AddWorkerSchemaType = z.infer<typeof AddWorkerSchema>;
@@ -22,7 +26,8 @@ export default function AddWorkerForm() {
   });
 
   const { toast } = useToast();
-  const { projectName, onClose } = useProjectDetailsPageFormModal();
+  const { onClose } = useProjectDetailsPageFormModal();
+  const { projectName, projectId, projectCode } = useProjectDetails();
 
   const { mutate } = useMutation({
     mutationKey: ["add-stakeholder"],
@@ -78,7 +83,7 @@ export default function AddWorkerForm() {
           name="service_type"
           labelText="Service Type"
           placeholder="Service Type"
-          items={["Option 1", "Option 2", "Option 3"]}
+          items={selectOtionsForWorkerServiceType || ["Loading..."]}
         />
 
         <CustomFormSelect

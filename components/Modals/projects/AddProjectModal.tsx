@@ -144,7 +144,7 @@ const AddProjectModal = () => {
       description={""}
       isOpen={isOpen}
       onClose={onClose}
-      classname=" rounded-lg border border-outline bg-white p-[20px] w-3/6 focus max-h-[90vh] overflow-auto"
+      classname=" rounded-lg border border-outline bg-white p-[20px] w-[90%]  lg:w-3/6 focus max-h-[90vh] overflow-auto"
     >
       <div>
         <Form {...form}>

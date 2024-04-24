@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 type currentModal =
   | "add_startup_cost"
@@ -6,7 +7,8 @@ type currentModal =
   | "add_stakeholder"
   | "add_material"
   | "add_consultant"
-  | "add_contractor";
+  | "add_contractor"
+  | "add_management_member";
 
 interface ModalStoreState {
   projectName: string;
@@ -37,4 +39,32 @@ export const useProjectDetailsPageFormModal = create<ModalStoreState>(
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),
   })
+);
+
+interface ProjectDetails {
+  projectName: string;
+  projectCode: string;
+  projectId: number | null;
+  setProjectName: (
+    projectName: string,
+    projectCode: string,
+    projectId: number
+  ) => void;
+}
+
+export const useProjectDetails = create<ProjectDetails>()(
+  devtools(
+    persist(
+      (set) => ({
+        projectName: "",
+        projectCode: "",
+        projectId: null,
+        setProjectName: (projectName, projectCode, projectId) =>
+          set({ projectName, projectCode, projectId }),
+      }),
+      {
+        name: "project-details",
+      }
+    )
+  )
 );
