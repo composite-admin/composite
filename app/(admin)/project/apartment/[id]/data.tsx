@@ -1,6 +1,4 @@
-import { ReportType } from "./columns";
-
-export const data: Array<ReportType> = [
+export const data = [
   {
     id: "string",
     fiatCode: "string",
@@ -37,6 +35,4 @@ export const data: Array<ReportType> = [
     status: "string",
     actions: "string",
   },
-  
-
 ];
