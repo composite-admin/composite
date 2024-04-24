@@ -91,21 +91,6 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "totalWorkers",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Total Workers" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">
-            {row.original["total_worker"]}
-          </span>
-        </div>
-      );
-    },
-  },
-  {
     accessorKey: "worker",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Worker" withSort={false} />;
