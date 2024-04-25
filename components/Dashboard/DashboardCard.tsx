@@ -15,7 +15,7 @@ export default function DashboardCard({
   withIcon,
 }: Props) {
   return (
-    <div className=" border-borderColor border rounded-xl shadow-lg p-3 w-full min-w-[250px] sm:min-w-0 bg-white">
+    <div className=" border-borderColor border py-5 rounded-xl shadow-lg p-3 w-full min-w-[250px] sm:min-w-0 bg-white">
       <div className="space-y-2.5">
         <h3>{title ?? "Total Projects"}</h3>
         <div className="flex justify-between items-center">
@@ -26,10 +26,6 @@ export default function DashboardCard({
             {withIcon ? icon : <TotalProjectsIcon />}
           </div>
         </div>
-        <Badge className="bg-[#E7F6EC] text-[#036B26] w-12 justify-center text-center p-0.5 flex gap-1">
-          <CardGraphIcon width={14} height={14} />
-          <p>5%</p>
-        </Badge>
       </div>
     </div>
   );
