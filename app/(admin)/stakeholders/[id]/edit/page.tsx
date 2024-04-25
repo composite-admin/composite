@@ -6,130 +6,183 @@ import { useRouter, useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form';
 import useStakeholderActionsStore from "@/store/actions/stakeholdersActions"
 import { getStakeholderById } from '@/api/stakeholdersRequests';
+import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 
 const EditSingleStakeholder = () => {
-    const router = useRouter();
-    const onOpen = useSuccessModal(state => state.onOpen)
+  const router = useRouter();
+  const onOpen = useSuccessModal((state) => state.onOpen);
 
-    const params = useParams<{ id: string }>()
+  const params = useParams<{ id: string }>();
 
-    const updateStakeholder = useStakeholderActionsStore<any>((state) => state.updateStakeholder)
+  const updateStakeholder = useStakeholderActionsStore<any>(
+    (state) => state.updateStakeholder
+  );
 
-    const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    const onSubmit = (data: any) => {
-        console.log(data)
-        delete data.id;
-        onOpen();
-        updateStakeholder(Number(params.id), data);
-        router.back()
-        return;
+  const onSubmit = (data: any) => {
+    console.log(data);
+    delete data.id;
+    onOpen();
+    updateStakeholder(Number(params.id), data);
+    router.back();
+    return;
+  };
+
+  useEffect(() => {
+    const fetchStakeholder = async () => {
+      try {
+        const response = await getStakeholderById(Number(params.id));
+        reset(response.data);
+      } catch (error) {
+        console.error("Error fetching stakeholder data:", error);
+      }
     };
 
-    useEffect(() => {
-        const fetchStakeholder = async () => {
-            try {
-                const response = await getStakeholderById(Number(params.id));
-                reset(response.data);
-            } catch (error) {
-                console.error('Error fetching stakeholder data:', error);
-            }
-        };
+    fetchStakeholder();
+  }, [params.id]);
 
-        fetchStakeholder();
-    }, [params.id]);
+  return (
+    <>
+      <GoBack />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
+          <div className="flex gap-2 flex-col border-b border-b-gray-200 py-3">
+            <h2 className="text-[#101928] font-[600] text-[22px]">
+              Edit Stakeholder
+            </h2>
+            <p>Update Stakeholder Details here.</p>
+          </div>
 
-    return (
-        <>
-            <GoBack />
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
-                    <div className="flex gap-2 flex-col border-b border-b-gray-200 py-3">
+          <div className="grid grid-cols-2 gap-5 my-5 edit">
+            <div className="flex flex-col">
+              <p className="value">Stakeholder Name</p>
 
-                        <h2 className="text-[#101928] font-[600] text-[22px]">Edit Stakeholder</h2>
-                        <p>Update Stakeholder Details here.</p>
-                    </div>
+              <input
+                type="text"
+                {...register("stakeholder_name", { required: true })}
+              />
+            </div>
 
-                    <div className="grid grid-cols-2 gap-5 my-5 edit">
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Stakeholder Name
-                            </p>
+            <div className="flex flex-col">
+              <p className="value">Address</p>
 
-                            <input type="text" {...register('stakeholder_name', { required: true })} />
-                        </div>
+              <input
+                type="text"
+                {...register("stakeholder_address", { required: true })}
+              />
+            </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Address
-                            </p>
+            <div className="flex flex-col">
+              <p className="value">Stakeholder Phone</p>
 
-                            <input type="text" {...register('stakeholder_address', { required: true })} />
-                        </div>
+              <input
+                {...register("stakeholder_phone", {
+                  required: true,
+                  validate: validatePhoneNumber,
+                })}
+              />
+              {errors.stakeholder_phone && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
+            </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Stakeholder Phone
-                            </p>
+            <div className="flex flex-col">
+              <p className="value">Contact Person</p>
 
-                            <input type="text" {...register('stakeholder_ofc_phone', { required: true })} />
-                        </div>
+              <input
+                {...register("contact_person", {
+                  required: true,
+                  validate: validatePhoneNumber,
+                })}
+              />
+              {errors.contact_person && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
+            </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Contact Person
-                            </p>
+            <div className="flex flex-col">
+              <p className="value">Contact Home Phone</p>
 
-                            <input type="text" {...register('contact_person', { required: true })} />
-                        </div>
+              <input
+                {...register("contact_home_phone", {
+                  required: true,
+                  validate: validatePhoneNumber,
+                })}
+              />
+              {errors.contact_home_phone && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
+            </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Contact Home Phone
-                            </p>
+            <div className="flex flex-col">
+              <p className="value">Contact Mobile</p>
 
-                            <input type="text" {...register('contact_home_phone', { required: true })} />
-                        </div>
+              <input
+                {...register("contact_mobile", {
+                  required: true,
+                  validate: validatePhoneNumber,
+                })}
+              />
+              {errors.contact_mobile && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
+            </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Contact Mobile
-                            </p>
+            <div className="flex flex-col">
+              <p className="value">Non Government Agency</p>
 
-                            <input type="text" {...register('contact_mobile', { required: true })} />
-                        </div>
+              <input
+                type="text"
+                {...register("non_government_agencies", { required: true })}
+              />
+            </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Non Government Agency
-                            </p>
+            <div className="flex flex-col">
+              <p className="value">Government Agency</p>
 
-                            <input type="text" {...register('non_government_agencies', { required: true })} />
-                        </div>
+              <input
+                type="text"
+                {...register("government_agencies", { required: true })}
+              />
+            </div>
 
-                        <div className="flex flex-col">
-                            <p className="value">
-                                Government Agency
-                            </p>
+            <div className="flex flex-col col-span-2">
+              <div className="value">Comment</div>
 
-                            <input type="text" {...register('government_agencies', { required: true })} />
-                        </div>
+              <textarea {...register("comment", { required: true })} />
+            </div>
 
-                        <div className="flex flex-col col-span-2">
-                            <div className="value">
-                                Comment
-                            </div>
-
-                            <textarea {...register('comment', { required: true })}/>
-                        </div>
-
-                        <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={() => router.back()} >Cancel</button>
-                        <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={onOpen} >Submit</button>
-                    </div>
-                </div>
-            </form>
-        </>
-    )
-}
+            <button
+              className="bg-[#EBEBEB] text-textColor rounded-md"
+              onClick={() => router.back()}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-primaryLight text-white  p-3 rounded-md"
+              onClick={onOpen}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </>
+  );
+};
 
 export default EditSingleStakeholder
