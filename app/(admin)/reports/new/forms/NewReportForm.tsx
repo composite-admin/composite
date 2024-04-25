@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { useGetAllStaffs, useProjectData } from "@/hooks/useSelectOptions";
 import { api } from "@/config/api";
 import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 type Inputs = z.infer<typeof ProjectReportSchema>;
 export default function NewReportForm() {
@@ -314,9 +315,10 @@ export default function NewReportForm() {
                 title="New Report"
                 isColumn={true}
                 description="Create a new report here."
+                className="relative"
               >
                 <div>
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center justify-between">
                     <div
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
@@ -346,17 +348,36 @@ export default function NewReportForm() {
                     </div>
 
                     <div className="mt-4">
-                      <ul className="list-disc list-inside">
+                      <ul className="list-none space-y-2 flex gap-3">
                         {files.map((file, index) => (
-                          <li key={index} className="text-sm text-gray-500">
-                            {file.name}
+                          <li
+                            key={index}
+                            className="flex items-center justify-between text-sm text-gray-500 relative"
+                          >
+                            <img
+                              src={URL.createObjectURL(file)}
+                              alt=""
+                              className="w-32 h-32 object-cover rounded-md aspect-square"
+                            />
+                            <button
+                              type="button"
+                              className="text-red-500 hover:text-red-700 absolute -top-1 -right-1"
+                              onClick={() =>
+                                setFiles(files.filter((_, i) => i !== index))
+                              }
+                            >
+                              <X
+                                color="white"
+                                className="bg-red-500 rounded-full p-1"
+                              />
+                            </button>
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
                 </div>
-                <div className="py-5 flex flex-col lg:flex-row gap-6">
+                <div className="py-5 flex flex-col lg:flex-row gap-6 lg:absolute bottom-0 left-0 right-0 w-full px-6">
                   <Button className="w-full" variant="secondary" onClick={prev}>
                     Cancel
                   </Button>
@@ -377,4 +398,8 @@ export default function NewReportForm() {
       />
     </section>
   );
+}
+
+{
+  /* <img src={URL.createObjectURL(file)} alt="" /> */
 }

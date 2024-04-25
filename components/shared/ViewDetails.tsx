@@ -59,8 +59,8 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
                 let date;
                 if (key.key == "createdAt") {
                   date = formatDateToString(data?.createdAt);
-                  console.log(date);
                 }
+
 
                 return (
                   <div key={i}>

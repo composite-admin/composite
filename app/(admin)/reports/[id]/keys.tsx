@@ -51,7 +51,7 @@ const keys: Keys[] = [
   },
   {
     key: "visitor",
-    text: "Visitors To SIte",
+    text: "Visitors To Site",
   },
   {
     key: "weather",

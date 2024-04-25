@@ -8,7 +8,7 @@ import { formatDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
-
+import { RiToolsFill } from "react-icons/ri";
 
 export type ReportType = {
   id: string;
@@ -121,7 +121,7 @@ export const columns: ColumnDef<any>[] = [
         <Link href="#">
           <div className="cursor-pointer">
             <span className="font-semibold text-primaryLight-500 flex items-center hover:underline">
-              <HiUserAdd />
+              <RiToolsFill />
               Add{" "}
             </span>
           </div>

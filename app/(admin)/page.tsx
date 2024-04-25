@@ -12,11 +12,16 @@ import { useQuery } from "@tanstack/react-query";
 import { ApiResponse, IEntityData } from "@/utils/types";
 import { api } from "@/config/api";
 import axios from "axios";
-import { GetAllReports, useGetAllRequests } from "@/hooks/useSelectOptions";
+import {
+  GetAllReports,
+  useGetAllProjectData,
+  useGetAllRequests,
+} from "@/hooks/useSelectOptions";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import Link from "next/link";
 
 export default function DashboardPage() {
+  const { projects } = useGetAllProjectData();
   const {
     data: entities,
     error,
@@ -50,6 +55,9 @@ export default function DashboardPage() {
   );
   const trimmedPendingRequests = pendingRequests?.slice(0, 3);
   const trimmedPendingReports = pendingReports?.slice(0, 3);
+  const ongoingProjects = projects?.filter(
+    (project) => project.status === "On-going"
+  );
 
   return (
     <div>
@@ -73,7 +81,12 @@ export default function DashboardPage() {
               description={entities?.totalStakeholder.count}
             />
           </div>
-          <DataTable columns={columns} data={data} showSearch={false} />
+          <DataTable
+            columns={columns}
+            data={ongoingProjects ?? []}
+            showSearch={false}
+            isLoading={isPending}
+          />
         </div>
 
         <div className="xl:col-span-2 grid md:grid-cols-2 xl:grid-cols-1 gap-5 auto-rows-min  place-items-center w-full">

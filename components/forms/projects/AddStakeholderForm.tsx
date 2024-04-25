@@ -55,6 +55,7 @@ export default function AddStakeHolderForm() {
             (item: any) => item.stakeholder_name === values.stakeholder_name
           )?.stakeholder_code,
           status: "PENDING",
+          stakeholder_project_code: projectCode,
         });
         return response.data;
       } catch (error) {

@@ -7,6 +7,7 @@ import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
 import {
   ApiResponse,
   IConsultantData,
+  IProjectData,
   IProjectReport,
   IRequestData,
   ISupplierData,
@@ -173,4 +174,12 @@ export const getStuffTyped = async <T,>(args: string): Promise<T> => {
       throw error;
     }
   }
+};
+
+export const useGetAllProjectData = () => {
+  const { data } = useQuery({
+    queryKey: ["get all projects"],
+    queryFn: () => getStuffTyped<IProjectData[]>("/projects"),
+  });
+  return { projects: data };
 };
