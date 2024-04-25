@@ -37,7 +37,7 @@ const steps = [
   },
   {
     id: "2",
-    name: "Address",
+    name: "Rent and Bills",
     field: ["anualRentCost", "rentPayment", "setReminder", "feeType", "value"],
   },
 ];
@@ -176,7 +176,7 @@ export default function AddTenantForm() {
                   />
                   <div></div>
                   <div className="flex gap-5 flex-col lg:flex-row">
-                    <div className="lg:w-full">
+                    <div className="lg:w-full space-y-4">
                       <CustomFormSelect
                         control={form.control}
                         name="title"
@@ -184,21 +184,21 @@ export default function AddTenantForm() {
                         items={["Mr.", "Mrs.", "Miss"]}
                         labelText="Title"
                       />
-
-                      <CustomFormField
-                        control={form.control}
-                        name="full_name"
-                        placeholder="Enter full name"
-                        label="Full name"
-                      />
-                    </div>
-                    <div className="lg:w-full">
                       <CustomFormField
                         control={form.control}
                         name="phone_number"
                         placeholder="Enter phone number"
                         label="Phone number"
                       />
+                    </div>
+                    <div className="lg:w-full space-y-4">
+                      <CustomFormField
+                        control={form.control}
+                        name="full_name"
+                        placeholder="Enter full name"
+                        label="Tenant full name"
+                      />
+
                       <CustomFormField
                         control={form.control}
                         name="email"

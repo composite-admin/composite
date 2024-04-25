@@ -101,9 +101,11 @@ export const ProjectReportSchema = z.object({
   recommendation: z.string({
     required_error: "Recommendation required",
   }),
-  equipment_on_site: z.string({
-    required_error: "Equipment on site required",
-  }),
+  equipment_on_site: z
+    .string({
+      required_error: "Equipment on site required",
+    })
+    .optional(),
   weekly_projection: z.string({
     required_error: "Weekly projection required",
   }),

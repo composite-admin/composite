@@ -67,28 +67,6 @@ export default function NewReportForm() {
     const newFiles = [...files, ...selectedFiles].slice(0, 5);
     setFiles(newFiles);
   };
-  // const handleUpload = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     files.forEach((file) => formData.append("images", file));
-
-  //     const response = await api.put("/project_report/images/9", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         // Add other necessary headers here
-  //       },
-  //     });
-
-  //     if (response.status === 201) {
-  //       console.log("Files uploaded successfully");
-  //       setFiles([]);
-  //     } else {
-  //       console.error("Failed to upload files");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error uploading files:", error);
-  //   }
-  // };
 
   const form = useForm<ProjectReportFormType>({
     resolver: zodResolver(ProjectReportSchema),

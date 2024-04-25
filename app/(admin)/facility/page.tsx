@@ -36,7 +36,7 @@ export default function FacilityPage() {
         <PageHeaderComponent
           title="Tenants"
           subTitle="A request of daily, weekly and monthly activities"
-          buttonText="Add new apartment"
+          buttonText="Add new tenant"
           href="facility/add-tenant"
           className="py-7"
         />

@@ -3,13 +3,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-} */
+}
+
+body, html{
+  overflow-y: hidden;
+  height: 100vh;
+}
 
 .login {
   background: url(/young-black-race-man-with-blueprint-stading-near-glass-building\ 1.png);
