@@ -9,9 +9,11 @@ import { useQuery } from "@tanstack/react-query";
 import { ApiResponse, ITenantData } from "@/utils/types";
 import axios from "axios";
 import { api } from "@/config/api";
+import UpComingDueDates from "@/components/facility/upcomingDueDates/UpComingDueDates";
 
 export default function FacilityPage() {
-  const { setTenantData, tenantData } = useFacilityStore();
+  const { setTenantData, dueDatesData, currentTable, setCurrentTable } =
+    useFacilityStore();
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get all tenants"],
@@ -29,7 +31,7 @@ export default function FacilityPage() {
       }
     },
   });
-  // console.log(data);
+
   return (
     <div>
       <div>
@@ -44,20 +46,30 @@ export default function FacilityPage() {
       <div className="flex gap-3 py-5">
         <SelectTableTypeBadge
           icon={<DashboardIcon />}
+          onclick={() => setCurrentTable("all_tenants")}
           title="All Tenants"
           notification={data?.length ?? 0}
+          className={`${
+            currentTable === "all_tenants" ? "bg-primaryLight-100" : ""
+          }
+          `}
         />
         <SelectTableTypeBadge
+          onclick={() => setCurrentTable("upcoming_due_dates")}
           icon={<DashboardIcon />}
           title="Upcoming Due Dates"
-          notification={3}
+          notification={dueDatesData?.length ?? 0}
+          className={`${
+            currentTable === "upcoming_due_dates" ? "bg-primaryLight-100" : ""
+          }`}
         />
       </div>
-      <DataTable
-        columns={columns}
-        isLoading={isPending}
-        data={tenantData ?? []}
-      />
+
+      {currentTable === "all_tenants" ? (
+        <DataTable columns={columns} isLoading={isPending} data={data ?? []} />
+      ) : (
+        <UpComingDueDates />
+      )}
     </div>
   );
 }
