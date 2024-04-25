@@ -159,7 +159,7 @@ export default function AddTenantForm() {
               <FormContainer
                 title="Add tenant"
                 isColumn={false}
-                description="Create a new client profile here"
+                description="Create a new staff profile here"
               >
                 <div className="flex flex-col gap-5">
                   <CustomFormSelect
@@ -232,7 +232,7 @@ export default function AddTenantForm() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <FormContainer
-                title="Address"
+                title="Add tenant"
                 isColumn={false}
                 description="Create a new staff profile here"
               >

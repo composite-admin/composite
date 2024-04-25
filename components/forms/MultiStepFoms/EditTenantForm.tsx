@@ -158,9 +158,9 @@ export default function EditTenantForm({ id }: { id: string }) {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <FormContainer
-                title="Add tenant"
+                title="Edit tenant"
                 isColumn={false}
-                description="Create a new client profile here"
+                description="Edit an existing staff profile here"
               >
                 <div className="flex flex-col gap-5">
                   <CustomFormSelect
@@ -233,9 +233,9 @@ export default function EditTenantForm({ id }: { id: string }) {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <FormContainer
-                title="Address"
+                title="Edit tenant"
                 isColumn={false}
-                description="Create a new staff profile here"
+                description="Edit an exisiting staff profile here"
               >
                 <div className="flex flex-col gap-5">
                   <CustomFormField
