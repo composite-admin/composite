@@ -733,3 +733,20 @@ export const selectOptionsForStartUpCostType = [
  }
 
 
+ export interface InventoryItemData {
+   inventory_id: number;
+   inventory_code: string;
+   name: string;
+   type: string;
+   unit_price: string;
+   quantity: string;
+   total_price: number;
+   total_quantity: number;
+   remaining_quantity: number;
+   created_by: string;
+   updated_by: string;
+   comment: string;
+   createdAt: string;
+   updatedAt: string;
+ }
+

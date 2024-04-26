@@ -9,21 +9,17 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
-import {
-  useGetAllInventoryTypes,
-  useGetInventoryData,
-} from "@/hooks/useSelectOptions";
+import { useGetAllInventoryTypes } from "@/hooks/useSelectOptions";
+import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
 import { useInventoryStore } from "@/store/project/useProjectStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import z from "zod";
-import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { HiBellAlert } from "react-icons/hi2";
-import { useGetEachinventory } from "@/store/inventory/InventoryStore";
+import z from "zod";
 
 const EditInventorySchema = z.object({
   type: z.string({
@@ -49,13 +45,11 @@ const EditInventorySchema = z.object({
 
 type EditInventoryFormDataType = z.infer<typeof EditInventorySchema>;
 
-const UpdateInventory = (props: any) => {
-  let id: any = props.params.id;
+const EditInventoryForm = () => {
   const onOpen = useSuccessModal((state) => state.onOpen);
   const router = useRouter();
   const { inventories } = useGetAllInventoryTypes();
   const { setToolData, toolData } = useInventoryStore();
-  const { inventory } = useGetInventoryData(id);
   const { toast } = useToast();
 
   const ToolDescription = toolData?.map((item: any) => item?.description);
@@ -63,11 +57,6 @@ const UpdateInventory = (props: any) => {
   const toolType = inventories?.map((item: any) => item?.type);
   const form = useForm<EditInventoryFormDataType>({
     resolver: zodResolver(EditInventorySchema),
-    defaultValues: {
-      unit_price: inventory?.unit_price,
-      quantity: inventory?.quantity,
-      comment: inventory?.comment,
-    },
   });
   const { watch } = form;
   const watchTools = watch("type");
@@ -90,10 +79,10 @@ const UpdateInventory = (props: any) => {
   }, [setToolData, watchTools]);
 
   const { mutate } = useMutation({
-    mutationKey: ["edit inventory", id],
-    mutationFn: async (data: EditInventoryFormDataType) => {
+    mutationKey: ["edit inventory"],
+    mutationFn: async (data: any) => {
       try {
-        const response = await api.put(`/inventory/${id}`, {
+        const response = await api.put("/inventory", {
           ...data,
           total_price: Number(data.unit_price) * Number(data.quantity),
           total_quantity: Number(data.quantity),
@@ -109,7 +98,7 @@ const UpdateInventory = (props: any) => {
     },
     onSuccess: () => {
       toast({
-        title: "Inventory edited successfully",
+        title: "Inventory created successfully",
         variant: "success",
       });
 
@@ -117,11 +106,12 @@ const UpdateInventory = (props: any) => {
     },
     onError: (error: Error) => {
       toast({
-        title: "Error editting inventory",
+        title: "Error creating inventory",
         variant: "destructive",
       });
     },
   });
+
   const submit = (data: EditInventoryFormDataType) => {
     mutate(data);
   };
@@ -135,7 +125,7 @@ const UpdateInventory = (props: any) => {
           <HiBellAlert />
 
           <h2 className="text-[#101928] font-[600] text-[22px]">
-            Edit Inventory
+            New Inventory
           </h2>
         </div>
         <Form {...form}>
@@ -163,27 +153,23 @@ const UpdateInventory = (props: any) => {
                 name="quantity"
                 label="Quantity"
                 control={form.control}
-                placeholder={inventory?.quantity && inventory?.quantity}
+                placeholder="Enter Quantity"
               />
               <CustomFormField
                 name="unit_price"
                 label="Unit Price"
                 control={form.control}
-                placeholder={inventory?.unit_price && inventory?.unit_price}
+                placeholder="Enter Unit Price"
               />
             </div>
             <CustomFormTextareaField
               name="comment"
               label="Comment"
               control={form.control}
-              placeholder={inventory?.comment && inventory?.comment}
+              placeholder="Enter Comment"
             />
             <div className="flex  gap-6 flex-col md:flex-row mt-5">
-              <Button
-                onClick={() => router.push(`/inventory/${id} `)}
-                variant={"secondary"}
-                className="w-full"
-              >
+              <Button className="bg-[#EBEBEB] text-textColor w-full">
                 Cancel
               </Button>
               <Button className="w-full">Submit</Button>
@@ -195,4 +181,4 @@ const UpdateInventory = (props: any) => {
   );
 };
 
-export default UpdateInventory;
+export default EditInventoryForm;

@@ -7,6 +7,7 @@ import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
 import {
   ApiResponse,
   IConsultantData,
+  InventoryItemData,
   IProjectData,
   IProjectReport,
   IRequestData,
@@ -161,6 +162,14 @@ export const useGetAllSuppliers = () => {
     queryFn: () => getStuffTyped<ISupplierData[]>("/materials"),
   });
   return { suppliers: data };
+};
+
+export const useGetInventoryData = (id: string) => {
+  const { data } = useQuery({
+    queryKey: ["get inventory data", id],
+    queryFn: () => getStuffTyped<InventoryItemData>(`/inventory/${id}`),
+  });
+  return { inventory: data };
 };
 
 export const getStuffTyped = async <T,>(args: string): Promise<T> => {
