@@ -25,6 +25,8 @@ interface DataTableProps<TData, TValue> {
   clickAction?: any;
   showSearch?: boolean;
   isLoading?: boolean;
+  errorMessage?: string;
+  isError?: boolean;
   showFilters?: boolean;
   withTitle?: {
     title: string;
@@ -38,7 +40,9 @@ export function DataTable<TData, TValue>({
   clickAction,
   showSearch = true,
   showFilters = false,
+  errorMessage,
   isLoading,
+  isError,
   withTitle,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -180,6 +184,15 @@ export function DataTable<TData, TValue>({
                   ))}
                 </TableRow>
               ))
+            ) : isError ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  {errorMessage}
+                </TableCell>
+              </TableRow>
             ) : (
               <TableRow>
                 <TableCell

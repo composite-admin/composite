@@ -15,13 +15,22 @@ import { AnimatePresence, motion } from "framer-motion";
 import { opacityVariant } from "@/utils/variants";
 import BankDetailsModal from "./(modal)/bank-details";
 import { useModal } from "@/utils/modalContext";
+import { IWorkerData } from "@/utils/types";
+import axios from "axios";
+import { api } from "@/config/api";
+import { useQuery } from "@tanstack/react-query";
+import { data } from "../../contractors/pending-project/data";
 
 const SingleWorker = () => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
 
   const { fetching, worker: worker, getWorkerById } = useWorkersActionsStore();
-  const { fetching: jobsFetching, workerJobs, getAllWorkerJobs } = useWorkerJobsStore();
+  const {
+    fetching: jobsFetching,
+    workerJobs,
+    getAllWorkerJobs,
+  } = useWorkerJobsStore();
 
   const { showModal } = useModal();
 
@@ -31,6 +40,24 @@ const SingleWorker = () => {
   }, []);
 
   const editWorker = () => router.push(`/workers/${params.id}/edit`);
+
+  const { data, error, isPending, isError } = useQuery({
+    queryKey: ["get worker details"],
+    queryFn: async () => {
+      try {
+        const response = await api.get(`/worker/${params.id}`);
+        return response;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+  const workerDataArray: IWorkerData[] = [data?.data.data];
+  console.log(workerDataArray);
 
   const showBankModal = () =>
     showModal(
@@ -60,8 +87,12 @@ const SingleWorker = () => {
                 {worker?.createdAt && (
                   <motion.div {...opacityVariant} className="space-y-4">
                     <div className="space-y-1">
-                      <h1 className="font-bold text-2xl capitalize">{worker?.worker_company}</h1>
-                      <p className="font-light">Submitted on {formatDate(`${worker?.createdAt}`)}</p>
+                      <h1 className="font-bold text-2xl capitalize">
+                        {worker?.worker_company}
+                      </h1>
+                      <p className="font-light">
+                        Submitted on {formatDate(`${worker?.createdAt}`)}
+                      </p>
                     </div>
 
                     <div className="pt-4">
@@ -79,22 +110,34 @@ const SingleWorker = () => {
 
               <div className="">
                 <p className="text-[#475367] text-sm">Company:</p>
-                <TextSkeleton text={worker?.worker_company} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.worker_company}
+                  isLoading={fetching}
+                />
               </div>
 
               <div className="">
                 <p className="text-[#475367] text-sm">Address:</p>
-                <TextSkeleton text={worker?.worker_address} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.worker_address}
+                  isLoading={fetching}
+                />
               </div>
 
               <div className="">
                 <p className="text-[#475367] text-sm">Phone:</p>
-                <TextSkeleton text={worker?.worker_ofc_phone} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.worker_ofc_phone}
+                  isLoading={fetching}
+                />
               </div>
 
               <div className="">
                 <p className="text-[#475367] text-sm">Service Type:</p>
-                <TextSkeleton text={worker?.service_type} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.service_type}
+                  isLoading={fetching}
+                />
               </div>
 
               <div className="">
@@ -104,12 +147,18 @@ const SingleWorker = () => {
 
               <div className="">
                 <p className="text-[#475367] text-sm">Service:</p>
-                <TextSkeleton text={worker?.worker_service} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.worker_service}
+                  isLoading={fetching}
+                />
               </div>
 
               <div className="">
                 <p className="text-[#475367] text-sm">Email:</p>
-                <TextSkeleton text={worker?.worker_email} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.worker_email}
+                  isLoading={fetching}
+                />
               </div>
 
               {/* <div>
@@ -134,8 +183,16 @@ const SingleWorker = () => {
             </div>
           </div>
         </div>
-        <PageHead headText="Worker's Jobs" subText="View all your worker's jobs here" />
-        <DataTable columns={columns} data={workerJobs ?? []} clickAction={() => {}} isLoading={jobsFetching} />
+        <PageHead
+          headText="Worker's Jobs"
+          subText="View all your worker's jobs here"
+        />
+        <DataTable
+          columns={columns}
+          data={workerDataArray ?? []}
+          clickAction={() => {}}
+          isLoading={jobsFetching}
+        />
       </div>
     </>
   );

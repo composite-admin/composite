@@ -429,10 +429,10 @@ export type IWorkerData = {
   site_management: string;
   project_code: string;
   worker_service: string;
-  worker_service_charge: number | null;
+  worker_service_charge: number;
   amount_paid: number | null;
-  outstanding_balance: number | null;
-  date_assigned_to_project: string | null;
+  outstanding_balance: number;
+  date_assigned_to_project: string;
   comment: string;
   createdAt: string;
   updatedAt: string;
@@ -540,213 +540,239 @@ export interface IProjectReport {
   name: string;
 }
 
+export const selectOptionForRoles = [
+  "Project Manager",
+  "Architect",
+  "Structural",
+  "HR",
+  "Mechanical",
+  "Engineer",
+  "Electrical",
+  "Quantity Surveyor",
+  "Site Superintendent",
+];
 
-export const selectOptionForRoles = [ 'Project Manager', 'Architect', 'Structural', 'HR', 'Mechanical', 'Engineer', 'Electrical', 'Quantity Surveyor', 'Site Superintendent' ]
+export const selectOptionsForProjectStatus = [
+  "Site Prep",
+  "On-going",
+  "Finishing Stage",
+  "Completed",
+];
 
-export const selectOptionsForProjectStatus = [ 'Site Prep', 'On-going', 'Finishing Stage', 'Completed' ]
+export const selectoptionsForUserType = ["Admin", "Supervisor", "Staff"];
 
-export const selectoptionsForUserType = [ 'Admin', 'Supervisor', 'Staff' ]
+export const selectOptionsForType = ["In-house", "Contractor"];
 
-export const selectOptionsForType = [ 'In-house','Contractor'  ]
+export const selectOptionsForStartUpCostType = [
+  "Agency",
+  "Community Relation",
+  "Design & Approval Drawing",
+  "Geophysical Survey",
+  "Geotechnical Survey",
+  "Land Acquisition",
+  "Local Government PR",
+  "Omo Onile",
+  "Regulatory Agency PR",
+  "Regulatory Approval Fee",
+  "Security",
+];
 
-export const selectOptionsForStartUpCostType = [ 
-  'Agency',
-  'Community Relation',
-  'Design & Approval Drawing',
-  'Geophysical Survey',
-  'Geotechnical Survey',
-  'Land Acquisition',
-  'Local Government PR',
-  'Omo Onile',
-  'Regulatory Agency PR',
-  'Regulatory Approval Fee',
-  'Security'
- ]
- 
- export const selectOptionsForStaffRole = [
-   "Project Manager",
-   "Architect",
-   "Structural",
-   "HR",
-   "Mechanical",
-   "Engineer",
-   "Electrical",
-   "Quantity Surveyor",
-   "Site Superintendent",
+export const selectOptionsForStaffRole = [
+  "Project Manager",
+  "Architect",
+  "Structural",
+  "HR",
+  "Mechanical",
+  "Engineer",
+  "Electrical",
+  "Quantity Surveyor",
+  "Site Superintendent",
+];
 
- ];
+export const selectOptionsForConsultantsType = [
+  "Structural Engineers",
+  "Mechanical and Electrical Engineers",
+  "Architects",
+  "Land Surveyors",
+  "Quantity Surveyor",
+  "Estate Surveyors",
+  "Legal Practitioners",
+  "Geo Technical",
+  "Type 1",
+];
 
+export const selectOtionsForWorkerServiceType = [
+  "Borehole Drilling",
+  "Carpentry",
+  "Cabinetry / Furniture",
+  "Cable TV Installation",
+  "Cleaning",
+  "Concret Casting",
+  "CCTV / Security Installation",
+  "Data / Video / Voice Cabling",
+  "Electrical",
+  "House Painting",
+  "Gardening",
+  "Mable Work",
+  "Masonry",
+  "Paving",
+  "Piling Work",
+  "Plumbing",
+  "PoP Work",
+  "Roofing",
+  "Scaffolding",
+  "Spray Painting",
+  "Steel Bending",
+  "Tiling",
+  "Welding",
+];
 
- export const selectOptionsForConsultantsType = [
-   "Structural Engineers",
-   "Mechanical and Electrical Engineers",
-   "Architects",
-   "Land Surveyors",
-   "Quantity Surveyor",
-   "Estate Surveyors",
-   "Legal Practitioners",
-   "Geo Technical",
-   "Type 1",
- ];
+export interface ISupplierMaterial {
+  mat_id: number;
+  mat_code: string;
+  supplier_code: string;
+  supplier_name: string;
+  mat_desc: string;
+  project_code: string;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
- export const selectOtionsForWorkerServiceType = [
-   "Borehole Drilling",
-   "Carpentry",
-   "Cabinetry / Furniture",
-   "Cable TV Installation",
-   "Cleaning",
-   "Concret Casting",
-   "CCTV / Security Installation",
-   "Data / Video / Voice Cabling",
-   "Electrical",
-   "House Painting",
-   "Gardening",
-   "Mable Work",
-   "Masonry",
-   "Paving",
-   "Piling Work",
-   "Plumbing",
-   "PoP Work",
-   "Roofing",
-   "Scaffolding",
-   "Spray Painting",
-   "Steel Bending",
-   "Tiling",
-   "Welding",
- ];
+export interface IStartupCostProjectData {
+  id: number;
+  startup_code: string;
+  project_code: string;
+  startup_desc: string;
+  startup_type: string;
+  startup_cost: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
- export interface ISupplierMaterial {
-   mat_id: number;
-   mat_code: string;
-   supplier_code: string;
-   supplier_name: string;
-   mat_desc: string;
-   project_code: string;
-   quantity: number;
-   unit_price: number;
-   total_price: number;
-   createdAt: string;
-   updatedAt: string;
- }
+export interface IContractorProjectData {
+  id: number;
+  contractor_code: string;
+  contractor_project_code: string;
+  contractor_amount: string;
+  approved_amount: string;
+  service: string;
+  createdBy: string;
+  comment: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  contractor_name: string;
+  created_by: string;
+}
 
- export interface IStartupCostProjectData {
-   id: number;
-   startup_code: string;
-   project_code: string;
-   startup_desc: string;
-   startup_type: string;
-   startup_cost: string;
-   comment: string;
-   createdAt: string;
-   updatedAt: string;
- }
+export interface IStakeholderProjectData {
+  id: number;
+  stakeholder_code: string;
+  stakeholder_project_code: string;
+  stakeholder_amount: string;
+  approved_amount: string;
+  other_amount: string;
+  createdBy: string;
+  comment: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  stakeholder_name: string;
+  created_by: string;
+}
 
- export interface IContractorProjectData {
-   id: number;
-   contractor_code: string;
-   contractor_project_code: string;
-   contractor_amount: string;
-   approved_amount: string;
-   service: string;
-   createdBy: string;
-   comment: string;
-   status: string;
-   createdAt: string;
-   updatedAt: string;
-   contractor_name: string;
-   created_by: string;
- }
+export interface IMaterialsByProjectData {
+  id: number;
+  project_code: string;
+  supplier_code: string;
+  supplier_name: string;
+  material_code: string;
+  company: string;
+  address: string;
+  contact_person: string;
+  contact_mobile: string;
+  ofc_phone: string;
+  description: string;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  payment_mode: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
- export interface IStakeholderProjectData {
-   id: number;
-   stakeholder_code: string;
-   stakeholder_project_code: string;
-   stakeholder_amount: string;
-   approved_amount: string;
-   other_amount: string;
-   createdBy: string;
-   comment: string;
-   status: string;
-   createdAt: string;
-   updatedAt: string;
-   stakeholder_name: string;
-   created_by: string;
- }
+export interface IWorkerByProjectData {
+  id: number;
+  project_code: string;
+  project_name: string;
+  service_type: string;
+  worker_code: string;
+  worker_name: string;
+  createdAt: string;
+  updatedAt: string;
+  worker_email: string;
+  worker_home_phone: string;
+  worker_ofc_phone: string;
+}
 
- export interface IMaterialsByProjectData {
-   id: number;
-   project_code: string;
-   supplier_code: string;
-   supplier_name: string;
-   material_code: string;
-   company: string;
-   address: string;
-   contact_person: string;
-   contact_mobile: string;
-   ofc_phone: string;
-   description: string;
-   quantity: number;
-   unit_price: number;
-   total_price: number;
-   payment_mode: string;
-   comment: string;
-   createdAt: string;
-   updatedAt: string;
- }
+export interface IProjectTeamMemberByProjectData {
+  id: number;
+  project_name: string;
+  project_code: string;
+  role: string;
+  staff_id: string;
+  staff_name: string;
+  createdAt: string;
+  updatedAt: string;
+  status: string;
+  image: string | null;
+}
 
- export interface IWorkerByProjectData {
-   id: number;
-   project_code: string;
-   project_name: string;
-   service_type: string;
-   worker_code: string;
-   worker_name: string;
-   createdAt: string;
-   updatedAt: string;
-   worker_email: string;
-   worker_home_phone: string;
-   worker_ofc_phone: string;
- }
+export interface IConsultantProjectData {
+  id: number;
+  consultant_id: string;
+  project_id: string;
+  project_code: string;
+  project_name: string;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+}
 
- export interface IProjectTeamMemberByProjectData {
-   id: number;
-   project_name: string;
-   project_code: string;
-   role: string;
-   staff_id: string;
-   staff_name: string;
-   createdAt: string;
-   updatedAt: string;
-   status: string;
-   image: string | null;
- }
+export interface InventoryItemData {
+  inventory_id: number;
+  inventory_code: string;
+  name: string;
+  type: string;
+  unit_price: string;
+  quantity: string;
+  total_price: number;
+  total_quantity: number;
+  remaining_quantity: number;
+  created_by: string;
+  updated_by: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
- export interface IConsultantProjectData {
-   id: number;
-   consultant_id: string;
-   project_id: string;
-   project_code: string;
-   project_name: string;
-   createdAt: string;
-   updatedAt: string;
-   name: string;
- }
-
-
- export interface InventoryItemData {
-   inventory_id: number;
-   inventory_code: string;
-   name: string;
-   type: string;
-   unit_price: string;
-   quantity: string;
-   total_price: number;
-   total_quantity: number;
-   remaining_quantity: number;
-   created_by: string;
-   updated_by: string;
-   comment: string;
-   createdAt: string;
-   updatedAt: string;
- }
+export interface IContractorProjectData {
+  id: number;
+  contractor_code: string;
+  contractor_project_code: string;
+  contractor_amount: string;
+  approved_amount: string;
+  service: string;
+  createdBy: string;
+  comment: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  created_by: string;
+}
 
