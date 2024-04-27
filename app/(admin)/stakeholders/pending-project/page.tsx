@@ -13,7 +13,7 @@ const PendingStakeholderProject = () => {
     queryKey: ["get all materials by project code"],
     queryFn: async () =>
       getStuffTyped<IStakeholderProjectData[]>(`/stakeholder-project`),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
 
   const pendingStakeholders = data?.filter(

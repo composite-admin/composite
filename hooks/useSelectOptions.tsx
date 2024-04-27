@@ -7,10 +7,12 @@ import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
 import {
   ApiResponse,
   IConsultantData,
+  IContractorProjectData,
   InventoryItemData,
   IProjectData,
   IProjectReport,
   IRequestData,
+  IStakeholderProjectData,
   ISupplierData,
   ISupplierMaterial,
   ISupplierMaterialTypesData,
@@ -172,6 +174,23 @@ export const useGetInventoryData = (id: string) => {
   return { inventory: data };
 };
 
+export const useGetContractorProject = (id: string) => {
+  const { data } = useQuery({
+    queryKey: ["get contractor project", id],
+    queryFn: () =>
+      getStuffTyped<IContractorProjectData>(`/contractor-projects/${id}`),
+  });
+  return { projectDetails: data };
+};
+
+export const useGetStakeholderProject = (id: string) => {
+  const { data } = useQuery({
+    queryKey: ["get stakeholder project", id],
+    queryFn: () =>
+      getStuffTyped<IStakeholderProjectData>(`/stakeholder-project/${id}`),
+  });
+  return { projectDetails: data };
+};
 export const getStuffTyped = async <T,>(args: string): Promise<T> => {
   try {
     const response = await api.get<ApiResponse<T>>(args);

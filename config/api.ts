@@ -32,8 +32,8 @@ api.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError<AxiosErrorResponse>) => {
     if (error.response) {
-      console.log(error.response.data);
-      return Promise.reject(error.response.data);
+      console.log(error.message);
+      return Promise.reject(error.message);
     } else if (error.request) {
       return Promise.reject(error.request);
     } else {

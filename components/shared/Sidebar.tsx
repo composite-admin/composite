@@ -79,7 +79,7 @@ const Sidebar = () => {
                         }`}
                         onClick={() => setActiveItem(null)}
                       >
-                        <div className="transition-all capitalize text-sm ">
+                        <div className="transition-all capitalize text-[.9rem] ">
                           {item.childLabel}
                         </div>
                       </Link>

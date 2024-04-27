@@ -33,6 +33,8 @@ const useAddNewApartmentModal = createModalStore();
 const useEditFlatModal = createModalStore();
 const useAddAndEditBreakDownModal = createModalStore();
 const useSuccessModal = createModalStore()
+const usePendingContractorModal = createModalStore();
+const usePendingStakeHolderModal = createModalStore();
 
 export {
   useAddCommentModal,
@@ -40,5 +42,7 @@ export {
   useAddNewApartmentModal,
   useEditFlatModal,
   useAddAndEditBreakDownModal,
-  useSuccessModal
+  useSuccessModal,
+  usePendingContractorModal,
+  usePendingStakeHolderModal,
 };

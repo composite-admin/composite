@@ -125,8 +125,13 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     cell: ({ row }) => {
       return (
         <div className="font-semibold flex gap-1 text-primaryLight-500">
-          <span className="cursor-pointer">Approve</span>/
-          <span className="cursor-pointer text-red-500">Reject</span>
+          <Link
+            href={`pending-project/approve/${row.original["id"]}`}
+            className="cursor-pointer"
+          >
+            Approve
+          </Link>
+          /<span className="cursor-pointer text-red-500">Reject</span>
         </div>
       );
     },

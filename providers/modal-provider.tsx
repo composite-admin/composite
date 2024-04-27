@@ -46,7 +46,6 @@ export const ModalProvider = () => {
       <UpdateProjectModal />
       <AddWorkerModal />
       <ProjectDetailsPageFormModal />
-      
     </>
   );
 };

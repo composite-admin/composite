@@ -110,6 +110,7 @@ interface EditCellProps {
   isLink: boolean;
   action: string;
   onClick: () => void;
+  children?: React.ReactNode;
 }
 
 const withEditFlatModal = <P extends EditCellProps>(
@@ -124,7 +125,11 @@ const withEditFlatModal = <P extends EditCellProps>(
       console.log(props.action);
     };
 
-    return <Component {...props} onClick={handleEditClick} />;
+    return (
+      <Component {...props} onClick={handleEditClick}>
+        {props.children}
+      </Component>
+    );
   };
 
   // Set the display name for the wrapped component
@@ -133,4 +138,4 @@ const withEditFlatModal = <P extends EditCellProps>(
   return WrappedComponent;
 };
 
-const EditCellWithModal = withEditFlatModal(EditCell);
+export const EditCellWithModal = withEditFlatModal(EditCell);
