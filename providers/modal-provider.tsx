@@ -16,6 +16,7 @@ import UpdateProjectModal from "@/components/Modals/projects/UpdateProject";
 import AddWorkerModal from "@/components/Modals/projects/AddWorkerModal";
 import EditFlatModal from "@/components/Modals/faclility/EditFlatModal";
 import ProjectDetailsPageFormModal from "@/components/Project/ProjectDetailsPageFormModal";
+import AddToProjectModal from "@/components/Modals/AddToProjectModal";
 
 export const ModalProvider = () => {
   const [ismounted, setIsMounted] = useState(false);
@@ -46,6 +47,7 @@ export const ModalProvider = () => {
       <UpdateProjectModal />
       <AddWorkerModal />
       <ProjectDetailsPageFormModal />
+      <AddToProjectModal />
     </>
   );
 };

@@ -1,11 +1,16 @@
 "use client";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
+import { DataTable } from "@/components/shared/DataTable";
 import GoBack from "@/components/shared/GoBack";
 import { api } from "@/config/api";
+import { useGetConsultantProject } from "@/hooks/useSelectOptions";
 import { IConsultantDetailsData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";
+import { columns } from "./columns";
+import useConsultantStore from "@/store/consultants/useConsultantStore";
+import { useAddToProjectModal } from "@/store/modals/useCreateModal";
 
 type Params = {
   params: {
@@ -14,6 +19,10 @@ type Params = {
 };
 
 export default function ConsultantDetailsPage({ params }: Params) {
+  const { projectDetails } = useGetConsultantProject(params.id);
+  const { onOpen } = useAddToProjectModal();
+  const { setConsultantDetailsData } = useConsultantStore();
+
   const { data, isPending, error } = useQuery({
     queryKey: ["get consultant details"],
     queryFn: async () => {
@@ -22,6 +31,7 @@ export default function ConsultantDetailsPage({ params }: Params) {
           `/consultants/${params.id}`
         );
 
+        setConsultantDetailsData(response.data);
         return response.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -36,7 +46,7 @@ export default function ConsultantDetailsPage({ params }: Params) {
     <>
       <GoBack />
       <div>
-        <div className="pt-10 flex gap-2.5">
+        <div className="pt-10 flex gap-2.5 xl:">
           <AvatarComponent height="h-16" width="w-16" />
           <div className="flex flex-col">
             <span className="text-responsive font-semibold">{data?.name}</span>
@@ -101,13 +111,17 @@ export default function ConsultantDetailsPage({ params }: Params) {
                 <div className="flex gap-2 items-center">
                   <AvatarComponent />
                 </div>
-                <div className="text-primaryLight-500 font-semibold">
+                <div
+                  className="text-primaryLight-500 font-semibold  cursor-pointer"
+                  onClick={onOpen}
+                >
                   <span className="text-sm">Add to Project</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <DataTable columns={columns} data={projectDetails || []} />
       </div>
     </>
   );

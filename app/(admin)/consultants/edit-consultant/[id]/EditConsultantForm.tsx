@@ -13,7 +13,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "@/config/api";
-import { IConsultantDetailsData } from "@/utils/types";
+import {
+  IConsultantDetailsData,
+  selectOptionsForConsultantsType,
+} from "@/utils/types";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 const EditConsultantSchema = z
   .object({
     email: z
@@ -27,11 +32,13 @@ const EditConsultantSchema = z
 type EditConsultantType = z.infer<typeof EditConsultantSchema>;
 
 export default function EditConsultantForm({ data }: IConsultantDetailsData) {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<EditConsultantType>({
     resolver: zodResolver(EditConsultantSchema),
     defaultValues: {
-      email: "",
-      website: "",
+      email: data.email,
+      website: data.website,
     },
   });
 
@@ -52,6 +59,21 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
         }
       }
     },
+    onSuccess: () => {
+      form.reset();
+      toast({
+        title: "Consultant updated successfully",
+        variant: "success",
+      });
+
+      router.push(`/consultants/consultant/${data.id}`);
+    },
+    onError: () => {
+      toast({
+        title: "Something went wrong",
+        variant: "destructive",
+      });
+    },
   });
 
   const onSubmit = (formData: EditConsultantType) => {
@@ -70,30 +92,24 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
             <div className="lg:w-1/2 flex flex-col gap-5">
               <CustomFormField
                 name="name"
-                placeholder="Enter full name"
                 control={form.control}
                 label="Full name"
-                disabled
-                value={data.name}
+                placeholder={data?.name}
               />
               <CustomFormField
                 control={form.control}
                 name="contact"
-                placeholder="Enter phone number"
+                placeholder={data?.contact}
                 label="contact"
-                disabled
-                value={data.contact}
               />
             </div>
             <div className="lg:w-1/2 flex flex-col gap-5">
               <CustomFormSelect
                 name="type"
-                items={["Type 1", "Type 2"]}
+                items={selectOptionsForConsultantsType || [""]}
                 placeholder={data.type}
-                disabled
                 control={form.control}
                 labelText="Type"
-                value={data.type}
               />
               <CustomFormField
                 name="email"
@@ -113,7 +129,9 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
             <Button variant={"secondary"} className="w-full">
               Cancel
             </Button>
-            <Button className="w-full">Submit</Button>
+            <Button className="w-full" disabled={isPending}>
+              Submit
+            </Button>
           </div>
         </form>
       </Form>

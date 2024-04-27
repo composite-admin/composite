@@ -47,7 +47,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       );
     },
     cell: ({ row }) => {
-      const { worker_service_charge } = row.original;
+      const worker_service_charge = row.original?.worker_service_charge;
       const formatted = formatCurrency(worker_service_charge);
       return (
         <div className="">
@@ -65,7 +65,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       );
     },
     cell: ({ row }) => {
-      const { amount_paid } = row.original;
+      const amount_paid  = row.original?.amount_paid;
       const formatted = formatCurrency(amount_paid);
       return (
         <div className="">
@@ -81,7 +81,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       return <ColumnHeader column={column} title="Balance" withSort={false} />;
     },
     cell: ({ row }) => {
-      const { outstanding_balance } = row.original;
+      const  outstanding_balance  = row.original?.outstanding_balance
       const formatted = formatCurrency(outstanding_balance);
       return (
         <div className="">
@@ -96,7 +96,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       return <ColumnHeader column={column} title="Balance" withSort={false} />;
     },
     cell: ({ row }) => {
-      const { comment } = row.original;
+      const comment  = row.original?.comment
       return (
         <div className="">
           <span className="font-semibold ">{comment}</span>
@@ -110,7 +110,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       return <ColumnHeader column={column} title="Balance" withSort={false} />;
     },
     cell: ({ row }) => {
-      const { createdAt } = row.original;
+      const createdAt  = row.original?.createdAt
       const formatted = formatDate(createdAt);
       return (
         <div className="">
@@ -121,11 +121,12 @@ export const columns: ColumnDef<IWorkerData>[] = [
   },
 
   {
-    accessorKey: "action",
+    accessorKey: "id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Action" />;
     },
     cell: ({ row }) => {
+      const id = row.original?.id;
       return (
         <div className="">
           <Link href="#">

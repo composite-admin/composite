@@ -14,7 +14,7 @@ export default function EditCell({ href, isLink, action, ...props }: IProps) {
       {isLink ? (
         <Link
           href={href || "/"}
-          className="flex gap-2 items-center text-primaryLight-500 underline font-semibold"
+          className="flex gap-2 items-center text-primaryLight-500 underline font-semibold "
         >
           Edit
           <EditUserPageIcon />

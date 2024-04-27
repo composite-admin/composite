@@ -7,6 +7,7 @@ import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
 import {
   ApiResponse,
   IConsultantData,
+  IConsultantProjectData,
   IContractorProjectData,
   InventoryItemData,
   IProjectData,
@@ -172,6 +173,17 @@ export const useGetInventoryData = (id: string) => {
     queryFn: () => getStuffTyped<InventoryItemData>(`/inventory/${id}`),
   });
   return { inventory: data };
+};
+
+export const useGetConsultantProject = (id: string) => {
+  const { data } = useQuery({
+    queryKey: ["get consultant project", id],
+    queryFn: () =>
+      getStuffTyped<IConsultantProjectData[]>(
+        `/consultant-projects/consultant/${id}`
+      ),
+  });
+  return { projectDetails: data };
 };
 
 export const useGetContractorProject = (id: string) => {

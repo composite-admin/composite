@@ -13,7 +13,7 @@ export default function RequestDetailsPage({
 }: {
   params: { id: string };
 }) {
-  const onOpen = useAddCommentModal((state) => state.onOpen);
+  const { onOpen } = useAddCommentModal();
   const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
   const { requestDetails } = useRequestStore();
 

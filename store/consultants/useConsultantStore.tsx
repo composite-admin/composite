@@ -1,15 +1,23 @@
 import { create } from "zustand";
-import { ApiResponse, IConsultantData } from "@/utils/types";
+import {
+  ApiResponse,
+  IConsultantData,
+  IConsultantDetailsData,
+} from "@/utils/types";
 import { api } from "@/config/api";
 import axios from "axios";
 
 interface ConsultantStore {
   consultantsData: IConsultantData[] | null;
+  consultantDetailsData: IConsultantDetailsData | null;
+  setConsultantDetailsData: (data: IConsultantDetailsData | null) => void;
   setConsultantData: (data: IConsultantData[] | null) => void;
 }
 
 const useConsultantStore = create<ConsultantStore>((set) => ({
   consultantsData: null,
+  consultantDetailsData: null,
+  setConsultantDetailsData: (data) => set({ consultantDetailsData: data }),
   setConsultantData: (data) => set({ consultantsData: data }),
 }));
 

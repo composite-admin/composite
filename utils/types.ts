@@ -734,7 +734,7 @@ export interface IProjectTeamMemberByProjectData {
 }
 
 export interface IConsultantProjectData {
-  id: number;
+  id: number | string;
   consultant_id: string;
   project_id: string;
   project_code: string;
