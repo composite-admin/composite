@@ -26,8 +26,6 @@ const SingleContractorEdit = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    // Pass the form data to your submitForm action
-    console.log(data);
     delete data.id;
     onOpen();
     updateContractor(Number(params.id), data);

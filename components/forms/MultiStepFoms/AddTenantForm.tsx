@@ -110,7 +110,11 @@ export default function AddTenantForm() {
         router.push("/facility");
       }
     } catch (error) {
-      console.log("something went wrong", error);
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        variant: "destructive",
+      });
     }
     // form.reset();
   };

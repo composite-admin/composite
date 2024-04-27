@@ -22,9 +22,6 @@ const AddContractor = () => {
   );
 
   const onSubmit = (data: any) => {
-    // Pass the form data to your submitForm action
-    console.log(data);
-
     createContractor(data);
     onOpen();
     reset();

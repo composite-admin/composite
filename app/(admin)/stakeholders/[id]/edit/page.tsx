@@ -26,7 +26,6 @@ const EditSingleStakeholder = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
     delete data.id;
     onOpen();
     updateStakeholder(Number(params.id), data);
