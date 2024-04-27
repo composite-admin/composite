@@ -9,8 +9,8 @@ import { ApiResponse, IFlatData } from "@/utils/types";
 import axios from "axios";
 
 export default function AllFlatsPage() {
-  const { setFlatData, flatData } = useFacilityStore();
-  const { data, error, isPending } = useQuery({
+  const { setFlatData } = useFacilityStore();
+  const { data, isPending } = useQuery({
     queryKey: ["get all tenants"],
     queryFn: async () => {
       try {
@@ -35,7 +35,7 @@ export default function AllFlatsPage() {
         subTitle="View all flats here"
         buttonText="Add Apartment"
       />
-      <DataTable columns={columns} data={data ?? []} />
+      <DataTable columns={columns} data={data ?? []} isLoading={isPending} />
     </>
   );
 }
