@@ -430,7 +430,7 @@ export type IWorkerData = {
   project_code: string;
   worker_service: string;
   worker_service_charge: number;
-  amount_paid: number | null;
+  amount_paid: string;
   outstanding_balance: number;
   date_assigned_to_project: string;
   comment: string;

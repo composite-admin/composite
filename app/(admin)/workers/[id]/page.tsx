@@ -57,8 +57,7 @@ const SingleWorker = () => {
     },
   });
   const workerDataArray: IWorkerData[] = [data?.data.data];
-  console.log(workerDataArray);
-
+console.log(workerDataArray);
   const showBankModal = () =>
     showModal(
       worker && (
