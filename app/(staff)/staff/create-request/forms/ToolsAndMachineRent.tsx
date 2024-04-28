@@ -7,59 +7,66 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useSelectOptions";
+import {
+  useGetAllInventoryTypes,
+  useGetStaffDetails,
+  useProjectData,
+} from "@/hooks/useSelectOptions";
 import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
-
-export const createCashAdvanceOfficeSchema = z.object({
+// use teh names in the form
+export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   project_name: z.string().optional(),
-  amount: z.string().optional(),
-  purpose: z.string().optional(),
+  tool_type: z.string().optional(),
+  company: z.string().optional(),
+  company_address: z.string().optional(),
+  contact_number: z.string().optional(),
+  ofc_phone: z.string().optional(),
+  contact_person: z.string().optional(),
+  item_description: z.string().optional(), //????
+  quantity: z.string().optional(),
+  unit_price: z.string().optional(),
   description: z.string().optional(),
   comment: z.string().optional(),
 });
 
-type CreateCashAdvanceOfficeType = z.infer<
-  typeof createCashAdvanceOfficeSchema
->;
+type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 
 export default function ToolsAndMachineRent() {
   const { projectsData } = useProjectData();
-  const { formType, setFormType } = useStaffStore();
+  const projectName = projectsData?.map((item: any) => item.project_name);
   const { userId } = userStore();
-  const form = useForm<CreateCashAdvanceOfficeType>({
-    resolver: zodResolver(createCashAdvanceOfficeSchema),
+  const { staffDetails } = useGetStaffDetails(userId);
+  const { inventories } = useGetAllInventoryTypes();
+  const toolType = inventories?.map((item: any) => item?.type);
+  const { formType, setFormType } = useStaffStore();
+  const form = useForm<ToolsAndMachineRentType>({
+    resolver: zodResolver(ToolsAndMachineRentSchema),
     defaultValues: {
       request_type: RequestType.ToolsAndMachineRent,
-      project_name: "",
-      amount: "",
-      purpose: "",
-      description: "",
-      comment: "",
     },
   });
 
-  const projectName = projectsData?.map((item: any) => item.project_name);
+  const handleSubmit = async (data: ToolsAndMachineRentType) => {
+    try {
+      const res = await api.post("/requests", {
+        ...data,
 
-  const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
-    // try {
-    //   const res = await api.post("/requests", {
-    //     ...data,
-    //     staff_id: "10",
-    //     staff_name: "bola@composite",
-    //     status: "PENDING",
-    //     amount: Number(data.amount),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    console.log(data);
+        status: "PENDING",
+        staff_id: staffDetails?.userid,
+        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+        quantity: Number(data.quantity),
+        unit_price: Number(data.unit_price),
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -95,10 +102,10 @@ export default function ToolsAndMachineRent() {
             <div className="flex flex-col lg:flex-row gap-4 items-center py-3">
               <div className="w-full flex flex-col gap-5">
                 <CustomFormSelect
-                  name="project"
+                  name="project_name"
                   control={form.control}
                   labelText="Project"
-                  items={["item1", "item2"]}
+                  items={projectName || [" "]}
                 />
                 <CustomFormField
                   name="company"
@@ -107,7 +114,7 @@ export default function ToolsAndMachineRent() {
                   placeholder="Enter Company"
                 />
                 <CustomFormField
-                  name="company_phone"
+                  name="ofc_phone"
                   control={form.control}
                   label="Company Phone"
                   placeholder="Enter number"
@@ -131,7 +138,7 @@ export default function ToolsAndMachineRent() {
                   name="tool_type"
                   control={form.control}
                   labelText="Tool Type"
-                  items={["item1", "item2"]}
+                  items={toolType || [" "]}
                 />
 
                 <CustomFormField
@@ -153,7 +160,7 @@ export default function ToolsAndMachineRent() {
                   placeholder="Enter description"
                 />
                 <CustomFormField
-                  name="unit_person"
+                  name="unit_price"
                   control={form.control}
                   label="Unit Price"
                   placeholder="Enter description"
