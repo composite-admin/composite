@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 export type breakdownModal = "add" | "edit" | null;
+export type addToProjectFormType = "consultant" | "client" | null;
 
 export type EditModalAction = {
   edit: (action: string) => void;
@@ -11,6 +12,8 @@ interface ModalStoreState {
   onOpen: () => void;
   onClose: () => void;
   breakdownModalType?: breakdownModal;
+  addToProjectFormType?: addToProjectFormType;
+  setAddToProjectFormType: (type: addToProjectFormType) => void;
   action: string;
   setAction: (action: string) => void;
   setBreakdownModalType: (type: "add" | "edit" | null) => void;
@@ -21,6 +24,8 @@ export const createModalStore = () =>
     isOpen: false,
     breakdownModalType: null,
     action: "",
+    setAddToProjectFormType: (type) => set({ addToProjectFormType: type }),
+    addToProjectFormType: null,
     setAction: (action: string) => set({ action }),
     setBreakdownModalType: (type) => set({ breakdownModalType: type }),
     onOpen: () => set({ isOpen: true }),

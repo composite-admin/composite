@@ -20,7 +20,11 @@ type Params = {
 
 export default function ConsultantDetailsPage({ params }: Params) {
   const { projectDetails } = useGetConsultantProject(params.id);
-  const { onOpen } = useAddToProjectModal();
+  const { onOpen, setAddToProjectFormType } = useAddToProjectModal();
+  const showModal = () => {
+    setAddToProjectFormType("consultant");
+    onOpen();
+  };
   const { setConsultantDetailsData } = useConsultantStore();
 
   const { data, isPending, error } = useQuery({
@@ -113,7 +117,7 @@ export default function ConsultantDetailsPage({ params }: Params) {
                 </div>
                 <div
                   className="text-primaryLight-500 font-semibold  cursor-pointer"
-                  onClick={onOpen}
+                  onClick={showModal}
                 >
                   <span className="text-sm">Add to Project</span>
                 </div>

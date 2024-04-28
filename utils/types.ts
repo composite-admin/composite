@@ -776,3 +776,16 @@ export interface IContractorProjectData {
   created_by: string;
 }
 
+export interface IClientProjectData {
+  id: number;
+  client_id: string;
+  project_id: string;
+  project_code: string;
+  project_name: string;
+  createdAt: string;
+  updatedAt: string;
+  project_duration: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+}

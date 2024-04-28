@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import { cookies } from "next/headers";
 import { columns as columnTwo } from "@/app/(admin)/consultants/columns";
 import { data as dataTwo } from "@/app/(admin)/consultants/data";
@@ -7,8 +7,18 @@ import { DataTable } from "@/components/shared/DataTable";
 import GoBack from "@/components/shared/GoBack";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/config/api";
-import { IClientData, IClientDetails } from "@/utils/types";
+import { ApiResponse, IClientData, IClientDetails } from "@/utils/types";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
+import {
+  useGetClientDetails,
+  useGetClientProjectData,
+} from "@/hooks/useSelectOptions";
+import { projectColumns } from "./projectColumn";
+import useManageClientStore from "@/store/manage-client/useManageClientStore";
+import { useQuery } from "@tanstack/react-query";
+import { useAddToProjectModal } from "@/store/modals/useCreateModal";
+import Link from "next/link";
 
 type Params = {
   params: {
@@ -16,39 +26,52 @@ type Params = {
   };
 };
 
-const getClientDetails = async (id: string) => {
-  try {
-    const res = await api.get<IClientDetails>(`/client/${id}`, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${cookies().get("token")?.value}`,
-      },
-    });
-    return res.data.data;
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.message);
-    } else {
-      throw error;
-    }
-  }
-};
+export default function ClientDetailsPage({ params }: Params) {
+  const { setClientDetailsData } = useManageClientStore();
+  const { onOpen, setAddToProjectFormType } = useAddToProjectModal();
+  const showModal = () => {
+    setAddToProjectFormType("client");
+    onOpen();
+  };
+  const { data: details } = useQuery({
+    queryKey: ["get all clients", params.id],
+    queryFn: async () => {
+      try {
+        const response = await api.get<ApiResponse<IClientData>>(
+          `/client/${params.id}`
+        );
+        setClientDetailsData(response.data.data);
+        return response.data.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
 
-export default async function ClientDetailsPage({ params }: Params) {
-  const details = await getClientDetails(params.id);
+  const { ClientProjectDetails, isClientProjectLoading } =
+    useGetClientProjectData(params.id);
   return (
     <>
       <GoBack />
       <div>
-        <div className="pt-1 flex gap-2.5">
-          <AvatarComponent height="h-16" width="w-16" />
-          <div className="flex flex-col">
-            <span className="text-responsive font-semibold capitalize">
-              {details.first_name} {details.last_name}
-            </span>
-            <span className="text-xs text-subtext uppercase">
-              {details.activation_code}
-            </span>
+        <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center">
+          <div className="pt-1 flex gap-2.5">
+            <AvatarComponent height="h-16" width="w-16" />
+            <div className="flex flex-col">
+              <span className="text-responsive font-semibold capitalize">
+                {details?.first_name} {details?.last_name}
+              </span>
+              <span className="text-xs text-subtext uppercase">
+                {details?.activation_code}
+              </span>
+            </div>
+          </div>
+          <div>
+            <Button>View ID Image</Button>
           </div>
         </div>
 
@@ -62,19 +85,19 @@ export default async function ClientDetailsPage({ params }: Params) {
               <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
                 <span>Contact Person:</span>
                 <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg capitalize">
-                  {details.first_name} {details.last_name}
+                  {details?.first_name} {details?.last_name}
                 </span>
               </div>
               <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
                 <span>Contact Mobile:</span>
                 <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
-                  {details.mobile_number}
+                  {details?.mobile_number}
                 </span>
               </div>
               <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
                 <span>Office Phone:</span>
                 <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
-                  {details.phone_number}
+                  {details?.phone_number}
                 </span>
               </div>
             </div>
@@ -82,7 +105,7 @@ export default async function ClientDetailsPage({ params }: Params) {
 
           <div className="bg-white flex-col flex max-w-xs rounded-lg md:col-span-2 auto-rows-min min-h-[20rem] md:max-w-full">
             <h2 className="border-b p-7 text-lg font-semibold">
-              Consultant Details
+              Client Details
             </h2>
 
             <div className="flex flex-col">
@@ -91,7 +114,12 @@ export default async function ClientDetailsPage({ params }: Params) {
                   <AvatarComponent />
                 </div>
                 <div className="text-primaryLight-500 font-semibold">
-                  <span className="text-sm">Edit Consultant Information</span>
+                  <Link
+                    href={`/manage-client/edit-client/ ${details?.client_id}`}
+                    className="text-primaryLight-500 font-semibold"
+                  >
+                    <span className="text-sm">Edit Client Information</span>
+                  </Link>
                 </div>
               </div>
               <div className="flex gap-5 items-center p-8">
@@ -99,7 +127,9 @@ export default async function ClientDetailsPage({ params }: Params) {
                   <AvatarComponent />
                 </div>
                 <div className="text-primaryLight-500 font-semibold">
-                  <span className="text-sm">Add to Project</span>
+                  <span className="text-sm cursor-pointer " onClick={showModal}>
+                    Add to Project
+                  </span>
                 </div>
               </div>
             </div>
@@ -107,13 +137,16 @@ export default async function ClientDetailsPage({ params }: Params) {
         </div>
       </div>
       <div className="py-10">
-        <Tabs defaultValue="Project">
+        <Tabs defaultValue="project">
           <TabsList>
             <TabsTrigger value="project">Project</TabsTrigger>
             <TabsTrigger value="comment">Comment</TabsTrigger>
           </TabsList>
           <TabsContent value="project">
-            {/* <DataTable columns={columns} data={data}/> */}
+            <DataTable
+              columns={projectColumns}
+              data={ClientProjectDetails ?? []}
+            />
           </TabsContent>
           {/* <DataTable columns={columnTwo} data={dataTwo}/> */}
         </Tabs>

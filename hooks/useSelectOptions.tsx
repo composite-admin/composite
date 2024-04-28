@@ -6,6 +6,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
 import {
   ApiResponse,
+  IClientDetails,
+  IClientProjectData,
   IConsultantData,
   IConsultantProjectData,
   IContractorProjectData,
@@ -222,4 +224,21 @@ export const useGetAllProjectData = () => {
     queryFn: () => getStuffTyped<IProjectData[]>("/projects"),
   });
   return { projects: data };
+};
+
+export const useGetClientProjectData = (id: string) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get client project", id],
+    queryFn: () =>
+      getStuffTyped<IClientProjectData[]>(`/client_project/client/${id}`),
+  });
+  return { ClientProjectDetails: data, isClientProjectLoading: isLoading };
+};
+
+export const useGetClientDetails = (id: string) => {
+  const { data } = useQuery({
+    queryKey: ["get client details", id],
+    queryFn: () => getStuffTyped<IClientDetails>(`/client/${id}`),
+  });
+  return { details: data?.data };
 };
