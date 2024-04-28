@@ -102,22 +102,23 @@ export default function ToolsAndMachineStore() {
                     items={[" item1", " item2", " item3"]}
                   />
                 </div>
-                <div>
-                  <CustomFormSelect
-                    name="type"
-                    labelText="Type"
-                    control={form.control}
-                    items={[" item1", " item2", " item3"]}
-                  />
-                </div>
-              </div>
-              <div className="w-full">
+
                 <div>
                   <CustomFormField
                     name="quantity"
                     control={form.control}
                     label="Quantity"
                     placeholder="Enter Quantity"
+                  />
+                </div>
+              </div>
+              <div className="w-full">
+                <div>
+                  <CustomFormSelect
+                    name="type"
+                    labelText="Type"
+                    control={form.control}
+                    items={[" item1", " item2", " item3"]}
                   />
                 </div>
                 <div>

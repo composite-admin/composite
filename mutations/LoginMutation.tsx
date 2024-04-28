@@ -34,8 +34,9 @@ const useLogin = () => {
       setUserStorage(
         data.token,
         data.data.user_type?.toLowerCase(),
-        data.data.id,
-        data.data?.username
+        data.data.userid,
+        data.data?.username,
+        data.data?.id
       );
       toast({ title: "Login Successful", variant: "success" });
       router.refresh();

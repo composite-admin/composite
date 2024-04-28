@@ -7,13 +7,20 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useSelectOptions";
+import {
+  useGetAllSuppliers,
+  useGetStaffDetails,
+  useProjectData,
+} from "@/hooks/useSelectOptions";
 import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
+import { ISupplierData } from "@/utils/types";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -33,36 +40,65 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function Material() {
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
+  const { suppliers } = useGetAllSuppliers();
+  const supplierList = suppliers?.map(
+    (item: ISupplierData) => item.supplier_name
+  );
   const { formType, setFormType } = useStaffStore();
+  const [matDesc, setMatDesc] = useState<string[]>([]);
   const { userId } = userStore();
+  const { staffDetails } = useGetStaffDetails(userId);
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       request_type: RequestType.Material,
-      project_name: "",
-      supplier: "",
-      material_description: "",
-      quantity: "",
-      unit_price: "",
-      description: "",
-      comment: "",
     },
   });
 
+  const watchSupplier = form.watch("supplier");
+  const supplierCode = suppliers?.find(
+    (item: any) => item.supplier_name === watchSupplier
+  )?.supplier_code;
+
+  const description = matDesc?.map((item: any) => item.description);
+
+  useEffect(() => {
+    if (watchSupplier) {
+      const materialDescription = async () => {
+        try {
+          const response = await api.get(
+            `/suppliers-materials/supplier/description?supplierCode=${supplierCode}`
+          );
+
+          setMatDesc(response.data.data);
+        } catch (error) {
+          if (axios.isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+          } else {
+            throw error;
+          }
+        }
+      };
+
+      materialDescription();
+    }
+  }, [supplierCode, watchSupplier]);
+
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
-    // try {
-    //   const res = await api.post("/requests", {
-    //     ...data,
-    //     staff_id: "10",
-    //     staff_name: "bola@composite",
-    //     status: "PENDING",
-    //     amount: Number(data.amount),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    console.log(data);
+    try {
+      const res = await api.post("/requests", {
+        ...data,
+        status: "PENDING",
+        staff_id: staffDetails?.userid,
+        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+        unit_price: Number(data.unit_price),
+        quantity: Number(data.quantity),
+        total_price: Number(data.unit_price) * Number(data.quantity),
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -101,10 +137,10 @@ export default function Material() {
               </div>
               <div className="w-full">
                 <CustomFormSelect
-                  name="worker"
+                  name="supplier"
                   control={form.control}
-                  labelText="Worker"
-                  items={["item1", "item2"]}
+                  labelText="Supplier"
+                  items={supplierList || ["Loading Suppliers"]}
                 />
               </div>
             </div>
@@ -113,7 +149,8 @@ export default function Material() {
                 name="material_description"
                 control={form.control}
                 labelText="Material Description"
-                items={["item1", "item2"]}
+                items={description || ["Loading Description"]}
+                disabled={watchSupplier ? false : true}
               />
             </div>
 
@@ -121,7 +158,7 @@ export default function Material() {
               <div className="flex items-center gap-3 w-full flex-col lg:flex-row">
                 <div className="w-full">
                   <CustomFormField
-                    name="qunatity"
+                    name="quantity"
                     placeholder="Enter Quantity"
                     control={form.control}
                     label="Quantity"

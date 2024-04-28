@@ -7,8 +7,8 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useSelectOptions";
-import useAuthStore, { userStore } from "@/store/auth/AuthStore";
+import { useGetStaffDetails, useProjectData } from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -30,8 +30,10 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function CashAdvanceOffice() {
   const { projectsData } = useProjectData();
-  const { formType, setFormType } = useStaffStore();
   const { userId } = userStore();
+  const { staffDetails, isLoading } = useGetStaffDetails(userId);
+  const projectName = projectsData?.map((item: any) => item.project_name);
+  const { formType, setFormType } = useStaffStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
@@ -44,21 +46,19 @@ export default function CashAdvanceOffice() {
     },
   });
 
-  const projectName = projectsData?.map((item: any) => item.project_name);
-
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
-    // try {
-    //   const res = await api.post("/requests", {
-    //     ...data,
-    //     staff_id: "10",
-    //     staff_name: "bola@composite",
-    //     status: "PENDING",
-    //     amount: Number(data.amount),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const res = await api.post("/requests", {
+        ...data,
+        status: "PENDING",
+        staff_id: staffDetails?.userid,
+        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+        amount: Number(data.amount),
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
     console.log(data);
   };
 
@@ -94,11 +94,12 @@ export default function CashAdvanceOffice() {
           <div className="py-4 w-full">
             <div className="flex flex-col lg:flex-row gap-4 w-full">
               <div className="w-full">
-                <CustomFormField
+                <CustomFormSelect
                   name="project_name"
-                  label="Project Name"
+                  labelText="Project Name"
                   control={form.control}
-                  placeholder="Enter Project Name"
+                  placeholder="Select Project"
+                  items={projectName || []}
                 />
               </div>
               <div className="w-full">

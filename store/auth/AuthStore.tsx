@@ -22,14 +22,16 @@ export default useAuthStore;
 interface IUserStoreType {
   token: string | null;
   userType: string | null;
-  userId: number | null;
+  userId: string | null;
   username: string | null;
+  id: number | null;
   logOut: () => void;
   setUserStorage: (
     token: string,
     userType: string | undefined,
-    userId: number,
-    username: string | null
+    userId: string | null,
+    username: string | null,
+    id: number | null
   ) => void;
 }
 
@@ -41,12 +43,14 @@ export const userStore = create<IUserStoreType>()(
         userType: null,
         userId: null,
         username: null,
-        setUserStorage: (userToken, userType, userId, username) => {
+        id: null,
+        setUserStorage: (userToken, userType, userId, username, id) => {
           set({
             token: userToken,
             userType,
             userId,
             username,
+            id,
           });
         },
         logOut: () => {

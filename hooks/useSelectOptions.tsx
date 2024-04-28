@@ -15,11 +15,13 @@ import {
   IProjectData,
   IProjectReport,
   IRequestData,
+  IStaffDetailsData,
   IStakeholderProjectData,
   ISupplierData,
   ISupplierMaterial,
   ISupplierMaterialTypesData,
   ITenantDetails,
+  IWorkerData,
 } from "@/utils/types";
 
 export const useTenants = () => {
@@ -136,6 +138,14 @@ export const useGetAllStaffs = () => {
   return { staffs: data };
 };
 
+export const useGetStaffDetails = (id: string | null) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get staff details", id],
+    queryFn: () => getStuffTyped<IStaffDetailsData>(`/staffs/${id}`),
+  });
+  return { staffDetails: data, isLoading };
+};
+
 export const useGetAllRequests = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["get all requests"],
@@ -241,4 +251,12 @@ export const useGetClientDetails = (id: string) => {
     queryFn: () => getStuffTyped<IClientDetails>(`/client/${id}`),
   });
   return { details: data?.data };
+};
+
+export const useGetAllWorkers = () => {
+  const { data } = useQuery({
+    queryKey: ["get all workers"],
+    queryFn: () => getStuffTyped<IWorkerData[]>("/worker"),
+  });
+  return { workers: data };
 };

@@ -48,22 +48,22 @@ export default function AddWorkerForm() {
   });
 
   const handleSubmit = (data: AddWorkerSchemaType) => {
-    // mutate(data, {
-    //   onSuccess: () => {
-    //     form.reset();
-    //     onClose();
-    //     toast({
-    //       title: "Start up cost added successfully",
-    //       variant: "success",
-    //     });
-    //   },
-    //   onError: () => {
-    //     toast({
-    //       title: "Something went wrong",
-    //       variant: "destructive",
-    //     });
-    //   },
-    // });
+    mutate(data, {
+      onSuccess: () => {
+        form.reset();
+        onClose();
+        toast({
+          title: "Worker has been added successfully",
+          variant: "success",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    });
   };
   return (
     <Form {...form}>

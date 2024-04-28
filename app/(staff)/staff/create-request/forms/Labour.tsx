@@ -7,59 +7,61 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useSelectOptions";
-import useAuthStore, { userStore } from "@/store/auth/AuthStore";
+import {
+  useGetAllWorkers,
+  useGetStaffDetails,
+  useProjectData,
+} from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { IWorkerData } from "@/utils/types";
 
-export const createCashAdvanceOfficeSchema = z.object({
+export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   project_name: z.string().optional(),
+  worker_name: z.string().optional(),
   amount: z.string().optional(),
-  purpose: z.string().optional(),
   description: z.string().optional(),
   comment: z.string().optional(),
 });
 
-type CreateCashAdvanceOfficeType = z.infer<
-  typeof createCashAdvanceOfficeSchema
->;
+type labourFormType = z.infer<typeof LabourSchema>;
 
 export default function Labour() {
   const { projectsData } = useProjectData();
   const { formType, setFormType } = useStaffStore();
   const { userId } = userStore();
-  const form = useForm<CreateCashAdvanceOfficeType>({
-    resolver: zodResolver(createCashAdvanceOfficeSchema),
+  const { staffDetails } = useGetStaffDetails(userId);
+  const { toast } = useToast();
+  const router = useRouter();
+  const { workers } = useGetAllWorkers();
+  const workList = workers?.map((item: IWorkerData) => item.worker_name);
+  const form = useForm<labourFormType>({
+    resolver: zodResolver(LabourSchema),
     defaultValues: {
       request_type: RequestType.Labour,
-      project_name: "",
-      amount: "",
-      purpose: "",
-      description: "",
-      comment: "",
     },
   });
 
   const projectName = projectsData?.map((item: any) => item.project_name);
 
-  const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
-    // try {
-    //   const res = await api.post("/requests", {
-    //     ...data,
-    //     staff_id: "10",
-    //     staff_name: "bola@composite",
-    //     status: "PENDING",
-    //     amount: Number(data.amount),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    console.log(data);
+  const handleSubmit = async (data: labourFormType) => {
+    try {
+      const res = await api.post("/requests", {
+        ...data,
+        status: "PENDING",
+        staff_id: staffDetails?.userid,
+        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -99,26 +101,20 @@ export default function Labour() {
                   labelText="Project"
                   control={form.control}
                   placeholder="Select project"
-                  items={["item1", "item2", "item3"]}
+                  items={projectName || ["Loading..."]}
                 />
               </div>
               <div className="w-full">
                 <CustomFormSelect
-                  name="worker"
+                  name="worker_name"
                   labelText="Worker"
                   control={form.control}
                   placeholder="Select Worker"
-                  items={["item1", "item2", "item3"]}
+                  items={workList || ["Loading..."]}
                 />
               </div>
             </div>
             <div className="flex flex-col py-3 gap-4 w-full">
-              <CustomFormField
-                name="purpose"
-                label="Purpose"
-                control={form.control}
-                placeholder="Enter Purpose"
-              />
               <CustomFormTextareaField
                 name="description"
                 label="Description"

@@ -6,11 +6,13 @@ import {
 import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useSelectOptions";
+import { useGetStaffDetails, useProjectData } from "@/hooks/useSelectOptions";
 import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -38,10 +40,13 @@ type CreateCashAdvanceOfficeType = z.infer<
 >;
 
 export default function CashAdvance() {
+  const { userId } = userStore();
+  const { staffDetails } = useGetStaffDetails(userId);
+  const { toast } = useToast();
+  const router = useRouter();
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
   const { formType, setFormType } = useStaffStore();
-  const { userId } = userStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
@@ -54,14 +59,13 @@ export default function CashAdvance() {
     },
   });
 
-
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
       const res = await api.post("/requests", {
         ...data,
-        staff_id: "10",
-        staff_name: "bola@composite",
         status: "PENDING",
+        staff_id: staffDetails?.userid,
+        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
       });
       console.log(res);

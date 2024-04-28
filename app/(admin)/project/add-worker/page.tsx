@@ -21,7 +21,7 @@ import { api } from "@/config/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { IWorkerData, selectOtionsForWorkerServiceType } from "@/utils/types";
-import { getStuffTyped } from "@/hooks/useSelectOptions";
+import { getStuffTyped, useGetAllProjectData } from "@/hooks/useSelectOptions";
 
 const AddWorkerSchema = z.object({
   project_name: z.string({
@@ -41,7 +41,6 @@ const AddWorkerToProject = () => {
     useProjectDetailsPageFormModal();
   const searchParams = useSearchParams();
   const name: any = searchParams.get("name");
-
   const form = useForm<AddWorkerSchemaType>({
     resolver: zodResolver(AddWorkerSchema),
     defaultValues: {
@@ -50,6 +49,8 @@ const AddWorkerToProject = () => {
   });
   const router = useRouter();
   const worker = useWorkersActionsStore<any>((state) => state.worker);
+  const { projects } = useGetAllProjectData();
+  console.log(projects);
   const onOpenSucess = useSuccessModal((state) => state.onOpen);
   const onOpenCreateWorker = useAddWorkerModal((state) => state.onOpen);
   const { toast } = useToast();
@@ -68,7 +69,9 @@ const AddWorkerToProject = () => {
       try {
         const response = await api.post("/worker-projects", {
           ...values,
-          project_code: projectCode,
+          project_code: projects?.find(
+            (item) => item.project_name === values.project_name
+          )?.project_code,
           worker_code: workerCode,
         });
         return response.data;
@@ -103,10 +106,12 @@ const AddWorkerToProject = () => {
         form.reset();
         onClose();
         toast({
-          title: "Start up cost added successfully",
+          title: "Worker added successfully",
           variant: "success",
         });
+        router.push("/project");
       },
+
       onError: () => {
         toast({
           title: "Something went wrong",

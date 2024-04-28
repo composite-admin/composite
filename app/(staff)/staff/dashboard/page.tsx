@@ -5,25 +5,34 @@ import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { getAllrequest } from "@/store/requests/RequestStore";
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "./columns";
-import useAuthStore from "@/store/auth/AuthStore";
+import useAuthStore, { userStore } from "@/store/auth/AuthStore";
+import {
+  getStuffTyped,
+  useGetAllStaffs,
+  useGetStaffDetails,
+} from "@/hooks/useSelectOptions";
+import { IRequestData, IStaffDetailsData } from "@/utils/types";
 
 export default function StaffDashboardPage() {
-  const { user } = useAuthStore();
+  const { userId } = userStore();
+  const { staffDetails, isLoading } = useGetStaffDetails(userId);
+
   const { data, error, isPending } = useQuery({
-    queryKey: ["get staffbaord request"],
-    queryFn: getAllrequest,
+    queryKey: ["get staffbaord request", userId],
+    queryFn: () => getStuffTyped<IRequestData[]>(`/requests/user/${userId}`),
   });
 
   return (
     <div>
-      {/* page header */}
       <PageHeaderComponent
-        title="Welcome, David"
+        title={
+          isLoading ? "Welcome User" : `Welcome ${staffDetails?.firstname}`
+        }
         subTitle="This is your dashboard, an overview of everything going on."
         buttonText="New Request"
         href="/staff/create-request"
       />
-      {/* grid container */}
+
       <div className="grid-cols-1">
         <div className="xl:col-span-6">
           <div className="pb-12 flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">

@@ -1,17 +1,17 @@
 "use client";
-import DashboardCard from "@/components/Dashboard/DashboardCard";
 import { DataTable } from "@/components/shared/DataTable";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
-import { getAllrequest } from "@/store/requests/RequestStore";
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "../dashboard/columns";
-import useAuthStore from "@/store/auth/AuthStore";
+import { userStore } from "@/store/auth/AuthStore";
+import { getStuffTyped } from "@/hooks/useSelectOptions";
+import { IRequestData } from "@/utils/types";
 
 export default function StaffRequestPage() {
-  const { user } = useAuthStore();
+  const { userId } = userStore();
   const { data, error, isPending } = useQuery({
-    queryKey: ["get staffbaord request"],
-    queryFn: getAllrequest,
+    queryKey: ["get staffbaord request", userId],
+    queryFn: () => getStuffTyped<IRequestData[]>(`/requests/user/${userId}`),
   });
 
   return (
