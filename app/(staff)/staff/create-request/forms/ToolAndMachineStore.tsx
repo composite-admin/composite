@@ -39,16 +39,16 @@ type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 
 export default function ToolsAndMachineStore() {
   const { projectsData } = useProjectData();
-  const { formType, setFormType } = useStaffStore();
+  const { setFormType } = useStaffStore();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const projectName = projectsData?.map((item: any) => item.project_name);
   const router = useRouter();
   const { inventories } = useGetAllInventoryTypes();
+  const toolType = inventories?.map((item: any) => item?.type);
   const { setToolData, toolData } = useInventoryStore();
   const { toast } = useToast();
   const ToolDescription = toolData?.map((item: any) => item?.description);
-  const toolType = inventories?.map((item: any) => item?.type);
   const form = useForm<ToolsAndMachineStoreType>({
     resolver: zodResolver(ToolsAndMachineStoreSchema),
     defaultValues: {
