@@ -7,59 +7,88 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useSelectOptions";
+import {
+  useGetAllInventoryTypes,
+  useGetStaffDetails,
+  useProjectData,
+} from "@/hooks/useSelectOptions";
 import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { union, z } from "zod";
 import { RequestType } from "./CashAdvance";
+import { useInventoryStore } from "@/store/project/useProjectStore";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
-export const createCashAdvanceOfficeSchema = z.object({
+export const ToolsAndMachineStoreSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   project_name: z.string().optional(),
   amount: z.string().optional(),
-  purpose: z.string().optional(),
+  quantity: z.string().optional(),
+  unit_price: z.string().optional(),
+  tool_description: z.string().optional(),
   description: z.string().optional(),
+  type: z.string().optional(),
   comment: z.string().optional(),
 });
 
-type CreateCashAdvanceOfficeType = z.infer<
-  typeof createCashAdvanceOfficeSchema
->;
+type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 
 export default function ToolsAndMachineStore() {
   const { projectsData } = useProjectData();
   const { formType, setFormType } = useStaffStore();
   const { userId } = userStore();
-  const form = useForm<CreateCashAdvanceOfficeType>({
-    resolver: zodResolver(createCashAdvanceOfficeSchema),
+  const { staffDetails } = useGetStaffDetails(userId);
+  const projectName = projectsData?.map((item: any) => item.project_name);
+  const router = useRouter();
+  const { inventories } = useGetAllInventoryTypes();
+  const { setToolData, toolData } = useInventoryStore();
+  const { toast } = useToast();
+  const ToolDescription = toolData?.map((item: any) => item?.description);
+  const toolType = inventories?.map((item: any) => item?.type);
+  const form = useForm<ToolsAndMachineStoreType>({
+    resolver: zodResolver(ToolsAndMachineStoreSchema),
     defaultValues: {
       request_type: RequestType.ToolsAndMachineStore,
-      project_name: "",
-      amount: "",
-      purpose: "",
-      description: "",
-      comment: "",
     },
   });
+  const { watch } = form;
+  const watchTools = watch("type");
 
-  const projectName = projectsData?.map((item: any) => item.project_name);
+  useEffect(() => {
+    const fetchToolDescription = async () => {
+      if (watchTools) {
+        try {
+          const res = await api.get(`/inventory/type/all?type=${watchTools}`);
+          if (res) {
+            setToolData(res.data.data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
 
-  const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
-    // try {
-    //   const res = await api.post("/requests", {
-    //     ...data,
-    //     staff_id: "10",
-    //     staff_name: "bola@composite",
-    //     status: "PENDING",
-    //     amount: Number(data.amount),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    console.log(data);
+    fetchToolDescription();
+  }, [setToolData, watchTools]);
+
+  const handleSubmit = async (data: ToolsAndMachineStoreType) => {
+    try {
+      const res = await api.post("/requests", {
+        ...data,
+        status: "PENDING",
+        staff_id: staffDetails?.userid,
+        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+        amount: Number(data.amount),
+        quantity: Number(data.quantity),
+        unit_price: Number(data.unit_price),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -92,44 +121,40 @@ export default function ToolsAndMachineStore() {
             </option>
           </select>
           <div className="py-4 w-full">
-            <div className="flex flex-col lg:flex-row gap-4 items-center py-3">
-              <div className="w-full">
-                <div>
-                  <CustomFormSelect
-                    name="project"
-                    labelText="Project"
-                    control={form.control}
-                    items={[" item1", " item2", " item3"]}
-                  />
-                </div>
-
-                <div>
-                  <CustomFormField
-                    name="quantity"
-                    control={form.control}
-                    label="Quantity"
-                    placeholder="Enter Quantity"
-                  />
-                </div>
-              </div>
-              <div className="w-full">
-                <div>
-                  <CustomFormSelect
-                    name="type"
-                    labelText="Type"
-                    control={form.control}
-                    items={[" item1", " item2", " item3"]}
-                  />
-                </div>
-                <div>
-                  <CustomFormField
-                    name="unit_price"
-                    control={form.control}
-                    label="Unit Price"
-                    placeholder="Enter Unit Price"
-                  />
-                </div>
-              </div>
+            <div className="grid md:grid-cols-2 gap-4 py-3">
+              <CustomFormSelect
+                name="project"
+                labelText="Project"
+                control={form.control}
+                items={projectName || [" "]}
+              />
+              <CustomFormSelect
+                name="type"
+                labelText="Type"
+                control={form.control}
+                items={toolType || [" "]}
+              />
+            </div>
+            <CustomFormSelect
+              name="tool_description"
+              className="col-span-full"
+              labelText="Tool Description"
+              control={form.control}
+              items={ToolDescription || [" "]}
+            />
+            <div className="grid md:grid-cols-2 gap-4 py-3">
+              <CustomFormField
+                name="quantity"
+                control={form.control}
+                label="Quantity"
+                placeholder="Enter Quantity"
+              />
+              <CustomFormField
+                name="unit_price"
+                control={form.control}
+                label="Unit Price"
+                placeholder="Enter Unit Price"
+              />
             </div>
 
             <div className="flex flex-col gap-4 py-4">
