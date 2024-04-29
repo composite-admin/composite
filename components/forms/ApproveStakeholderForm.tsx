@@ -87,7 +87,7 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
               placeholder={projectDetails?.stakeholder_code}
               disabled
               className="placeholder:uppercase"
-              label="Contractor Name/Code"
+              label="Stakeholder Name/Code"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -118,7 +118,7 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
               <CustomFormSelect
                 name="status"
                 control={form.control}
-                items={["PENDING", "APPROVED"]}
+                items={["PENDING", "APPROVED", "DECLINED"]}
                 placeholder="Status"
                 labelText="Status"
               />

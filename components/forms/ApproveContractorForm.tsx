@@ -98,7 +98,7 @@ export default function ApproveContractorForm({ id }: { id: string }) {
                 placeholder={projectDetails?.contractor_amount}
                 disabled
                 className="placeholder:uppercase"
-                label="Project Name"
+                label="Approved amount"
               />{" "}
               <CustomFormField
                 control={form.control}
@@ -109,7 +109,7 @@ export default function ApproveContractorForm({ id }: { id: string }) {
             <CustomFormSelect
               name="status"
               control={form.control}
-              items={["Pending", "Approved"]}
+              items={["Pending", "Approved", "Declined"]}
               placeholder="Status"
               labelText="Status"
             />
@@ -124,7 +124,7 @@ export default function ApproveContractorForm({ id }: { id: string }) {
               <Button onClick={() => router.back()} variant="secondary">
                 Cancel
               </Button>
-              <Button>Approve</Button>
+              <Button>Submit</Button>
             </div>
           </form>
         </Form>
