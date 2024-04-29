@@ -9,19 +9,18 @@ import ToolsAndMachineRent from "./ToolsAndMachineRent";
 import ToolAndMachineStore from "./ToolAndMachineStore";
 import z from "zod";
 
-const createRequestSchema = z.object({
-  requestType: z.enum([
-    "material",
-    "labour",
-    "cash_advance_project",
-    "cash_advance_office",
-    "tools_and_machine_buy",
-    "tools_and_machine_rent",
-    "tools_and_machine_store",
-  ]),
-});
+// const createRequestSchema = z.object({
+//   requestType: z.enum([
+//     "material",
+//     "labour",
+//     "cash_advance_project",
+//     "cash_advance_office",
+//     "tools_and_machine_buy",
+//     "tools_and_machine_rent",
+//     "tools_and_machine_store",
+//   ]),
+// });
 
-type CreateRequestType = z.infer<typeof createRequestSchema>;
 
 export default function NewRequestForm() {
   const { formType, setFormType } = useStaffStore();

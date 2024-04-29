@@ -2,8 +2,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
-import { useAddCommentModal, useUpdateRequestModal } from "@/store/modals/useCreateModal";
-import { getrequestById, useRequestStore } from "@/store/requests/RequestStore";
+import {
+  useAddCommentModal,
+  useUpdateRequestModal,
+} from "@/store/modals/useCreateModal";
+import {
+  getrequestById,
+  RequestType,
+  useRequestStore,
+  useUpdateRequestStore,
+} from "@/store/requests/RequestStore";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { useQuery } from "@tanstack/react-query";
@@ -13,9 +21,18 @@ export default function RequestDetailsPage({
 }: {
   params: { id: string };
 }) {
-  const { onOpen } = useAddCommentModal();
-  const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
+  // const { onOpen } = useAddCommentModal();
+  // const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
   const { requestDetails } = useRequestStore();
+  const { setFormDetails, setFormType, onOpen } = useUpdateRequestStore();
+
+  function handleFormType(type: RequestType) {
+    if (data) {
+      setFormType(type);
+      onOpen();
+      setFormDetails(data);
+    }
+  }
 
   const { data, isPending } = useQuery({
     queryKey: ["get all tenants", params.id],
@@ -24,7 +41,7 @@ export default function RequestDetailsPage({
 
   return (
     <div>
-      <GoBack btnText="Add Comment" withBtn onclick={onOpen} />
+      <GoBack btnText="Add Comment" />
       <div className="flex flex-col gap-6">
         <div className="flex flex-col md:grid grid-cols-1 xl:grid-cols-6 gap-8">
           <aside className="bg-white border-borderColor shadow-sm col-span-4 p-3 lg:p-8 lg:px-12 ">
@@ -238,13 +255,19 @@ export default function RequestDetailsPage({
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-4 py-8">
-        <Button className="md:w-1/3" onClick={onRequestModal}>
+        <Button
+          className="md:w-1/3"
+          onClick={() => handleFormType(data?.request_type as RequestType)}
+        >
           Request more information
         </Button>
         <Button className="md:w-1/3" variant={"destructive"}>
           Decline
         </Button>
-        <Button className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90">
+        <Button
+          className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90"
+          onClick={() => handleFormType(data?.request_type as RequestType)}
+        >
           Approve
         </Button>
       </div>
