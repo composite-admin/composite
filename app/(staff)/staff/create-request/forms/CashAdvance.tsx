@@ -28,11 +28,21 @@ export enum RequestType {
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string().optional(),
-  amount: z.string().optional(),
-  purpose: z.string().optional(),
-  description: z.string().optional(),
-  comment: z.string().optional(),
+  project_name: z.string({
+    required_error: "Project Name is required",
+  }),
+  amount: z.string({
+    required_error: "Amount is required",
+  }),
+  purpose: z.string({
+    required_error: "Purpose is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
+  }),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<
@@ -51,11 +61,6 @@ export default function CashAdvance() {
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       request_type: RequestType.CashAdvanceProject,
-      project_name: "",
-      amount: "",
-      purpose: "",
-      description: "",
-      comment: "",
     },
   });
 
@@ -68,11 +73,17 @@ export default function CashAdvance() {
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
       });
-      console.log(res);
+  if (res.status === 201) {
+    toast({
+      title: "Request created successfully",
+      variant: "success",
+    });
+    form.reset();
+    router.push("/staff/create-request");
+  }
     } catch (error) {
       console.log(error);
     }
-    console.log(data);
   };
 
   return (

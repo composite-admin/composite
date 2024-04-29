@@ -63,7 +63,6 @@ export default function ToolsAndMachineRent() {
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
       });
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
