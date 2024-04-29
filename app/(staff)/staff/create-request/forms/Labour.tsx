@@ -1,5 +1,4 @@
 import {
-  CustomFormField,
   CustomFormSelect,
   CustomFormTextareaField,
 } from "@/components/shared/FormComponent";
@@ -24,11 +23,18 @@ import { IWorkerData } from "@/utils/types";
 
 export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string().optional(),
-  worker_name: z.string().optional(),
-  amount: z.string().optional(),
-  description: z.string().optional(),
-  comment: z.string().optional(),
+  project_name: z.string({
+    required_error: "Project Name is required",
+  }),
+  worker_name: z.string({
+    required_error: "Worker Name is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
+  }),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
 });
 
 type labourFormType = z.infer<typeof LabourSchema>;
@@ -59,8 +65,19 @@ export default function Labour() {
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
       });
+      if (res.status === 201) {
+        toast({
+          title: "Request created successfully",
+          variant: "success",
+        });
+        form.reset();
+        router.push("/staff/create-request");
+      }
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Request creation failed",
+        variant: "destructive",
+      });
     }
   };
 

@@ -18,27 +18,70 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+
+// request_type: z.nativeEnum(RequestType),
+// project_name: z.string().optional(),
+// tool_type: z.string().optional(),
+// company: z.string().optional(),
+// company_address: z.string().optional(),
+// contact_number: z.string().optional(),
+// ofc_phone: z.string().optional(),
+// contact_person: z.string().optional(),
+// item_description: z.string().optional(), //????
+// quantity: z.string().optional(),
+// unit_price: z.string().optional(),
+// description: z.string().optional(),
+// comment: z.string().optional(),
+
 // use teh names in the form
 export const ToolsAndMachineBuySchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string().optional(),
-  tool_type: z.string().optional(),
-  company: z.string().optional(),
-  company_address: z.string().optional(),
-  contact_number: z.string().optional(),
-  ofc_phone: z.string().optional(),
-  contact_person: z.string().optional(),
-  item_description: z.string().optional(), //????
-  quantity: z.string().optional(),
-  unit_price: z.string().optional(),
-  description: z.string().optional(),
-  comment: z.string().optional(),
+  project_name: z.string({
+    required_error: "Project name is required",
+  }),
+  tool_type: z.string({
+    required_error: "Tool type is required",
+  }),
+  company: z.string({
+    required_error: "Company name is required",
+  }),
+  company_address: z.string({
+    required_error: "Company address is required",
+  }),
+  contact_number: z.string({
+    required_error: "Contact number is required",
+  }),
+  ofc_phone: z.string({
+    required_error: "Office phone is required",
+  }),
+  contact_person: z.string({
+    required_error: "Contact person is required",
+  }),
+  item_description: z.string({
+    required_error: "Item description is required",
+  }),
+  quantity: z.string({
+    required_error: "Quantity is required",
+  }),
+  unit_price: z.string({
+    required_error: "Unit price is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
+  }),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
 });
 
 type ToolsAndMachineBuyType = z.infer<typeof ToolsAndMachineBuySchema>;
 
 export default function ToolsAndMachineBuy() {
   const { projectsData } = useProjectData();
+  const router = useRouter();
+  const { toast } = useToast();
   const projectName = projectsData?.map((item: any) => item.project_name);
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
@@ -56,15 +99,25 @@ export default function ToolsAndMachineBuy() {
     try {
       const res = await api.post("/requests", {
         ...data,
-
         status: "PENDING",
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
       });
+      if (res.status === 201) {
+        toast({
+          title: "Request created successfully",
+          variant: "success",
+        });
+        form.reset();
+        router.push("/staff/create-request");
+      }
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Request creation failed",
+        variant: "destructive",
+      });
     }
   };
 

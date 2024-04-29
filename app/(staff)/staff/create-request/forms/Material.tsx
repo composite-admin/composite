@@ -12,7 +12,7 @@ import {
   useGetStaffDetails,
   useProjectData,
 } from "@/hooks/useSelectOptions";
-import useAuthStore, { userStore } from "@/store/auth/AuthStore";
+import { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,16 +21,32 @@ import { RequestType } from "./CashAdvance";
 import { ISupplierData } from "@/utils/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string().optional(),
-  supplier: z.string().optional(),
-  material_description: z.string().optional(),
-  quantity: z.string().optional(),
-  unit_price: z.string().optional(),
-  description: z.string().optional(),
-  comment: z.string().optional(),
+  project_name: z.string({
+    required_error: "Project Name is required",
+  }),
+  supplier: z.string({
+    required_error: "Supplier is required",
+  }),
+  material_description: z.string({
+    required_error: "Material description is required",
+  }),
+  quantity: z.string({
+    required_error: "Quantity is required",
+  }),
+  unit_price: z.string({
+    required_error: "Unit price is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
+  }),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<
@@ -45,6 +61,8 @@ export default function Material() {
     (item: ISupplierData) => item.supplier_name
   );
   const { formType, setFormType } = useStaffStore();
+  const { toast } = useToast();
+  const router = useRouter();
   const [matDesc, setMatDesc] = useState<string[]>([]);
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
@@ -71,6 +89,14 @@ export default function Material() {
           );
 
           setMatDesc(response.data.data);
+          if (response.status === 201) {
+            toast({
+              title: "Success",
+              description: "Material request created",
+            });
+            form.reset();
+            router.push("/staff/create-request");
+          }
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message);

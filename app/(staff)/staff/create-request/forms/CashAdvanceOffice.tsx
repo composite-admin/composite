@@ -14,14 +14,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string().optional(),
-  amount: z.string().optional(),
-  purpose: z.string().optional(),
-  description: z.string().optional(),
-  comment: z.string().optional(),
+  project_name: z.string({
+    required_error: "Project Name is required",
+  }),
+  amount: z.string({
+    required_error: "Amount is required",
+  }),
+  purpose: z.string({
+    required_error: "Purpose is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
+  }),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<
@@ -30,6 +42,8 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function CashAdvanceOffice() {
   const { projectsData } = useProjectData();
+  const { toast } = useToast();
+  const router = useRouter();
   const { userId } = userStore();
   const { staffDetails, isLoading } = useGetStaffDetails(userId);
   const projectName = projectsData?.map((item: any) => item.project_name);
@@ -38,11 +52,6 @@ export default function CashAdvanceOffice() {
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       request_type: RequestType.CashAdvanceOffice,
-      project_name: "",
-      amount: "",
-      purpose: "",
-      description: "",
-      comment: "",
     },
   });
 
@@ -55,11 +64,20 @@ export default function CashAdvanceOffice() {
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
       });
-      console.log(res);
+      if (res.status === 201) {
+        toast({
+          title: "Request created successfully",
+          variant: "success",
+        });
+        form.reset();
+        router.push("/staff/create-request");
+      }
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Request creation failed",
+        variant: "destructive",
+      });
     }
-    console.log(data);
   };
 
   return (

@@ -56,7 +56,7 @@ export default function CashAdvance() {
   const router = useRouter();
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
-  const { formType, setFormType } = useStaffStore();
+  const { setFormType } = useStaffStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {

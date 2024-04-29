@@ -25,14 +25,28 @@ import { useToast } from "@/components/ui/use-toast";
 
 export const ToolsAndMachineStoreSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string().optional(),
-  amount: z.string().optional(),
-  quantity: z.string().optional(),
-  unit_price: z.string().optional(),
-  tool_description: z.string().optional(),
-  description: z.string().optional(),
-  type: z.string().optional(),
-  comment: z.string().optional(),
+  project_name: z.string({
+    required_error: "Project name is required",
+  }),
+
+  quantity: z.string({
+    required_error: "Quantity is required",
+  }),
+  unit_price: z.string({
+    required_error: "Unit price is required",
+  }),
+  tool_description: z.string({
+    required_error: "Tool description is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
+  }),
+  type: z.string({
+    required_error: "Type is required",
+  }),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
 });
 
 type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
@@ -82,12 +96,22 @@ export default function ToolsAndMachineStore() {
         status: "PENDING",
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
-        amount: Number(data.amount),
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
       });
+      if (res.status === 201) {
+        toast({
+          title: "Request created successfully",
+          variant: "success",
+        });
+        form.reset();
+        router.push("/staff/create-request");
+      }
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Request creation failed",
+        variant: "destructive",
+      });
     }
   };
 
@@ -123,7 +147,7 @@ export default function ToolsAndMachineStore() {
           <div className="py-4 w-full">
             <div className="grid md:grid-cols-2 gap-4 py-3">
               <CustomFormSelect
-                name="project"
+                name="project_name"
                 labelText="Project"
                 control={form.control}
                 items={projectName || [" "]}
