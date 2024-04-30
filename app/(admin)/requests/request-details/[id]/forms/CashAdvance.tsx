@@ -32,16 +32,17 @@ export const createCashAdvanceOfficeSchema = z.object({
   project_name: z.string({
     required_error: "Project Name is required",
   }),
-  amount: z.number({
+
+  approved_amount: z.string({
     required_error: "Amount is required",
   }),
-  purpose: z.string({
-    required_error: "Purpose is required",
+  payment_method: z.string({
+    required_error: "Payment method is required",
   }),
-  description: z.string({
-    required_error: "Description is required",
+  bank_name: z.string({
+    required_error: "Bank name is required",
   }),
-  comment: z.string({
+  supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
 });
@@ -64,18 +65,15 @@ export default function CashAdvance() {
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       request_type: RequestType.CashAdvanceProject,
-      amount: formDetails?.amount,
     },
   });
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
-      const res = await api.post("/requests", {
+      const res = await api.post(`/requests/${formDetails?.id}`, {
         ...data,
-        status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
-        amount: Number(data.amount),
+        status: "APPROVED",
+        amount: Number(data.approved_amount),
       });
       if (res.status === 201) {
         toast({
@@ -109,37 +107,49 @@ export default function CashAdvance() {
             value={formDetails?.staff_name}
           />
         </div>
-        <div className="py-4 w-full">
-          <div className="w-full space-y-4">
+        <div className="space-y-3 py-3 w-full">
+          <div className="w-full">
             <CustomFormField
               name="amount"
               label="Amount"
               control={form.control}
-              placeholder="Enter Amount"
+              placeholder={String(formDetails?.amount)}
               disabled
             />
-
+          </div>
+          <CustomFormField
+            name="approved_amount"
+            label="Approved Amount"
+            control={form.control}
+            placeholder="Enter Approved Amount"
+            className="py-2"
+          />
+          <div className="grid md:grid-cols-2 gap-5 pb-3">
+            <CustomFormSelect
+              name="payment_method"
+              control={form.control}
+              labelText="Select Payment Method"
+              items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
+            />
             <CustomFormField
-              name="approved_amount"
-              label="Approved Amount"
+              name="bank_name"
               control={form.control}
-              placeholder="Enter Amount"
+              label="Bank Name"
+              placeholder="Enter Bank Name"
             />
           </div>
-          <div className="flex flex-col py-3 gap-4 w-full">
-            <CustomFormTextareaField
-              name="reply"
-              label="Description"
-              control={form.control}
-              placeholder="Enter Description"
-            />
-          </div>
+          <CustomFormTextareaField
+            name="supervisor_comment"
+            control={form.control}
+            label="Comment"
+            placeholder="Enter a comment"
+          />
         </div>
         <div className="flex flex-col lg:flex-row gap-5">
           <Button variant="secondary" className="w-full">
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button className="w-full">Approve Request</Button>
         </div>
       </form>
     </Form>

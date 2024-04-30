@@ -27,25 +27,19 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project Name is required",
+  approved_quantity: z.string({
+    required_error: "Amount is required",
   }),
-  supplier: z.string({
-    required_error: "Supplier is required",
+  approved_unit_price: z.string({
+    required_error: "Amount is required",
   }),
-  material_description: z.string({
-    required_error: "Material description is required",
+  payment_method: z.string({
+    required_error: "Payment method is required",
   }),
-  quantity: z.string({
-    required_error: "Quantity is required",
+  bank_name: z.string({
+    required_error: "Bank name is required",
   }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
-  description: z.string({
-    required_error: "Description is required",
-  }),
-  comment: z.string({
+  supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
 });
@@ -57,12 +51,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function Material() {
   const { projectsData } = useProjectData();
   const { formDetails } = useUpdateRequestStore();
-  console.log(formDetails);
-  const projectName = projectsData?.map((item: any) => item.project_name);
-  const { suppliers } = useGetAllSuppliers();
-  const supplierList = suppliers?.map(
-    (item: ISupplierData) => item.supplier_name
-  );
+
   const { formType, setFormType } = useStaffStore();
   const { toast } = useToast();
   const router = useRouter();
@@ -76,53 +65,17 @@ export default function Material() {
     },
   });
 
-  const watchSupplier = form.watch("supplier");
-  const supplierCode = suppliers?.find(
-    (item: any) => item.supplier_name === watchSupplier
-  )?.supplier_code;
-
   const description = matDesc?.map((item: any) => item.description);
-
-  useEffect(() => {
-    if (watchSupplier) {
-      const materialDescription = async () => {
-        try {
-          const response = await api.get(
-            `/suppliers-materials/supplier/description?supplierCode=${supplierCode}`
-          );
-
-          setMatDesc(response.data.data);
-          if (response.status === 201) {
-            toast({
-              title: "Success",
-              description: "Material request created",
-            });
-            form.reset();
-            router.push("/staff/create-request");
-          }
-        } catch (error) {
-          if (axios.isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-          } else {
-            throw error;
-          }
-        }
-      };
-
-      materialDescription();
-    }
-  }, [supplierCode, watchSupplier]);
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
-      const res = await api.post("/requests", {
+      const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
-        status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
-        unit_price: Number(data.unit_price),
-        quantity: Number(data.quantity),
-        total_price: Number(data.unit_price) * Number(data.quantity),
+        status: "APPROVED",
+        approved_unit_price: Number(data.approved_unit_price),
+        approved_quantity: Number(data.approved_quantity),
+        approved_total_price:
+          Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
       console.log(res);
     } catch (error) {
@@ -150,72 +103,94 @@ export default function Material() {
           />
         </div>
         <div className="py-4 w-full">
-          <div className="flex flex-col lg:flex-row gap-4 w-full">
+          <div className="flex flex-col lg:flex-row gap-4 w-full pb-3">
             <div className="w-full">
-              <CustomFormSelect
-                name="project_name"
+              <CustomFormField
+                name="supplier_name"
                 control={form.control}
-                labelText="Project"
-                items={projectName && projectName}
+                placeholder={formDetails?.supplier_name}
+                label="Supplier Name"
+                disabled
               />
             </div>
             <div className="w-full">
-              <CustomFormSelect
-                name="supplier"
+              <CustomFormField
+                name="supplier_material"
                 control={form.control}
-                labelText="Supplier"
-                items={supplierList || ["Loading Suppliers"]}
+                placeholder={formDetails?.supplier_material}
+                label="Material Description"
+                disabled
               />
             </div>
           </div>
-          <div className="flex flex-col py-3 gap-4 w-full">
-            <CustomFormSelect
-              name="material_description"
-              control={form.control}
-              labelText="Material Description"
-              items={description || ["Loading Description"]}
-              disabled={watchSupplier ? false : true}
-            />
+          <div className="flex flex-col lg:flex-row gap-4 w-full">
+            <div className="w-full">
+              <CustomFormField
+                name="quantity"
+                control={form.control}
+                placeholder={String(formDetails?.quantity)}
+                label="Requested Quantity"
+                disabled
+              />
+            </div>
+            <div className="w-full">
+              <CustomFormField
+                name="unit_price"
+                control={form.control}
+                placeholder={String(formDetails?.unit_price)}
+                label="Requested Unit Price"
+                disabled
+              />
+            </div>
           </div>
 
           <div className="flex flex-col py-3 gap-5 w-full">
             <div className="flex items-center gap-3 w-full flex-col lg:flex-row">
               <div className="w-full">
                 <CustomFormField
-                  name="quantity"
+                  name="approved_quantity"
                   placeholder="Enter Quantity"
                   control={form.control}
-                  label="Quantity"
+                  label="Approved Quantity"
                 />
               </div>
               <div className="w-full">
                 <CustomFormField
-                  name="unit_price"
+                  name="approved_unit_price"
                   placeholder="Enter amount"
                   control={form.control}
-                  label="Unit Price"
+                  label="Approved Unit Price"
                 />
               </div>
             </div>
-            <CustomFormTextareaField
-              name="description"
-              label="Description"
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-5 pb-3">
+            <CustomFormSelect
+              name="payment_method"
               control={form.control}
-              placeholder="Enter Description"
+              labelText="Select Payment Method"
+              items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
             />
-            <CustomFormTextareaField
-              name="comment"
-              label="Comment"
+            <CustomFormField
+              name="bank_name"
               control={form.control}
-              placeholder="Enter Comment"
+              label="Bank Name"
+              placeholder="Enter Bank Name"
             />
           </div>
+          <CustomFormTextareaField
+            name="supervisor_comment"
+            control={form.control}
+            label="Comment"
+            placeholder="Enter a comment"
+          />
         </div>
         <div className="flex flex-col lg:flex-row gap-5">
           <Button variant="secondary" className="w-full">
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button className="w-full">Approve Request</Button>
         </div>
       </form>
     </Form>

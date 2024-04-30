@@ -29,10 +29,10 @@ export const createCashAdvanceOfficeSchema = z.object({
   project_name: z.string({
     required_error: "Project Name is required",
   }),
-  supplier: z.string({
+  supplier_name: z.string({
     required_error: "Supplier is required",
   }),
-  material_description: z.string({
+  supplier_material: z.string({
     required_error: "Material description is required",
   }),
   quantity: z.string({
@@ -73,7 +73,7 @@ export default function Material() {
     },
   });
 
-  const watchSupplier = form.watch("supplier");
+  const watchSupplier = form.watch("supplier_name");
   const supplierCode = suppliers?.find(
     (item: any) => item.supplier_name === watchSupplier
   )?.supplier_code;
@@ -163,7 +163,7 @@ export default function Material() {
               </div>
               <div className="w-full">
                 <CustomFormSelect
-                  name="supplier"
+                  name="supplier_name"
                   control={form.control}
                   labelText="Supplier"
                   items={supplierList || ["Loading Suppliers"]}
@@ -172,7 +172,7 @@ export default function Material() {
             </div>
             <div className="flex flex-col py-3 gap-4 w-full">
               <CustomFormSelect
-                name="material_description"
+                name="supplier_material"
                 control={form.control}
                 labelText="Material Description"
                 items={description || ["Loading Description"]}

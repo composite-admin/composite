@@ -26,26 +26,10 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const ToolsAndMachineStoreSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project name is required",
-  }),
-
-  quantity: z.string({
+  approved_quantity: z.string({
     required_error: "Quantity is required",
   }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
-  tool_description: z.string({
-    required_error: "Tool description is required",
-  }),
-  description: z.string({
-    required_error: "Description is required",
-  }),
-  type: z.string({
-    required_error: "Type is required",
-  }),
-  comment: z.string({
+  supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
 });
@@ -55,60 +39,31 @@ type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 export default function ToolsAndMachineStore() {
   const { projectsData } = useProjectData();
   const { formDetails } = useUpdateRequestStore();
-  console.log(formDetails);
-  const { setFormType } = useStaffStore();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
-  const projectName = projectsData?.map((item: any) => item.project_name);
   const router = useRouter();
-  const { inventories } = useGetAllInventoryTypes();
-  const toolType = inventories?.map((item: any) => item?.type);
-  const { setToolData, toolData } = useInventoryStore();
   const { toast } = useToast();
-  const ToolDescription = toolData?.map((item: any) => item?.description);
   const form = useForm<ToolsAndMachineStoreType>({
     resolver: zodResolver(ToolsAndMachineStoreSchema),
     defaultValues: {
       request_type: RequestType.ToolsAndMachineStore,
     },
   });
-  const { watch } = form;
-  const watchTools = watch("type");
-
-  useEffect(() => {
-    const fetchToolDescription = async () => {
-      if (watchTools) {
-        try {
-          const res = await api.get(`/inventory/type/all?type=${watchTools}`);
-          if (res) {
-            setToolData(res.data.data);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-
-    fetchToolDescription();
-  }, [setToolData, watchTools]);
 
   const handleSubmit = async (data: ToolsAndMachineStoreType) => {
     try {
-      const res = await api.post("/requests", {
+      const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
-        status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
-        quantity: Number(data.quantity),
-        unit_price: Number(data.unit_price),
+        status: "APPROVED",
+        approved_quantity: Number(data.approved_quantity),
       });
       if (res.status === 201) {
         toast({
-          title: "Request created successfully",
+          title: "Request Approved",
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.refresh();
       }
     } catch (error) {
       toast({
@@ -137,28 +92,15 @@ export default function ToolsAndMachineStore() {
             value={formDetails?.staff_name}
           />
         </div>
+
+        <CustomFormField
+          name="tool_name"
+          control={form.control}
+          label="Tool Name"
+          disabled
+          placeholder={formDetails?.tool_name}
+        />
         <div className="py-4 w-full">
-          <div className="grid md:grid-cols-2 gap-4 py-3">
-            <CustomFormSelect
-              name="project_name"
-              labelText="Project"
-              control={form.control}
-              items={projectName || [" "]}
-            />
-            <CustomFormSelect
-              name="type"
-              labelText="Type"
-              control={form.control}
-              items={toolType || [" "]}
-            />
-          </div>
-          <CustomFormSelect
-            name="tool_description"
-            className="col-span-full"
-            labelText="Tool Description"
-            control={form.control}
-            items={ToolDescription || [" "]}
-          />
           <div className="grid md:grid-cols-2 gap-4 py-3">
             <CustomFormField
               name="quantity"
@@ -167,23 +109,17 @@ export default function ToolsAndMachineStore() {
               placeholder="Enter Quantity"
             />
             <CustomFormField
-              name="unit_price"
+              name="approved_quantity"
               control={form.control}
-              label="Unit Price"
-              placeholder="Enter Unit Price"
+              label="Approved Quantity"
+              placeholder="Enter Quantity"
             />
           </div>
 
           <div className="flex flex-col gap-4 py-4">
             <CustomFormTextareaField
-              name="description"
-              label="Description"
-              control={form.control}
-              placeholder="Enter Description"
-            />
-            <CustomFormTextareaField
-              name="comment"
-              label="Comment"
+              name="supervisor_comment"
+              label="Approval Comment"
               control={form.control}
               placeholder="Enter Comment"
             />
@@ -193,7 +129,7 @@ export default function ToolsAndMachineStore() {
           <Button variant="secondary" className="w-full">
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button className="w-full">Approve Request</Button>
         </div>
       </form>
     </Form>

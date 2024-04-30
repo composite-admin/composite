@@ -20,19 +20,16 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project Name is required",
-  }),
-  amount: z.string({
+  approved_amount: z.string({
     required_error: "Amount is required",
   }),
-  purpose: z.string({
-    required_error: "Purpose is required",
+  payment_method: z.string({
+    required_error: "Payment method is required",
   }),
-  description: z.string({
-    required_error: "Description is required",
+  bank_name: z.string({
+    required_error: "Bank name is required",
   }),
-  comment: z.string({
+  supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
 });
@@ -43,7 +40,6 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function CashAdvanceOffice() {
   const { formDetails } = useUpdateRequestStore();
-  console.log(formDetails);
   const { projectsData } = useProjectData();
   const { toast } = useToast();
   const router = useRouter();
@@ -60,20 +56,18 @@ export default function CashAdvanceOffice() {
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
-      const res = await api.post("/requests", {
+      const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
-        status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
-        amount: Number(data.amount),
+        status: "APPROVED",
+        approved_amount: Number(data.approved_amount),
       });
       if (res.status === 201) {
         toast({
-          title: "Request created successfully",
+          title: "Request Approved",
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.refresh();
       }
     } catch (error) {
       toast({
@@ -102,52 +96,49 @@ export default function CashAdvanceOffice() {
             value={formDetails?.staff_name}
           />
         </div>
-        <div className="py-4 w-full">
-          <div className="flex flex-col lg:flex-row gap-4 w-full">
-            <div className="w-full">
-              <CustomFormSelect
-                name="project_name"
-                labelText="Project Name"
-                control={form.control}
-                placeholder="Select Project"
-                items={projectName || []}
-              />
-            </div>
-            <div className="w-full">
-              <CustomFormField
-                name="amount"
-                label="Amount"
-                control={form.control}
-                placeholder="Enter Amount"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col py-3 gap-4 w-full">
+        <div className="space-y-3 py-3 w-full">
+          <div className="w-full">
             <CustomFormField
-              name="purpose"
-              label="Purpose"
+              name="amount"
+              label="Amount"
               control={form.control}
-              placeholder="Enter Purpose"
-            />
-            <CustomFormTextareaField
-              name="description"
-              label="Description"
-              control={form.control}
-              placeholder="Enter Description"
-            />
-            <CustomFormTextareaField
-              name="comment"
-              label="Comment"
-              control={form.control}
-              placeholder="Enter Comment"
+              placeholder={String(formDetails?.amount)}
+              disabled
             />
           </div>
+          <CustomFormField
+            name="approved_amount"
+            label="Approved Amount"
+            control={form.control}
+            placeholder="Enter Approved Amount"
+            className="py-2"
+          />
+          <div className="grid md:grid-cols-2 gap-5 pb-3">
+            <CustomFormSelect
+              name="payment_method"
+              control={form.control}
+              labelText="Select Payment Method"
+              items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
+            />
+            <CustomFormField
+              name="bank_name"
+              control={form.control}
+              label="Bank Name"
+              placeholder="Enter Bank Name"
+            />
+          </div>
+          <CustomFormTextareaField
+            name="supervisor_comment"
+            control={form.control}
+            label="Comment"
+            placeholder="Enter a comment"
+          />
         </div>
         <div className="flex flex-col lg:flex-row gap-5">
           <Button variant="secondary" className="w-full">
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button className="w-full">Approve Request</Button>
         </div>
       </form>
     </Form>

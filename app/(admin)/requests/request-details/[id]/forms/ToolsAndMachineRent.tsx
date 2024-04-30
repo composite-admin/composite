@@ -24,40 +24,19 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 // use teh names in the form
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project name is required",
+  approved_quantity: z.string({
+    required_error: "Amount is required",
   }),
-  tool_type: z.string({
-    required_error: "Tool type is required",
+  approved_unit_price: z.string({
+    required_error: "Amount is required",
   }),
-  company: z.string({
-    required_error: "Company name is required",
+  payment_method: z.string({
+    required_error: "Payment method is required",
   }),
-  company_address: z.string({
-    required_error: "Company address is required",
+  bank_name: z.string({
+    required_error: "Bank name is required",
   }),
-  contact_number: z.string({
-    required_error: "Contact number is required",
-  }),
-  ofc_phone: z.string({
-    required_error: "Office phone is required",
-  }),
-  contact_person: z.string({
-    required_error: "Contact person is required",
-  }),
-  item_description: z.string({
-    required_error: "Item description is required",
-  }),
-  quantity: z.string({
-    required_error: "Quantity is required",
-  }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
-  description: z.string({
-    required_error: "Description is required",
-  }),
-  comment: z.string({
+  supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
 });
@@ -65,16 +44,13 @@ export const ToolsAndMachineRentSchema = z.object({
 type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 
 export default function ToolsAndMachineRent() {
-  const { projectsData } = useProjectData();
   const { formDetails } = useUpdateRequestStore();
   console.log(formDetails);
-  const projectName = projectsData?.map((item: any) => item.project_name);
-  const { userId } = userStore();
+  const { projectsData } = useProjectData();
   const router = useRouter();
   const { toast } = useToast();
+  const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
-  const { inventories } = useGetAllInventoryTypes();
-  const toolType = inventories?.map((item: any) => item?.type);
   const { setFormType } = useStaffStore();
   const form = useForm<ToolsAndMachineRentType>({
     resolver: zodResolver(ToolsAndMachineRentSchema),
@@ -85,13 +61,13 @@ export default function ToolsAndMachineRent() {
 
   const handleSubmit = async (data: ToolsAndMachineRentType) => {
     try {
-      const res = await api.post("/requests", {
+      const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
-        status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
-        quantity: Number(data.quantity),
-        unit_price: Number(data.unit_price),
+        status: "APPROVED",
+        approved_unit_price: Number(data.approved_unit_price),
+        approved_quantity: Number(data.approved_quantity),
+        approved_total_price:
+          Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
       if (res.status === 201) {
         toast({
@@ -112,13 +88,13 @@ export default function ToolsAndMachineRent() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 ">
           <CustomFormSelect
             name="request_type"
             control={form.control}
             labelText="Request Type"
             disabled
-            items={Object.values(RequestType)}
+            items={[RequestType.ToolsAndMachineBuy]}
           />
           <CustomFormField
             name="request_from"
@@ -127,97 +103,73 @@ export default function ToolsAndMachineRent() {
             disabled
             value={formDetails?.staff_name}
           />
+          <CustomFormField
+            name="supplier_name"
+            control={form.control}
+            placeholder={formDetails?.supplier_name}
+            label="Supplier Name"
+            disabled
+          />
+          <CustomFormField
+            name="supplier_material"
+            control={form.control}
+            placeholder={formDetails?.supplier_material}
+            label="Material Description"
+            disabled
+          />
+          <CustomFormField
+            name="quantity"
+            control={form.control}
+            placeholder={String(formDetails?.quantity)}
+            label="Requested Quantity"
+            disabled
+          />
+          <CustomFormField
+            name="unit_price"
+            control={form.control}
+            placeholder={String(formDetails?.unit_price)}
+            label="Requested Unit Price"
+            disabled
+          />
+          <CustomFormField
+            name="approved_quantity"
+            placeholder="Enter Quantity"
+            control={form.control}
+            label="Approved Quantity"
+          />
+          <CustomFormField
+            name="approved_unit_price"
+            placeholder="Enter amount"
+            control={form.control}
+            label="Approved Unit Price"
+          />
+          <CustomFormSelect
+            name="payment_method"
+            control={form.control}
+            labelText="Select Payment Method"
+            items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
+          />
+          <CustomFormField
+            name="bank_name"
+            control={form.control}
+            label="Bank Name"
+            placeholder="Enter Bank Name"
+          />
         </div>
-        <div className="py-4 w-full">
-          <div className="flex flex-col lg:flex-row gap-4 items-center py-3">
-            <div className="w-full flex flex-col gap-5">
-              <CustomFormSelect
-                name="project_name"
-                control={form.control}
-                labelText="Project"
-                items={projectName || [" "]}
-              />
-              <CustomFormField
-                name="company"
-                control={form.control}
-                label="Company"
-                placeholder="Enter Company"
-              />
-              <CustomFormField
-                name="ofc_phone"
-                control={form.control}
-                label="Company Phone"
-                placeholder="Enter number"
-              />
-              <CustomFormField
-                name="contact_number"
-                control={form.control}
-                label="Contact Number"
-                placeholder="Enter number"
-              />
-              <CustomFormField
-                name="quantity"
-                control={form.control}
-                label="quantity"
-                placeholder="Enter quantity"
-              />
-            </div>
-
-            <div className="w-full flex flex-col gap-5">
-              <CustomFormSelect
-                name="tool_type"
-                control={form.control}
-                labelText="Tool Type"
-                items={toolType || [" "]}
-              />
-
-              <CustomFormField
-                name="company_address"
-                control={form.control}
-                label="Company Address"
-                placeholder="Enter Company Address"
-              />
-              <CustomFormField
-                name="contact_person"
-                control={form.control}
-                label="Contact Person"
-                placeholder="Enter full name"
-              />
-              <CustomFormField
-                name="item_description"
-                control={form.control}
-                label="Item Description"
-                placeholder="Enter description"
-              />
-              <CustomFormField
-                name="unit_price"
-                control={form.control}
-                label="Unit Price"
-                placeholder="Enter description"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4 py-4">
-            <CustomFormTextareaField
-              name="description"
-              label="Description"
-              control={form.control}
-              placeholder="Enter Description"
-            />
-            <CustomFormTextareaField
-              name="comment"
-              label="Comment"
-              control={form.control}
-              placeholder="Enter Comment"
-            />
-          </div>
+        <div className="py-6">
+          <CustomFormTextareaField
+            className=""
+            name="supervisor_comment"
+            control={form.control}
+            label="Comment"
+            placeholder="Enter a comment"
+          />
         </div>
         <div className="flex flex-col lg:flex-row gap-5">
           <Button variant="secondary" className="w-full">
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button className="w-full">Approve request</Button>
         </div>
       </form>
     </Form>

@@ -25,16 +25,16 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project Name is required",
+  approved_amount: z.string({
+    required_error: "Amount is required",
   }),
-  worker_name: z.string({
-    required_error: "Worker Name is required",
+  payment_method: z.string({
+    required_error: "Payment method is required",
   }),
-  description: z.string({
-    required_error: "Description is required",
+  bank_name: z.string({
+    required_error: "Bank name is required",
   }),
-  comment: z.string({
+  supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
 });
@@ -45,7 +45,6 @@ export default function Labour() {
   const { formDetails } = useUpdateRequestStore();
   console.log(formDetails);
   const { projectsData } = useProjectData();
-  const { formType, setFormType } = useStaffStore();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
@@ -63,19 +62,17 @@ export default function Labour() {
 
   const handleSubmit = async (data: labourFormType) => {
     try {
-      const res = await api.post("/requests", {
+      const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
-        status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+        status: "APPROVED",
       });
       if (res.status === 201) {
         toast({
-          title: "Request created successfully",
+          title: "Request Approved",
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.refresh();
       }
     } catch (error) {
       toast({
@@ -107,21 +104,21 @@ export default function Labour() {
         <div className="py-4 w-full">
           <div className="flex flex-col lg:flex-row gap-4 w-full">
             <div className="w-full">
-              <CustomFormSelect
-                name="project_name"
-                labelText="Project"
+              <CustomFormField
+                name="amount"
+                label="Amount"
                 control={form.control}
-                placeholder="Select project"
-                items={projectName || ["Loading..."]}
+                placeholder={String(formDetails?.amount)}
+                disabled
               />
             </div>
             <div className="w-full">
-              <CustomFormSelect
-                name="worker_name"
-                labelText="Worker"
+              <CustomFormField
+                name="approved_amount"
+                label="Approved Amount"
                 control={form.control}
-                placeholder="Select Worker"
-                items={workList || ["Loading..."]}
+                placeholder="Enter Approved Amount"
+                className="py-2"
               />
             </div>
           </div>

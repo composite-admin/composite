@@ -12,10 +12,11 @@ import { Modal } from "@/components/shared/Modal";
 
 export default function RequestApprovalModal() {
   const { isOpen, onClose, formType } = useUpdateRequestStore();
+  const { formDetails } = useUpdateRequestStore();
 
   return (
     <Modal
-      title="Update Request"
+      title={`Approve Request - ${formDetails?.request_type}`}
       isOpen={isOpen}
       onClose={onClose}
       classname="max-w-3xl"
@@ -31,22 +32,4 @@ export default function RequestApprovalModal() {
   );
 }
 
-// export default function RequestForm() {
-//   const { formType } = useUpdateRequestStore();
-//   return (
-//     <>
-//       {formType === "Material" && (
-//         <div>
-//           {" "}
-//           <p>Hello</p>{" "}
-//         </div>
-//       )}
-//       {formType === "Labour" && <Labour />}
-//       {formType === "Cash Advance Project" && <CashAdvance />}
-//       {formType === "Cash Advance Office" && <CashAdvanceOffice />}
-//       {formType === "Tools and Machine Buy" && <ToolsAndMachineBuy />}
-//       {formType === "Tools and Machine Rent" && <ToolsAndMachineRent />}
-//       {formType === "Tools and Machine Store" && <ToolAndMachineStore />}
-//     </>
-//   );
-// }
+
