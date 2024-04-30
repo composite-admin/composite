@@ -45,13 +45,11 @@ type ToolsAndMachineBuyType = z.infer<typeof ToolsAndMachineBuySchema>;
 
 export default function ToolsAndMachineBuy() {
   const { formDetails } = useUpdateRequestStore();
-  console.log(formDetails);
   const { projectsData } = useProjectData();
   const router = useRouter();
   const { toast } = useToast();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
-  const { setFormType } = useStaffStore();
   const form = useForm<ToolsAndMachineBuyType>({
     resolver: zodResolver(ToolsAndMachineBuySchema),
     defaultValues: {

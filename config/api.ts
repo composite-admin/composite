@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { getCookie } from "cookies-next";
-import { data } from "../app/(admin)/cash-advance/data";
 
 export interface AxiosErrorResponse extends AxiosRequestConfig {
   error: string;

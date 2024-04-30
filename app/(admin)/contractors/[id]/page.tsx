@@ -133,11 +133,6 @@ const SingleContractor = () => {
                   {selectedItem && selectedItem.website}
                 </p>
               </div>
-
-              {/* <div>
-                                <p className='text-[#475367] text-sm'>Comment:</p>
-                                <p className='text-[#101928] text-[16px] font-[600]'>{selectedItem && selectedItem.comment}</p>
-                            </div> */}
             </div>
           </div>
         </div>

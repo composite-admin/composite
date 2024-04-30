@@ -58,18 +58,12 @@ export const getrequestById = async (id: number | string) => {
   }
 };
 
-// "material",
-// "labour",
-// "cash_advance_project",
-// "cash_advance_office",
-// "tools_and_machine_buy",
-// "tools_and_machine_rent",
-// "tools_and_machine_store",
-
 export type RequestType = "Material" | "Labour" | "Cash Advance Project" | "Cash Advance Office" | "Tools and Machine Buy" | "Tools and Machine Rent" | "Tools and Machine Store" | null; 
 interface UpdateRequestStoreState {
   formType: RequestType | null;
-  formDetails : IRequestData | null;
+  formDetails: IRequestData | null;
+  isEdit: boolean;
+  setIsEdit: (isEdit: boolean) => void;
   setFormDetails: (type: IRequestData) => void;
   setFormType: (type: RequestType) => void;
   isOpen: boolean;
@@ -81,6 +75,8 @@ export const useUpdateRequestStore = create<UpdateRequestStoreState>((set) => ({
   isOpen: false,
   formType: null,
   formDetails: null,
+  isEdit: false,
+  setIsEdit: (isEdit) => set({ isEdit }),
   setFormDetails: (type) => set({ formDetails: type }),
   setFormType: (type) => set({ formType: type }),
   onOpen: () => set({ isOpen: true }),

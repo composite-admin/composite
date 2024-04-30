@@ -24,12 +24,20 @@ export default function RequestDetailsPage({
   // const { onOpen } = useAddCommentModal();
   // const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
   const { requestDetails } = useRequestStore();
-  const { setFormDetails, setFormType, onOpen } = useUpdateRequestStore();
+  const { setFormDetails, setFormType, onOpen, isEdit, setIsEdit } =
+    useUpdateRequestStore();
 
-  function handleFormType(type: RequestType) {
-    if (data) {
+  function handleFormType(type: RequestType, isEdit: boolean) {
+    if (data && isEdit) {
       setFormType(type);
       onOpen();
+      setIsEdit(true);
+      setFormDetails(data);
+    }
+    if (data && !isEdit) {
+      setFormType(type);
+      onOpen();
+      setIsEdit(false);
       setFormDetails(data);
     }
   }
@@ -257,16 +265,20 @@ export default function RequestDetailsPage({
       <div className="flex flex-col md:flex-row gap-4 py-8">
         <Button
           className="md:w-1/3"
-          onClick={() => handleFormType(data?.request_type as RequestType)}
+          onClick={() =>
+            handleFormType(data?.request_type as RequestType, true)
+          }
         >
-          Request more information
+          Edit Request
         </Button>
         <Button className="md:w-1/3" variant={"destructive"}>
           Decline
         </Button>
         <Button
           className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90"
-          onClick={() => handleFormType(data?.request_type as RequestType)}
+          onClick={() =>
+            handleFormType(data?.request_type as RequestType, false)
+          }
         >
           Approve
         </Button>
