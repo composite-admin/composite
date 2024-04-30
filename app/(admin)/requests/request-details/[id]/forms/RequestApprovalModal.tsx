@@ -10,9 +10,11 @@ import ToolAndMachineStore from "./ToolAndMachineStore";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import { Modal } from "@/components/shared/Modal";
 import EditRequestForm from "./edit/EditRequestForm";
+import DeleteRequest from "./DeleteRequest";
 
 export default function RequestApprovalModal() {
-  const { isOpen, onClose, formType, isEdit } = useUpdateRequestStore();
+  const { isOpen, onClose, formType, isEdit, isDelete } =
+    useUpdateRequestStore();
   const { formDetails } = useUpdateRequestStore();
 
   if (isEdit) {
@@ -24,6 +26,19 @@ export default function RequestApprovalModal() {
         classname="max-w-3xl"
       >
         <EditRequestForm />
+      </Modal>
+    );
+  }
+
+  if (isDelete) {
+    return (
+      <Modal
+        title={`Delete Request - ${formDetails?.request_type}`}
+        isOpen={isOpen}
+        onClose={onClose}
+        classname="max-w-3xl"
+      >
+        <DeleteRequest />
       </Modal>
     );
   }

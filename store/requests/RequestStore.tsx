@@ -63,6 +63,8 @@ interface UpdateRequestStoreState {
   formType: RequestType | null;
   formDetails: IRequestData | null;
   isEdit: boolean;
+  isDelete: boolean;
+  setIsDelete: (isDelete: boolean) => void;
   setIsEdit: (isEdit: boolean) => void;
   setFormDetails: (type: IRequestData) => void;
   setFormType: (type: RequestType) => void;
@@ -76,6 +78,8 @@ export const useUpdateRequestStore = create<UpdateRequestStoreState>((set) => ({
   formType: null,
   formDetails: null,
   isEdit: false,
+  isDelete: false,
+  setIsDelete: (isDelete) => set({ isDelete }),
   setIsEdit: (isEdit) => set({ isEdit }),
   setFormDetails: (type) => set({ formDetails: type }),
   setFormType: (type) => set({ formType: type }),

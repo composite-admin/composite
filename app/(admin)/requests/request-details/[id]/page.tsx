@@ -24,10 +24,21 @@ export default function RequestDetailsPage({
   // const { onOpen } = useAddCommentModal();
   // const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
   const { requestDetails } = useRequestStore();
-  const { setFormDetails, setFormType, onOpen, isEdit, setIsEdit } =
-    useUpdateRequestStore();
+  const {
+    setFormDetails,
+    setFormType,
+    onOpen,
+    isEdit,
+    setIsEdit,
+    isDelete,
+    setIsDelete,
+  } = useUpdateRequestStore();
 
-  function handleFormType(type: RequestType, isEdit: boolean) {
+  function handleFormType(
+    type: RequestType,
+    isEdit: boolean,
+    isDelete: boolean
+  ) {
     if (data && isEdit) {
       setFormType(type);
       onOpen();
@@ -38,6 +49,12 @@ export default function RequestDetailsPage({
       setFormType(type);
       onOpen();
       setIsEdit(false);
+      setFormDetails(data);
+    }
+    if (data && isDelete) {
+      setFormType(type);
+      onOpen();
+      setIsDelete(true);
       setFormDetails(data);
     }
   }
@@ -266,18 +283,24 @@ export default function RequestDetailsPage({
         <Button
           className="md:w-1/3"
           onClick={() =>
-            handleFormType(data?.request_type as RequestType, true)
+            handleFormType(data?.request_type as RequestType, true, false)
           }
         >
           Edit Request
         </Button>
-        <Button className="md:w-1/3" variant={"destructive"}>
+        <Button
+          className="md:w-1/3"
+          variant={"destructive"}
+          onClick={() =>
+            handleFormType(data?.request_type as RequestType, false, true)
+          }
+        >
           Decline
         </Button>
         <Button
           className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90"
           onClick={() =>
-            handleFormType(data?.request_type as RequestType, false)
+            handleFormType(data?.request_type as RequestType, false, false)
           }
         >
           Approve
