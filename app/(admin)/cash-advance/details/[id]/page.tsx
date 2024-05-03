@@ -6,14 +6,38 @@ import {
   breakdownModal,
   useAddAndEditBreakDownModal,
 } from "@/store/modals/useCreateModal";
-import { columns } from "../../consultants/columns";
 import { DataTable } from "@/components/shared/DataTable";
-import { data } from "../../consultants/data";
+import { data } from "../../../consultants/data";
+import {
+  useGetCashAdvanceBreakdownById,
+  useGetCashAdvanceById,
+} from "@/hooks/useSelectOptions";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDate } from "@/utils/formatDate";
+import { columns } from "./columns";
+import { ICashAdvanceBreakdownData } from "@/utils/types";
+import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
+import { useEffect } from "react";
 
-export default function CashAdvanceDetailsPage() {
+type Params = {
+  params: {
+    id: string;
+  };
+};
+export default function CashAdvanceDetailsPage({ params }: Params) {
+  const id = params.id;
   const onOpen = useAddAndEditBreakDownModal((state) => state.onOpen);
+  const { details } = useGetCashAdvanceById(id);
+  const { setCashAdvanceDetails } = useCashAdvanceStore();
+  const { cashAdvanceBreakdown, isBreakDownLoading } =
+    useGetCashAdvanceBreakdownById(id);
 
-  
+  useEffect(() => {
+    if (details) {
+      setCashAdvanceDetails(details);
+    }
+  }, [details, setCashAdvanceDetails]);
+
   const setModalType = (args: breakdownModal) => {
     if (args == "add") {
       useAddAndEditBreakDownModal.setState({
@@ -49,24 +73,21 @@ export default function CashAdvanceDetailsPage() {
                   <span>Request code:</span>
                   <span>Staff Name:</span>
                   <span>Project Name:</span>
-                  <span>Date Updated::</span>
+                  <span>Date Updated:</span>
                   <span>Amount Recorded:</span>
-                  <span>Supervisor's Comment:</span>
+                  <span>Balance:</span>
                 </div>
 
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
-                  <span>RCPD119548</span>
+                  <span>{details?.request_code}</span>
 
-                  <span>Bode Peters</span>
+                  <span>{details?.staff_name}</span>
 
-                  <span>GRA Office Renovation</span>
-                  <span>₦1,000,000</span>
-                  <span>6, Jul, 2023</span>
+                  <span>{details?.project_name}</span>
+                  <span>{formatCurrency(details?.amount_recorded)}</span>
+                  <span>{details && formatDate(details.updatedAt)}</span>
 
-                  <span>
-                    This building project is set to redefine the structure of
-                    accomodation in the area
-                  </span>
+                  <span>{formatCurrency(details?.balance)}</span>
                 </div>
               </div>
 
@@ -75,17 +96,12 @@ export default function CashAdvanceDetailsPage() {
                   <span>Request code:</span>
                   <span>Staff Name:</span>
                   <span>Project Name:</span>
-                  <span>Supervisor's Comment:</span>
                 </div>
 
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
-                  <span>RCPD119548</span>
-                  <span>Bode Peters</span>
-                  <span>GRA Office Renovation</span>
-                  <span>
-                    This building project is set to redefine the structure of
-                    accomodation in the area
-                  </span>
+                  <span>{details?.request_code}</span>
+                  <span>{details?.staff_name}</span>
+                  <span>{details?.project_name}</span>
                 </div>
               </div>
             </div>
@@ -93,7 +109,11 @@ export default function CashAdvanceDetailsPage() {
         </div>
       </div>
       <div className="py-5">
-        {/* <DataTable columns={columns} data={data } /> */}
+        <DataTable
+          columns={columns}
+          data={cashAdvanceBreakdown ?? []}
+          isLoading={isBreakDownLoading}
+        />
       </div>
     </div>
   );

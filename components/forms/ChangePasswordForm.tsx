@@ -43,7 +43,10 @@ export default function ChangePasswordForm() {
     mutationFn: async (data: ChangePasswordSchemaType) => {
       try {
         if (data.new_password === data.confirm_new_password) {
-          const response = await api.put("/users/change-password", data);
+          const response = await api.put("/users/change-password", {
+            oldPassword: data.current_password,
+            newPassword: data.new_password,
+          });
           return response.data;
         } else {
           toast({
@@ -65,8 +68,7 @@ export default function ChangePasswordForm() {
         title: "Password changed successfully",
         variant: "success",
       });
-      form.reset();
-      window.location.reload();
+      // window.location.reload();
     },
     onError: () => {
       toast({

@@ -18,6 +18,7 @@ import EditFlatModal from "@/components/Modals/faclility/EditFlatModal";
 import ProjectDetailsPageFormModal from "@/components/Project/ProjectDetailsPageFormModal";
 import AddToProjectModal from "@/components/Modals/AddToProjectModal";
 import RequestApprovalModal from "@/app/(admin)/requests/request-details/[id]/forms/RequestApprovalModal";
+import AdvancesModals from "@/app/(admin)/cash-advance/details/(forms_and_modals)/AdvancesModals";
 
 export const ModalProvider = () => {
   const [ismounted, setIsMounted] = useState(false);
@@ -50,6 +51,7 @@ export const ModalProvider = () => {
       <ProjectDetailsPageFormModal />
       <AddToProjectModal />
       <RequestApprovalModal />
+      <AdvancesModals />
     </>
   );
 };

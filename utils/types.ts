@@ -211,11 +211,16 @@ export interface ICashAdvanceData {
   amount_recorded: string;
   balance: string;
   status: string;
-  purpose: string;
   bank_to: string;
   payment_method: string;
   createdAt: string;
   updatedAt: string;
+  description: string | null;
+  decision: string | null;
+  decision_reason: string | null;
+  action_type: string | null;
+  action_by: string | null;
+  image: string | null;
 }
 
 export interface ITenantData {
@@ -341,11 +346,17 @@ export interface IConsultantDetailsData {
 
 export const AddConsultantSchema = z
   .object({
-    name: z.string().min(3, { message: "Full name must be at least 3 characters" }),
-    contact: z.string().min(10, { message: "Phone number must be at least 10 characters" }),
+    name: z
+      .string()
+      .min(3, { message: "Full name must be at least 3 characters" }),
+    contact: z
+      .string()
+      .min(10, { message: "Phone number must be at least 10 characters" }),
     email: z.string().email({ message: "Invalid email" }),
     type: z.string().optional(),
-    website: z.string().min(6, { message: "This website might not be valid, please try again" }),
+    website: z
+      .string()
+      .min(6, { message: "This website might not be valid, please try again" }),
   })
   .required();
 
@@ -823,4 +834,15 @@ export interface IStaffDetailsData {
   account_name: string;
   account_number: string;
   image: string | null;
+}
+
+export interface ICashAdvanceBreakdownData {
+  id: number;
+  request_code: string;
+  description: string;
+  amount: string;
+  added_by: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -19,7 +19,8 @@ import { api } from "@/config/api";
 import axios from "axios";
 
 export default function CashAdvancePage() {
-  const { cashAdvanceData, setCashAvance } = cashAdvanceTablesStore();
+  const { cashAdvanceData, setCashAvance, setTableType } =
+    cashAdvanceTablesStore();
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get cash advance"],
@@ -40,22 +41,22 @@ export default function CashAdvancePage() {
     },
   });
 
-  // function renderTable(arg: CashAdvanceTables) {
-  //   switch (arg) {
-  //     case "advances":
-  //       setTableType("advances");
-  //       break;
-  //     case "retirement":
-  //       setTableType("retirement");
-  //       break;
-  //     case "approved":
-  //       setTableType("approved");
-  //       break;
-  //     case "pending":
-  //       setTableType("pending");
-  //       break;
-  //   }
-  // }
+  function renderTable(arg: CashAdvanceTables) {
+    switch (arg) {
+      case "advances":
+        setTableType("advances");
+        break;
+      case "retirement":
+        setTableType("retirement");
+        break;
+      case "approved":
+        setTableType("approved");
+        break;
+      case "pending":
+        setTableType("pending");
+        break;
+    }
+  }
 
   return (
     <div className="space-y-8">

@@ -6,6 +6,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { getAllFlats, getAllTenants, getTenantDetails } from "@/utils/actions";
 import {
   ApiResponse,
+  ICashAdvanceBreakdownData,
+  ICashAdvanceData,
   IClientDetails,
   IClientProjectData,
   IConsultantData,
@@ -259,4 +261,24 @@ export const useGetAllWorkers = () => {
     queryFn: () => getStuffTyped<IWorkerData[]>("/worker"),
   });
   return { workers: data };
+};
+
+export const useGetCashAdvanceById = (id: string) => {
+  const { data } = useQuery({
+    queryKey: ["get cash advance details", id],
+    queryFn: () => getStuffTyped<ICashAdvanceData>(`/cash-advances/${id}`),
+  });
+  return { details: data };
+};
+
+export const useGetCashAdvanceBreakdownById = (id: string) => {
+  const { data, isPending } = useQuery({
+    queryKey: ["get cash advance breakdown details", id],
+    queryFn: () =>
+      getStuffTyped<ICashAdvanceBreakdownData>(
+        `/cash-advance-breakdowns/${id}`
+      ).then((response) => (Array.isArray(response) ? response : [response])),
+  });
+
+  return { cashAdvanceBreakdown: data || [], isBreakDownLoading: isPending };
 };

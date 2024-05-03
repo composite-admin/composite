@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, deleteCookie } from "cookies-next";
 
 export interface AxiosErrorResponse extends AxiosRequestConfig {
   error: string;
@@ -31,7 +31,13 @@ api.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError<AxiosErrorResponse>) => {
     if (error.response) {
-      console.log(error.message);
+      if (error.response.status === 401) {
+        deleteCookie("token");
+        deleteCookie("user_type");
+        window.location.href = "/login";
+      }
+      console.log(error.response.data.message);
+
       return Promise.reject(error.message);
     } else if (error.request) {
       return Promise.reject(error.request);
