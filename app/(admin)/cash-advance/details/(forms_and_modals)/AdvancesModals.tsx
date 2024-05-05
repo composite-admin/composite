@@ -13,7 +13,7 @@ export default function AdvancesModals() {
         currentFormType === "request"
           ? "Request/IOU"
           : currentFormType === "refund"
-          ? "Refund Cash Advance"
+          ? "Refund Request/IOU"
           : "Return Cash Advance"
       }
       description="Enter cash details here."
@@ -24,8 +24,12 @@ export default function AdvancesModals() {
       {currentFormType === "request" && CashAdvanceDetails && (
         <RequestIOUForm />
       )}
-      {currentFormType === "refund" && <RefundRequestOrIOUForm />}
-      {currentFormType === "return" && <ReturnCashAdvance />}
+      {currentFormType === "refund" && CashAdvanceDetails && (
+        <RefundRequestOrIOUForm />
+      )}
+      {currentFormType === "return" && CashAdvanceDetails && (
+        <ReturnCashAdvance />
+      )}
     </Modal>
   );
 }

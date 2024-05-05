@@ -44,7 +44,12 @@ export default function CashAdvancePage() {
           "/cash-advances"
         );
         setCashAdvanceTableData(
-          response.data.data.filter((data) => data.decision !== "Pending")
+          response.data.data.filter(
+            (data) =>
+              data.decision !== "Pending" &&
+              data.action_type !== null &&
+              data.action_type !== "Cash Retirement"
+          )
         );
         setPendingCashAvance(
           response.data.data.filter((data) => data.decision === "Pending")
