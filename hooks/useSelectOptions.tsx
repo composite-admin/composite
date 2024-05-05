@@ -267,9 +267,7 @@ export const useGetAllWorkers = () => {
 export const useGetCashAdvanceById = (id: string) => {
   const { data } = useQuery({
     queryKey: ["get cash advance details", id],
-    queryFn: id
-      ? () => getStuffTyped<ICashAdvanceData>(`/cash-advances/${id}`)
-      : () => Promise.resolve({}),
+    queryFn: () => getStuffTyped<ICashAdvanceData>(`/cash-advances/${id}`),
   });
   return { details: data };
 };

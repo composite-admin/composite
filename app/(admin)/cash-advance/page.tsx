@@ -27,7 +27,8 @@ import { pendingAndApprovedColumns } from "./pendingAndApprovedCols";
 
 export default function CashAdvancePage() {
   const {
-    setCashAvance,
+    setCashAdvanceTableData,
+    cashAdvanceTableData,
     setTableType,
     cashAdvanceTableState,
     cashAdvanceData,
@@ -42,7 +43,7 @@ export default function CashAdvancePage() {
         const response = await api.get<ApiResponse<ICashAdvanceData[]>>(
           "/cash-advances"
         );
-        setCashAvance(
+        setCashAdvanceTableData(
           response.data.data.filter((data) => data.decision !== "Pending")
         );
         setPendingCashAvance(
@@ -70,7 +71,7 @@ export default function CashAdvancePage() {
     tableMapping[cashAdvanceTableState as keyof typeof tableMapping] || columns;
   const dataTableData =
     cashAdvanceTableState === "advances"
-      ? cashAdvanceData ?? []
+      ? cashAdvanceTableData ?? []
       : cashAdvanceTableState === "pending"
       ? pendingCashAdvanceData ?? []
       : data ?? [];

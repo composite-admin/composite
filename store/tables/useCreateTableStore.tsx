@@ -10,6 +10,8 @@ export type CashAdvanceTables =
 
 interface TableStoreState {
   cashAdvanceData: ICashAdvanceData[] | null;
+  cashAdvanceTableData: ICashAdvanceData[] | null;
+  setCashAdvanceTableData: (data: ICashAdvanceData[] | null) => void;
   pendingCashAdvanceData: ICashAdvanceData[] | null;
   setPendingCashAvance: (cashAdvancedata: ICashAdvanceData[]) => void;
   setCashAvance: (cashAdvancedata: ICashAdvanceData[]) => void;
@@ -21,6 +23,8 @@ export const createTableStore = () =>
   create<TableStoreState>((set) => ({
     cashAdvanceData: null,
     pendingCashAdvanceData: null,
+    cashAdvanceTableData: null,
+    setCashAdvanceTableData: (data) => set({ cashAdvanceTableData: data }),
     setPendingCashAvance: (cashAdvancedata) =>
       set({ pendingCashAdvanceData: cashAdvancedata }),
     setCashAvance: (cashAdvancedata) =>

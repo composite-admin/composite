@@ -32,11 +32,11 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
   const { cashAdvanceBreakdown, isBreakDownLoading } =
     useGetCashAdvanceBreakdownById(id);
 
-  useEffect(() => {
-    if (details) {
-      setCashAdvanceDetails(details);
-    }
-  }, [details, setCashAdvanceDetails]);
+    useEffect(() => {
+      if (details) {
+        setCashAdvanceDetails(details);
+      }
+    }, [details, setCashAdvanceDetails]);
 
   const setModalType = (args: breakdownModal) => {
     if (args == "add") {
