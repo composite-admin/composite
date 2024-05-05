@@ -118,22 +118,32 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
       return <ColumnHeader column={column} title="Actions" />;
     },
     cell: ({ row }) => {
-      const { action_type } = row.original;
+      const { action_type, cash_id } = row.original;
 
       return (
         <div className="flex gap-2 items-center w-32">
-          {action_type === null ||
-            (action_type === "request cash balance" && (
-              <Link
-                href="#"
-                className="w-32 font-semibold text-primaryLight uppercase"
-              >
-                {action_type ?? "Return Cash Balance"}
-              </Link>
-            ))}
+          {action_type === "return cash balance" && (
+            <TableAction
+              formType={"return" as CashAdvanceFormTypes}
+              currentFormType={"return" as CashAdvanceFormTypes}
+              cash_id={String(cash_id)}
+              onActionClick={() => {}}
+            >
+              <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+                {action_type}
+              </p>
+            </TableAction>
+          )}
 
           {action_type === "request iou" && (
-            <TableAction currentFormType={"request" as CashAdvanceFormTypes}>
+            <TableAction
+              formType={"request" as CashAdvanceFormTypes}
+              currentFormType={"request" as CashAdvanceFormTypes}
+              cash_id={String(cash_id)}
+              onActionClick={() => {
+                return cash_id;
+              }}
+            >
               <p className="cursor-pointer font-semibold text-primaryLight uppercase">
                 {action_type}
               </p>

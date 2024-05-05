@@ -66,8 +66,6 @@ export default function CashAdvanceOffice() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
       });
       if (res.status === 200) {

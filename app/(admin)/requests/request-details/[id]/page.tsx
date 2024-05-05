@@ -1,7 +1,9 @@
 'use client'
+import { DataTable } from "@/components/shared/DataTable";
 /* eslint-disable react/no-unescaped-entities */
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
+import { useGetRequestComments } from "@/hooks/useSelectOptions";
 import {
   useAddCommentModal,
   useUpdateRequestModal,
@@ -15,14 +17,15 @@ import {
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { useQuery } from "@tanstack/react-query";
+import { columns } from "./columns";
 
 export default function RequestDetailsPage({
   params,
 }: {
   params: { id: string };
 }) {
-  // const { onOpen } = useAddCommentModal();
-  // const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
+  const { onOpen: onAddComment } = useAddCommentModal();
+  const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
   const { requestDetails } = useRequestStore();
   const {
     setFormDetails,
@@ -33,6 +36,10 @@ export default function RequestDetailsPage({
     isDelete,
     setIsDelete,
   } = useUpdateRequestStore();
+
+  const { comments, isCommentsLoading } = useGetRequestComments(
+    requestDetails?.request_code as string
+  );
 
   function handleFormType(
     type: RequestType,
@@ -161,7 +168,7 @@ export default function RequestDetailsPage({
               </div>
 
               <div className="space-y-2">
-                <h2>Project Summary</h2>
+                <h2>Description</h2>
                 <p className="font-semibold pb-6 flex flex-col gap-1">
                   {requestDetails?.description}
                 </p>
@@ -278,6 +285,18 @@ export default function RequestDetailsPage({
             </aside>
           </div>
         </div>
+      </div>
+      <div className="py-8">
+        <div className="flex justify-between items-center">
+          <span>Comments</span>
+          <Button onClick={onAddComment}>Add Comment</Button>
+        </div>
+        <DataTable
+          data={comments || []}
+          columns={columns}
+          isLoading={isCommentsLoading}
+          showSearch={false}
+        />
       </div>
       <div className="flex flex-col md:flex-row gap-4 py-8">
         <Button

@@ -5,23 +5,25 @@ import RefundRequestOrIOUForm from "./RefundRequestOrIOUForm";
 import ReturnCashAdvance from "./ReturnCashAdvance";
 
 export default function AdvancesModals() {
-  const { isOpen, onClose, currentFormType, setFormTypes } =
+  const { isOpen, onClose, currentFormType, setFormTypes, CashAdvanceDetails } =
     useCashAdvanceStore();
   return (
     <Modal
       title={
         currentFormType === "request"
-          ? "Request Cash Advance"
+          ? "Request/IOU"
           : currentFormType === "refund"
           ? "Refund Cash Advance"
           : "Return Cash Advance"
       }
-      description="Add to the cash advance breakdown here."
+      description="Enter cash details here."
       isOpen={isOpen}
       onClose={onClose}
       classname="max-w-3xl"
     >
-      {currentFormType === "request" && <RequestIOUForm />}
+      {currentFormType === "request" && CashAdvanceDetails && (
+        <RequestIOUForm />
+      )}
       {currentFormType === "refund" && <RefundRequestOrIOUForm />}
       {currentFormType === "return" && <ReturnCashAdvance />}
     </Modal>

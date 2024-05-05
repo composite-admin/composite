@@ -73,16 +73,18 @@ export function DataTable<TData, TValue>({
           </p>
         )}
         <div className="my-5 flex items-center gap-4 text-zinc-500">
-          <Input
-            type="text"
-            placeholder="Search..."
-            className="w-full md:min-w-[22
-              rem] placeholder:text-textColor"
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            withIcon
-            icon={<Search className="w-4 h-4 text-textColor" />}
-          />
+          {showSearch && (
+            <Input
+              type="text"
+              placeholder="Search..."
+              className="w-full md:min-w-[22
+        rem] placeholder:text-textColor"
+              value={globalFilter}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+              withIcon
+              icon={<Search className="w-4 h-4 text-textColor" />}
+            />
+          )}
 
           {/* {showSearch && (
             <>

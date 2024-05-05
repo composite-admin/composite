@@ -6,8 +6,11 @@ import {
   CustomFormTextareaField,
 } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
+import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 
 export default function RefundRequestOrIOUForm() {
+  const { CashAdvanceDetails } = useCashAdvanceStore();
+
   const form = useForm({});
   return (
     <Form {...form}>

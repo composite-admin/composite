@@ -18,6 +18,22 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
+
+// "project_code": "proj-66283",
+// "project_name": "Building Project",
+// "cash_advance_type": "Cash Advance Office",
+// "request_code": "req-0001",
+// "staff_id": "staff-0001",
+// "staff_name": "Jude Nwaorim",
+// "amount_collected": 3000,
+// "amount_recorded": 0,
+// "balance": 0,
+// "status": "Approved",
+// "description": "Purchase of Building materials",
+// "bank_to": "ABC Bank",
+// "payment_method": "Cash"
+
+
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   approved_amount: z.string({
@@ -26,7 +42,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   payment_method: z.string({
     required_error: "Payment method is required",
   }),
-  bank_name: z.string({
+  bank: z.string({
     required_error: "Bank name is required",
   }),
   supervisor_comment: z.string({
@@ -41,18 +57,41 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function CashAdvanceOffice() {
   const { formDetails } = useUpdateRequestStore();
   const { projectsData } = useProjectData();
+  console.log(formDetails);
   const { toast } = useToast();
   const router = useRouter();
   const { userId } = userStore();
-  const { staffDetails, isLoading } = useGetStaffDetails(userId);
-  const projectName = projectsData?.map((item: any) => item.project_name);
-  const { formType, setFormType } = useStaffStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       request_type: RequestType.CashAdvanceOffice,
     },
   });
+
+  const createCashAdvance = async (data: any) => {
+    try {
+      const res = await api.post("/cash-advances", {
+        ...data,
+        amount_collected: Number(data.approved_amount),
+        amount_recorded: 0,
+        balance: 0,
+        project_code: formDetails?.project_code,
+        project_name: formDetails?.project_name,
+        cash_advance_type: "Cash Advance Office",
+        request_code: formDetails?.request_code,
+        bank_to: data.bank,
+        payment_method: data.payment_method,
+        status: 'Approved',
+        staff_name: formDetails?.staff_name,
+        staff_id: formDetails?.staff_id,
+      });
+
+      return res.data.data;
+  
+    } catch (error) {
+    
+    }
+  }
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
@@ -61,7 +100,8 @@ export default function CashAdvanceOffice() {
         status: "APPROVED",
         approved_amount: Number(data.approved_amount),
       });
-      if (res.status === 201) {
+      if (res.status === 200) {
+        await createCashAdvance(data);
         toast({
           title: "Request Approved",
           variant: "success",
@@ -118,10 +158,10 @@ export default function CashAdvanceOffice() {
               name="payment_method"
               control={form.control}
               labelText="Select Payment Method"
-              items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
+              items={["Online Transfer", "Pay to Bank", "Cash", "Cheque"]}
             />
             <CustomFormField
-              name="bank_name"
+              name="bank"
               control={form.control}
               label="Bank Name"
               placeholder="Enter Bank Name"

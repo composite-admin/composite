@@ -73,8 +73,8 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
                   <span>Request code:</span>
                   <span>Staff Name:</span>
                   <span>Project Name:</span>
-                  <span>Date Updated:</span>
                   <span>Amount Recorded:</span>
+                  <span>Date Updated:</span>
                   <span>Balance:</span>
                 </div>
 
@@ -95,12 +95,16 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
                   <span>Request code:</span>
                   <span>Staff Name:</span>
+                  <span>Transfer Method:</span>
+                  <span>Bank Name:</span>
                   <span>Project Name:</span>
                 </div>
 
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
                   <span>{details?.request_code}</span>
                   <span>{details?.staff_name}</span>
+                  <span>N/A</span>
+                  <span>N/A</span>
                   <span>{details?.project_name}</span>
                 </div>
               </div>

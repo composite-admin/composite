@@ -1,6 +1,12 @@
 "use client";
 
-import { Clock, Plus } from "lucide-react";
+import {
+  CheckCircleIcon,
+  Clock,
+  ClockIcon,
+  Plus,
+  XCircleIcon,
+} from "lucide-react";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { columns } from "./columns";
 import { data } from "./data";
@@ -17,10 +23,17 @@ import { ApiResponse, ICashAdvanceData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
+import { pendingAndApprovedColumns } from "./pendingAndApprovedCols";
 
 export default function CashAdvancePage() {
-  const { cashAdvanceData, setCashAvance, setTableType } =
-    cashAdvanceTablesStore();
+  const {
+    setCashAvance,
+    setTableType,
+    cashAdvanceTableState,
+    cashAdvanceData,
+    pendingCashAdvanceData,
+    setPendingCashAvance,
+  } = cashAdvanceTablesStore();
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get cash advance"],
@@ -29,7 +42,12 @@ export default function CashAdvancePage() {
         const response = await api.get<ApiResponse<ICashAdvanceData[]>>(
           "/cash-advances"
         );
-        setCashAvance(response.data.data);
+        setCashAvance(
+          response.data.data.filter((data) => data.decision !== "Pending")
+        );
+        setPendingCashAvance(
+          response.data.data.filter((data) => data.decision === "Pending")
+        );
         return response.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -41,70 +59,99 @@ export default function CashAdvancePage() {
     },
   });
 
-  function renderTable(arg: CashAdvanceTables) {
-    switch (arg) {
-      case "advances":
-        setTableType("advances");
-        break;
-      case "retirement":
-        setTableType("retirement");
-        break;
-      case "approved":
-        setTableType("approved");
-        break;
-      case "pending":
-        setTableType("pending");
-        break;
-    }
-  }
+  const tableMapping = {
+    advances: columns,
+    pending: pendingAndApprovedColumns,
+    approved: pendingAndApprovedColumns,
+    retirement: pendingAndApprovedColumns,
+  };
 
+  const dataTableColumns =
+    tableMapping[cashAdvanceTableState as keyof typeof tableMapping] || columns;
+  const dataTableData =
+    cashAdvanceTableState === "advances"
+      ? cashAdvanceData ?? []
+      : cashAdvanceTableState === "pending"
+      ? pendingCashAdvanceData ?? []
+      : data ?? [];
   return (
     <div className="space-y-8">
       <div>
         <PageHeaderComponent
           title="Cash Advances"
           subTitle="View all staff here"
-          buttonText="Add Client"
-          href="manage-client/add-new-client"
         />
-        {/* <div className="flex gap-5">
-          <SelectTableTypeBadge
-            icon={<Plus className="w-4 h-4" />}
-            title="Cash Advances"
-            notification="22"
-            onclick={() => renderTable("advances")}
-          />
-          <SelectTableTypeBadge
-            icon={<Clock className="w-4 h-4" />}
-            title="Cash Retirement"
-            notification="12"
-            onclick={() => renderTable("retirement")}
-          />
-          <SelectTableTypeBadge
-            icon={<DashboardIcon />}
-            title="Approved IOU/Refund"
-            notification="2"
-            onclick={() => renderTable("approved")}
-          />
-          <SelectTableTypeBadge
-            icon={<DashboardIcon />}
-            title="Pending IOU/Refund"
-            notification="3"
-            onclick={() => renderTable("pending")}
-          />
-        </div> */}
+
+        <RequestStatusBadges
+          data={data}
+          currentTable={cashAdvanceTableState}
+          setCurrentTable={setTableType}
+        />
       </div>
 
-      <DataTable columns={columns} data={data ?? []} />
-      {/* {cashAdvanceTableState === "advances" ? (
-        <DataTable columns={columns} data={data} />
-      ) : cashAdvanceTableState === "retirement" ? (
-        <DataTable columns={columnTwo} data={dataTwo} />
-      ) : cashAdvanceTableState === "approved" ? (
-        <DataTable columns={columns} data={data} />
-      ) : cashAdvanceTableState === "pending" ? (
-        <DataTable columns={columnTwo} data={dataTwo} />
-      ) : null} */}
+      <DataTable columns={dataTableColumns} data={dataTableData} />
     </div>
   );
 }
+
+interface CashAdvanceProps {
+  data: ICashAdvanceData[] | undefined;
+  currentTable: CashAdvanceTables | undefined;
+  setCurrentTable: (status: CashAdvanceTables) => void;
+}
+
+const RequestStatusBadges = ({
+  data,
+  currentTable,
+  setCurrentTable,
+}: CashAdvanceProps) => {
+  const badgeData = [
+    {
+      icon: <DashboardIcon />,
+      title: "Cash Advancces",
+      status: "all_decisions",
+      notification:
+        data?.filter((decision) => decision.decision !== "Pending").length ?? 0,
+    },
+    {
+      icon: <ClockIcon />,
+      title: "Cash Retirement",
+      status: "cash retirement complete",
+      notification:
+        data?.filter((decision) => decision.action_type === "Cash Retirement")
+          .length ?? 0,
+    },
+    {
+      icon: <CheckCircleIcon />,
+      title: "Approved IOU/Refund",
+      status: "approved",
+      notification:
+        data?.filter((decision) => decision.decision === "Approved").length ??
+        0,
+    },
+    {
+      icon: <XCircleIcon />,
+      title: "Pending IOU/Refund",
+      status: "pending",
+      notification:
+        data?.filter((decision) => decision.decision === "Pending").length ?? 0,
+    },
+  ];
+
+  return (
+    <div className="flex gap-3 py-5">
+      {badgeData.map((badge) => (
+        <SelectTableTypeBadge
+          key={badge.status}
+          icon={badge.icon}
+          onclick={() => setCurrentTable(badge.status as CashAdvanceTables)}
+          title={badge.title}
+          notification={badge.notification}
+          className={`${
+            currentTable === badge.status ? "bg-primaryLight-100" : ""
+          }`}
+        />
+      ))}
+    </div>
+  );
+};

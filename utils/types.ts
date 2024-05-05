@@ -215,12 +215,12 @@ export interface ICashAdvanceData {
   payment_method: string;
   createdAt: string;
   updatedAt: string;
-  description: string | null;
-  decision: string | null;
-  decision_reason: string | null;
-  action_type: string | null;
-  action_by: string | null;
-  image: string | null;
+  description: string;
+  decision: string;
+  decision_reason: string;
+  action_type: string;
+  action_by: string;
+  image: string;
 }
 
 export interface ITenantData {

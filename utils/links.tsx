@@ -37,14 +37,7 @@ const SidebarLinks: NavLinkType[] = [
     isCollapsible: true,
     childLabel: "Items picked from store",
   },
-  {
-    href: "/facility",
-    label: "Facility",
-    icon: <ContrastIcon />,
-    isCollapsible: true,
-    childLabel: "flats",
-    childHref: "/facility/all-flats",
-  },
+
   {
     href: "/project",
     label: "Project",
@@ -78,6 +71,14 @@ const SidebarLinks: NavLinkType[] = [
     href: "/workers",
     label: "Workers",
     icon: <HashIcon />,
+  },
+  {
+    href: "/facility",
+    label: "Facility",
+    icon: <ContrastIcon />,
+    isCollapsible: true,
+    childLabel: "flats",
+    childHref: "/facility/all-flats",
   },
   {
     href: "/requests",

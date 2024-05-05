@@ -24,7 +24,7 @@ const filterRequestsByStatus = (
     case "approved":
       return data?.filter((request) => request.status === "APPROVED") ?? [];
     case "declined":
-      return data?.filter((request) => request.status === "DECLINED") ?? [];
+      return data?.filter((request) => request.status === "REJECTED") ?? [];
     case "all_requests":
       return data ?? [];
     default:
@@ -98,7 +98,7 @@ const RequestStatusBadges = ({
       title: "Declined",
       status: "declined",
       notification:
-        data?.filter((request) => request.status === "DECLINED").length ?? 0,
+        data?.filter((request) => request.status === "REJECTED").length ?? 0,
     },
   ];
 

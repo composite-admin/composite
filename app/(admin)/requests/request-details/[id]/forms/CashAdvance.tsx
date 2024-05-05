@@ -15,7 +15,7 @@ import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { object, z } from "zod";
+import { z } from "zod";
 
 export enum RequestType {
   Material = "Material",
@@ -28,18 +28,13 @@ export enum RequestType {
 }
 
 export const createCashAdvanceOfficeSchema = z.object({
-  request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project Name is required",
-  }),
-
   approved_amount: z.string({
     required_error: "Amount is required",
   }),
   payment_method: z.string({
     required_error: "Payment method is required",
   }),
-  bank_name: z.string({
+  bank: z.string({
     required_error: "Bank name is required",
   }),
   supervisor_comment: z.string({
@@ -53,7 +48,6 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function CashAdvance() {
   const { formDetails } = useUpdateRequestStore();
-  console.log(formDetails);
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
@@ -63,14 +57,11 @@ export default function CashAdvance() {
   const { setFormType } = useStaffStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
-    defaultValues: {
-      request_type: RequestType.CashAdvanceProject,
-    },
   });
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
-      const res = await api.post(`/requests/${formDetails?.id}`, {
+      const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "APPROVED",
         amount: Number(data.approved_amount),
@@ -81,7 +72,7 @@ export default function CashAdvance() {
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.push("/requests");
       }
     } catch (error) {
       console.log(error);
@@ -129,10 +120,10 @@ export default function CashAdvance() {
               name="payment_method"
               control={form.control}
               labelText="Select Payment Method"
-              items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
+              items={["Online Transfer", "Pay to Bank", "Cash", "Cheque"]}
             />
             <CustomFormField
-              name="bank_name"
+              name="bank"
               control={form.control}
               label="Bank Name"
               placeholder="Enter Bank Name"

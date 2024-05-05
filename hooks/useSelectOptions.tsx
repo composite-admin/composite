@@ -25,6 +25,7 @@ import {
   ITenantDetails,
   IWorkerData,
 } from "@/utils/types";
+import { IRequestCommentData } from "@/app/(admin)/requests/request-details/[id]/columns";
 
 export const useTenants = () => {
   const { isPending, isSuccess, isError, error, data } = useQuery({
@@ -266,7 +267,9 @@ export const useGetAllWorkers = () => {
 export const useGetCashAdvanceById = (id: string) => {
   const { data } = useQuery({
     queryKey: ["get cash advance details", id],
-    queryFn: () => getStuffTyped<ICashAdvanceData>(`/cash-advances/${id}`),
+    queryFn: id
+      ? () => getStuffTyped<ICashAdvanceData>(`/cash-advances/${id}`)
+      : () => Promise.resolve({}),
   });
   return { details: data };
 };
@@ -281,4 +284,13 @@ export const useGetCashAdvanceBreakdownById = (id: string) => {
   });
 
   return { cashAdvanceBreakdown: data || [], isBreakDownLoading: isPending };
+};
+
+export const useGetRequestComments = (id: string) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get request comments", id],
+    queryFn: () =>
+      getStuffTyped<IRequestCommentData[]>(`/request-comments/${id}`),
+  });
+  return { comments: data, isCommentsLoading: isLoading };
 };
