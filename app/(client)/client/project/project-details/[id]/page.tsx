@@ -2,8 +2,12 @@
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import ProjectDetails from "./components/ProjectDetails";
+import useClientStore from "@/store/client/useClientStore";
+import ProjectImages from "./components/ProjectImages";
+import ProjectFlats from "./components/ProjectFlats";
 
-type tabType = "Project Details" | "Project Images" | "Project Flat";
+export type tabType = "Project Details" | "Project Images" | "Project Flat";
 
 const Tabs = [
   {
@@ -21,7 +25,8 @@ const Tabs = [
 ];
 
 export default function ClientProjectDetailsPage() {
-  const [tab, setTab] = useState<tabType>("Project Details");
+  // const [tab, setTab] = useState<tabType>("Project Details");
+  const { TabType, setTabType } = useClientStore();
 
   return (
     <div>
@@ -48,17 +53,26 @@ export default function ClientProjectDetailsPage() {
                 <a
                   href="#"
                   className={`inline-block p-4 border-b-2 border-transparent rounded-t-lg ${
-                    tab === item.id
+                    TabType === item.id
                       ? "text-blue-600 border-blue-600 font-semibold"
                       : "text-gray-600 border-transparent"
                   }`}
-                  onClick={() => setTab(item.id as tabType)}
+                  onClick={() => setTabType(item.id as tabType)}
                 >
                   {item.name}
                 </a>
               </li>
             ))}
           </ul>
+        </div>
+        <div>
+          {TabType === "Project Details" ? (
+            <ProjectDetails />
+          ) : TabType === "Project Images" ? (
+            <ProjectImages />
+          ) : (
+            <ProjectFlats />
+          )}
         </div>
       </section>
     </div>
