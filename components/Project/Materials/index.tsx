@@ -13,7 +13,7 @@ const Materials = ({ projectCode }: { projectCode: string }) => {
       getStuffTyped<IMaterialsByProjectData[]>(
         `/materials/project/${projectCode}`
       ),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
   return (
     <div>

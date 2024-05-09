@@ -7,7 +7,7 @@ import { formatDate } from "@/utils/formatDate";
 import { ApiResponse, IManageStaffData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
+import Link from "next/link";
 
 interface IProps {
   params: { id: string };
@@ -32,9 +32,9 @@ export default function ManageStaffPage({ params }: IProps) {
         }
       }
     },
+    refetchOnMount: "always",
   });
-  // const date = staffDetails?.createdAt;
-  // const formattedDate = formatDate(date as string);
+
   return (
     <div className="bg-white border-borderColor shadow-lg rounded-lg max-w-4xl">
       <div className="p-5">
@@ -53,7 +53,9 @@ export default function ManageStaffPage({ params }: IProps) {
             </div>
           </aside>
           <aside>
-            <Button>Edit Staff</Button>
+            <Button>
+              <Link href={`/manage-staff/edit/${params.id}`}>Edit</Link>
+            </Button>
           </aside>
         </div>
         <div className="flex flex-wrap justify-between gap-10 lg:flex-nowrap mt-10">

@@ -45,7 +45,7 @@ const SingleStakeholder = () => {
       getStuffTyped<IStakeholderProjectData[]>(
         `/stakeholder-project/stakeholder-code/${selectedItem?.stakeholder_code}`
       ),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
 
   return (

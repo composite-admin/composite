@@ -13,7 +13,7 @@ const ProjectTeam = ({ projectCode }: { projectCode: string }) => {
       getStuffTyped<IProjectTeamMemberByProjectData[]>(
         `/project-teams/${projectCode}`
       ),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
   return (
     <div>

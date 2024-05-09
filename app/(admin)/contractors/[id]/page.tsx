@@ -46,7 +46,7 @@ const SingleContractor = () => {
       getStuffTyped<IContractorProjectData[]>(
         `/contractor-projects/contractor-code/${selectedItem?.contractor_code}`
       ),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
 
   return (

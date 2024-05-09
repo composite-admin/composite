@@ -28,6 +28,7 @@ export default function ManageStaffPage() {
         }
       }
     },
+    refetchOnMount: "always",
   });
   return (
     <div className="space-y-8">

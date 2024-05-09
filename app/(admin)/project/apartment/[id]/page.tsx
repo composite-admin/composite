@@ -29,7 +29,7 @@ const ApartmentPage = ({ params }: IProps) => {
       getStuffTyped<IProjectFlatData[]>(
         `/project-flats/project-code/code?project_code=${projectCode}`
       ),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
   return (
     <>

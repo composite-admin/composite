@@ -13,7 +13,7 @@ const PendingProject = () => {
     queryKey: ["get all materials by project code"],
     queryFn: async () =>
       getStuffTyped<IContractorProjectData[]>(`/contractor-projects`),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
 
   const pendingContractors = data?.filter(

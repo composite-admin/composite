@@ -13,7 +13,7 @@ const Worker = ({ projectCode }: { projectCode: string }) => {
       getStuffTyped<IWorkerByProjectData[]>(
         `/worker-projects/project-code/${projectCode}`
       ),
-    refetchOnMount: true,
+    refetchOnMount: "always",
   });
 
   return (
