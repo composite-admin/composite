@@ -46,6 +46,7 @@ const steps = [
 export default function EditTenantForm({ id }: { id: string }) {
   const router = useRouter();
   const [previousStep, setPreviousStep] = useState(0);
+  
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
   const { flats } = useFlats();
@@ -244,26 +245,84 @@ export default function EditTenantForm({ id }: { id: string }) {
                     placeholder="Enter annual rent cost"
                     label="Annual rent cost"
                   />
-                  <CustomFormField
+                  <CustomFormSelect
                     control={form.control}
                     name="rent_payment"
-                    placeholder="Enter rent payment"
-                    label="Rent payment"
+                    placeholder="Select rent payment"
+                    labelText="Select rent payment"
+                    items={["Monthly", "Quarterly", "Yearly"] || []}
                   />
-                  <CustomFormField
+                  <CustomFormSelect
                     control={form.control}
                     name="reminder"
-                    placeholder="Enter set reminder"
-                    label="Set reminder"
+                    placeholder="Select reminder"
+                    labelText="Select reminder"
+                    items={
+                      ["Monthly", "3 Months", "6 Months", "12 Months"] || []
+                    }
                   />
 
                   <div className="flex gap-5 flex-col lg:flex-row">
                     <div className="lg:w-full">
                       <CustomFormSelect
                         control={form.control}
-                        name="fees"
-                        items={["Type 1", "Type 2"]}
+                        name="facility_management"
+                        items={["Facility Management"] || []}
                         labelText="Fee type"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="facility_management_value"
+                        placeholder="Enter value"
+                        label="Value"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormSelect
+                        control={form.control}
+                        name="diesel"
+                        items={["Diesel"] || []}
+                        labelText="Fee type"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="diesel_value"
+                        placeholder="Enter value"
+                        label="Value"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormSelect
+                        control={form.control}
+                        name="electricity"
+                        items={["Electricity"] || []}
+                        labelText="Fee type"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="electricity_value"
+                        placeholder="Enter value"
+                        label="Value"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="fees"
+                        placeholder="Enter fees"
+                        label="Fee type"
                       />
                     </div>
                     <div className="lg:w-full">
@@ -293,13 +352,6 @@ export default function EditTenantForm({ id }: { id: string }) {
           )}
         </form>
       </Form>
-      {/* Navigation */}
-      <StepBottomNav
-        steps={steps}
-        currentStep={currentStep}
-        next={next}
-        prev={prev}
-      />
     </section>
   );
 }

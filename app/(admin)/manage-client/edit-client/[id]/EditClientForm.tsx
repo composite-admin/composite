@@ -18,22 +18,25 @@ import {
   CustomFormSelect,
 } from "@/components/shared/FormComponent";
 import { useGetClientDetails } from "@/hooks/useSelectOptions";
+import { useEffect } from "react";
 
 export default function EditClientForm(data: any) {
+  console.log(data);
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm<CreateAddClientType>({
     resolver: zodResolver(createAddClientSchema),
-    defaultValues: {
-      "First name": data?.data?.first_name,
-      "Last name": data?.data?.last_name,
-      Email: data?.data?.email,
-      "Phone number": data?.data?.phone_number,
-      "Mobile number": data?.data?.mobile_number,
-      State: data?.data?.state,
-      Address: data?.data?.address,
-    },
   });
+
+  useEffect(() => {
+    form.setValue("First name", data?.data?.first_name);
+    form.setValue("Last name", data?.data?.last_name);
+    form.setValue("Email", data?.data?.email);
+    form.setValue("Phone number", data?.data?.phone_number);
+    form.setValue("Mobile number", data?.data?.mobile_number);
+    form.setValue("State", data?.data?.state);
+    form.setValue("Address", data?.data?.address);
+  }, [data, form]);
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["Edit Client", data?.data?.id],
@@ -60,6 +63,7 @@ export default function EditClientForm(data: any) {
           title: "Client ediited successfully",
           variant: "success",
         });
+
         router.push("/manage-client");
       },
       onError: () => {

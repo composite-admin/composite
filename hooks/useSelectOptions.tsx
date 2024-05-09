@@ -190,6 +190,16 @@ export const useGetInventoryData = (id: string) => {
   return { inventory: data };
 };
 
+
+export const useGetAllConsultantProjects = () => {
+  const { data } = useQuery({
+    queryKey: ["get all consultants projects"],
+    queryFn: () =>
+      getStuffTyped<IConsultantProjectData[]>("/consultant-projects"),
+  });
+  return { projects: data };
+};
+
 export const useGetConsultantProject = (id: string) => {
   const { data } = useQuery({
     queryKey: ["get consultant project", id],
@@ -249,11 +259,13 @@ export const useGetClientProjectData = (id: string) => {
 };
 
 export const useGetClientDetails = (id: string) => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["get client details", id],
     queryFn: () => getStuffTyped<IClientDetails>(`/client/${id}`),
+    enabled: !!id,
+    refetchOnMount: "always",
   });
-  return { details: data?.data };
+  return { details: data, isClientDetailsLoading: isLoading };
 };
 
 export const useGetAllWorkers = () => {

@@ -3,7 +3,10 @@ import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { DataTable } from "@/components/shared/DataTable";
 import GoBack from "@/components/shared/GoBack";
 import { api } from "@/config/api";
-import { useGetConsultantProject } from "@/hooks/useSelectOptions";
+import {
+  useGetAllConsultantProjects,
+  useGetConsultantProject,
+} from "@/hooks/useSelectOptions";
 import { IConsultantDetailsData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -19,7 +22,8 @@ type Params = {
 };
 
 export default function ConsultantDetailsPage({ params }: Params) {
-  const { projectDetails } = useGetConsultantProject(params.id);
+  // const { projectDetails } = useGetConsultantProject("82753");
+  const { projects } = useGetAllConsultantProjects();
   const { onOpen, setAddToProjectFormType } = useAddToProjectModal();
   const showModal = () => {
     setAddToProjectFormType("consultant");
@@ -46,6 +50,11 @@ export default function ConsultantDetailsPage({ params }: Params) {
       }
     },
   });
+
+  const projectDetails = projects?.filter(
+    (item) => item.consultant_id === data?.consultant_code
+  );
+
   return (
     <>
       <GoBack />

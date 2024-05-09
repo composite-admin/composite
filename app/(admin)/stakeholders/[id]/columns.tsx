@@ -74,7 +74,7 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className=" ">{formatDate(row.original["created_by"])}</span>
+          <span className=" ">{row.original["stakeholder_name"]}</span>
         </div>
       );
     },
@@ -83,15 +83,6 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     accessorKey: "comment",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Comment" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold capitalize">
-            {row.original["comment"]}
-          </span>
-        </div>
-      );
     },
   },
 

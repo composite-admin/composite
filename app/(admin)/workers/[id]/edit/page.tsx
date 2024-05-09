@@ -59,22 +59,11 @@ const SingleWorker = () => {
         <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
           <div className="flex gap-2 flex-col border-b border-b-gray-200 py-3">
             <h2 className="text-[#101928] font-[600] text-[22px]">
-              Add Worker
+              Edit Worker
             </h2>
             <p>Update Worker Details here.</p>
           </div>
-          <div>
-            <h3 className="text-[20px]">Photograph</h3>
-            <p className="text-gray-400">
-              This image will be used to recognize the supplier
-            </p>
-            <div className="text-primaryLight border-2 border-primaryLight rounded-md p-2 gap-1 cursor-pointer flex items-center w-fit text-[12px]">
-              <HiPhotograph />
-              <span>Upload Photo</span>
-            </div>
-          </div>
 
-          <AvatarComponent />
           <div className="grid grid-cols-2 gap-5 my-5 edit">
             <div className="flex flex-col">
               <p className="value">Worker Name</p>
@@ -107,19 +96,6 @@ const SingleWorker = () => {
               <input
                 type="text"
                 {...register("service_type", { required: true })}
-              />
-            </div>
-            <div className="flex flex-col ">
-              <p className="value">Section</p>
-
-              <input type="text" {...register("section", { required: true })} />
-            </div>
-            <div className="flex flex-col ">
-              <p className="value">Worker Source</p>
-
-              <input
-                type="text"
-                {...register("worker_source", { required: true })}
               />
             </div>
 

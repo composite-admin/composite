@@ -87,10 +87,10 @@ export const columns: ColumnDef<IManageStaffData>[] = [
       return <ColumnHeader column={column} title={"Edit"} withSort={false} />;
     },
     cell: ({ row }) => {
-      let href = String(row.getValue("viewAction"));
+      const { userid } = row.original;
       return (
         <>
-          <EditCell href={`facility/tenant/${href}`} />
+          <EditCell href={`manage-staff/edit/${userid}`} isLink />
         </>
       );
     },

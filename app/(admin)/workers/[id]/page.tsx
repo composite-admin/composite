@@ -63,7 +63,7 @@ const SingleWorker = () => {
         <BankDetailsModal
           bankName={worker.bank_name}
           accountName={worker.account_name}
-          accountNumber={worker.account_name}
+          accountNumber={worker.account_number}
         />
       )
     );

@@ -10,8 +10,9 @@ import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
 import { RiToolsFill } from "react-icons/ri";
 import { IClientProject } from "./data";
+import { IClientProjectData } from "@/utils/types";
 
-export const columns: ColumnDef<IClientProject>[] = [
+export const columns: ColumnDef<IClientProjectData>[] = [
   {
     accessorKey: "projectName",
     header: ({ column }) => {
@@ -42,7 +43,7 @@ export const columns: ColumnDef<IClientProject>[] = [
       return (
         <div className="">
           <span className="font-semibold ">
-            {formatDate(row.original["created_at"])}
+            {formatDate(row.original["createdAt"])}
           </span>
         </div>
       );
@@ -58,7 +59,7 @@ export const columns: ColumnDef<IClientProject>[] = [
       return (
         <div className="">
           <span className="font-semibold ">
-            {formatDate(row.original["updated_at"])}
+            {formatDate(row.original["updatedAt"])}
           </span>
         </div>
       );

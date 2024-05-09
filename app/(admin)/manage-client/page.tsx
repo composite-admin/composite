@@ -28,6 +28,9 @@ export default function ManageClientPage() {
         }
       }
     },
+
+    refetchOnMount: "always",
+    refetchInterval: 10000,
   });
 
   return (

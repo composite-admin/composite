@@ -42,21 +42,19 @@ export interface IClientData {
   image: string | null;
 }
 export interface IClientDetails {
-  data: {
-    client_id?: number;
-    userid?: string;
-    first_name?: string;
-    last_name: string;
-    email?: string;
-    phone_number?: string;
-    mobile_number: string;
-    address: string;
-    state: string;
-    activation_code: string;
-    createdAt: string;
-    updatedAt: string;
-    image: string | null;
-  };
+  client_id?: number;
+  userid?: string;
+  first_name?: string;
+  last_name: string;
+  email?: string;
+  phone_number?: string;
+  mobile_number: string;
+  address: string;
+  state: string;
+  activation_code: string;
+  createdAt: string;
+  updatedAt: string;
+  image: string | null;
 }
 
 export interface ApiResponse<T> {
@@ -91,7 +89,10 @@ export type LoginForm = {
 };
 
 export const loginSchema = z.object({
-  email: z.string().min(1, { message: "Email is required" }).email({ message: "Email must be a valid email" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Email must be a valid email" }),
   password: z
     .string()
     .min(1, { message: "Password is required" })
@@ -414,6 +415,13 @@ export type IAddToolsAndMachineryData = {
   procurement_type: string;
   comment: string;
 };
+
+export const feeTypes = [
+  "Electricty",
+  "Facility Management",
+  "Disel",
+  "others",
+];
 
 export type IUpdateToolAndMachineryData = {
   tool_type: string;

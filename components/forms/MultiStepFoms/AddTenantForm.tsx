@@ -19,6 +19,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useFlats, useProjectData } from "@/hooks/useSelectOptions";
 import { useRouter } from "next/navigation";
+import { DevTool } from "@hookform/devtools";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -68,6 +69,12 @@ export default function AddTenantForm() {
       reminder: "",
       fees: "",
       value: "",
+      facility_management: "",
+      diesel: "",
+      electricity: "",
+      diesel_value: "",
+      electricity_value: "",
+      facility_management_value: "",
     },
   });
 
@@ -80,17 +87,24 @@ export default function AddTenantForm() {
         flat_description: flats?.find(
           (item) => item.flat_code === values.flat_code
         )?.flat_desc,
-        comment: projectsData?.find(
-          (item: any) => item.project_name === values.project_name
-        )?.comment,
+        // comment: projectsData?.find(
+        //   (item: any) => item.project_name === values.project_name
+        // )?.comment,
+        comment: "Testing Submission",
         status: projectsData?.find(
           (item: any) => item.project_name === values.project_name
         )?.status,
         ...values,
-        // fees: {
-        //   value: values.value,
-        //   fees: values.fees,
-        // },
+        fees: {
+          fees: values.fees,
+          value: values.value,
+          facility_management: values.facility_management,
+          diesel: values.diesel,
+          electricity: values.electricity,
+          diesel_value: values.diesel_value,
+          electricity_value: values.electricity_value,
+          facility_management_value: values.facility_management_value,
+        },
         // project_name: values.project_name,
         // flat_code: values.flat_code,
         // title: values.title,
@@ -247,26 +261,84 @@ export default function AddTenantForm() {
                     placeholder="Enter annual rent cost"
                     label="Annual rent cost"
                   />
-                  <CustomFormField
+                  <CustomFormSelect
                     control={form.control}
                     name="rent_payment"
-                    placeholder="Enter rent payment"
-                    label="Rent payment"
+                    placeholder="Select rent payment"
+                    labelText="Select rent payment"
+                    items={["Monthly", "Quarterly", "Yearly"] || []}
                   />
-                  <CustomFormField
+                  <CustomFormSelect
                     control={form.control}
                     name="reminder"
-                    placeholder="Enter set reminder"
-                    label="Set reminder"
+                    placeholder="Select reminder"
+                    labelText="Select reminder"
+                    items={
+                      ["Monthly", "3 Months", "6 Months", "12 Months"] || []
+                    }
                   />
 
                   <div className="flex gap-5 flex-col lg:flex-row">
                     <div className="lg:w-full">
                       <CustomFormSelect
                         control={form.control}
-                        name="fees"
-                        items={["Type 1", "Type 2"]}
+                        name="facility_management"
+                        items={["Facility Management"] || []}
                         labelText="Fee type"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="facility_management_value"
+                        placeholder="Enter value"
+                        label="Value"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormSelect
+                        control={form.control}
+                        name="diesel"
+                        items={["Diesel"] || []}
+                        labelText="Fee type"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="diesel_value"
+                        placeholder="Enter value"
+                        label="Value"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormSelect
+                        control={form.control}
+                        name="electricity"
+                        items={["Electricity"] || []}
+                        labelText="Fee type"
+                      />
+                    </div>
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="electricity_value"
+                        placeholder="Enter value"
+                        label="Value"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-5 flex-col lg:flex-row">
+                    <div className="lg:w-full">
+                      <CustomFormField
+                        control={form.control}
+                        name="fees"
+                        placeholder="Enter fees"
+                        label="Fee type"
                       />
                     </div>
                     <div className="lg:w-full">
@@ -295,14 +367,8 @@ export default function AddTenantForm() {
             </motion.div>
           )}
         </form>
+        <DevTool control={form.control} />
       </Form>
-      {/* Navigation */}
-      <StepBottomNav
-        steps={steps}
-        currentStep={currentStep}
-        next={next}
-        prev={prev}
-      />
     </section>
   );
 }

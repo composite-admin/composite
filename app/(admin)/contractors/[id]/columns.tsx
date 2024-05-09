@@ -9,13 +9,7 @@ import { formatDate, formatDateToString } from "@/utils/formatDate";
 import { IContractorProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import {
-  HiEye,
-  HiOutlineCog,
-  HiOutlineDocumentRemove,
-  HiPencilAlt,
-  HiUserAdd,
-} from "react-icons/hi";
+import { HiPencilAlt } from "react-icons/hi";
 
 export const columns: ColumnDef<IContractorProjectData>[] = [
   {
@@ -33,46 +27,39 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
       return (
         <div className="">
           <span className="font-semibold uppercase">
-            {row.original["contractor_project_code"]}
+            {row.original["contractor_code"]}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "approved_amount",
+    accessorKey: "project_code",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Project Code" withSort={false} />
       );
     },
     cell: ({ row }) => {
-      const { approved_amount } = row.original;
-      const formatted = formatCurrency(approved_amount);
       return (
-        <div className="">
-          <span className="font-semibold ">{formatted}</span>
-        </div>
+        <span className="font-semibold uppercase">
+          {row.original["contractor_project_code"]}
+        </span>
       );
     },
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "approved_amount",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount" withSort={false} />;
     },
     cell: ({ row }) => {
-      const { createdAt } = row.original;
-      const formatted = formatDateToString(createdAt);
-      return (
-        <div className="">
-          <span className="font-semibold ">{formatted}</span>
-        </div>
-      );
+      const formatted = formatCurrency(row.original["approved_amount"]);
+      return <span>{formatted}</span>;
     },
   },
   {
-    accessorKey: "created_by",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Created On" />;
     },
@@ -87,14 +74,12 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
   {
     accessorKey: "comment",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Created By" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["comment"]}</span>
+          <span className="">{row.original["comment"]}</span>
         </div>
       );
     },

@@ -20,7 +20,19 @@ export const AddTenantFormSteps: IFormSteps[] = [
   {
     id: "2",
     name: "Address",
-    fields: ["annual_rent", "rent_payment", "reminder", "fees", "value"],
+    fields: [
+      "annual_rent",
+      "rent_payment",
+      "reminder",
+      "facility_management",
+      "diesel",
+      "electricity",
+      "diesel_value",
+      "electricity_value",
+      "facility_management_value",
+      "fees",
+      "value",
+    ],
   },
 ];
 
@@ -36,8 +48,18 @@ export const FormDataSchema = z.object({
   annual_rent: z.string().min(1, { message: "Annual rent cost required" }),
   rent_payment: z.string().min(1, { message: "Rent payment required" }),
   reminder: z.string().min(1, { message: "Set reminder required" }),
-  fees: z.string().min(1, { message: "Fee type required" }),
-  value: z.string().min(1, { message: "Value required" }),
+  fees: z.string().optional(),
+  value: z.string().optional(),
+  facility_management: z.string().min(1, { message: "Facility required" }),
+  diesel: z.string().min(1, { message: "Diesel required" }),
+  electricity: z.string().min(1, { message: "Electricity required" }),
+  diesel_value: z.string().min(1, { message: "Diesel value required" }),
+  electricity_value: z
+    .string()
+    .min(1, { message: "Electricity value required" }),
+  facility_management_value: z
+    .string()
+    .min(1, { message: "Facility management value required" }),
 });
 
 export type addTenantType = z.infer<typeof FormDataSchema>;
