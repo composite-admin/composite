@@ -37,7 +37,7 @@ const SingleWorker = () => {
   useEffect(() => {
     getWorkerById(params.id);
     getAllWorkerJobs();
-  }, []);
+  }, [getAllWorkerJobs, getWorkerById, params.id]);
 
   const editWorker = () => router.push(`/workers/${params.id}/edit`);
 

@@ -298,33 +298,36 @@ export default function RequestDetailsPage({
           showSearch={false}
         />
       </div>
-      <div className="flex flex-col md:flex-row gap-4 py-8">
-        <Button
-          className="md:w-1/3"
-          onClick={() =>
-            handleFormType(data?.request_type as RequestType, true, false)
-          }
-        >
-          Edit Request
-        </Button>
-        <Button
-          className="md:w-1/3"
-          variant={"destructive"}
-          onClick={() =>
-            handleFormType(data?.request_type as RequestType, false, true)
-          }
-        >
-          Decline
-        </Button>
-        <Button
-          className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90"
-          onClick={() =>
-            handleFormType(data?.request_type as RequestType, false, false)
-          }
-        >
-          Approve
-        </Button>
-      </div>
+
+      {requestDetails?.status !== "APPROVED" && (
+        <div className="flex flex-col md:flex-row gap-4 py-8">
+          <Button
+            className="md:w-1/3"
+            onClick={() =>
+              handleFormType(data?.request_type as RequestType, true, false)
+            }
+          >
+            Edit Request
+          </Button>
+          <Button
+            className="md:w-1/3"
+            variant={"destructive"}
+            onClick={() =>
+              handleFormType(data?.request_type as RequestType, false, true)
+            }
+          >
+            Decline
+          </Button>
+          <Button
+            className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90"
+            onClick={() =>
+              handleFormType(data?.request_type as RequestType, false, false)
+            }
+          >
+            Approve
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

@@ -33,7 +33,7 @@ export const ToolsAndMachineBuySchema = z.object({
   payment_method: z.string({
     required_error: "Payment method is required",
   }),
-  bank_name: z.string({
+  bank: z.string({
     required_error: "Bank name is required",
   }),
   supervisor_comment: z.string({
@@ -148,7 +148,7 @@ export default function ToolsAndMachineBuy() {
             items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
           />
           <CustomFormField
-            name="bank_name"
+            name="bank"
             control={form.control}
             label="Bank Name"
             placeholder="Enter Bank Name"
