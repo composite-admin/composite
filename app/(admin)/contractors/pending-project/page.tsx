@@ -25,7 +25,6 @@ const PendingProject = () => {
       <PageHead
         headText="Pending Contractor Project"
         subText="View all your contractors here"
-        buttonText="Add Contractor"
       />
       <DataTable
         columns={columns}

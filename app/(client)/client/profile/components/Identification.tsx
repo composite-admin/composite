@@ -4,6 +4,7 @@ import {
 } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { api } from "@/config/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UploadCloud, X } from "lucide-react";
 import { useState } from "react";
@@ -45,7 +46,36 @@ export default function Identification() {
       setFile(selectedFiles[0]);
     }
   };
+
+  const handleUpload = async () => {
+    try {
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", file);
+      const uploadUrl = `/users/upload-file`;
+
+      const response = await api.post(uploadUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+        console.log("File uploaded successfully");
+        // Handle success case
+      } else {
+        console.error("Failed to upload file");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
   const onSubmit = (data: FormDataType) => {
+    handleUpload();
     console.log(data);
   };
   return (

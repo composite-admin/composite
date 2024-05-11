@@ -59,10 +59,10 @@ export const columns: ColumnDef<IClientData>[] = [
       return <ColumnHeader column={column} title="Actions" withSort={false} />;
     },
     cell: ({ row }) => {
-      const { client_id } = row.original;
+      const { userid } = row.original;
       return (
         <Link
-          href={`manage-client/client-details/${client_id}`}
+          href={`manage-client/client-details/${userid}`}
           className="text-primaryLight-500 underline flex items-center font-medium"
         >
           View

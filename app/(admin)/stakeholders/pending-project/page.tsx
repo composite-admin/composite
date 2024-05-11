@@ -25,7 +25,6 @@ const PendingStakeholderProject = () => {
       <PageHead
         headText="Pending Stakeholder Project"
         subText="View all your Stakeholders here"
-        buttonText="Add Stakeholder"
       />
       <DataTable
         columns={columns}

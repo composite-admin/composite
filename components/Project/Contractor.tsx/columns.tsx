@@ -60,6 +60,20 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
       );
     },
   },
+
+  {
+    accessorKey: "service",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Service" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center gap-2">
+          <span className="w-16">{row.original.service ?? "N/A"}</span>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "createdAt",
     header: ({ column }) => {

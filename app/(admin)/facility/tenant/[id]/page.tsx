@@ -26,6 +26,7 @@ export default function TenantPage({ params }: { params: { id: string } }) {
         }
       }
     },
+    retryOnMount: true,
   });
   const {
     annual_rent,
@@ -121,7 +122,7 @@ export default function TenantPage({ params }: { params: { id: string } }) {
           </div>
           <div className="col-span-2">
             <div>
-              <SideCards />
+              <SideCards fees={fees || []} />
             </div>
           </div>
         </div>
@@ -130,10 +131,14 @@ export default function TenantPage({ params }: { params: { id: string } }) {
   );
 }
 
-function SideCards() {
+interface SideCardProps {
+  fees: [] | any;
+}
+
+function SideCards({ fees }: SideCardProps) {
   return (
-    <div className="shadow-sm bg-white border border-[#E4E7EC] rounded-2xl w-full max-w-sm p-3.5 min-h-[270px] flex flex-col justify-center">
-      <div>
+    <div className="shadow-sm bg-white border border-[#E4E7EC] rounded-2xl w-full max-w-sm p-3.5  ">
+      <div className="flex flex-col gap-5">
         <div className="flex justify-between items-center  pb-3.5">
           <div className="flex items-center gap-5">
             <h2 className="text-xs lg:text-sm capitalize font-semibold">
@@ -142,35 +147,19 @@ function SideCards() {
           </div>
         </div>
 
-        <div className="flex justify-between items-center border-b py-3">
-          <div className="flex gap-2 items-center">
-            <AvatarComponent />
-            <div className="text-xs flex flex-col">
-              <span className="text-sm">Alison Ogaga</span>
-              <span>CRN128320182</span>
+        <div className="flex flex-col  py-3">
+          {fees?.map((fee: any) => (
+            <div key={fee.type}>
+              <div className="flex justify-between">
+                <span className="text-textColor w-2/3 flex-1 capitalize">
+                  {fee.type}:
+                </span>
+                <span className="font-semibold text-left block  w-1/3">
+                  {formatCurrency(fee.value)}
+                </span>
+              </div>
             </div>
-          </div>
-          <p className="text-primaryLight-500 font-semibold">View</p>
-        </div>
-        <div className="flex justify-between items-center border-b py-3">
-          <div className="flex gap-2 items-center">
-            <AvatarComponent />
-            <div className="text-xs flex flex-col">
-              <span className="text-sm">Alison Ogaga</span>
-              <span>CRN128320182</span>
-            </div>
-          </div>
-          <p className="text-primaryLight-500 font-semibold">View</p>
-        </div>
-        <div className="flex justify-between items-center border-b py-3">
-          <div className="flex gap-2 items-center">
-            <AvatarComponent />
-            <div className="text-xs flex flex-col">
-              <span className="text-sm">Alison Ogaga</span>
-              <span>CRN128320182</span>
-            </div>
-          </div>
-          <p className="text-primaryLight-500 font-semibold">View</p>
+          ))}
         </div>
       </div>
     </div>

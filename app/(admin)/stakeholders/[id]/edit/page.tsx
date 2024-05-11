@@ -142,21 +142,51 @@ const EditSingleStakeholder = () => {
             </div>
 
             <div className="flex flex-col">
-              <p className="value">Non Government Agency</p>
-
-              <input
-                type="text"
-                {...register("non_government_agencies", { required: true })}
-              />
+              <p className="value">Government Agency</p>
+              <select {...register("government_agencies", { required: true })}>
+                <option value="">Select Government Agency Type</option>
+                <option value="LASBCA">LASBCA</option>
+                <option value="LASTMA">LASTMA</option>
+                <option value="Federal Fire Service">
+                  Federal Fire Service
+                </option>
+                <option value="Lagos State Fire Service">
+                  Lagos State Fire Service
+                </option>
+                <option value="Local Government Office">
+                  Local Government Office
+                </option>
+                <option value="Lag Environmental Agencies">
+                  Lag Environmental Agencies
+                </option>
+                <option value="Lagos State Material Testing Agency (LSMTA)">
+                  Lagos State Material Testing Agency (LSMTA)
+                </option>
+                <option value="New Towns Development Authority (NTDA)">
+                  New Towns Development Authority (NTDA)
+                </option>
+                <option value="Town Planning">Town Planning</option>
+                <option value="Others">Others</option>
+              </select>
             </div>
 
             <div className="flex flex-col">
-              <p className="value">Government Agency</p>
-
-              <input
-                type="text"
-                {...register("government_agencies", { required: true })}
-              />
+              <p className="value">Non Government Agency</p>
+              <select
+                {...register("non_government_agencies", { required: true })}
+              >
+                <option value=""> Select Non Government Agency</option>
+                <option value="Omo-onile">Omo-onile</option>
+                <option value="Community Development Association">
+                  Community Development Association
+                </option>
+                <option value="OPC">OPC</option>
+                <option value="Community Vigilante Groups">
+                  Community Vigilante Groups
+                </option>
+                <option value="Area Boys">Area Boys</option>
+                <option value="Nigeria Police">Nigeria Police</option>
+              </select>
             </div>
 
             <div className="flex flex-col col-span-2">

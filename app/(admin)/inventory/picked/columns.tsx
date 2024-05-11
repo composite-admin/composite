@@ -4,35 +4,24 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useInventoryDetails } from "@/store/inventory/UseInventoryModal";
+import { formatDate } from "@/utils/formatDate";
+import { IRequestData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
-export type ReportType = {
-  id: string;
-  requestType: string;
-  toolName: string;
-  quantity: string;
-  project: string;
-  pickedOn: string;
-  pickedBy: string;
-  status: string;
-  returnedOn: string;
-};
-
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<IRequestData>[] = [
   {
     accessorKey: "requestType",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Request Type" />;
     },
     cell: ({ row }) => {
-      // const onOpen = useInventoryDetails((state) => state.onOpen);
       return (
         <div className="flex  flex-col cursor-pointer">
           <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-            Tools and Machinery
+            {row.original["request_type"]}
           </span>
-          <span>RCPD119548</span>
+          <span> {row.original["request_code"]}</span>
         </div>
       );
     },
@@ -48,7 +37,10 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Weldng Machine / Generator</span>
+          <span className="font-semibold ">
+            {" "}
+            {row.original["tool_name"] ?? "N/A"}
+          </span>
         </div>
       );
     },
@@ -57,14 +49,14 @@ export const columns: ColumnDef<ReportType>[] = [
   {
     accessorKey: "quantity",
     header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Quantity" withSort={false} />
-      );
+      return <ColumnHeader column={column} title="Quantity" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">x1</span>
+          <span className="font-semibold ">
+            {row.original["approved_quantity"]}
+          </span>
         </div>
       );
     },
@@ -77,7 +69,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Graceland Kickoff</span>
+          <span className="font-semibold ">{row.original["project_name"]}</span>
         </div>
       );
     },
@@ -88,13 +80,9 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Picked On" />;
     },
     cell: ({ row }) => {
-      return (
-        <div className="">
-
-          <p>6th July, 2002</p>
-          <p>10am</p>
-        </div>
-      );
+      const { updatedAt } = row.original;
+      const formatted = formatDate(updatedAt);
+      return <div className="">{formatted}</div>;
     },
   },
   {
@@ -105,8 +93,9 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">
-          <AvatarComponent />
-          <span className="font-semibold">Alison Ogaga</span>
+          <span className="font-semibold">
+            {row.original["approved_by"] ?? "N/A"}
+          </span>
         </div>
       );
     },
@@ -118,23 +107,23 @@ export const columns: ColumnDef<ReportType>[] = [
     },
     cell: ({ row }) => {
       return (
-        <p className='bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]'>Completed</p>
+        <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
+          {row.original["status"]}
+        </p>
       );
     },
   },
   {
     accessorKey: "returnedOn",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Returned On" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Returned On" withSort={false} />
+      );
     },
     cell: ({ row }) => {
-      return (
-        <div className="">
-
-          <p>6th July, 2002</p>
-          <p>10am</p>
-        </div>
-      );
+      const { updatedAt } = row.original;
+      const formatted = formatDate(updatedAt);
+      return <div className="">{formatted}</div>;
     },
   },
 ];

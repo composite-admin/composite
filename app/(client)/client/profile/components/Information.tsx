@@ -51,7 +51,7 @@ export default function Information() {
   const { toast } = useToast();
   const router = useRouter();
   const idString = userId?.replace("cli-", "");
-  const { details, isClientDetailsLoading } = useGetClientDetails(idString!);
+  const { details, isClientDetailsLoading } = useGetClientDetails(userId!);
   const form = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
   });
@@ -71,7 +71,7 @@ export default function Information() {
     mutationKey: ["client-details update"],
     mutationFn: async (data: FormDataType) => {
       try {
-        const res = api.put(`/client/${idString}`, data);
+        const res = api.put(`/client/${userId!}`, data);
       } catch (error) {
         console.log(error);
       }

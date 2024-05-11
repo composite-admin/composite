@@ -106,8 +106,6 @@ export default function CashAdvanceOffice() {
           title: "Request Approved",
           variant: "success",
         });
-        form.reset();
-        router.refresh();
       }
     } catch (error) {
       toast({

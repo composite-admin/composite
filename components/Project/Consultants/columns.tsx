@@ -77,23 +77,20 @@ export const columns: ColumnDef<IConsultantProjectData>[] = [
   //     );
   //   },
   // },
-  // {
-  //   accessorKey: "createdAt",
-  //   header: ({ column }) => {
-  //     return (
-  //       <ColumnHeader column={column} title="Date Added" withSort={false} />
-  //     );
-  //   },
-  //   cell: ({ row }) => {
-  //     const { createdAt } = row.original;
-  //     const formatted = formatDate(createdAt);
-  //     return (
-  //       <div className="">
-  //         <p className="">{formatted}</p>
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "service",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Type" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      const { type } = row.original;
+      return (
+        <div className="">
+          <p className="">{type}</p>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "id",
     header: ({ column }) => {

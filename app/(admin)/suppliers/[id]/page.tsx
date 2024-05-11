@@ -176,7 +176,7 @@ const SingleSupplier = () => {
         </div>
       </div>
 
-      <MaterialTableArea />
+      <MaterialTableArea supplier={supplier} />
     </div>
   );
 };

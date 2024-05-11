@@ -98,7 +98,7 @@ export default function ToolsAndMachineStore() {
           control={form.control}
           label="Tool Name"
           disabled
-          placeholder={formDetails?.tool_name}
+          placeholder={formDetails?.tool_name ?? "N/A"}
         />
         <div className="py-4 w-full">
           <div className="grid md:grid-cols-2 gap-4 py-3">
@@ -106,7 +106,8 @@ export default function ToolsAndMachineStore() {
               name="quantity"
               control={form.control}
               label="Quantity"
-              placeholder="Enter Quantity"
+              disabled
+              placeholder={String(formDetails?.quantity)}
             />
             <CustomFormField
               name="approved_quantity"

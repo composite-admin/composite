@@ -1,7 +1,7 @@
 "use client";
 import { DetailsModal } from "@/components/Modals/inventory/DetailsModal";
 import SuccesModal from "@/components/Modals/SuccesModal";
-import { TestModal } from "@/components/Modals/TestModal";
+
 import AddAndEditBreakdownModal from "@/components/Modals/cash-advance/AddAndEditBreakdownModal";
 import ProjectSuccessModal from "@/components/Modals/projects/ProjectSuccessModal";
 import AddCommentModal from "@/components/Modals/requests/AddCommentModal";
@@ -19,6 +19,7 @@ import ProjectDetailsPageFormModal from "@/components/Project/ProjectDetailsPage
 import AddToProjectModal from "@/components/Modals/AddToProjectModal";
 import RequestApprovalModal from "@/app/(admin)/requests/request-details/[id]/forms/RequestApprovalModal";
 import AdvancesModals from "@/app/(admin)/cash-advance/details/(forms_and_modals)/AdvancesModals";
+import { AddAndEditApartmentModal } from "@/components/Modals/AddAndEditApartmentModal";
 
 export const ModalProvider = () => {
   const [ismounted, setIsMounted] = useState(false);
@@ -33,7 +34,7 @@ export const ModalProvider = () => {
 
   return (
     <>
-      <TestModal />
+      <AddAndEditApartmentModal />
       <EditFlatModal />
       <AddCommentModal />
       <UpdateRequestModal />

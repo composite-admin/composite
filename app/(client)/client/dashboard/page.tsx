@@ -9,8 +9,8 @@ import Link from "next/link";
 
 export default function ClientHomePage() {
   const { userId } = userStore();
-  const idString = userId?.replace("cli-", "");
-  const { details, isClientDetailsLoading } = useGetClientDetails(idString!);
+  
+  const { details, isClientDetailsLoading } = useGetClientDetails(userId!);
   return (
     <div className="lg:pr-24">
       <div>

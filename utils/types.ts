@@ -678,6 +678,7 @@ export interface IContractorProjectData {
   contractor_project_code: string;
   contractor_amount: string;
   approved_amount: string;
+  project_name: string;
   service: string;
   createdBy: string;
   comment: string;
@@ -696,6 +697,7 @@ export interface IStakeholderProjectData {
   approved_amount: string;
   other_amount: string;
   createdBy: string;
+  project_name: string;
   comment: string;
   status: string;
   createdAt: string;
@@ -757,6 +759,7 @@ export interface IConsultantProjectData {
   consultant_id: string;
   project_id: string;
   project_code: string;
+  type: string;
   project_name: string;
   createdAt: string;
   updatedAt: string;

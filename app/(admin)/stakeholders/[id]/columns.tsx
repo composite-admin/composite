@@ -26,7 +26,10 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="">
+        <div className="flex flex-col gap.5">
+          <span className="font-semibold uppercase text-primaryLight underline">
+            {row.original["project_name"] ?? "N/A"}
+          </span>
           <span className="font-semibold uppercase">
             {row.original["stakeholder_project_code"] ?? "N/A"}
           </span>

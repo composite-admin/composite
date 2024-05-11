@@ -133,6 +133,13 @@ const SingleContractor = () => {
                   {selectedItem && selectedItem.website}
                 </p>
               </div>
+
+              <div>
+                <p className="text-[#475367] text-sm">Service:</p>
+                <p className="text-[#101928] text-[16px] font-[600]">
+                  {selectedItem && selectedItem.contractor_service}
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -12,16 +12,18 @@ const tabs: Tab[] = [
   { tab: "tools-and-machine", name: "Tools and Machine" },
 ];
 
-const MaterialTableArea = () => {
+
+
+const MaterialTableArea = ({ supplier }: any) => {
   const [selectedTab, setSelectedTab] = useState<MaterialTab>("materials");
   const updateTab = (tab: MaterialTab) => setSelectedTab(tab);
 
   const renderTableContent = () => {
     switch (selectedTab) {
       case "materials":
-        return <MaterialsTable key={"material"} />;
+        return <MaterialsTable key={"material"} supplier={supplier} />;
       case "tools-and-machine":
-        return <ToolsTable key={"tools"} />;
+        return <ToolsTable key={"tools"} supplier={supplier} />;
       // no default
     }
   };
@@ -33,7 +35,9 @@ const MaterialTableArea = () => {
         {tabs.map((tab, id) => (
           <div
             className={`py-3 capitalize text-center text-lg select-none cursor-pointer duration-200 rounded-lg ${
-              tab.tab === selectedTab ? "font-bold text-zinc-700 bg-zinc-300" : ""
+              tab.tab === selectedTab
+                ? "font-bold text-zinc-700 bg-zinc-300"
+                : ""
             }`}
             onClick={() => updateTab(tab.tab)}
             key={id}

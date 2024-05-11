@@ -38,7 +38,7 @@ const AddContractor = () => {
             <h2 className="text-[#101928] font-[600] text-[22px]">
               Add Contractor
             </h2>
-            <p>Update Contractor Details here.</p>
+            <p>Add new contractor details here.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-5 my-5 edit">

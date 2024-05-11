@@ -14,7 +14,7 @@ export default function ClientProjectPage() {
   const { userId } = userStore();
   const idString = userId !== null ? userId.toString() : "";
   const { ClientProjectDetails, isClientProjectLoading } =
-    useGetClientProjectData(idString.replace("cli-", ""));
+    useGetClientProjectData(idString);
   return (
     <>
       <PageHead headText="Project" subText="View all your projects here" />

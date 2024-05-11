@@ -47,7 +47,9 @@ export const columns: ColumnDef<IProjectTeamMemberByProjectData>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <p className="font-semibold">{row.original["status"]}</p>
+          <p className="font-semibold w-max p-.5 px-1.5 bg-[#E7F6EC] text-[#036B26] rounded-lg">
+            Active
+          </p>
         </div>
       );
     },

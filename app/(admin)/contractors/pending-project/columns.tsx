@@ -34,8 +34,11 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <p className="font-semibold uppercase">
-          {row.original["contractor_project_code"]}
+        <p className="flex flex-col font-semibold uppercase gap-.5">
+          <span className="underline w-max text-primaryLight ">
+            {row.original["project_name"]}
+          </span>
+          <span>{row.original["contractor_project_code"]}</span>
         </p>
       );
     },

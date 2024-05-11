@@ -4,9 +4,13 @@ import { motion } from "framer-motion";
 import { opacityVariant } from "@/utils/variants";
 import { useEffect, useState } from "react";
 import useSupplierToolsAndMachineriesStore from "@/store/actions/materials-and-tools/toolsAndMachineryActions";
+import useSupplierMaterialsStore from "@/store/actions/materials-and-tools/materialsActions";
 
-const ToolsTable = () => {
+const ToolsTable = ({ supplier }: any) => {
   const store = useSupplierToolsAndMachineriesStore();
+  const supplierTools = store.tools.filter(
+    (tools) => tools.supplier_code === supplier.supplier_code
+  );
 
   useEffect(() => {
     store.getAllTools();
@@ -17,7 +21,7 @@ const ToolsTable = () => {
       <DataTable
         showSearch={false}
         columns={materialsColumns}
-        data={store.tools ?? []}
+        data={supplierTools ?? []}
         isLoading={store.requestLoading}
         withTitle={{ title: "Tools and Machine", data: store.tools.length }}
       />

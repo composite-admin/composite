@@ -46,7 +46,9 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     cell: ({ row }) => {
       const { approved_amount } = row.original;
       return (
-        <span className="font-semibold ">formatCurrency(approved_amount)</span>
+        <span className="font-semibold ">
+          {formatCurrency(approved_amount)}
+        </span>
       );
     },
   },

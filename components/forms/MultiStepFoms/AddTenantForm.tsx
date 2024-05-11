@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { z } from "zod";
 import { addTenantType, FormDataSchema } from "./formtypes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import StepTopNav from "./StepTopNav";
 import StepBottomNav from "./StepBottomNav";
 import FormContainer from "@/components/shared/FormContainer";
@@ -19,7 +19,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useFlats, useProjectData } from "@/hooks/useSelectOptions";
 import { useRouter } from "next/navigation";
-import { DevTool } from "@hookform/devtools";
+import { Plus, PlusCircle, Trash2 } from "lucide-react";
+// import { DevTool } from "@hookform/devtools";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -67,19 +68,32 @@ export default function AddTenantForm() {
       annual_rent: "",
       rent_payment: "",
       reminder: "",
-      fees: "",
-      value: "",
-      facility_management: "",
-      diesel: "",
-      electricity: "",
-      diesel_value: "",
-      electricity_value: "",
-      facility_management_value: "",
     },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "fees",
   });
 
   const processForm: SubmitHandler<Inputs> = async (values: addTenantType) => {
     try {
+      const fees = [
+        {
+          type: values.facility_management,
+          value: values.facility_management_value,
+        },
+        {
+          type: values.diesel,
+          value: values.diesel_value,
+        },
+        {
+          type: values.electricity,
+          value: values.electricity_value,
+        },
+        // Spread the existing fees from the form
+        ...values.fees,
+      ];
       const res = await api.post("/tenants", {
         project_details: projectsData?.find(
           (item: any) => item.project_name === values.project_name
@@ -95,25 +109,7 @@ export default function AddTenantForm() {
           (item: any) => item.project_name === values.project_name
         )?.status,
         ...values,
-        fees: {
-          fees: values.fees,
-          value: values.value,
-          facility_management: values.facility_management,
-          diesel: values.diesel,
-          electricity: values.electricity,
-          diesel_value: values.diesel_value,
-          electricity_value: values.electricity_value,
-          facility_management_value: values.facility_management_value,
-        },
-        // project_name: values.project_name,
-        // flat_code: values.flat_code,
-        // title: values.title,
-        // full_name: values.full_name,
-        // phone_number: values.phone_number,
-        // email: values.email,
-        // annual_rent: values.annual_rent,
-        // rent_payment: values.rent_payment,
-        // reminder: values.reminder,
+        fees: fees,
       });
       if (res) {
         toast({
@@ -332,23 +328,41 @@ export default function AddTenantForm() {
                       />
                     </div>
                   </div>
-                  <div className="flex gap-5 flex-col lg:flex-row">
-                    <div className="lg:w-full">
-                      <CustomFormField
-                        control={form.control}
-                        name="fees"
-                        placeholder="Enter fees"
-                        label="Fee type"
-                      />
+
+                  <div className=" relative">
+                    <div className="ml-auto w-max">
+                      <div
+                        onClick={() => append({ type: "", value: "" })}
+                        className="text-xs text-primaryLight flex gap-1 font-semibold cursor-pointer"
+                      >
+                        <PlusCircle className="size-4" />
+                        <p>Add Other Fees</p>
+                      </div>
                     </div>
-                    <div className="lg:w-full">
-                      <CustomFormField
-                        control={form.control}
-                        name="value"
-                        placeholder="Enter value"
-                        label="Value"
-                      />
-                    </div>
+                    {fields.map((field, index) => (
+                      <div key={field.id} className=" mb-2 relative">
+                        <div className="grid grid-cols-2  gap-4">
+                          <CustomFormField
+                            control={form.control}
+                            name={`fees.${index}.type`}
+                            placeholder="Enter type"
+                            label="Type"
+                          />
+                          <CustomFormField
+                            control={form.control}
+                            name={`fees.${index}.value`}
+                            placeholder="Enter value"
+                            label="Value"
+                          />
+                        </div>
+                        <div
+                          onClick={() => remove(index)}
+                          className="absolute top-11 right-1 text-red-500 cursor-pointer"
+                        >
+                          <Trash2 className="size-5" />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                   <div className=" flex flex-col lg:flex-row justify-between items-center gap-8 pt-7">
                     <Button
@@ -367,7 +381,7 @@ export default function AddTenantForm() {
             </motion.div>
           )}
         </form>
-        <DevTool control={form.control} />
+        {/* <DevTool control={form.control} /> */}
       </Form>
     </section>
   );

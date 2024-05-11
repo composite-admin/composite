@@ -34,16 +34,16 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
     },
   },
   {
-    accessorKey: "project_code",
+    accessorKey: "project_name",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Project Code" withSort={false} />
+        <ColumnHeader column={column} title="Project Name" withSort={false} />
       );
     },
     cell: ({ row }) => {
       return (
         <span className="font-semibold uppercase">
-          {row.original["contractor_project_code"]}
+          {row.original["project_name"]}
         </span>
       );
     },

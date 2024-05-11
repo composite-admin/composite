@@ -19,6 +19,7 @@ import useManageClientStore from "@/store/manage-client/useManageClientStore";
 import { useQuery } from "@tanstack/react-query";
 import { useAddToProjectModal } from "@/store/modals/useCreateModal";
 import Link from "next/link";
+import { userStore } from "@/store/auth/AuthStore";
 
 type Params = {
   params: {
@@ -27,30 +28,33 @@ type Params = {
 };
 
 export default function ClientDetailsPage({ params }: Params) {
-  const { setClientDetailsData } = useManageClientStore();
+  const { setClientDetailsData, clientData } = useManageClientStore();
+  // const { userId } = userStore();
+
+  const { details, isClientDetailsLoading } = useGetClientDetails(params.id!);
   const { onOpen, setAddToProjectFormType } = useAddToProjectModal();
   const showModal = () => {
     setAddToProjectFormType("client");
     onOpen();
   };
-  const { data: details } = useQuery({
-    queryKey: ["get all clients", params.id],
-    queryFn: async () => {
-      try {
-        const response = await api.get<ApiResponse<IClientData>>(
-          `/client/${params.id}`
-        );
-        setClientDetailsData(response.data.data);
-        return response.data.data;
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
-      }
-    },
-  });
+  // const { data: details } = useQuery({
+  //   queryKey: ["get all clients", params.id],
+  //   queryFn: async () => {
+  //     try {
+  //       const response = await api.get<ApiResponse<IClientData>>(
+  //         `/client/${params.id}`
+  //       );
+  //       setClientDetailsData(response.data.data);
+  //       return response.data.data;
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error) && error.response) {
+  //         throw new Error(error.response.data.message);
+  //       } else {
+  //         throw error;
+  //       }
+  //     }
+  //   },
+  // });
 
   const { ClientProjectDetails, isClientProjectLoading } =
     useGetClientProjectData(params.id);
@@ -115,7 +119,7 @@ export default function ClientDetailsPage({ params }: Params) {
                 </div>
                 <div className="text-primaryLight-500 font-semibold">
                   <Link
-                    href={`/manage-client/edit-client/ ${details?.client_id}`}
+                    href={`/manage-client/edit-client/ ${details?.userid}`}
                     className="text-primaryLight-500 font-semibold"
                   >
                     <span className="text-sm">Edit Client Information</span>

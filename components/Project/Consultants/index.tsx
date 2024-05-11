@@ -33,7 +33,7 @@ const Consultant = ({ projectCode }: { projectCode: string }) => {
 
   return (
     <div>
-      <h2 className="text-[20px] font-[600]">Contractor</h2>
+      <h2 className="text-[20px] font-[600] mt-8">Consultants</h2>
       <DataTable
         showSearch={false}
         isLoading={isPending}
