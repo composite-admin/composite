@@ -55,6 +55,7 @@ const SingleWorker = () => {
         }
       }
     },
+    retryOnMount: true,
   });
   const workerDataArray: IWorkerData[] = [data?.data.data];
   const showBankModal = () =>
