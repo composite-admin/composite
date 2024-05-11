@@ -18,19 +18,17 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <Link href={`/stakeholders/${row.original["id"]}`}>
-          <div className="flex gap-2 items-center">
-            <AvatarComponent />
-            <div className="flex flex-col">
-              <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-                {row.original["stakeholder_name"]}
-              </span>
-              <span className="text-xs font-semibold text-gray-500">
-                {row.original["stakeholder_code"]}
-              </span>
-            </div>
+        <div className="flex gap-2 items-center">
+          <AvatarComponent />
+          <div className="flex flex-col">
+            <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+              {row.original["stakeholder_name"]}
+            </span>
+            <span className="text-xs font-semibold text-gray-500">
+              {row.original["stakeholder_code"]}
+            </span>
           </div>
-        </Link>
+        </div>
       );
     },
   },

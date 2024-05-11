@@ -70,13 +70,13 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
   return (
     <div>
       <GoBack />
-      <FormContainer isColumn title="Pending Contractor Form">
+      <FormContainer isColumn title="Pending Stakeholder Form">
         <Form {...form}>
           <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <CustomFormField
               control={form.control}
               name="project_name"
-              placeholder={projectDetails?.stakeholder_project_code}
+              placeholder={projectDetails?.project_name}
               disabled
               className="placeholder:uppercase"
               label="Project Name"
@@ -132,10 +132,14 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <Button onClick={() => router.back()} variant="secondary">
+              <Button
+                onClick={() => router.back()}
+                variant="secondary"
+                type="button"
+              >
                 Cancel
               </Button>
-              <Button>Approve</Button>
+              <Button type="submit">Approve</Button>
             </div>
           </form>
         </Form>
