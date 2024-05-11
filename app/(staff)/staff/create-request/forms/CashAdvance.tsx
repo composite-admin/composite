@@ -72,15 +72,18 @@ export default function CashAdvance() {
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
+        project_code: projectsData?.find(
+          (item: any) => item.project_name === data.project_name
+        )?.project_code,
       });
-  if (res.status === 201) {
-    toast({
-      title: "Request created successfully",
-      variant: "success",
-    });
-    form.reset();
-    router.push("/staff/create-request");
-  }
+      if (res.status === 201) {
+        toast({
+          title: "Request created successfully",
+          variant: "success",
+        });
+        form.reset();
+        router.push("/staff/create-request");
+      }
     } catch (error) {
       console.log(error);
     }

@@ -64,6 +64,9 @@ export default function Labour() {
         status: "PENDING",
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+        project_code: projectsData?.find(
+          (item: any) => item.project_name === data.project_name
+        )?.project_code,
       });
       if (res.status === 201) {
         toast({

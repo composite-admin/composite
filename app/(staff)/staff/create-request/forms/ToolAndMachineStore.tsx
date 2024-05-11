@@ -98,6 +98,9 @@ export default function ToolsAndMachineStore() {
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
+        project_code: projectsData?.find(
+          (item: any) => item.project_name === data.project_name
+        )?.project_code,
       });
       if (res.status === 201) {
         toast({

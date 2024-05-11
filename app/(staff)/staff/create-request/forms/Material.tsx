@@ -120,6 +120,9 @@ export default function Material() {
         unit_price: Number(data.unit_price),
         quantity: Number(data.quantity),
         total_price: Number(data.unit_price) * Number(data.quantity),
+        project_code: projectsData?.find(
+          (item: any) => item.project_name === data.project_name
+        )?.project_code,
       });
       console.log(res);
     } catch (error) {

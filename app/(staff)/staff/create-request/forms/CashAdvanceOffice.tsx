@@ -63,6 +63,9 @@ export default function CashAdvanceOffice() {
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
+        project_code: projectsData?.find(
+          (item: any) => item.project_name === data.project_name
+        )?.project_code,
       });
       if (res.status === 201) {
         toast({
