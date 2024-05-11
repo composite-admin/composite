@@ -1,6 +1,4 @@
-import { ReportType } from "./columns";
-
-export const data: Array<ReportType> = [
+export const data: any = [
   {
     id: "string",
     requestType: "string",
@@ -45,5 +43,4 @@ export const data: Array<ReportType> = [
     status: "string",
     returnedOn: "string",
   },
-
 ];
