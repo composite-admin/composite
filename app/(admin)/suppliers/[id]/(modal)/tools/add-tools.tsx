@@ -86,11 +86,17 @@ const AddToolsModal = () => {
     <FramerModal isOpen={true} isAutomatic={false} onClose={hideModal}>
       <div className="lg:min-w-[50rem] md:min-w-[40rem] max-w-[60rem] max-h-[35rem] lg:max-h-[38rem] gap-4 overflow-y-auto w-full bg-white rounded-lg p-10 md:grid space-y-6 md:space-y-0 grid-cols-[1.5fr_4fr]">
         <div className="space-y-2">
-          <p className="lg:text-3xl md:text-2xl font-bold">Add Tools and Machinery</p>
+          <p className="lg:text-3xl md:text-2xl font-bold">
+            Add Tools and Machinery
+          </p>
           <p className="text-zinc-500">Make changes to tools and machinery</p>
         </div>
         <div className="space-y-4">
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            className="space-y-4"
+          >
             <div className="space-y-1">
               <label className="font-semibold">Supplier</label>
               <input
@@ -121,25 +127,6 @@ const AddToolsModal = () => {
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold">Procurement Type</label>
-              <select
-                className={`w-full outline-none p-4 border rounded-lg placeholder:text-zinc-500 ${
-                  errors.procurement_type ? "border-red-500" : "border-zinc-300"
-                }`}
-                onChange={onSubTypeChange}
-              >
-                <option value="" className="text-zinc-400">
-                  Select
-                </option>
-                {materialSubTypes?.map((subType, id) => (
-                  <option value={subType.sub_type_desc} key={id}>
-                    {subType.sub_type_desc}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="space-y-1">
               <label className="font-semibold">Description</label>
               <input
                 type="text"
@@ -149,6 +136,23 @@ const AddToolsModal = () => {
                 placeholder="Enter Description"
                 {...register("description", { required: true })}
               />
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-semibold">Procurement Type</label>
+              <select
+                className={`w-full outline-none p-4 border rounded-lg placeholder:text-zinc-500 ${
+                  errors.procurement_type ? "border-red-500" : "border-zinc-300"
+                }`}
+                onChange={onSubTypeChange}
+              >
+                <option value="lease" id="lease">
+                  Lease
+                </option>
+                <option value="sale" id="sale">
+                  Sale
+                </option>
+              </select>
             </div>
 
             <div className="space-y-1">
@@ -172,7 +176,11 @@ const AddToolsModal = () => {
 
               <input
                 className="w-full md:py-4 py-3 text-sm md:text-base font-semibold cursor-pointer rounded-lg bg-primaryLight text-white duration-300 disabled:opacity-30"
-                disabled={requestLoading || !selectedMaterialType || !selectedMaterialSubType}
+                disabled={
+                  requestLoading ||
+                  !selectedMaterialType ||
+                  !selectedMaterialSubType
+                }
                 value={requestLoading ? "Wait..." : "Add Tools & Machinery"}
                 type="submit"
               />

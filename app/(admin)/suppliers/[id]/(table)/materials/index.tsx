@@ -12,7 +12,9 @@ import { useGetAllSuppliers } from "@/hooks/useSelectOptions";
 const MaterialsTable = ({ supplier }: any) => {
   const store = useSupplierMaterialsStore();
   const supplierMat = store.materials.filter(
-    (mat) => mat.supplier_code === supplier.supplier_code
+    (mat) =>
+      mat.supplier_name === supplier?.supplier_name ||
+      mat.supplier_code === supplier?.supplier_code
   );
   useEffect(() => {
     store.getAllMaterials();

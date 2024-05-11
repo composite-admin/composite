@@ -3,22 +3,24 @@ import { AddMaterialData } from "@/store/actions/materials-and-tools/types";
 import { useModal } from "@/utils/modalContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSupplierMaterialsStore from "@/store/actions/materials-and-tools/materialsActions";
+import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 
 const AddMaterialModal = () => {
   const { hideModal } = useModal();
+  const { selectedItem: supplier } = useSuppliersActionsStore();
   const {
     reset,
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<AddMaterialData>({
-    defaultValues: { project_code: "qwewef", supplier_code: "qwdqwd", supplier_name: "qwdqwd" },
-  });
+  } = useForm<AddMaterialData>({});
   const store = useSupplierMaterialsStore();
 
   const onSubmit: SubmitHandler<AddMaterialData> = (data) => {
     store.createMaterial({
       ...data,
+      supplier_code: supplier?.supplier_code!,
+      supplier_name: supplier?.supplier_name!,
       unit_price: parseFloat(`${data.unit_price}`),
       quantity: parseFloat(`${data.quantity}`),
     });
@@ -32,7 +34,11 @@ const AddMaterialModal = () => {
         <div className="space-y-4">
           <p className="text-3xl font-bold">Add Material</p>
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            className="space-y-4"
+          >
             <div className="space-y-1">
               <label className="font-semibold">Material Description</label>
               <input
@@ -68,7 +74,11 @@ const AddMaterialModal = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <button role="button" className="w-full py-4 font-semibold rounded-lg bg-zinc-300" onClick={hideModal}>
+              <button
+                role="button"
+                className="w-full py-4 font-semibold rounded-lg bg-zinc-300"
+                onClick={hideModal}
+              >
                 Cancel
               </button>
               <input
