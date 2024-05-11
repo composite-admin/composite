@@ -67,8 +67,6 @@ export default function EditTenantForm({ id }: { id: string }) {
       annual_rent: "",
       rent_payment: "",
       reminder: "",
-      fees: "",
-      value: "",
     },
   });
 
