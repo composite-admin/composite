@@ -90,7 +90,7 @@ const SingleReport = (props: any) => {
                       fill
                       src={data?.photograph_id[selectedImageIndex]}
                       alt=""
-                      className="max-w-full max-h-full"
+                      className="max-w-full max-h-full object-contain rounded-lg aspect-square"
                     />
                   </div>
                 </div>

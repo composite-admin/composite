@@ -246,6 +246,31 @@ export interface ITenantData {
   fees: string;
 }
 
+export interface IDeuDates {
+  annual_rent: string;
+  comment: string;
+  createdAt: string;
+  due_date: string;
+  email: string;
+  fees: null | number;
+  flat_code: string;
+  flat_description: string;
+  full_name: string;
+  password: string;
+  phone_number: string;
+  project_code: null | string;
+  project_details: string;
+  project_name: string;
+  reminder: string;
+  rent_payment: string;
+  status: string;
+  tenant_code: string;
+  tenant_id: number;
+  title: string;
+  updatedAt: string;
+}
+
+
 export interface ITenantDetails {
   data: {
     tenant_id: number;

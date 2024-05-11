@@ -5,10 +5,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import EditCell, {
   ViewCell,
 } from "../../../app/(admin)/facility/all-flats/EditCell";
-import { ITenantData } from "@/utils/types";
+import { IDeuDates } from "@/utils/types";
 import { formatDate } from "../../../utils/formatDate";
 
-export const columns: ColumnDef<ITenantData>[] = [
+export const columns: ColumnDef<IDeuDates>[] = [
   {
     accessorKey: "tenant_code",
     header: ({ column }) => {
@@ -84,6 +84,19 @@ export const columns: ColumnDef<ITenantData>[] = [
     },
   },
   {
+    accessorKey: "due_date",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title={"Due Date"} withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      const { due_date } = row.original;
+      const formattedDate = formatDate(due_date);
+      return <div>{formattedDate}</div>;
+    },
+  },
+  {
     accessorKey: "status",
     header: ({ column }) => {
       return <ColumnHeader column={column} title={"Status"} withSort={false} />;
@@ -106,21 +119,7 @@ export const columns: ColumnDef<ITenantData>[] = [
       );
     },
   },
-  {
-    accessorKey: "tenant_id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title={"Edit"} withSort={false} />;
-    },
-    cell: ({ row }) => {
-      let { tenant_id } = row.original;
-      let href = tenant_id;
-      return (
-        <>
-          <EditCell href={`facility/edit-tenant/${href}`} isLink />
-        </>
-      );
-    },
-  },
+
   {
     accessorKey: "tenant_id",
     header: ({ column }) => {

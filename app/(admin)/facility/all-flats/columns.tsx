@@ -89,17 +89,10 @@ export const columns: ColumnDef<IFlatData>[] = [
       return <ColumnHeader column={column} title="Action" withSort={false} />;
     },
     cell: ({ row }) => {
-      let { flat_id } = row.original;
+      let { project_name } = row.original;
       return (
         <>
-          <EditCellWithModal
-            isLink={false}
-            action={String(flat_id)}
-            onClick={() => {
-              console.log(flat_id);
-              // No need to call handleEditClick here, it's handled by the HOC
-            }}
-          />
+          <EditCellWithModal isLink={false} action={String(project_name)} />
         </>
       );
     },
@@ -109,7 +102,6 @@ export const columns: ColumnDef<IFlatData>[] = [
 interface EditCellProps {
   isLink: boolean;
   action: string;
-  onClick: () => void;
   children?: React.ReactNode;
 }
 
@@ -117,12 +109,12 @@ const withEditFlatModal = <P extends EditCellProps>(
   Component: React.ComponentType<P>
 ) => {
   const WrappedComponent = (props: P) => {
-    const { onOpen, setAction } = useEditFlatModal();
+    const { onOpen, setAction, action } = useEditFlatModal();
 
     const handleEditClick = () => {
       onOpen();
       setAction(props.action);
-      console.log(props.action);
+      console.log(action);
     };
 
     return (

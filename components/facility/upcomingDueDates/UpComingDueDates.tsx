@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/shared/DataTable";
 import { api } from "@/config/api";
-import { ApiResponse, ITenantData } from "@/utils/types";
+import { ApiResponse, IDeuDates, ITenantData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { columns } from "./columns";
@@ -12,7 +12,7 @@ export default function UpComingDueDates() {
     queryKey: ["get all upcoming due dates"],
     queryFn: async () => {
       try {
-        const response = await api.get<ApiResponse<ITenantData[]>>(
+        const response = await api.get<ApiResponse<IDeuDates[]>>(
           "/tenants/due/all"
         );
         setDueDatesData(response.data.data);

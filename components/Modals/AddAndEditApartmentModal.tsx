@@ -45,10 +45,23 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
     mutationKey: ["apartment"],
     mutationFn: async (data: FormSchemaType) => {
       if (flatFormType === "add") {
-        const response = await api.post("/apartment", data);
-        return response.data;
+        const response = await api.post("/project-flats", {
+          ...data,
+          project_code: projectsData?.find(
+            (project: any) => project.project_name === data.project_name
+          )?.project_code,
+          status: "Vacant",
+
+        });
+
       } else {
-        const response = await api.put(`/apartment/${flatFormType}`, data);
+        const response = await api.put(`/project-flats/${flatFormType}`, {
+          ...data,
+          project_code: projectsData?.find(
+            (project: any) => project.project_name === data.project_name
+          )?.project_code,
+          status: "Vacant",
+        });
         return response.data;
       }
     },

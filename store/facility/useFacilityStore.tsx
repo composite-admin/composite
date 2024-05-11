@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ITenantData, IFlatData } from "@/utils/types";
+import { ITenantData, IFlatData, IDeuDates } from "@/utils/types";
 
 export type FlatFormType = "add" | "edit" | null;
 
@@ -8,8 +8,8 @@ interface FacilityStore {
   setFlatFormType: (type: FlatFormType) => void;
   tenantData: ITenantData[] | null;
   flatData: IFlatData[] | null;
-  dueDatesData: ITenantData[] | null;
-  setDueDatesData: (dueDatesData: ITenantData[]) => void;
+  dueDatesData: IDeuDates[] | null;
+  setDueDatesData: (dueDatesData: IDeuDates[]) => void;
   currentTable: "all_tenants" | "upcoming_due_dates";
   setCurrentTable: (currentTable: "all_tenants" | "upcoming_due_dates") => void;
   setFlatData: (flatData: IFlatData[]) => void;
@@ -23,7 +23,7 @@ const useFacilityStore = create<FacilityStore>((set) => ({
   dueDatesData: null,
   flatFormType: null,
   setFlatFormType: (type: FlatFormType) => set({ flatFormType: type }),
-  setDueDatesData: (dueDatesData: ITenantData[]) => set({ dueDatesData }),
+  setDueDatesData: (dueDatesData: IDeuDates[]) => set({ dueDatesData }),
   setCurrentTable: (currentTable: "all_tenants" | "upcoming_due_dates") =>
     set({ currentTable }),
   setFlatData: (flatData: IFlatData[]) => set({ flatData }),

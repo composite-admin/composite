@@ -38,7 +38,7 @@ export default function EditReportForm() {
   const form = useForm<ProjectReportFormType>({
     resolver: zodResolver(ProjectReportSchema),
     defaultValues: {
-      report_type: "Daily",
+      report_type: formData?.report_type,
       project_name: formData?.project_name,
       report_summary: formData?.report_summary,
       challenges: formData?.challenges,
@@ -54,6 +54,7 @@ export default function EditReportForm() {
       weather: formData?.weather,
     },
   });
+
 
   const { mutate, isPending, isSuccess, isError, error } = useMutation({
     mutationKey: ["editReport"],
