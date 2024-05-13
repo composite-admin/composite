@@ -324,7 +324,7 @@ const SingleProject = () => {
           <TabsTrigger value="cash_advance">Cash Advance</TabsTrigger>
         </TabsList>
         <TabsContent value="project_cost">
-          <ProjectCost />
+          <ProjectCost projectCode={projectCode} />
         </TabsContent>
         <TabsContent value="project_team">
           <ProjectTeam projectCode={projectCode} />
