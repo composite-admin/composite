@@ -304,3 +304,12 @@ export const useGetRequestComments = (id: string) => {
   });
   return { comments: data, isCommentsLoading: isLoading };
 };
+
+export const useGetProjectById = (id: string) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get project details", id],
+    queryFn: () => getStuffTyped<IProjectData>(`/projects/${id}`),
+    enabled: !!id,
+  });
+  return { projectDetails: data, isLoading };
+};

@@ -37,24 +37,24 @@ export default function ClientDetailsPage({ params }: Params) {
     setAddToProjectFormType("client");
     onOpen();
   };
-  // const { data: details } = useQuery({
-  //   queryKey: ["get all clients", params.id],
-  //   queryFn: async () => {
-  //     try {
-  //       const response = await api.get<ApiResponse<IClientData>>(
-  //         `/client/${params.id}`
-  //       );
-  //       setClientDetailsData(response.data.data);
-  //       return response.data.data;
-  //     } catch (error) {
-  //       if (axios.isAxiosError(error) && error.response) {
-  //         throw new Error(error.response.data.message);
-  //       } else {
-  //         throw error;
-  //       }
-  //     }
-  //   },
-  // });
+  const { data } = useQuery({
+    queryKey: ["get all clients", params.id],
+    queryFn: async () => {
+      try {
+        const response = await api.get<ApiResponse<IClientData>>(
+          `/client/${params.id}`
+        );
+        setClientDetailsData(response.data.data);
+        return response.data.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
 
   const { ClientProjectDetails, isClientProjectLoading } =
     useGetClientProjectData(params.id);

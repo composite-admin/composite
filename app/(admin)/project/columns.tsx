@@ -110,7 +110,7 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "materials",
+    accessorKey: "id",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Materials" withSort={false} />
@@ -118,7 +118,7 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       return (
-        <Link href="#">
+        <Link href={`/project/${row.original["id"]}/add-material`}>
           <div className="cursor-pointer">
             <span className="font-semibold text-primaryLight-500 flex items-center hover:underline">
               <RiToolsFill />

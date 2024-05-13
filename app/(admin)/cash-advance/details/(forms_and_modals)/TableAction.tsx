@@ -3,9 +3,6 @@ import useCashAdvanceStore, {
   CashAdvanceFormTypes,
 } from "@/store/cash-advance/useCashAdvanceStore";
 import { ICashAdvanceData } from "@/utils/types";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { data } from "../../../contractors/pending-project/data";
 
 interface Props {
   children?: React.ReactNode;

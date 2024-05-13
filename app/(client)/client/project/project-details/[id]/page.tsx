@@ -1,11 +1,15 @@
 "use client";
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectDetails from "./components/ProjectDetails";
-import useClientStore from "@/store/client/useClientStore";
+import useClientStore, {
+  useClientStoreModal,
+} from "@/store/client/useClientStore";
 import ProjectImages from "./components/ProjectImages";
 import ProjectFlats from "./components/ProjectFlats";
+import { Params } from "@/app/(admin)/project/[id]/edit/page";
+import { useGetProjectById } from "@/hooks/useSelectOptions";
 
 export type tabType = "Project Details" | "Project Images" | "Project Flat";
 
@@ -24,9 +28,28 @@ const Tabs = [
   },
 ];
 
-export default function ClientProjectDetailsPage() {
+export default function ClientProjectDetailsPage({ params: { id } }: Params) {
+  const { setProjectDetails, TabType, setTabType } = useClientStore();
+  const { projectDetails } = useGetProjectById(id);
+  useEffect(() => {
+    setProjectDetails(projectDetails);
+  }, [projectDetails, setProjectDetails]);
   // const [tab, setTab] = useState<tabType>("Project Details");
-  const { TabType, setTabType } = useClientStore();
+  const { setModalType, modalType, onOpen } = useClientStoreModal();
+
+  function handleModal(args: typeof modalType) {
+    switch (args) {
+      case "add comment":
+        setModalType("add comment");
+        onOpen();
+        break;
+      case "add images":
+        setModalType("add images");
+        onOpen();
+        break;
+      default:
+    }
+  }
 
   return (
     <div>
@@ -41,7 +64,21 @@ export default function ClientProjectDetailsPage() {
           <p className="text-textColor text-base">See Project Details here</p>
         </div>
         <div>
-          <Button>Send Comment</Button>
+          {TabType === "Project Details" && (
+            <Button onClick={() => handleModal("add comment")}>
+              Send Comment
+            </Button>
+          )}
+          {TabType === "Project Images" && (
+            <Button onClick={() => handleModal("add images")}>
+              Add Images
+            </Button>
+          )}
+          {TabType === "Project Flat" && (
+            <Button onClick={() => handleModal("add images")}>
+              Send Comment
+            </Button>
+          )}
         </div>
       </div>
 

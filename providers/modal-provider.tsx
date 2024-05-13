@@ -20,6 +20,7 @@ import AddToProjectModal from "@/components/Modals/AddToProjectModal";
 import RequestApprovalModal from "@/app/(admin)/requests/request-details/[id]/forms/RequestApprovalModal";
 import AdvancesModals from "@/app/(admin)/cash-advance/details/(forms_and_modals)/AdvancesModals";
 import { AddAndEditApartmentModal } from "@/components/Modals/AddAndEditApartmentModal";
+import ClientModal from "@/app/(client)/client/project/ClientModal";
 
 export const ModalProvider = () => {
   const [ismounted, setIsMounted] = useState(false);
@@ -35,6 +36,7 @@ export const ModalProvider = () => {
   return (
     <>
       <AddAndEditApartmentModal />
+      <ClientModal />
       <EditFlatModal />
       <AddCommentModal />
       <UpdateRequestModal />

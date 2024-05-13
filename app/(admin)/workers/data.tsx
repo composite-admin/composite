@@ -9,7 +9,7 @@ export const data: Array<ReportType> = [
     contactPerson: "string",
     contactPhone: "string",
     addedOn: "string",
-    actions: "string"
+    actions: "string",
   },
   {
     id: "1",
@@ -19,7 +19,7 @@ export const data: Array<ReportType> = [
     contactPerson: "string",
     contactPhone: "string",
     addedOn: "string",
-    actions: "string"
+    actions: "string",
   },
   {
     id: "1",
@@ -29,7 +29,7 @@ export const data: Array<ReportType> = [
     contactPerson: "string",
     contactPhone: "string",
     addedOn: "string",
-    actions: "string"
+    actions: "string",
   },
   {
     id: "1",
@@ -39,7 +39,7 @@ export const data: Array<ReportType> = [
     contactPerson: "string",
     contactPhone: "string",
     addedOn: "string",
-    actions: "string"
+    actions: "string",
   },
   {
     id: "1",
@@ -49,8 +49,6 @@ export const data: Array<ReportType> = [
     contactPerson: "string",
     contactPhone: "string",
     addedOn: "string",
-    actions: "string"
+    actions: "string",
   },
-  
-
 ];

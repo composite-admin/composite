@@ -20,7 +20,7 @@ export const columns: ColumnDef<IClientProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <Link href={`project/project-details/${row.original["id"]}`}>
+        <Link href={`project/project-details/${row.original["project_id"]}`}>
           <div className="flex  flex-col">
             <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
               {row.original["project_name"]}
