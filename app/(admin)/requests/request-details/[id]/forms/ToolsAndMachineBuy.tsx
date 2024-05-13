@@ -64,7 +64,7 @@ export default function ToolsAndMachineBuy() {
         status: "APPROVED",
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
-        approved_total_price:
+        approved_total_amount:
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
       if (res.status === 201) {

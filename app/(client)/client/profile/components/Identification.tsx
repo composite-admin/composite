@@ -132,7 +132,6 @@ export default function Identification() {
   });
   const onSubmit = (data: FormDataType) => {
     mutate(data);
-    console.log(data);
   };
   return (
     <div className="bg-white border-borderColor shadow-lg rounded-lg p-5 max-w-3xl mt-8">

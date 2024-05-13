@@ -66,7 +66,7 @@ export default function CashAdvance() {
         status: "APPROVED",
         amount: Number(data.approved_amount),
       });
-      if (res.status === 201) {
+      if (res.status === 200) {
         toast({
           title: "Request created successfully",
           variant: "success",
@@ -88,6 +88,7 @@ export default function CashAdvance() {
             control={form.control}
             labelText="Request Type"
             disabled
+            placeholder={formDetails?.request_type}
             items={Object.values(RequestType)}
           />
           <CustomFormField

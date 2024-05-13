@@ -50,12 +50,14 @@ export default function RequestDetailsPage({
       setFormType(type);
       onOpen();
       setIsEdit(true);
+      setIsDelete(false);
       setFormDetails(data);
     }
     if (data && !isEdit) {
       setFormType(type);
       onOpen();
       setIsEdit(false);
+      setIsDelete(false);
       setFormDetails(data);
     }
     if (data && isDelete) {
