@@ -35,13 +35,13 @@ export const ToolsAndMachineStoreSchema = z.object({
   unit_price: z.string({
     required_error: "Unit price is required",
   }),
-  tool_description: z.string({
+  tool_machinery_type: z.string({
     required_error: "Tool description is required",
   }),
   description: z.string({
     required_error: "Description is required",
   }),
-  type: z.string({
+  tool_name: z.string({
     required_error: "Type is required",
   }),
   comment: z.string({
@@ -70,7 +70,7 @@ export default function ToolsAndMachineStore() {
     },
   });
   const { watch } = form;
-  const watchTools = watch("type");
+  const watchTools = watch("tool_name");
 
   useEffect(() => {
     const fetchToolDescription = async () => {
@@ -156,14 +156,14 @@ export default function ToolsAndMachineStore() {
                 items={projectName || [" "]}
               />
               <CustomFormSelect
-                name="type"
+                name="tool_name"
                 labelText="Type"
                 control={form.control}
                 items={toolType || [" "]}
               />
             </div>
             <CustomFormSelect
-              name="tool_description"
+              name="tool_machinery_type"
               className="col-span-full"
               labelText="Tool Description"
               control={form.control}

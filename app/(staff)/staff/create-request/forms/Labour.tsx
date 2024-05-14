@@ -67,6 +67,9 @@ export default function Labour() {
         project_code: projectsData?.find(
           (item: any) => item.project_name === data.project_name
         )?.project_code,
+        worker_code: workers?.find(
+          (item: any) => item.worker_name === data.worker_name
+        )?.worker_code,
       });
       if (res.status === 201) {
         toast({

@@ -26,7 +26,7 @@ export const ToolsAndMachineRentSchema = z.object({
   project_name: z.string({
     required_error: "Project name is required",
   }),
-  tool_type: z.string({
+  tool_name: z.string({
     required_error: "Tool type is required",
   }),
   company: z.string({
@@ -35,24 +35,32 @@ export const ToolsAndMachineRentSchema = z.object({
   company_address: z.string({
     required_error: "Company address is required",
   }),
-  contact_number: z.string({
-    required_error: "Contact number is required",
-  }),
-  ofc_phone: z.string({
-    required_error: "Office phone is required",
-  }),
+  contact_number: z
+    .string({
+      required_error: "Contact number is required",
+    })
+    .regex(/^\d*$/, "Please enter a valid phone number"),
+  ofc_phone: z
+    .string({
+      required_error: "Office phone is required",
+    })
+    .regex(/^\d*$/, "Please enter a valid phone number"),
   contact_person: z.string({
     required_error: "Contact person is required",
   }),
-  item_description: z.string({
+  tool_machinery_type: z.string({
     required_error: "Item description is required",
   }),
-  quantity: z.string({
-    required_error: "Quantity is required",
-  }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
+  quantity: z
+    .string({
+      required_error: "Quantity is required",
+    })
+    .regex(/^\d+$/, "Must be a number"),
+  unit_price: z
+    .string({
+      required_error: "Unit price is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   description: z.string({
     required_error: "Description is required",
   }),
@@ -175,7 +183,7 @@ export default function ToolsAndMachineRent() {
 
               <div className="w-full flex flex-col gap-5">
                 <CustomFormSelect
-                  name="tool_type"
+                  name="tool_name"
                   control={form.control}
                   labelText="Tool Type"
                   items={toolType || [" "]}
@@ -194,7 +202,7 @@ export default function ToolsAndMachineRent() {
                   placeholder="Enter full name"
                 />
                 <CustomFormField
-                  name="item_description"
+                  name="tool_machinery_type"
                   control={form.control}
                   label="Item Description"
                   placeholder="Enter description"

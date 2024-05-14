@@ -86,6 +86,10 @@ export default function CashAdvance() {
       }
     } catch (error) {
       console.log(error);
+      toast({
+        title: "Request creation failed",
+        variant: "destructive",
+      });
     }
   };
 

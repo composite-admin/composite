@@ -117,6 +117,7 @@ export default function Material() {
         status: "PENDING",
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+        supplier_code: supplierCode,
         unit_price: Number(data.unit_price),
         quantity: Number(data.quantity),
         total_price: Number(data.unit_price) * Number(data.quantity),
@@ -124,9 +125,19 @@ export default function Material() {
           (item: any) => item.project_name === data.project_name
         )?.project_code,
       });
-      console.log(res);
+      if (res.status === 201) {
+        toast({
+          title: "Request created successfully",
+          variant: "success",
+        });
+        form.reset();
+        router.push("/staff/create-request");
+      }
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Request creation failed, please try again",
+        variant: "destructive",
+      });
     }
   };
 

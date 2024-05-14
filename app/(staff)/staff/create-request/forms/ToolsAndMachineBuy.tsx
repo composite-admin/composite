@@ -21,27 +21,12 @@ import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
-// request_type: z.nativeEnum(RequestType),
-// project_name: z.string().optional(),
-// tool_type: z.string().optional(),
-// company: z.string().optional(),
-// company_address: z.string().optional(),
-// contact_number: z.string().optional(),
-// ofc_phone: z.string().optional(),
-// contact_person: z.string().optional(),
-// item_description: z.string().optional(), //????
-// quantity: z.string().optional(),
-// unit_price: z.string().optional(),
-// description: z.string().optional(),
-// comment: z.string().optional(),
-
-// use teh names in the form
 export const ToolsAndMachineBuySchema = z.object({
   request_type: z.nativeEnum(RequestType),
   project_name: z.string({
     required_error: "Project name is required",
   }),
-  tool_type: z.string({
+  tool_name: z.string({
     required_error: "Tool type is required",
   }),
   company: z.string({
@@ -59,7 +44,7 @@ export const ToolsAndMachineBuySchema = z.object({
   contact_person: z.string({
     required_error: "Contact person is required",
   }),
-  item_description: z.string({
+  tool_machinery_type: z.string({
     required_error: "Item description is required",
   }),
   quantity: z.string({
@@ -190,7 +175,7 @@ export default function ToolsAndMachineBuy() {
 
               <div className="w-full flex flex-col gap-5">
                 <CustomFormSelect
-                  name="tool_type"
+                  name="tool_name"
                   control={form.control}
                   labelText="Tool Type"
                   items={toolType || [" "]}
@@ -209,7 +194,7 @@ export default function ToolsAndMachineBuy() {
                   placeholder="Enter full name"
                 />
                 <CustomFormField
-                  name="item_description"
+                  name="tool_machinery_type"
                   control={form.control}
                   label="Item Description"
                   placeholder="Enter description"

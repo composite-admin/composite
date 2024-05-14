@@ -18,6 +18,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "./columns";
+import Material from "../../../../(staff)/staff/create-request/forms/Material";
 
 export default function RequestDetailsPage({
   params,
@@ -162,7 +163,13 @@ export default function RequestDetailsPage({
                 </div>
               </div>
 
-              <div className="bg-[#FEF6e7] p-3 text-[#865503] text-center lg:tracking-widest mb-12">
+              <div
+                className={`text-center lg:tracking-widest mb-12 ${
+                  requestDetails?.status === "APPROVED"
+                    ? "text-green-500 bg-[#E5F8E0] p-3"
+                    : "bg-[#FEF6e7] p-3 text-[#865503] "
+                }`}
+              >
                 <span>Status:</span>
                 <span className="uppercase lg:text-xl font-semibold">
                   {requestDetails?.status}
@@ -212,6 +219,18 @@ export default function RequestDetailsPage({
                         {requestDetails?.contact_person}
                       </span>
                     </div>
+                    <div className="flex justify-between">
+                      <span>Jobe Code:</span>
+                      <span className="text-sm font-semibold text-black">
+                        {requestDetails?.worker_code}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Supplier Code:</span>
+                      <span className="text-sm font-semibold text-black">
+                        {requestDetails?.supplier_code}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -223,14 +242,12 @@ export default function RequestDetailsPage({
                         {requestDetails?.worker_name}
                       </span>
                     </div>
-
                     <div className="flex justify-between">
                       <span>Company:</span>
                       <span className="text-sm font-semibold text-black">
                         {requestDetails?.company}
                       </span>
                     </div>
-
                     <div className="flex justify-between">
                       <span>Company:</span>
                       <span className="text-sm font-semibold text-black">
@@ -243,6 +260,18 @@ export default function RequestDetailsPage({
                         {requestDetails?.contact_mobile}
                       </span>
                     </div>
+                    <div className="flex justify-between">
+                      <span>Tool Name:</span>
+                      <span className="text-sm font-semibold text-black">
+                        {requestDetails?.tool_name}
+                      </span>
+                    </div>{" "}
+                    <div className="flex justify-between">
+                      <span>Supplier Material:</span>
+                      <span className="text-sm font-semibold text-black">
+                        {requestDetails?.supplier_material}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -252,9 +281,21 @@ export default function RequestDetailsPage({
               <div className="p-3 lg:p-6 space-y-5">
                 <h2 className="font-semibold mb-4">Cash Summary</h2>
                 <div className="flex justify-between items-center">
+                  <span>Requested Quantity:</span>
+                  <span>{requestDetails?.quantity}</span>
+                </div>{" "}
+                <div className="flex justify-between items-center">
+                  <span>Unit Price:</span>
+                  <span>{requestDetails?.unit_price}</span>
+                </div>{" "}
+                <div className="flex justify-between items-center">
+                  <span>Requested Total Price:</span>
+                  <span>{requestDetails?.total_price}</span>
+                </div>
+                <div className="flex justify-between items-center">
                   <span>Approved quantity</span>
                   <span>{requestDetails?.approved_quantity}</span>
-                </div>{" "}
+                </div>
                 <div className="flex justify-between items-center">
                   <span>Approved unit price</span>
                   <span>
@@ -262,9 +303,10 @@ export default function RequestDetailsPage({
                   </span>
                 </div>{" "}
                 <div className="flex justify-between items-center">
-                  <span>Requested Total Price</span>
+                  <span>Approved Total Price</span>
                   <span>
-                    {data && formatCurrency(requestDetails?.total_price)}
+                    {data &&
+                      formatCurrency(requestDetails?.approved_total_amount)}
                   </span>
                 </div>{" "}
                 <div className="flex justify-between items-center">
@@ -280,7 +322,11 @@ export default function RequestDetailsPage({
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span>Approved Total Price</span>
+                  <span>Approved by</span>
+                  <span>{requestDetails && requestDetails?.approved_by}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Approved Comment</span>
                   <span>{requestDetails?.comment}</span>
                 </div>
               </div>
@@ -291,7 +337,9 @@ export default function RequestDetailsPage({
       <div className="py-8">
         <div className="flex justify-between items-center">
           <span>Comments</span>
-          <Button onClick={onAddComment}>Add Comment</Button>
+          {requestDetails?.status !== "APPROVED" && (
+            <Button onClick={onAddComment}>Add Comment</Button>
+          )}
         </div>
         <DataTable
           data={comments || []}

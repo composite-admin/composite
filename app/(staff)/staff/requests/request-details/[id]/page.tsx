@@ -27,7 +27,7 @@ export default function RequestDetailsPage({
 
   return (
     <div>
-      <GoBack btnText="Add Comment" withBtn onclick={onOpen} />
+      <GoBack />
       <div className="flex flex-col gap-6">
         <div className="flex flex-col md:grid grid-cols-1 xl:grid-cols-6 gap-8">
           <aside className="bg-white border-borderColor shadow-sm col-span-4 p-3 lg:p-8 lg:px-12 ">
@@ -239,17 +239,7 @@ export default function RequestDetailsPage({
             </aside>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col md:flex-row gap-4 py-8">
-        <Button className="md:w-1/3" onClick={onRequestModal}>
-          Request more information
-        </Button>
-        <Button className="md:w-1/3" variant={"destructive"}>
-          Decline
-        </Button>
-        <Button className="md:w-1/3 bg-[#27AE60] hover:bg-[#27AE60]/90">
-          Approve
-        </Button>
+        <Button onClick={onOpen}> Add Comment</Button>
       </div>
     </div>
   );
