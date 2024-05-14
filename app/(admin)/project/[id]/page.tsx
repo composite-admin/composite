@@ -351,7 +351,7 @@ const SingleProject = () => {
           <Consultant projectCode={projectCode} />
         </TabsContent>
         <TabsContent value="cash_advance">
-          <CashAdvanced />
+          <CashAdvanced projectCode={projectCode} />
         </TabsContent>
       </Tabs>
     </>

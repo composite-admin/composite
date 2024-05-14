@@ -296,6 +296,14 @@ export const useGetCashAdvanceBreakdownById = (id: string) => {
   return { cashAdvanceBreakdown: data || [], isBreakDownLoading: isPending };
 };
 
+export const useGetAllCashAdvance = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get all cash advances"],
+    queryFn: () => getStuffTyped<ICashAdvanceData[]>("/cash-advances"),
+  });
+  return { cashAdvances: data, isCashAdvanceLoading: isLoading };
+};
+
 export const useGetRequestComments = (id: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ["get request comments", id],

@@ -16,6 +16,7 @@ export const columns: ColumnDef<PendingProjectDetails>[] = [
       return (
         <div>
           <div className="flex  flex-col">
+            <span>{row.original["project_name"]}</span>
             <span className="font-semibold text-gray-500 uppercase text-semibold">
               {row.original["project_code"]}
             </span>

@@ -548,6 +548,7 @@ export interface PendingProjectDetails {
   project_code: string;
   startup_cost: string;
   stakeholder_amount: string;
+  project_name: string;
   contractor_amount: string;
   material_amount: string;
   machinery_approved_amount: string;
