@@ -100,7 +100,7 @@ export default function Information() {
         <div>
           <AvatarComponent height="h-28" width="w-28" />
         </div>
-        <div>
+        {/* <div>
           <Button
             className="text-sm text-primaryLight gap-2 font-semibold rounded-xl border border-primaryLight w-max p-1"
             variant={"outline"}
@@ -108,7 +108,7 @@ export default function Information() {
             <Upload />
             Change Photo
           </Button>
-        </div>
+        </div> */}
       </div>
       <div className="col-span-4">
         <Form {...form}>

@@ -8,11 +8,11 @@ export default function ProjectDetails() {
   const { projectDetails } = useClientStore();
 
   return (
-    <div className="p-4 bg-white -Color shadow-lg rounded-lg mt-5 py-10">
+    <div className="p-4 bg-white shadow-lg rounded-lg mt-5 py-10">
       <div className="grid md:grid-cols-2 gap-8  w-4/5">
         <div className=" space-y-8">
           <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
+            <span className="self-start items-start justify-end block  w-full">
               Project Code
             </span>
             <span className="self-start items-start justify-end block  w-full uppercase">

@@ -543,6 +543,19 @@ export interface IProjectData {
   updatedAt: string;
 }
 
+
+export interface PendingProjectDetails {
+  project_code: string;
+  startup_cost: string;
+  stakeholder_amount: string;
+  contractor_amount: string;
+  material_amount: string;
+  machinery_approved_amount: string;
+  labour_approved_amount: string;
+  cash_advance_approved_amount: string;
+}
+
+
 interface EntityCount {
   count: string;
 }

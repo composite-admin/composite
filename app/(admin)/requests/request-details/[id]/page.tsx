@@ -86,60 +86,74 @@ export default function RequestDetailsPage({
                 {data?.request_type}
               </p>
             </div>
-            <div className="flex flex-col gap-5 md:flex-row">
-              <div className="flex-1 w-full pb-5 md:w-1/2 flex flex-col justify-between lg:pr-8 gap-3 ">
-                <div className="flex justify-between items-center w-full">
-                  <span>Request code:</span>
-                  <span className="uppercase text-sm font-semibold">
+            <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div className="space-y-6 ">
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Request code:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
                     {data?.request_code}
                   </span>
                 </div>
-                <div className="flex justify-between items-center w-full">
-                  <span>Staff Name:</span>
-                  <span className=" text-sm capitalize font-semibold">
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Staff Name:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
                     {data?.staff_name}
                   </span>
                 </div>
-                <div className="flex justify-between items-center w-full">
-                  <span>Project Name:</span>
-                  <span className=" text-sm font-semibold">
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Project Name:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
                     {data?.project_name}
                   </span>
                 </div>
-                <div className="flex justify-between items-center w-full">
-                  <span>Supervisor's Comment:</span>
-                  <span className=" text-sm font-semibold">
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Supervisor's Comment:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
                     {data?.supervisor_comment}
                   </span>
                 </div>
               </div>
 
-              <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8  ">
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                  <div className="flex justify-between items-center w-full">
-                    <span>Date Added:</span>
-                    <span className=" text-sm capitalize font-semibold">
-                      {data && formatDate(data?.createdAt)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center w-full">
-                    <span>Status:</span>
-                    <span className=" text-sm capitalize font-semibold">
-                      {data?.status}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center w-full">
-                    <span>Project Code:</span>
-                    <span className=" text-sm capitalize font-semibold">
-                      {data?.project_code}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center w-full">
-                    <span>Requestor's Comment:</span>
-                    <span className=" text-sm capitalize font-semibold">
-                      {data?.comment}
-                    </span>
-                  </div>
+              <div className="space-y-6">
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Date Added:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
+                    {data && formatDate(data?.createdAt)}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Status:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
+                    {data?.status}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Project Code:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
+                    {data?.project_code}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="self-start items-start justify-end block  w-full">
+                    Requestor's Comment:
+                  </span>
+                  <span className="self-start items-start justify-end block  w-full uppercase">
+                    {data?.comment}
+                  </span>
                 </div>
               </div>
             </div>
@@ -191,87 +205,110 @@ export default function RequestDetailsPage({
           <div className="flex flex-col md:grid grid-cols-1 xl:grid-cols-6 gap-8">
             <aside className="bg-white border-borderColor shadow-sm col-span-4 p-3 lg:p-8 lg:px-12 ">
               <h2 className="font-bold mb-4">Service Details</h2>
-              <div className="flex flex-col md:flex-row md:gap-8">
-                <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between gap-3  ">
-                  <div className="flex flex-col gap-10 flex-1 text-textColor text-sm  ">
-                    <div className="flex justify-between">
-                      <span>Cash Advance Requested Purpose:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.cash_advance_purpose}
-                      </span>
-                    </div>
+              <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
+                <div className="space-y-6 ">
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Cash Advance Requested Purpose:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.cash_advance_purpose ?? "-"}
+                    </span>
+                  </div>
 
-                    <div className="flex justify-between">
-                      <span>Service Rendered:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.worker_service}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Company Phone:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.company}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Contact Person:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.contact_person}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Jobe Code:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.worker_code}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Supplier Code:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.supplier_code}
-                      </span>
-                    </div>
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Service Rendered:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.worker_service ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Company Phone:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.company ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Contact Person:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.contact_person ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Job Code:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.job_code ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Supplier Code:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.supplier_code ?? "-"}
+                    </span>
                   </div>
                 </div>
 
-                <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8  ">
-                  <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                    <div className="flex justify-between">
-                      <span>Worker's Name:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.worker_name}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Company:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.company}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Company:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.company_address}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Contact Mobile:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.contact_mobile}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Tool Name:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.tool_name}
-                      </span>
-                    </div>{" "}
-                    <div className="flex justify-between">
-                      <span>Supplier Material:</span>
-                      <span className="text-sm font-semibold text-black">
-                        {requestDetails?.supplier_material}
-                      </span>
-                    </div>
+                <div className="space-y-6">
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Worker's Name:
+                    </span>
+                    <span className="self-start items-start justify-end block w-full uppercase">
+                      {requestDetails?.worker_name ?? "-"}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Company:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.company ?? "-"}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Company:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.company_address ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Contact Mobile:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.contact_mobile ?? "-"}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Tool Name:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.tool_name ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="self-start items-start justify-end block  w-full">
+                      Supplier Material:
+                    </span>
+                    <span className="self-start items-start justify-end block  w-full uppercase">
+                      {requestDetails?.supplier_material ?? "-"}
+                    </span>
                   </div>
                 </div>
               </div>

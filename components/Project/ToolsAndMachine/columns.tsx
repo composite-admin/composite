@@ -8,17 +8,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DeleteIcon } from "lucide-react";
 import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import { IRequestData } from "../../../utils/types";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDate } from "@/utils/formatDate";
 
-export type ReportType = {
-  id: string;
-  description: string;
-  quantity: string;
-  unitPrice: string;
-  totalCost: string;
-  dateAdded: string;
-};
-
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IRequestData>[] = [
   {
     accessorKey: "description",
     header: ({ column }) => {
@@ -29,8 +23,10 @@ export const columns: ColumnDef<any>[] = [
         // <Link href={`/project/${row.original["id"]}`}>
         <div className="flex gap-2 items-center">
           <div>
-            <p className="font-semibold underline text-primaryLight">Hammer</p>
-            <p>CRNOWUWUWU</p>
+            <p className="font-semibold underline text-primaryLight">
+              {row.original["description"]}
+            </p>
+            <p>{row.original["request_code"]}</p>
           </div>
         </div>
         // </Link>
@@ -39,21 +35,21 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "company",
+    accessorKey: "quantity",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Quantity" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">x100</span>
+          <span className="font-semibold ">{row.original["quantity"]}</span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "procurement_type",
+    accessorKey: "unit_price",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Unit Price" withSort={false} />
@@ -62,13 +58,15 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">N200.0</span>
+          <span className="font-semibold ">
+            {formatCurrency(row.original["unit_price"])}
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "unit_price",
+    accessorKey: "total_price",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Total Cost" withSort={false} />
@@ -77,28 +75,16 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">N100,000</span>
+          <span className="font-semibold ">
+            {formatCurrency(row.original["total_price"])}
+          </span>
         </div>
       );
     },
   },
+
   {
-    accessorKey: "totalCost",
-    header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Total Cost" withSort={false} />
-      );
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold ">N100,000</span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "date_approved",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Date Added" withSort={false} />
@@ -107,22 +93,8 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">N100,000</span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-            <HiPencilAlt />
-            Edit{" "}
+          <span className="font-semibold ">
+            {formatDate(row.original["createdAt"])}
           </span>
         </div>
       );

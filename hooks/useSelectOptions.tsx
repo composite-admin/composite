@@ -24,6 +24,7 @@ import {
   ISupplierMaterialTypesData,
   ITenantDetails,
   IWorkerData,
+  PendingProjectDetails,
 } from "@/utils/types";
 import { IRequestCommentData } from "@/app/(admin)/requests/request-details/[id]/columns";
 
@@ -190,7 +191,6 @@ export const useGetInventoryData = (id: string) => {
   return { inventory: data };
 };
 
-
 export const useGetAllConsultantProjects = () => {
   const { data } = useQuery({
     queryKey: ["get all consultants projects"],
@@ -312,4 +312,13 @@ export const useGetProjectById = (id: string) => {
     enabled: !!id,
   });
   return { projectDetails: data, isLoading };
+};
+
+export const useGetAllPendingProjects = () => {
+  const { data } = useQuery({
+    queryKey: ["get all pending projects"],
+    queryFn: () =>
+      getStuffTyped<PendingProjectDetails[]>("/dashboard/pending-project"),
+  });
+  return { pendingProjects: data };
 };

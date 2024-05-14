@@ -14,6 +14,7 @@ import { api } from "@/config/api";
 import axios from "axios";
 import {
   GetAllReports,
+  useGetAllPendingProjects,
   useGetAllProjectData,
   useGetAllRequests,
 } from "@/hooks/useSelectOptions";
@@ -59,6 +60,8 @@ export default function DashboardPage() {
     (project) => project.status === "On-going"
   );
 
+  const { pendingProjects } = useGetAllPendingProjects();
+
   return (
     <div>
       <PageHeaderComponent
@@ -67,7 +70,7 @@ export default function DashboardPage() {
       />
       <div className="grid-cols-1 gap-8 grid xl:grid-cols-8">
         <div className="xl:col-span-6">
-          <div className="pb-12 flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">
+          <div className=" flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">
             <DashboardCard
               title="Total Projects"
               description={entities?.totalProject.count}
@@ -83,7 +86,7 @@ export default function DashboardPage() {
           </div>
           <DataTable
             columns={columns}
-            data={ongoingProjects ?? []}
+            data={pendingProjects ?? []}
             showSearch={false}
             isLoading={isPending}
           />

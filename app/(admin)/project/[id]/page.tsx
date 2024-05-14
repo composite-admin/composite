@@ -308,7 +308,7 @@ const SingleProject = () => {
           })}
         </div>
       </div>
-      <Tabs defaultValue="project_cost">
+      <Tabs>
         <TabsList>
           <TabsTrigger value="project_cost">Project Cost</TabsTrigger>
           <TabsTrigger value="project_team">Project Team</TabsTrigger>
@@ -345,7 +345,7 @@ const SingleProject = () => {
           <Materials projectCode={projectCode} />
         </TabsContent>
         <TabsContent value="tool_and_machinery">
-          <ToolsAndMachine />
+          <ToolsAndMachine projectCode={projectCode} />
         </TabsContent>
         <TabsContent value="consultants">
           <Consultant projectCode={projectCode} />

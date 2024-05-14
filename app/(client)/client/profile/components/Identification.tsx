@@ -90,8 +90,6 @@ export default function Identification() {
       if (response.status === 200) {
         setIsLoading({ isLoading: false, success: true });
         setClientImage(response.data.data);
-        console.log(response.data.data);
-        console.log("File uploaded successfully");
         // Handle success case
       } else {
         console.error("Failed to upload file");
@@ -105,8 +103,9 @@ export default function Identification() {
     mutationKey: ["client identification", userId],
     mutationFn: (data: FormDataType) =>
       api.put(`/client/${userId}`, {
-        data,
+        ...data,
         id_image: clientImage,
+        id_number: Number(data.id_number),
       }),
     onSuccess: () => {
       toast({

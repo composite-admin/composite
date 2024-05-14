@@ -1,16 +1,33 @@
-import { DataTable } from '@/components/shared/DataTable'
-import React from 'react'
-import { columns } from './columns'
-import { data } from './data'
+"use client";
 
-const ToolsAndMachine = () => {
-    
+import { DataTable } from "@/components/shared/DataTable";
+import React from "react";
+import { columns } from "./columns";
+import { useGetAllRequests } from "@/hooks/useSelectOptions";
+import { IRequestData } from "@/utils/types";
+
+const ToolsAndMachine = ({ projectCode }: { projectCode: string }) => {
+  const { requests, isLoading, isError } = useGetAllRequests();
+  const toolsAndMachine = requests?.filter(
+    (request: IRequestData) =>
+      (request.request_type === "Tools and Machine Buy" ||
+        request.request_type === "Tools and Machine Rent") &&
+      request.status === "APPROVED" &&
+      request.project_code === projectCode
+  );
+
   return (
     <div>
-         <h2 className='text-[20px] font-[600]'>Tools And Machinery (4)</h2>
-        <DataTable showSearch={false} columns={columns} data={data}/>
+      <h2 className="text-[20px] font-[600]">
+        Tools And Machinery ({toolsAndMachine?.length})
+      </h2>
+      <DataTable
+        showSearch={false}
+        columns={columns}
+        data={toolsAndMachine ?? []}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default ToolsAndMachine
+export default ToolsAndMachine;

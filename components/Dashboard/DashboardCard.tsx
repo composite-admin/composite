@@ -15,7 +15,7 @@ export default function DashboardCard({
   withIcon,
 }: Props) {
   return (
-    <div className=" border-borderColor border py-5 rounded-xl shadow-lg p-3 w-full min-w-[250px] sm:min-w-0 bg-white">
+    <div className=" border-borderColor border py-5 rounded-xl  p-3 w-full min-w-[250px] sm:min-w-0 bg-white">
       <div className="space-y-2.5">
         <h3 className="text-sm font-semibold text-textColor uppercase">
           {title ?? "Total Projects"}
