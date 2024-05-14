@@ -38,7 +38,7 @@ const FramerModal: FC<ModalProps> = ({ children, isOpen, onClose, isAutomatic = 
   return (
     <>
       {isOpen && (
-        <div className="fixed top-0 left-0 min-w-full min-h-full flex justify-center items-center z-[3000] overflow-hidden">
+        <div className="fixed top-0 left-0 min-w-full min-h-full flex justify-center items-center  overflow-hidden">
           {/* background */}
           <motion.div
             {...opacityVariant}
@@ -47,7 +47,10 @@ const FramerModal: FC<ModalProps> = ({ children, isOpen, onClose, isAutomatic = 
           ></motion.div>
 
           {/* modal */}
-          <motion.div {...variant} className="md:max-w-3/4 mx-auto grid place-content-center w-[90%] relative z-[1000]">
+          <motion.div
+            {...variant}
+            className="md:max-w-3/4 mx-auto grid place-content-center w-[90%] relative z-[1000]"
+          >
             <div ref={ref}>{children}</div>
           </motion.div>
         </div>
