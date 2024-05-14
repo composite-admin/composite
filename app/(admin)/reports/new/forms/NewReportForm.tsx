@@ -132,12 +132,11 @@ export default function NewReportForm() {
 
       if (response.status === 200) {
         setFiles([]);
-        router.push(`/reports${response.data.data.id}`);
         toast({
           title: "Report created successfully",
           variant: "success",
         });
-        window.location.reload();
+        router.push(`/reports/${id}`);
       } else {
         console.error("Failed to upload files");
       }

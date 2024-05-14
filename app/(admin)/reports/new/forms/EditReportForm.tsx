@@ -60,6 +60,9 @@ export default function EditReportForm() {
     mutationKey: ["editReport"],
     mutationFn: async (data: ProjectReportFormType) => {
       const res = await api.put(`/project_report/${singleReportData.id}`, data);
+      if(res.status === 200) {
+          router.push(`/reports/${singleReportData.id}`);
+      }
       return res.data.data;
     },
     onSuccess: (data) => {
@@ -67,7 +70,6 @@ export default function EditReportForm() {
         title: "Report edited successfully",
         variant: "success",
       });
-      router.push("/reports");
     },
   });
   const handleSubmit = (data: ProjectReportFormType) => {

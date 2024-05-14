@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { HiBellAlert } from "react-icons/hi2";
 import { useGetEachinventory } from "@/store/inventory/InventoryStore";
+import { userStore } from "@/store/auth/AuthStore";
 
 const EditInventorySchema = z.object({
   type: z.string({
@@ -58,6 +59,8 @@ const UpdateInventory = (props: any) => {
   const { inventory } = useGetInventoryData(id);
   const { toast } = useToast();
 
+  const { userId } = userStore();
+  console.log(userId);
   const ToolDescription = toolData?.map((item: any) => item?.description);
 
   const toolType = inventories?.map((item: any) => item?.type);
@@ -97,7 +100,13 @@ const UpdateInventory = (props: any) => {
           ...data,
           total_price: Number(data.unit_price) * Number(data.quantity),
           total_quantity: Number(data.quantity),
+          updated_by: userId,
+          created_by: userId,
         });
+        if (response.status === 200) {
+          router.push(`/inventory/${response.data.data.inventory_id}`);
+          console.log(response.data.data.inventory_id);
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -112,8 +121,6 @@ const UpdateInventory = (props: any) => {
         title: "Inventory edited successfully",
         variant: "success",
       });
-
-      router.push("/inventory");
     },
     onError: (error: Error) => {
       toast({
@@ -149,14 +156,14 @@ const UpdateInventory = (props: any) => {
                 labelText="Tool Type"
                 control={form.control}
                 items={toolType || ["Loading ..."]}
-                placeholder="Select Tool Type"
+                placeholder={inventory?.type && inventory?.type}
               />
               <CustomFormSelect
                 name="name"
                 labelText="Description"
                 control={form.control}
                 items={ToolDescription || ["Loading ..."]}
-                placeholder="Choose description"
+                placeholder={inventory?.name && inventory?.name}
                 disabled={!watchTools}
               />
               <CustomFormField

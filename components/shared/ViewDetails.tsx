@@ -1,4 +1,9 @@
-import { convertDateFormat, convertDateFormatToAllString, formatDateToString } from "@/utils/formatDate";
+import { formatCurrency } from "@/utils/formatCurrency";
+import {
+  convertDateFormat,
+  convertDateFormatToAllString,
+  formatDateToString,
+} from "@/utils/formatDate";
 import React from "react";
 
 export interface Keys {
@@ -9,13 +14,12 @@ export interface Keys {
 interface KeysInterface {
   title?: string;
   dateSubmitted?: string;
-  editAction?: any,
-  keys: Keys[],
-  children?: any,
-  overideHeader?: boolean,
-  headerChildren?: any,
-  data?: any,
-
+  editAction?: any;
+  keys: Keys[];
+  children?: any;
+  overideHeader?: boolean;
+  headerChildren?: any;
+  data?: any;
 }
 
 const ViewDetails = React.forwardRef<any, KeysInterface>(
@@ -57,15 +61,21 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
             <div className="grid grid-cols-2 gap-10 info">
               {keys.map((key: Keys, i: number) => {
                 let date;
-                if (key.key == "createdAt") {
-                  date = formatDateToString(data?.createdAt);
+                let formatted;
+                if (key.key == "createdAt" || key.key == "updatedAt") {
+                  date = formatDateToString(data?.[key.key]);
                 }
 
+                if (key.key == "unit_price" || key.key == "total_price") {
+                  formatted = formatCurrency(data[key.key]);
+                }
 
                 return (
                   <div key={i}>
                     <p className="key">{key.text}</p>
-                    <p className="value">{!date ? data[key.key] : date}</p>
+                    <p className="value">
+                      {!date && !formatted ? data[key.key] : formatted || date}
+                    </p>
                   </div>
                 );
               })}
