@@ -58,9 +58,13 @@ export default function Material() {
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
   const { suppliers } = useGetAllSuppliers();
-  const supplierList = suppliers?.map(
-    (item: ISupplierData) => item.supplier_name
-  );
+  const supplierList = suppliers
+    ?.map((item: ISupplierData) => item.supplier_name)
+    ?.filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+
+  
   const { formType, setFormType } = useStaffStore();
   const { toast } = useToast();
   const router = useRouter();

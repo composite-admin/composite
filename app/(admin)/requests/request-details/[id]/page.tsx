@@ -92,7 +92,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Request code:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data?.request_code}
                   </span>
                 </div>
@@ -100,7 +100,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Staff Name:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data?.staff_name}
                   </span>
                 </div>
@@ -108,7 +108,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Project Name:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data?.project_name}
                   </span>
                 </div>
@@ -116,7 +116,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Supervisor's Comment:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data?.supervisor_comment}
                   </span>
                 </div>
@@ -127,7 +127,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Date Added:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data && formatDate(data?.createdAt)}
                   </span>
                 </div>
@@ -135,7 +135,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Status:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data?.status}
                   </span>
                 </div>
@@ -143,7 +143,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Project Code:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data?.project_code}
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export default function RequestDetailsPage({
                   <span className="self-start items-start justify-end block  w-full">
                     Requestor's Comment:
                   </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
+                  <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                     {data?.comment}
                   </span>
                 </div>
@@ -164,7 +164,7 @@ export default function RequestDetailsPage({
               <h2 className="font-semibold mb-4">Request Summary</h2>
 
               <div className="flex-1 w-full pb-5 flex justify-between items-center">
-                <div className="flex flex-col gap-7 w-1/2 flex-1 text-textColor text-sm">
+                <div className="flex flex-col gap-7 w-1/2 flex-1  text-sm">
                   <span>Requested Amount:</span>
                   <span>Approved Amount:</span>
                 </div>
@@ -178,14 +178,14 @@ export default function RequestDetailsPage({
               </div>
 
               <div
-                className={`text-center lg:tracking-widest mb-12 ${
+                className={`text-center lg:tracking-widest mb-12 flex justify-between items-center ${
                   requestDetails?.status === "APPROVED"
                     ? "text-green-500 bg-[#E5F8E0] p-3"
                     : "bg-[#FEF6e7] p-3 text-[#865503] "
                 }`}
               >
                 <span>Status:</span>
-                <span className="uppercase lg:text-xl font-semibold">
+                <span className="capitalize text-sm font-semibold  lg:text-xl font-semibold">
                   {requestDetails?.status}
                 </span>
               </div>
@@ -211,7 +211,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Cash Advance Requested Purpose:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.cash_advance_purpose ?? "-"}
                     </span>
                   </div>
@@ -220,7 +220,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Service Rendered:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.worker_service ?? "-"}
                     </span>
                   </div>
@@ -228,7 +228,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Company Phone:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.company ?? "-"}
                     </span>
                   </div>
@@ -236,7 +236,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Contact Person:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.contact_person ?? "-"}
                     </span>
                   </div>
@@ -244,7 +244,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Job Code:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.job_code ?? "-"}
                     </span>
                   </div>
@@ -252,7 +252,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Supplier Code:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.supplier_code ?? "-"}
                     </span>
                   </div>
@@ -263,7 +263,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Worker's Name:
                     </span>
-                    <span className="self-start items-start justify-end block w-full uppercase">
+                    <span className="self-start items-start justify-end block w-full capitalize text-sm font-semibold ">
                       {requestDetails?.worker_name ?? "-"}
                     </span>
                   </div>
@@ -272,7 +272,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Company:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.company ?? "-"}
                     </span>
                   </div>
@@ -281,7 +281,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Company:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.company_address ?? "-"}
                     </span>
                   </div>
@@ -289,7 +289,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Contact Mobile:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.contact_mobile ?? "-"}
                     </span>
                   </div>
@@ -298,7 +298,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Tool Name:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.tool_name ?? "-"}
                     </span>
                   </div>
@@ -306,7 +306,7 @@ export default function RequestDetailsPage({
                     <span className="self-start items-start justify-end block  w-full">
                       Supplier Material:
                     </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
+                    <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
                       {requestDetails?.supplier_material ?? "-"}
                     </span>
                   </div>
@@ -319,48 +319,58 @@ export default function RequestDetailsPage({
                 <h2 className="font-semibold mb-4">Cash Summary</h2>
                 <div className="flex justify-between items-center">
                   <span>Requested Quantity:</span>
-                  <span>{requestDetails?.quantity}</span>
+                  <span className="capitalize text-sm font-semibold">
+                    {requestDetails?.quantity}
+                  </span>
                 </div>{" "}
                 <div className="flex justify-between items-center">
                   <span>Unit Price:</span>
-                  <span>{requestDetails?.unit_price}</span>
+                  <span className="capitalize text-sm font-semibold">
+                    {requestDetails?.unit_price}
+                  </span>
                 </div>{" "}
                 <div className="flex justify-between items-center">
                   <span>Requested Total Price:</span>
-                  <span>{requestDetails?.total_price}</span>
+                  <span className="capitalize text-sm font-semibold">
+                    {requestDetails?.total_price}
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Approved quantity</span>
-                  <span>{requestDetails?.approved_quantity}</span>
+                  <span className="capitalize text-sm font-semibold">
+                    {requestDetails?.approved_quantity}
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Approved unit price</span>
-                  <span>
+                  <span className="capitalize text-sm font-semibold">
                     {data && formatCurrency(requestDetails?.unit_price)}
                   </span>
                 </div>{" "}
                 <div className="flex justify-between items-center">
                   <span>Approved Total Price</span>
-                  <span>
+                  <span className="capitalize text-sm font-semibold">
                     {data &&
                       formatCurrency(requestDetails?.approved_total_amount)}
                   </span>
                 </div>{" "}
                 <div className="flex justify-between items-center">
                   <span>Approved Total Price</span>
-                  <span>
+                  <span className="capitalize text-sm font-semibold">
                     {data && formatCurrency(requestDetails?.total_price)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Approved On</span>
-                  <span>
+                  <span className="capitalize text-sm font-semibold">
                     {requestDetails && formatDate(requestDetails?.updatedAt)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Approved by</span>
-                  <span>{requestDetails && requestDetails?.approved_by}</span>
+                  <span className="capitalize text-sm font-semibold">
+                    {requestDetails && requestDetails?.approved_by}
+                  </span>
                 </div>
                 {/* <div className="flex justify-between items-center">
                   <span>Approved Comment</span>

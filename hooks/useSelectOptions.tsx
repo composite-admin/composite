@@ -178,7 +178,7 @@ export const useGetAllConsultants = () => {
 export const useGetAllSuppliers = () => {
   const { data } = useQuery({
     queryKey: ["get all suppliers"],
-    queryFn: () => getStuffTyped<ISupplierData[]>("/materials"),
+    queryFn: () => getStuffTyped<ISupplierData[]>("/suppliers"),
   });
   return { suppliers: data };
 };

@@ -28,12 +28,12 @@ export const ToolsAndMachineRentSchema = z.object({
     required_error: "Amount is required",
   }),
   approved_unit_price: z.string({
-    required_error: "Amount is required",
+    required_error: "Approved unit price is required",
   }),
   payment_method: z.string({
     required_error: "Payment method is required",
   }),
-  bank_name: z.string({
+  bank: z.string({
     required_error: "Bank name is required",
   }),
   supervisor_comment: z.string({
@@ -44,8 +44,7 @@ export const ToolsAndMachineRentSchema = z.object({
 type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 
 export default function ToolsAndMachineRent() {
-  const { formDetails } = useUpdateRequestStore();
-  console.log(formDetails);
+  const { formDetails, onClose } = useUpdateRequestStore();
   const { projectsData } = useProjectData();
   const router = useRouter();
   const { toast } = useToast();
@@ -66,16 +65,16 @@ export default function ToolsAndMachineRent() {
         status: "APPROVED",
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
-        approved_total_price:
+        approved_total_amount:
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
-      if (res.status === 201) {
+      if (res.status === 200) {
         toast({
           title: "Request created successfully",
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        onClose();
       }
     } catch (error) {
       toast({
@@ -89,12 +88,12 @@ export default function ToolsAndMachineRent() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div className="grid md:grid-cols-2 gap-5 ">
-          <CustomFormSelect
+          <CustomFormField
             name="request_type"
             control={form.control}
-            labelText="Request Type"
+            label="Request Type"
             disabled
-            items={[RequestType.ToolsAndMachineBuy]}
+            placeholder={formDetails?.request_type}
           />
           <CustomFormField
             name="request_from"
@@ -150,7 +149,7 @@ export default function ToolsAndMachineRent() {
             items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
           />
           <CustomFormField
-            name="bank_name"
+            name="bank"
             control={form.control}
             label="Bank Name"
             placeholder="Enter Bank Name"
