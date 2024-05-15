@@ -5,7 +5,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { useQuery } from "@tanstack/react-query";
 import { IProjectTeamMemberByProjectData } from "@/utils/types";
 import { getStuffTyped } from "@/hooks/useSelectOptions";
-import SpinnerComponent from "../shared/spinnerComponent";
+import SpinnerComponent from "../shared/SpinnerComponent";
 
 interface CardDataDetails {
   project_code: string;

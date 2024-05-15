@@ -28,11 +28,8 @@ export const LabourSchema = z.object({
   approved_amount: z.string({
     required_error: "Amount is required",
   }),
-  payment_method: z.string({
-    required_error: "Payment method is required",
-  }),
-  bank_name: z.string({
-    required_error: "Bank name is required",
+  description: z.string({
+    required_error: "Description is required",
   }),
   supervisor_comment: z.string({
     required_error: "Comment is required",
@@ -43,7 +40,6 @@ type labourFormType = z.infer<typeof LabourSchema>;
 
 export default function Labour() {
   const { formDetails } = useUpdateRequestStore();
-  console.log(formDetails);
   const { projectsData } = useProjectData();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
@@ -72,7 +68,6 @@ export default function Labour() {
           variant: "success",
         });
         form.reset();
-        router.refresh();
       }
     } catch (error) {
       toast({
@@ -130,7 +125,7 @@ export default function Labour() {
               placeholder="Enter Description"
             />
             <CustomFormTextareaField
-              name="comment"
+              name="supervisor_comment"
               label="Comment"
               control={form.control}
               placeholder="Enter Comment"
