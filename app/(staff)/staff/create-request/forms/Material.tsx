@@ -129,13 +129,13 @@ export default function Material() {
           (item: any) => item.project_name === data.project_name
         )?.project_code,
       });
-      if (res.status === 201) {
+      if (res.status === 201 || res.status === 200) {
         toast({
           title: "Request created successfully",
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.push("/staff/requests");
       }
     } catch (error) {
       toast({
