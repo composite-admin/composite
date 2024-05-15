@@ -37,6 +37,7 @@ export default function RequestPage() {
   const { data, error, isPending } = useQuery({
     queryKey: ["get all requests"],
     queryFn: getAllrequest,
+    refetchOnMount: "always",
   });
 
   const filteredData = filterRequestsByStatus(data, currentTable);

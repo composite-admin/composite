@@ -26,7 +26,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   amount: z.string({
     required_error: "Amount is required",
   }),
-  purpose: z.string({
+  cash_advance_purpose: z.string({
     required_error: "Purpose is required",
   }),
   description: z.string({
@@ -74,7 +74,7 @@ export default function CashAdvanceOffice() {
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.push("/staff/requests");
       }
     } catch (error) {
       toast({
@@ -143,7 +143,7 @@ export default function CashAdvanceOffice() {
             </div>
             <div className="flex flex-col py-3 gap-4 w-full">
               <CustomFormField
-                name="purpose"
+                name="cash_advance_purpose"
                 label="Purpose"
                 control={form.control}
                 placeholder="Enter Purpose"

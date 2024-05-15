@@ -44,7 +44,7 @@ export const ToolsAndMachineBuySchema = z.object({
 type ToolsAndMachineBuyType = z.infer<typeof ToolsAndMachineBuySchema>;
 
 export default function ToolsAndMachineBuy() {
-  const { formDetails } = useUpdateRequestStore();
+  const { formDetails, onClose } = useUpdateRequestStore();
   const { projectsData } = useProjectData();
   const router = useRouter();
   const { toast } = useToast();
@@ -74,6 +74,7 @@ export default function ToolsAndMachineBuy() {
         });
         form.reset();
         router.refresh();
+        onClose();
       }
     } catch (error) {
       toast({

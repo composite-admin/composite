@@ -56,7 +56,8 @@ export default function CashAdvanceOffice() {
       request_type: RequestType.CashAdvanceOffice,
       project_name: formDetails?.project_name,
       amount: formDetails?.amount as unknown as string,
-      cash_advance_purpose: formDetails?.cash_advance_purpose,
+      cash_advance_purpose:
+        formDetails?.cash_advance_purpose as unknown as string,
       description: formDetails?.description,
       comment: formDetails?.comment,
     },
@@ -73,7 +74,7 @@ export default function CashAdvanceOffice() {
           title: "Request edited successfully",
           variant: "success",
         });
-        form.reset();
+        router.refresh();
         onClose();
       }
     } catch (error) {
@@ -87,12 +88,12 @@ export default function CashAdvanceOffice() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <CustomFormSelect
+        <CustomFormField
           name="request_type"
           control={form.control}
-          labelText="Request Type"
+          label="Request Type"
           disabled
-          items={[RequestType.ToolsAndMachineBuy]}
+          placeholder={RequestType.CashAdvanceOffice}
         />
         <div className="py-4 w-full">
           <div className="flex flex-col lg:flex-row gap-4 w-full">

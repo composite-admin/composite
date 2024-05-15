@@ -68,8 +68,7 @@ export default function Labour() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
+
       });
       if (res.status === 200) {
         toast({

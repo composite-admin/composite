@@ -36,7 +36,7 @@ export const ToolsAndMachineBuySchema = z.object({
   company_address: z.string({
     required_error: "Company address is required",
   }),
-  contact_number: z.string({
+  contact_mobile: z.string({
     required_error: "Contact number is required",
   }),
   ofc_phone: z.string({
@@ -90,6 +90,7 @@ export default function ToolsAndMachineBuy() {
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
+        supplier_name: data.company,
         project_code: projectsData?.find(
           (item: any) => item.project_name === data.project_name
         )?.project_code,
@@ -100,7 +101,7 @@ export default function ToolsAndMachineBuy() {
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.push("/staff/requests");
       }
     } catch (error) {
       toast({
@@ -169,7 +170,7 @@ export default function ToolsAndMachineBuy() {
                   placeholder="Enter number"
                 />
                 <CustomFormField
-                  name="contact_number"
+                  name="contact_mobile"
                   control={form.control}
                   label="Contact Number"
                   placeholder="Enter number"

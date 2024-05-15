@@ -95,8 +95,6 @@ export default function ToolsAndMachineRent() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
       });

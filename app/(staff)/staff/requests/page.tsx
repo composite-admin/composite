@@ -12,6 +12,7 @@ export default function StaffRequestPage() {
   const { data, error, isPending } = useQuery({
     queryKey: ["get staffbaord request", userId],
     queryFn: () => getStuffTyped<IRequestData[]>(`/requests/user/${userId}`),
+    refetchOnMount: "always",
   });
 
   return (

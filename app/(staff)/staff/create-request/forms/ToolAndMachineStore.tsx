@@ -109,7 +109,8 @@ export default function ToolsAndMachineStore() {
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.push("/staff/requests");
+
       }
     } catch (error) {
       toast({

@@ -38,7 +38,7 @@ type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 
 export default function ToolsAndMachineStore() {
   const { projectsData } = useProjectData();
-  const { formDetails } = useUpdateRequestStore();
+  const { formDetails, onClose } = useUpdateRequestStore();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const router = useRouter();
@@ -64,6 +64,7 @@ export default function ToolsAndMachineStore() {
         });
         form.reset();
         router.refresh();
+        onClose();
       }
     } catch (error) {
       toast({

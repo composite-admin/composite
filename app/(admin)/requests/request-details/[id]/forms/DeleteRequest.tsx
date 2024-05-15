@@ -26,7 +26,6 @@ type DeleteFormType = z.infer<typeof DeleteSchema>;
 
 export default function DeleteRequest() {
   const { formDetails, onClose } = useUpdateRequestStore();
-  console.log(formDetails);
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
@@ -40,16 +39,14 @@ export default function DeleteRequest() {
 
   const handleSubmit = async (data: DeleteFormType) => {
     try {
-      const res = await api.put(`/requests/${formDetails?.id}`, {
-        ...data,
-        status: "DECLINED",
-      });
+      const res = await api.delete(`/requests/${formDetails?.id}`);
       if (res.status === 200) {
         toast({
           title: "Request Declined",
-          variant: "success",
+          variant: "destructive",
         });
         router.push("/requests");
+        onClose();
       }
     } catch (error) {
       console.log(error);

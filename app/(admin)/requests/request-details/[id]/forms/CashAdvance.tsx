@@ -47,7 +47,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 >;
 
 export default function CashAdvance() {
-  const { formDetails } = useUpdateRequestStore();
+  const { formDetails, onClose } = useUpdateRequestStore();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
@@ -58,7 +58,6 @@ export default function CashAdvance() {
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
   });
-
 
   const createCashAdvance = async (data: any) => {
     try {
@@ -97,6 +96,7 @@ export default function CashAdvance() {
           variant: "success",
         });
         router.push("/requests");
+        onClose();
       }
     } catch (error) {
       console.log(error);

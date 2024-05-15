@@ -58,7 +58,6 @@ export default function CashAdvance() {
   const router = useRouter();
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
-  const { setFormType } = useStaffStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
@@ -76,8 +75,6 @@ export default function CashAdvance() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "PENDING",
-        staff_id: staffDetails?.userid,
-        staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
       });
       if (res.status === 200) {
@@ -86,6 +83,7 @@ export default function CashAdvance() {
           variant: "success",
         });
         form.reset();
+        router.refresh();
         onClose();
       }
     } catch (error) {

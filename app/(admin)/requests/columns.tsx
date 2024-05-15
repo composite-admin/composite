@@ -7,6 +7,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { IRequestData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import { string } from "zod";
 
 export const columns: ColumnDef<IRequestData>[] = [
   {
@@ -15,16 +16,19 @@ export const columns: ColumnDef<IRequestData>[] = [
       return <ColumnHeader column={column} title="Request Type" />;
     },
     cell: ({ row }) => {
-      const { request_type, request_code } = row.original;
+      const { request_type, id, request_code } = row.original;
       return (
-        <div className="flex flex-col">
-          <span className="w-28 truncate underline text-primaryLight-500 font-semibold">
+        <Link
+          href={`requests/request-details/${row.getValue("id")}`}
+          className="flex flex-col"
+        >
+          <span className=" underline text-primaryLight-500 font-semibold">
             {request_type}
           </span>
           <span className="uppercase text-textColor font-semibold">
             {request_code}
           </span>
-        </div>
+        </Link>
       );
     },
   },

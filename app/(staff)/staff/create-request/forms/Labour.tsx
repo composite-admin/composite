@@ -78,7 +78,7 @@ export default function Labour() {
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.push("/staff/requests");
       }
     } catch (error) {
       toast({

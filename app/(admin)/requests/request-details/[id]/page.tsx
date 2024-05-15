@@ -70,8 +70,9 @@ export default function RequestDetailsPage({
   }
 
   const { data, isPending } = useQuery({
-    queryKey: ["get all tenants", params.id],
+    queryKey: ["get all request", params.id],
     queryFn: () => getrequestById(params.id),
+    refetchOnMount: "always",
   });
 
   return (

@@ -19,21 +19,6 @@ import { useRouter } from "next/navigation";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 
-// "project_code": "proj-66283",
-// "project_name": "Building Project",
-// "cash_advance_type": "Cash Advance Office",
-// "request_code": "req-0001",
-// "staff_id": "staff-0001",
-// "staff_name": "Jude Nwaorim",
-// "amount_collected": 3000,
-// "amount_recorded": 0,
-// "balance": 0,
-// "status": "Approved",
-// "description": "Purchase of Building materials",
-// "bank_to": "ABC Bank",
-// "payment_method": "Cash"
-
-
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   approved_amount: z.string({
@@ -55,7 +40,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 >;
 
 export default function CashAdvanceOffice() {
-  const { formDetails } = useUpdateRequestStore();
+  const { formDetails, onClose } = useUpdateRequestStore();
   const { projectsData } = useProjectData();
   console.log(formDetails);
   const { toast } = useToast();
@@ -81,17 +66,14 @@ export default function CashAdvanceOffice() {
         request_code: formDetails?.request_code,
         bank_to: data.bank,
         payment_method: data.payment_method,
-        status: 'Approved',
+        status: "Approved",
         staff_name: formDetails?.staff_name,
         staff_id: formDetails?.staff_id,
       });
 
       return res.data.data;
-  
-    } catch (error) {
-    
-    }
-  }
+    } catch (error) {}
+  };
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
@@ -108,7 +90,7 @@ export default function CashAdvanceOffice() {
         });
       }
       router.push("/requests");
-
+      onClose();
     } catch (error) {
       toast({
         title: "Request creation failed",
