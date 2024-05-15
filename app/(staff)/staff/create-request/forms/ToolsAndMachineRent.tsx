@@ -36,7 +36,7 @@ export const ToolsAndMachineRentSchema = z.object({
   company_address: z.string({
     required_error: "Company address is required",
   }),
-  contact_number: z
+  contact_mobile: z
     .string({
       required_error: "Contact number is required",
     })
@@ -108,7 +108,7 @@ export default function ToolsAndMachineRent() {
           variant: "success",
         });
         form.reset();
-        router.push("/staff/create-request");
+        router.push("/staff/requests");
       }
     } catch (error) {
       toast({
@@ -177,7 +177,7 @@ export default function ToolsAndMachineRent() {
                   placeholder="Enter number"
                 />
                 <CustomFormField
-                  name="contact_number"
+                  name="contact_mobile"
                   control={form.control}
                   label="Contact Number"
                   placeholder="Enter number"
