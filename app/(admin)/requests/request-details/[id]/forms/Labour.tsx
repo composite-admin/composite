@@ -39,7 +39,7 @@ export const LabourSchema = z.object({
 type labourFormType = z.infer<typeof LabourSchema>;
 
 export default function Labour() {
-  const { formDetails } = useUpdateRequestStore();
+  const { formDetails, onClose } = useUpdateRequestStore();
   const { projectsData } = useProjectData();
   const { userId } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
@@ -62,12 +62,13 @@ export default function Labour() {
         ...data,
         status: "APPROVED",
       });
-      if (res.status === 201) {
+      if (res.status === 201 || res.status === 200) {
         toast({
           title: "Request Approved",
           variant: "success",
         });
         form.reset();
+        onClose();
       }
     } catch (error) {
       toast({
