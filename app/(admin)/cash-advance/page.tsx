@@ -88,7 +88,6 @@ export default function CashAdvancePage() {
   //     ? pendingCashAdvanceData ?? []
   //     : data ?? [];
 
-  console.log(cashAdvanceTableState);
   return (
     <div className="space-y-8">
       <div>
@@ -105,10 +104,16 @@ export default function CashAdvancePage() {
       </div>
 
       <DataTable
-        columns={columns}
         data={
-          cashAdvanceTableState === "retirement" ? retired || [] : data || []
+          cashAdvanceTableState === "retirement"
+            ? retired ?? []
+            : cashAdvanceTableState === "pending"
+            ? pendingCashAvance ?? []
+            : cashAdvanceTableState === "approved"
+            ? approvedCashAdvance ?? []
+            : data ?? []
         }
+        columns={columns}
       />
     </div>
   );
@@ -136,7 +141,7 @@ const RequestStatusBadges = ({
     {
       icon: <ClockIcon />,
       title: "Cash Retirement",
-      status: "cash retirement complete",
+      status: "retirement",
       notification:
         data?.filter(
           (decision) => decision.action_type === "cash retirement complete"
