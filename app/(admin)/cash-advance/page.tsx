@@ -1,17 +1,8 @@
 "use client";
 
-import {
-  CheckCircleIcon,
-  Clock,
-  ClockIcon,
-  Plus,
-  XCircleIcon,
-} from "lucide-react";
+import { CheckCircleIcon, ClockIcon, XCircleIcon } from "lucide-react";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { columns } from "./columns";
-import { data } from "./data";
-import { data as dataTwo } from "../data";
-import { columns as columnTwo } from "../columns";
 import { DataTable } from "@/components/shared/DataTable";
 import SelectTableTypeBadge from "@/components/shared/SelectTableTypeBadge";
 import { DashboardIcon } from "@/components/icons";
@@ -113,7 +104,12 @@ export default function CashAdvancePage() {
             ? approvedCashAdvance ?? []
             : data ?? []
         }
-        columns={columns}
+        columns={
+          cashAdvanceTableState === "pending" ||
+          cashAdvanceTableState === "approved"
+            ? pendingAndApprovedColumns
+            : columns
+        }
       />
     </div>
   );
