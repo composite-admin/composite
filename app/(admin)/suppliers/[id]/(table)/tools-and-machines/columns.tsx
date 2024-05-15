@@ -20,12 +20,11 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
 
       return (
         <div className="flex gap-2 items-center">
-          <AvatarComponent />
           <div className="space-y-1">
             <span className="font-semibold capitalize border-b text-primaryLight border-primaryLight/70">
               {description}
             </span>
-            <p>IVGSH776f</p>
+            <p className="uppercase">{row.original.tool_code}</p>
           </div>
         </div>
       );
@@ -46,15 +45,15 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
       );
     },
   },
-  {
-    accessorKey: "total_cost",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Total Cost" />;
-    },
-    cell: ({ row }) => {
-      return <p className="font-semibold">{formatToNaira(1000000)}</p>;
-    },
-  },
+  // {
+  //   accessorKey: "total_cost",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Total Cost" />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return <p className="font-semibold">{row.original['']}</p>;
+  //   },
+  // },
   {
     accessorKey: "created_by",
     header: ({ column }) => {
@@ -64,7 +63,7 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
       return (
         <div className="flex items-center gap-3">
           <AvatarComponent />
-          <p className="font-semibold">Alison Ogaga</p>
+          <p className="font-semibold">{row.original["created_by"]}</p>
         </div>
       );
     },
@@ -85,13 +84,13 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
       );
     },
   },
-  {
-    accessorKey: "action",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Action" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return <EditColumn row={row} />;
-    },
-  },
+  // {
+  //   accessorKey: "action",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Action" withSort={false} />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return <EditColumn row={row} />;
+  //   },
+  // },
 ];

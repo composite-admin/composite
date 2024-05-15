@@ -25,8 +25,8 @@ export const createTableStore = () =>
     pendingCashAdvanceData: null,
     cashAdvanceTableData: null,
     setCashAdvanceTableData: (data) => set({ cashAdvanceTableData: data }),
-    setPendingCashAvance: (cashAdvancedata) =>
-      set({ pendingCashAdvanceData: cashAdvancedata }),
+    setPendingCashAvance: (pendingCashAdvanceData) =>
+      set({ pendingCashAdvanceData: pendingCashAdvanceData }),
     setCashAvance: (cashAdvancedata) =>
       set({ cashAdvanceData: cashAdvancedata }),
     cashAdvanceTableState: "advances",

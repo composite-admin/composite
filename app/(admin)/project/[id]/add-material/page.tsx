@@ -28,24 +28,15 @@ import { Params } from "../edit/page";
 import GoBack from "@/components/shared/GoBack";
 
 const AddMaterialSchema = z.object({
-  supplier_code: z.string({
-    required_error: "Supplier is required",
+  supplier_code: z.string().optional(),
+  supplier_name: z.string().optional(),
+  description: z.string().optional(),
+  project_code: z.string().optional(),
+  payment_mode: z.string({
+    required_error: "Payment Mode is required",
   }),
-  supplier_name: z.string({
-    required_error: "Supplier is required",
-  }),
-  mat_desc: z.string({
-    required_error: "Material description is required",
-  }),
-  project_code: z.string({
-    required_error: "Project code is required",
-  }),
-  quantity: z.string({
-    required_error: "Quantity is required",
-  }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
+  quantity: z.string().optional(),
+  unit_price: z.string().optional(),
 });
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
 export default function AddMaterialFormPage({ params: { id } }: Params) {
@@ -91,14 +82,13 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
   }, [watchSupplier, suppliers]);
 
   const { mutate } = useMutation({
-    mutationKey: ["add-stakeholder"],
+    mutationKey: ["add-material"],
     mutationFn: async (values: AddMaterialType) => {
       try {
-        const response = await api.post("/suppliers-materials", {
+        const response = await api.post("/materials", {
           ...values,
           project_code: projectDetails?.project_code,
           supplier_code: suplierCode,
-          mat_desc: values.mat_desc,
           quantity: Number(values.quantity),
           unit_price: Number(values.unit_price),
         });
@@ -130,6 +120,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
         });
       },
     });
+    console.log(data);
   };
   return (
     <>
@@ -169,7 +160,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
               <div className="space-y-5">
                 <CustomFormSelect
                   control={form.control}
-                  name="mat_desc"
+                  name="description"
                   labelText="Material Description"
                   placeholder="Material Description"
                   items={matDesc ?? ["Loading..."]}

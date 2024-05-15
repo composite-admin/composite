@@ -202,43 +202,21 @@ const SingleProject = () => {
 
           <div className="grid grid-cols-5 p-5 gap-5">
             <div>
-              <p className="text-[#475367] text-sm">Project Code:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
-                {selectedItem && selectedItem.project_code}
-              </p>
-            </div>
-            <div>
-              <p className="text-[#475367] text-sm">Project Name:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
-                {selectedItem && selectedItem.project_name}
-              </p>
-            </div>
-
-            <div>
               <p className="text-[#475367] text-sm">Start Date:</p>
               <p className="text-[#101928] text-[16px] font-[600]">
                 {selectedItem && formatDate(selectedItem.start_date)}
               </p>
             </div>
-
             <div>
               <p className="text-[#475367] text-sm">End Date:</p>
               <p className="text-[#101928] text-[16px] font-[600]">
                 {selectedItem && formatDate(selectedItem.end_date)}
               </p>
             </div>
-
             <div>
               <p className="text-[#475367] text-sm">Status:</p>
               <p className="text-[#101928] text-[16px] font-[600]">
                 {selectedItem && selectedItem.status}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-[#475367] text-sm">Address:</p>
-              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
-                {selectedItem && selectedItem.address}
               </p>
             </div>
             <div>
@@ -253,35 +231,47 @@ const SingleProject = () => {
                 {selectedItem && selectedItem.lga}
               </p>
             </div>
-
             <div>
               <p className="text-[#475367] text-sm">Project Duration:</p>
               <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
                 {selectedItem && selectedItem.project_duration} days
               </p>
             </div>
-
-            <div>
-              <p className="text-[#475367] text-sm">Project Description:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
-                {selectedItem && selectedItem.project_description}
-              </p>
-            </div>
-
             <div>
               <p className="text-[#475367] text-sm">Project Location:</p>
               <p className="text-[#101928] text-[16px] font-[600]">
                 {(selectedItem && selectedItem.project_location) ?? "N/A"}
               </p>
             </div>
-
             <div>
               <p className="text-[#475367] text-sm">Project Supervisor:</p>
               <p className="text-[#101928] text-[16px] font-[600]">
                 {selectedItem && selectedItem.project_supervisor}
               </p>
+            </div>{" "}
+            <div>
+              <p className="text-[#475367] text-sm">Project Code:</p>
+              <p className="text-[#101928] text-[16px] font-[600] uppercase">
+                {selectedItem && projectCode}
+              </p>
             </div>
           </div>
+
+          <div className="grid grid-cols-2 gap-5">
+            <div className="px-5">
+              <p className="text-[#475367] text-sm">Address:</p>
+              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
+                {selectedItem && selectedItem.address}
+              </p>
+            </div>
+            <div>
+              <p className="text-[#475367] text-sm">Project Description:</p>
+              <p className="text-[#101928] text-[16px] font-[600]">
+                {selectedItem && selectedItem.project_description}
+              </p>
+            </div>
+          </div>
+
           <div className="p-5">
             <p className="text-[#475367] text-sm">Comment:</p>
             <p className="text-[#101928] text-[16px] font-[600]">
@@ -308,7 +298,7 @@ const SingleProject = () => {
           })}
         </div>
       </div>
-      <Tabs>
+      <Tabs defaultValue="project_cost">
         <TabsList>
           <TabsTrigger value="project_cost">Project Cost</TabsTrigger>
           <TabsTrigger value="project_team">Project Team</TabsTrigger>

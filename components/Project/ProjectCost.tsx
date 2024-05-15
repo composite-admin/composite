@@ -5,6 +5,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { useQuery } from "@tanstack/react-query";
 import { IProjectTeamMemberByProjectData } from "@/utils/types";
 import { getStuffTyped } from "@/hooks/useSelectOptions";
+import SpinnerComponent from "../shared/spinnerComponent";
 
 interface CardDataDetails {
   project_code: string;
@@ -25,6 +26,14 @@ const ProjectCost = ({ projectCode }: { projectCode: string }) => {
     refetchOnMount: "always",
     enabled: !!projectCode,
   });
+
+  if (isPending) {
+    return (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 bg-white p-10 mt-2 rounded-lg">
+        <SpinnerComponent />
+      </div>
+    );
+  }
 
   if (data && data.length > 0) {
     const cardData = Object.entries(data[0])
@@ -84,7 +93,7 @@ const ProjectCost = ({ projectCode }: { projectCode: string }) => {
             icon={<TotalProjectsIcon />}
             withIcon={true}
           />
-          {data?.map((item: any, i: number) => {
+          {dummyData?.map((item: any, i: number) => {
             return (
               <DashboardCard
                 key={i}
@@ -101,4 +110,50 @@ const ProjectCost = ({ projectCode }: { projectCode: string }) => {
   }
 };
 
-export default ProjectCost
+export default ProjectCost;
+
+const dummyData = [
+  {
+    description: "0",
+    title: "startup cost",
+    icon: "",
+    withIcon: "",
+  },
+
+  {
+    description: "0",
+    title: "STAKEHOLDER AMOUNT",
+    icon: "",
+    withIcon: "",
+  },
+  {
+    description: "0",
+    title: "CONTRACTOR AMOUNT",
+    icon: "",
+    withIcon: "",
+  },
+  {
+    description: "0",
+    title: "MATERIAL AMOUNT",
+    icon: "",
+    withIcon: "",
+  },
+  {
+    description: "0",
+    title: "MACHINERY APPROVED AMOUNT",
+    icon: "",
+    withIcon: "",
+  },
+  {
+    description: "0",
+    title: "LABOUR APPROVED AMOUNT",
+    icon: "",
+    withIcon: "",
+  },
+  {
+    description: "0",
+    title: "CASH ADVANCE APPROVED AMOUNT",
+    icon: "",
+    withIcon: "",
+  },
+];

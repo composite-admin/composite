@@ -43,17 +43,8 @@ export default function CashAdvancePage() {
         const response = await api.get<ApiResponse<ICashAdvanceData[]>>(
           "/cash-advances"
         );
-        setCashAdvanceTableData(
-          response.data.data.filter(
-            (data) =>
-              data.decision !== "Pending" &&
-              data.action_type !== null &&
-              data.action_type !== "Cash Retirement"
-          )
-        );
-        setPendingCashAvance(
-          response.data.data.filter((data) => data.decision === "Pending")
-        );
+
+        console.log(pendingCashAdvanceData);
         return response.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -65,21 +56,39 @@ export default function CashAdvancePage() {
     },
   });
 
-  const tableMapping = {
-    advances: columns,
-    pending: pendingAndApprovedColumns,
-    approved: pendingAndApprovedColumns,
-    retirement: pendingAndApprovedColumns,
-  };
+  const pendingCashAvance = data?.filter(
+    (decision) =>
+      (decision.decision === "Pending" || !decision.decision) &&
+      decision.action_type !== "cash retirement complete"
+  );
 
-  const dataTableColumns =
-    tableMapping[cashAdvanceTableState as keyof typeof tableMapping] || columns;
-  const dataTableData =
-    cashAdvanceTableState === "advances"
-      ? cashAdvanceTableData ?? []
-      : cashAdvanceTableState === "pending"
-      ? pendingCashAdvanceData ?? []
-      : data ?? [];
+  const approvedCashAdvance = data?.filter(
+    (decision) =>
+      decision.decision === "Approved" &&
+      decision.action_type !== "cash retirement complete"
+  );
+
+  const retired = data?.filter(
+    (decision) => decision.action_type === "cash retirement complete"
+  );
+
+  // const tableMapping = {
+  //   advances: columns,
+  //   pending: pendingAndApprovedColumns,
+  //   approved: pendingAndApprovedColumns,
+  //   retirement: pendingAndApprovedColumns,
+  // };
+
+  // const dataTableColumns =
+  //   tableMapping[cashAdvanceTableState as keyof typeof tableMapping] || columns;
+  // const dataTableData =
+  //   cashAdvanceTableState === "advances"
+  //     ? cashAdvanceTableData ?? []
+  //     : cashAdvanceTableState === "pending"
+  //     ? pendingCashAdvanceData ?? []
+  //     : data ?? [];
+
+  console.log(cashAdvanceTableState);
   return (
     <div className="space-y-8">
       <div>
@@ -95,7 +104,12 @@ export default function CashAdvancePage() {
         />
       </div>
 
-      <DataTable columns={dataTableColumns} data={dataTableData} />
+      <DataTable
+        columns={columns}
+        data={
+          cashAdvanceTableState === "retirement" ? retired || [] : data || []
+        }
+      />
     </div>
   );
 }
@@ -124,8 +138,9 @@ const RequestStatusBadges = ({
       title: "Cash Retirement",
       status: "cash retirement complete",
       notification:
-        data?.filter((decision) => decision.action_type === "Cash Retirement")
-          .length ?? 0,
+        data?.filter(
+          (decision) => decision.action_type === "cash retirement complete"
+        ).length ?? 0,
     },
     {
       icon: <CheckCircleIcon />,
@@ -140,7 +155,11 @@ const RequestStatusBadges = ({
       title: "Pending IOU/Refund",
       status: "pending",
       notification:
-        data?.filter((decision) => decision.decision === "Pending").length ?? 0,
+        data?.filter(
+          (decision) =>
+            (decision.decision === "Pending" || !decision.decision) &&
+            decision.action_type !== "cash retirement complete"
+        ).length ?? 0,
     },
   ];
 

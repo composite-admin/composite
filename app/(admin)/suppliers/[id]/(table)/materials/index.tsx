@@ -27,7 +27,7 @@ const MaterialsTable = ({ supplier }: any) => {
         columns={materialsColumns}
         data={supplierMat ?? []}
         isLoading={store.requestLoading}
-        withTitle={{ title: "Materials", data: store.materials.length }}
+        withTitle={{ title: "Materials", data: supplierMat.length }}
       />
     </motion.div>
   );

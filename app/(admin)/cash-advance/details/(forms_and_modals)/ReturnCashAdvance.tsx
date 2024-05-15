@@ -14,8 +14,8 @@ import axios from "axios";
 
 const ReturnCashAdvanceSchema = z.object({
   cash_advance_type: z.string().optional(),
-  approved_amounnt: z.string().optional(),
-  unused_cash_amount: z.string().optional(),
+  amount_collected: z.string().optional(),
+  amount_recorded: z.string().optional(),
   description: z.string().optional(),
 });
 
@@ -28,7 +28,7 @@ export default function ReturnCashAdvance() {
     resolver: zodResolver(ReturnCashAdvanceSchema),
     defaultValues: {
       cash_advance_type: CashAdvanceDetails?.cash_advance_type,
-      approved_amounnt: CashAdvanceDetails?.amount_collected,
+      amount_collected: CashAdvanceDetails?.amount_collected,
     },
   });
 
@@ -37,11 +37,10 @@ export default function ReturnCashAdvance() {
     mutationFn: async (data: ReturnCashAdvanceFormType) => {
       try {
         const response = await api.put(
-          `/cash-advancess/${CashAdvanceDetails?.cash_id}`,
+          `/cash-advances/${CashAdvanceDetails?.cash_id}`,
           {
             ...data,
-            amount_recorded: Number(data.approved_amounnt),
-            unused_cash_amount: Number(data.unused_cash_amount),
+            amount_recorded: Number(data.amount_recorded),
           }
         );
 
@@ -72,14 +71,14 @@ export default function ReturnCashAdvance() {
           disabled
         />
         <CustomFormField
-          name="approved_amounnt"
+          name="amount_collected"
           control={form.control}
           label={"Approved Amount"}
           disabled
           placeholder={CashAdvanceDetails?.amount_collected}
         />
         <CustomFormField
-          name="unused_cash_amount"
+          name="amount_recorded"
           control={form.control}
           label={"Unused Cash Amount"}
         />

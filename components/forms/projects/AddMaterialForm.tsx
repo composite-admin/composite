@@ -19,12 +19,16 @@ import axios from "axios";
 import { useGetAllSuppliers } from "@/hooks/useSelectOptions";
 import { ISupplierData } from "@/utils/types";
 import { useEffect, useState } from "react";
+import { describe } from "node:test";
 
 const AddMaterialSchema = z.object({
   supplier_code: z.string().optional(),
   supplier_name: z.string().optional(),
-  mat_desc: z.string().optional(),
+  description: z.string().optional(),
   project_code: z.string().optional(),
+  payment_mode: z.string({
+    required_error: "Payment Mode is required",
+  }),
   quantity: z.string().optional(),
   unit_price: z.string().optional(),
 });
@@ -70,14 +74,13 @@ export default function AddMaterialForm() {
   }, [watchSupplier, suppliers]);
 
   const { mutate } = useMutation({
-    mutationKey: ["add-stakeholder"],
+    mutationKey: ["add-material"],
     mutationFn: async (values: AddMaterialType) => {
       try {
-        const response = await api.post("/suppliers-materials", {
+        const response = await api.post("/materials", {
           ...values,
           project_code: projectCode,
           supplier_code: suplierCode,
-          mat_desc: values.mat_desc,
           quantity: Number(values.quantity),
           unit_price: Number(values.unit_price),
         });
@@ -142,7 +145,7 @@ export default function AddMaterialForm() {
           <div className="space-y-5">
             <CustomFormSelect
               control={form.control}
-              name="mat_desc"
+              name="description"
               labelText="Material Description"
               placeholder="Material Description"
               items={matDesc ?? ["Loading..."]}

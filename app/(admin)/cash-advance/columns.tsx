@@ -126,38 +126,89 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
     cell: ({ row }) => {
       const { action_type, cash_id } = row.original;
 
-      return (
-        <div className="flex gap-2 items-center w-32">
-          {action_type === "return cash balance" && (
-            <TableAction
-              formType={"return" as CashAdvanceFormTypes}
-              currentFormType={"return" as CashAdvanceFormTypes}
-              cash_id={String(cash_id)}
-              onActionClick={() => {}}
-            >
-              <p className="cursor-pointer font-semibold text-primaryLight uppercase">
-                {action_type}
-              </p>
-            </TableAction>
-          )}
+      if(action_type === "return cash balance"){
+        return (
+          <TableAction
+          formType={"return" as CashAdvanceFormTypes}
+          currentFormType={"return" as CashAdvanceFormTypes}
+          cash_id={String(cash_id)}
+          onActionClick={() => {}}
+        >
+          <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+            {action_type}
+          </p>
+        </TableAction>
+        )
+      }
 
-          {action_type === "request iou" && (
+      else if(action_type === "request iou"){
+        return (
+          <TableAction
+          formType={"request" as CashAdvanceFormTypes}
+          currentFormType={"request" as CashAdvanceFormTypes}
+          cash_id={String(cash_id)}
+          onActionClick={() => {
+            return cash_id;
+          }}
+        >
+          <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+            {action_type}
+          </p>
+        </TableAction>
+        )
+      }
+        else{
+          return (
             <TableAction
-              formType={"request" as CashAdvanceFormTypes}
-              currentFormType={"request" as CashAdvanceFormTypes}
-              cash_id={String(cash_id)}
-              onActionClick={() => {
-                return cash_id;
-              }}
-            >
-              <p className="cursor-pointer font-semibold text-primaryLight uppercase">
-                {action_type}
-              </p>
-            </TableAction>
-          )}
-        </div>
-      );
+            formType={"request" as CashAdvanceFormTypes}
+            currentFormType={"request" as CashAdvanceFormTypes}
+            cash_id={String(cash_id)}
+            onActionClick={() => {
+              return cash_id;
+            }}
+          >
+            <p className="font-semibold text-textColor cursor-not-allowed uppercase">
+              {action_type}
+            </p>
+          </TableAction>
+          )
+        }
+
     },
   },
 ];
 
+
+
+
+// return (
+//   <div className="flex gap-2 items-center w-32">
+//     {action_type === "return cash balance" && (
+//       <TableAction
+//         formType={"return" as CashAdvanceFormTypes}
+//         currentFormType={"return" as CashAdvanceFormTypes}
+//         cash_id={String(cash_id)}
+//         onActionClick={() => {}}
+//       >
+//         <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+//           {action_type}
+//         </p>
+//       </TableAction>
+//     )}
+
+//     {action_type === "request iou" && (
+//       <TableAction
+//         formType={"request" as CashAdvanceFormTypes}
+//         currentFormType={"request" as CashAdvanceFormTypes}
+//         cash_id={String(cash_id)}
+//         onActionClick={() => {
+//           return cash_id;
+//         }}
+//       >
+//         <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+//           {action_type}
+//         </p>
+//       </TableAction>
+//     )}
+//   </div>
+// );

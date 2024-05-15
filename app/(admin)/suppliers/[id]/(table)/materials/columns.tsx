@@ -20,12 +20,11 @@ export const materialsColumns: ColumnDef<Material>[] = [
 
       return (
         <div className="flex gap-2 items-center">
-          <AvatarComponent />
           <div className="space-y-1">
             <span className="font-semibold capitalize border-b text-primaryLight border-primaryLight/70">
               {mat_desc}
             </span>
-            <p>IVGSH776f</p>
+            <p className="uppercase">{row.original["mat_code"]}</p>
           </div>
         </div>
       );
@@ -88,15 +87,15 @@ export const materialsColumns: ColumnDef<Material>[] = [
       );
     },
   },
-  {
-    accessorKey: "action",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Action" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      const {} = row.original;
+  // {
+  //   accessorKey: "action",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Action" withSort={false} />;
+  //   },
+  //   cell: ({ row }) => {
+  //     const {} = row.original;
 
-      return <EditPartMaterial {...row} />;
-    },
-  },
+  //     return <EditPartMaterial {...row} />;
+  //   },
+  // },
 ];
