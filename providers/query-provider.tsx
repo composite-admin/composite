@@ -1,10 +1,18 @@
 "use client";
 import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useIsFetching,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/ui/toaster";
 
-export default function QueryProvider({ children }: { children: React.ReactNode }) {
+export default function QueryProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -16,10 +24,18 @@ export default function QueryProvider({ children }: { children: React.ReactNode 
         },
       })
   );
+
+  // const AppLoader = () => {
+  //   const isFetching = useIsFetching();
+
+  //   return isFetching ? isFetching : null;
+  // };
+
   return (
     <>
       <Toaster />
       <QueryClientProvider client={queryClient}>
+        {/* <AppLoader /> */}
         {children}
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

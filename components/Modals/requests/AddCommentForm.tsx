@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
+import { userStore } from "@/store/auth/AuthStore";
+import { useAddCommentModal } from "@/store/modals/useCreateModal";
 import { useRequestStore } from "@/store/requests/RequestStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -24,19 +26,23 @@ type CommentFormType = z.infer<typeof CommentSchema>;
 
 export default function AddCommentForm() {
   const { requestDetails } = useRequestStore();
+  const { userId } = userStore();
+  const { onClose } = useAddCommentModal();
+
   const { toast } = useToast();
 
   const form = useForm<CommentFormType>({
     resolver: zodResolver(CommentSchema),
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["add request comment"],
     mutationFn: async (data: CommentFormType) => {
       try {
         const response = await api.post("/request-comments", {
           ...data,
           request_code: requestDetails?.request_code,
+          user_id: userId,
         });
         return response.data;
       } catch (error) {
@@ -50,6 +56,7 @@ export default function AddCommentForm() {
         variant: "success",
       });
       form.reset();
+      onClose();
     },
 
     onError: () => {
@@ -80,7 +87,9 @@ export default function AddCommentForm() {
             placeholder="Enter comment here"
           />
           <div className="pt-5">
-            <Button className="w-full">Done</Button>
+            <Button className="w-full">
+              {isPending ? "Submitting..." : "Submit"}
+            </Button>
           </div>
         </form>
       </Form>

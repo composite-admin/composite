@@ -100,7 +100,7 @@ export default function CashAdvanceOffice() {
         status: "APPROVED",
         approved_amount: Number(data.approved_amount),
       });
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         await createCashAdvance(data);
         toast({
           title: "Request Approved",
