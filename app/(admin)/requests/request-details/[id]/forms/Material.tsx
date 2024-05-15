@@ -36,7 +36,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   payment_method: z.string({
     required_error: "Payment method is required",
   }),
-  bank_name: z.string({
+  bank: z.string({
     required_error: "Bank name is required",
   }),
   supervisor_comment: z.string({
@@ -50,7 +50,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function Material() {
   const { projectsData } = useProjectData();
-  const { formDetails } = useUpdateRequestStore();
+  const { formDetails, onClose } = useUpdateRequestStore();
 
   const { formType, setFormType } = useStaffStore();
   const { toast } = useToast();
@@ -74,10 +74,17 @@ export default function Material() {
         status: "APPROVED",
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
-        approved_total_price:
+        approved_total_amount:
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
-      console.log(res);
+      if (res.status === 200) {
+        toast({
+          title: "Request edited successfully",
+          variant: "success",
+        });
+        form.reset();
+        onClose();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -173,7 +180,7 @@ export default function Material() {
               items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
             />
             <CustomFormField
-              name="bank_name"
+              name="bank"
               control={form.control}
               label="Bank Name"
               placeholder="Enter Bank Name"

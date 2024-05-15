@@ -180,7 +180,12 @@ export const useGetAllSuppliers = () => {
     queryKey: ["get all suppliers"],
     queryFn: () => getStuffTyped<ISupplierData[]>("/suppliers"),
   });
-  return { suppliers: data };
+  const supplierList = data
+    ?.map((item: ISupplierData) => item.supplier_name)
+    ?.filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+  return { suppliers: data, supplierList };
 };
 
 export const useGetInventoryData = (id: string) => {

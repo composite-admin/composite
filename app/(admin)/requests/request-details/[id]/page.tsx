@@ -250,10 +250,10 @@ export default function RequestDetailsPage({
                   </div>
                   <div className="flex justify-between">
                     <span className="self-start items-start justify-end block  w-full">
-                      Supplier Code:
+                      Supplier Name:
                     </span>
                     <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
-                      {requestDetails?.supplier_code ?? "-"}
+                      {requestDetails?.supplier_name ?? "-"}
                     </span>
                   </div>
                 </div>

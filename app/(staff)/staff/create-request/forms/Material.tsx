@@ -57,14 +57,8 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function Material() {
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
-  const { suppliers } = useGetAllSuppliers();
-  const supplierList = suppliers
-    ?.map((item: ISupplierData) => item.supplier_name)
-    ?.filter((value, index, self) => {
-      return self.indexOf(value) === index;
-    });
+  const { suppliers, supplierList } = useGetAllSuppliers();
 
-  
   const { formType, setFormType } = useStaffStore();
   const { toast } = useToast();
   const router = useRouter();
@@ -83,7 +77,12 @@ export default function Material() {
     (item: any) => item.supplier_name === watchSupplier
   )?.supplier_code;
 
-  const description = matDesc?.map((item: any) => item.description);
+  const description = matDesc
+    ?.map((item: any) => item.description)
+    ?.filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+
 
   useEffect(() => {
     if (watchSupplier) {
