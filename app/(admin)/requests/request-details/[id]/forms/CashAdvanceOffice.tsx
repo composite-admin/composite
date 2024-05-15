@@ -107,6 +107,8 @@ export default function CashAdvanceOffice() {
           variant: "success",
         });
       }
+      router.push("/requests");
+
     } catch (error) {
       toast({
         title: "Request creation failed",

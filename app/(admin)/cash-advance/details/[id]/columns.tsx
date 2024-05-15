@@ -57,21 +57,21 @@ export const columns: ColumnDef<ICashAdvanceBreakdownData>[] = [
     },
   },
 
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" />;
-    },
-    cell: ({ row }) => {
-      const { id } = row.original;
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Actions" />;
+  //   },
+  //   cell: ({ row }) => {
+  //     const { id } = row.original;
 
-      return (
-        <div className="flex gap-2 items-center w-32">
-          <Link href="#" className="w-32 font-semibold text-primaryLight">
-            {id}
-          </Link>
-        </div>
-      );
-    },
-  },
+  //     return (
+  //       <div className="flex gap-2 items-center w-32">
+  //         <Link href="#" className="w-32 font-semibold text-primaryLight">
+  //           {id}
+  //         </Link>
+  //       </div>
+  //     );
+  //   },
+  // },
 ];

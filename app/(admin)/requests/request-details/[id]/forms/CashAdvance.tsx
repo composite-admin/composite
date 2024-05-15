@@ -59,6 +59,29 @@ export default function CashAdvance() {
     resolver: zodResolver(createCashAdvanceOfficeSchema),
   });
 
+
+  const createCashAdvance = async (data: any) => {
+    try {
+      const res = await api.post("/cash-advances", {
+        ...data,
+        amount_collected: Number(data.approved_amount),
+        amount_recorded: 0,
+        balance: 0,
+        project_code: formDetails?.project_code,
+        project_name: formDetails?.project_name,
+        cash_advance_type: "Cash Advance Office",
+        request_code: formDetails?.request_code,
+        bank_to: data.bank,
+        payment_method: data.payment_method,
+        status: "Approved",
+        staff_name: formDetails?.staff_name,
+        staff_id: formDetails?.staff_id,
+      });
+
+      return res.data.data;
+    } catch (error) {}
+  };
+
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
       const res = await api.put(`/requests/${formDetails?.id}`, {
@@ -66,12 +89,13 @@ export default function CashAdvance() {
         status: "APPROVED",
         amount: Number(data.approved_amount),
       });
-      if (res.status === 200) {
+
+      if (res.status === 200 || res.status === 201) {
+        await createCashAdvance(data);
         toast({
-          title: "Request created successfully",
+          title: "Request Approved",
           variant: "success",
         });
-        form.reset();
         router.push("/requests");
       }
     } catch (error) {

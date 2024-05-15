@@ -296,6 +296,19 @@ export const useGetCashAdvanceBreakdownById = (id: string) => {
   return { cashAdvanceBreakdown: data || [], isBreakDownLoading: isPending };
 };
 
+
+export const useGetCashAdvanceBreakdownByCode = (id: string) => {
+  const { data, isPending } = useQuery({
+    queryKey: ["get cash advance breakdown table data", id],
+    queryFn: () =>
+      getStuffTyped<ICashAdvanceBreakdownData[]>(
+        `/cash-advance-breakdowns/request-code/${id}`
+      ),
+  });
+
+  return { cashAdvanceBreakdown: data || [], isBreakDownLoading: isPending };
+};
+
 export const useGetAllCashAdvance = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["get all cash advances"],

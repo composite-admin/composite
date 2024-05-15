@@ -9,6 +9,7 @@ import {
 import { DataTable } from "@/components/shared/DataTable";
 import { data } from "../../../consultants/data";
 import {
+  useGetCashAdvanceBreakdownByCode,
   useGetCashAdvanceBreakdownById,
   useGetCashAdvanceById,
 } from "@/hooks/useSelectOptions";
@@ -30,13 +31,13 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
   const { details } = useGetCashAdvanceById(id);
   const { setCashAdvanceDetails } = useCashAdvanceStore();
   const { cashAdvanceBreakdown, isBreakDownLoading } =
-    useGetCashAdvanceBreakdownById(id);
+    useGetCashAdvanceBreakdownByCode(details?.request_code!);
 
-    useEffect(() => {
-      if (details) {
-        setCashAdvanceDetails(details);
-      }
-    }, [details, setCashAdvanceDetails]);
+  useEffect(() => {
+    if (details) {
+      setCashAdvanceDetails(details);
+    }
+  }, [details, setCashAdvanceDetails]);
 
   const setModalType = (args: breakdownModal) => {
     if (args == "add") {
@@ -79,7 +80,7 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
                 </div>
 
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
-                  <span>{details?.request_code}</span>
+                  <span className="uppercase">{details?.request_code}</span>
 
                   <span>{details?.staff_name}</span>
 
@@ -100,11 +101,11 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
                   <span>Project Name:</span>
                 </div>
 
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
+                <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm capitalize">
                   <span>{details?.request_code}</span>
                   <span>{details?.staff_name}</span>
-                  <span>N/A</span>
-                  <span>N/A</span>
+                  <span>{details?.payment_method}</span>
+                  <span>{details?.bank_to}</span>
                   <span>{details?.project_name}</span>
                 </div>
               </div>

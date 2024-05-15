@@ -362,10 +362,10 @@ export default function RequestDetailsPage({
                   <span>Approved by</span>
                   <span>{requestDetails && requestDetails?.approved_by}</span>
                 </div>
-                <div className="flex justify-between items-center">
+                {/* <div className="flex justify-between items-center">
                   <span>Approved Comment</span>
-                  <span>{requestDetails?.comment}</span>
-                </div>
+                  <span>{requestDetails?.}</span>
+                </div> */}
               </div>
             </aside>
           </div>

@@ -56,7 +56,13 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
   {
     accessorKey: "amount_collected",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Amount Collected" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Amount Collected"
+          className="w-1/2"
+        />
+      );
     },
     cell: ({ row }) => {
       const amt = formatCurrency(row.getValue("amount_collected"));

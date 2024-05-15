@@ -10,6 +10,7 @@ import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 import { useAddAndEditBreakDownModal } from "@/store/modals/useCreateModal";
@@ -37,6 +38,7 @@ type AddOrEditBreakdownType = z.infer<typeof AddOrEditBreakdownSchema>;
 export default function AddAndEditBreakdownModal() {
   const { isOpen, onClose, breakdownModalType } = useAddAndEditBreakDownModal();
   const { CashAdvanceDetails } = useCashAdvanceStore();
+  const { toast } = useToast();
 
   const form = useForm<AddOrEditBreakdownType>({
     resolver: zodResolver(AddOrEditBreakdownSchema),
@@ -66,10 +68,17 @@ export default function AddAndEditBreakdownModal() {
         }
       }
     },
+    onSuccess: () => {
+      toast({
+        title: "Breakdown added successfully",
+        variant: "success",
+      });
+    },
   });
 
   const onSubmit = (data: AddOrEditBreakdownType) => {
     mutate(data);
+    onClose();
   };
 
   if (breakdownModalType === "add") {
@@ -95,7 +104,7 @@ export default function AddAndEditBreakdownModal() {
                 control={form.control}
                 name="amount"
                 label="Amount"
-                placeholder="eg: For cememt"
+                placeholder="Add Amount"
               />
 
               <CustomFormTextareaField
