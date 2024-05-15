@@ -20,6 +20,7 @@ import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
 // use teh names in the form
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -117,6 +118,14 @@ export default function ToolsAndMachineRent() {
     }
   };
 
+  const { mutate } = useMutation({
+    mutationFn: handleSubmit,
+  });
+
+  const onSubmit = (data: ToolsAndMachineRentType) => {
+    mutate(data);
+  };
+
   return (
     <FormContainer
       title="New Request"
@@ -125,7 +134,7 @@ export default function ToolsAndMachineRent() {
       className="w-full max-w-[50rem]"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <select
             id="request_type"
             {...form.register("request_type")}

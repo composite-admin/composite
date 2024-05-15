@@ -20,6 +20,7 @@ import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { IWorkerData } from "@/utils/types";
+import { useMutation } from "@tanstack/react-query";
 
 export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -87,6 +88,14 @@ export default function Labour() {
     }
   };
 
+  const { mutate } = useMutation({
+    mutationFn: handleSubmit,
+  });
+
+  const onSubmit = (data: labourFormType) => {
+    mutate(data);
+  };
+
   return (
     <FormContainer
       title="New Request"
@@ -95,7 +104,7 @@ export default function Labour() {
       className="w-full max-w-[50rem]"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <select
             id="request_type"
             {...form.register("request_type")}

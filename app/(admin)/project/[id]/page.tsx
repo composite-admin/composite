@@ -176,14 +176,14 @@ const SingleProject = () => {
         </div>
 
         <div className="flex gap-3 items-center">
-          <div>
+          {/* <div>
             <Button
               className=" top-5 right-5 hover:text-primaryLight/80 text-primaryLight border border-primaryLight bg-white font-semibold"
               variant={"outline"}
             >
               View Project Images
             </Button>
-          </div>
+          </div> */}
           <div>
             <Link href={`/project/${selectedItem?.id}/edit`}>
               <Button className="w-max py-2">Edit Project</Button>

@@ -23,6 +23,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -141,10 +142,18 @@ export default function Material() {
     }
   };
 
+  const { mutate } = useMutation({
+    mutationFn: handleSubmit,
+  });
+
+  const onSubmit = (data: CreateCashAdvanceOfficeType) => {
+    mutate(data);
+  };
+
   return (
     <FormContainer title="New Request" description="" isColumn={true}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <select
             id="request_type"
             {...form.register("request_type")}

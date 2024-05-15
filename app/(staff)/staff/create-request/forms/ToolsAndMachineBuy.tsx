@@ -20,6 +20,7 @@ import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 export const ToolsAndMachineBuySchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -109,6 +110,14 @@ export default function ToolsAndMachineBuy() {
     }
   };
 
+  const { mutate } = useMutation({
+    mutationFn: handleSubmit,
+  });
+
+  const onSubmit = (data: ToolsAndMachineBuyType) => {
+    mutate(data);
+  };
+
   return (
     <FormContainer
       title="New Request"
@@ -117,7 +126,7 @@ export default function ToolsAndMachineBuy() {
       className="w-full max-w-[50rem]"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <select
             id="request_type"
             {...form.register("request_type")}

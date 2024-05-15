@@ -355,7 +355,7 @@ export default function RequestDetailsPage({
                 <div className="flex justify-between items-center">
                   <span>Approved On</span>
                   <span>
-                    {requestDetails && formatDate(requestDetails?.approved_on)}
+                    {requestDetails && formatDate(requestDetails?.updatedAt)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">

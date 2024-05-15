@@ -22,6 +22,7 @@ import { useInventoryStore } from "@/store/project/useProjectStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
 
 export const ToolsAndMachineStoreSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -118,6 +119,14 @@ export default function ToolsAndMachineStore() {
     }
   };
 
+  const { mutate } = useMutation({
+    mutationFn: handleSubmit,
+  });
+
+  const onSubmit = (data: ToolsAndMachineStoreType) => {
+    mutate(data);
+  };
+
   return (
     <FormContainer
       title="New Request"
@@ -126,7 +135,7 @@ export default function ToolsAndMachineStore() {
       className="w-full max-w-[50rem]"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <select
             id="request_type"
             {...form.register("request_type")}

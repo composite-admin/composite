@@ -12,6 +12,7 @@ import { useGetStaffDetails, useProjectData } from "@/hooks/useSelectOptions";
 import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -93,6 +94,14 @@ export default function CashAdvance() {
     }
   };
 
+  const { mutate } = useMutation({
+    mutationFn: handleSubmit,
+  });
+
+  const onSubmit = (data: CreateCashAdvanceOfficeType) => {
+    mutate(data);
+  };
+
   return (
     <FormContainer
       title="New Request"
@@ -101,7 +110,7 @@ export default function CashAdvance() {
       className="w-full max-w-[50rem]"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <select
             id="request_type"
             {...form.register("request_type")}
