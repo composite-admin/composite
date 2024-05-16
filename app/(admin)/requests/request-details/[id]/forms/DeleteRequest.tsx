@@ -47,7 +47,7 @@ export default function DeleteRequest() {
         });
         form.reset();
         onClose();
-        window.location.reload();
+      router.push("/requests");
       }
     } catch (error) {
       console.log(error);
