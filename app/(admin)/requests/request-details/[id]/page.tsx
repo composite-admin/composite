@@ -300,7 +300,7 @@ export default function RequestDetailsPage({
                       Tool Name:
                     </span>
                     <span className="self-start items-start justify-end block  w-full capitalize text-sm font-semibold ">
-                      {requestDetails?.tool_name ?? "-"}
+                      {requestDetails?.tool_machinery_type ?? "-"}
                     </span>
                   </div>
                   <div className="flex justify-between">

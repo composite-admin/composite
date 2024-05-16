@@ -167,8 +167,7 @@ export default function ToolsAndMachineStore() {
                 control={form.control}
                 items={toolType || [" "]}
               />
-            </div>
-            <CustomFormSelect
+                        <CustomFormSelect
               name="tool_machinery_type"
               className="col-span-full"
               labelText="Tool Description"
@@ -181,6 +180,8 @@ export default function ToolsAndMachineStore() {
               label="Quantity"
               placeholder="Enter Quantity"
             />
+            </div>
+  
 
             <div className="flex flex-col gap-4 py-4">
               <CustomFormTextareaField
