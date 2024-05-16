@@ -48,7 +48,7 @@ export default function ToolsAndMachineRent() {
   const { projectsData } = useProjectData();
   const router = useRouter();
   const { toast } = useToast();
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { setFormType } = useStaffStore();
   const form = useForm<ToolsAndMachineRentType>({
@@ -63,6 +63,8 @@ export default function ToolsAndMachineRent() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "APPROVED",
+        approved_by: username,
+        approved_on: new Date(),
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
         approved_total_amount:

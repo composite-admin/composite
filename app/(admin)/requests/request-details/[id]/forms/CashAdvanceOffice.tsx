@@ -45,7 +45,7 @@ export default function CashAdvanceOffice() {
   console.log(formDetails);
   const { toast } = useToast();
   const router = useRouter();
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
@@ -80,6 +80,8 @@ export default function CashAdvanceOffice() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "APPROVED",
+        approved_by: username,
+        approved_on: new Date(),
         approved_amount: Number(data.approved_amount),
       });
       if (res.status === 200 || res.status === 201) {

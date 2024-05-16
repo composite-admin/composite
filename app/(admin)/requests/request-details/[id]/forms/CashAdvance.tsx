@@ -48,7 +48,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function CashAdvance() {
   const { formDetails, onClose } = useUpdateRequestStore();
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
   const router = useRouter();
@@ -85,6 +85,8 @@ export default function CashAdvance() {
     try {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
+        approved_by: username,
+        approved_on: new Date(),
         status: "APPROVED",
         amount: Number(data.approved_amount),
       });

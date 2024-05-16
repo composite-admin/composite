@@ -41,7 +41,7 @@ type labourFormType = z.infer<typeof LabourSchema>;
 export default function Labour() {
   const { formDetails, onClose } = useUpdateRequestStore();
   const { projectsData } = useProjectData();
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
   const router = useRouter();
@@ -61,6 +61,9 @@ export default function Labour() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "APPROVED",
+        approved_total_amount: Number(data.approved_amount),
+        approved_on: new Date(),
+        approved_by: username,
       });
       if (res.status === 200 || res.status === 201) {
         toast({

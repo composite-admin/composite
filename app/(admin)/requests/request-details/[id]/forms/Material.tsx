@@ -56,7 +56,7 @@ export default function Material() {
   const { toast } = useToast();
   const router = useRouter();
   const [matDesc, setMatDesc] = useState<string[]>([]);
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
@@ -72,6 +72,8 @@ export default function Material() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "APPROVED",
+        approved_on: new Date(),
+        approved_by: username,
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
         approved_total_amount:

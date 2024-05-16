@@ -39,7 +39,7 @@ type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 export default function ToolsAndMachineStore() {
   const { projectsData } = useProjectData();
   const { formDetails, onClose } = useUpdateRequestStore();
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const router = useRouter();
   const { toast } = useToast();
@@ -54,6 +54,8 @@ export default function ToolsAndMachineStore() {
     try {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
+        approved_by: username,
+        approved_on: new Date(),
         status: "APPROVED",
         approved_quantity: Number(data.approved_quantity),
       });
