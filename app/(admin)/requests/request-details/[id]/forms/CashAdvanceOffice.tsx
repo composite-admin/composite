@@ -71,6 +71,9 @@ export default function CashAdvanceOffice() {
         staff_id: formDetails?.staff_id,
       });
 
+      if (res.status === 200 || res.status === 201) {
+        window.location.reload();
+      }
       return res.data.data;
     } catch (error) {}
   };
@@ -91,7 +94,7 @@ export default function CashAdvanceOffice() {
         });
         form.reset();
         onClose();
-        window.location.reload();
+        createCashAdvance(data);
       }
     } catch (error) {
       toast({
