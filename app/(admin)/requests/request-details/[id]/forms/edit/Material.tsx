@@ -122,13 +122,14 @@ export default function Material() {
         quantity: Number(data.quantity),
         total_price: Number(data.unit_price) * Number(data.quantity),
       });
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request edited successfully",
+          title: "Request Approved",
           variant: "success",
         });
         form.reset();
         onClose();
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

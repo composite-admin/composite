@@ -83,14 +83,14 @@ export default function CashAdvanceOffice() {
         approved_amount: Number(data.approved_amount),
       });
       if (res.status === 200 || res.status === 201) {
-        await createCashAdvance(data);
         toast({
           title: "Request Approved",
           variant: "success",
         });
+        form.reset();
+        onClose();
+        window.location.reload();
       }
-      router.push("/requests");
-      onClose();
     } catch (error) {
       toast({
         title: "Request creation failed",

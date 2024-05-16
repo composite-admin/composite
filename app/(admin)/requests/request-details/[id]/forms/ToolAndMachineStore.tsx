@@ -19,8 +19,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useInventoryStore } from "@/store/project/useProjectStore";
-
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
@@ -65,7 +64,7 @@ export default function ToolsAndMachineStore() {
         });
         form.reset();
         onClose();
-        router.reload();
+        window.location.reload();
       }
     } catch (error) {
       toast({

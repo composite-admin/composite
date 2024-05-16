@@ -62,13 +62,14 @@ export default function Labour() {
         ...data,
         status: "APPROVED",
       });
-      if (res.status === 201 || res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         toast({
           title: "Request Approved",
           variant: "success",
         });
         form.reset();
         onClose();
+        window.location.reload();
       }
     } catch (error) {
       toast({

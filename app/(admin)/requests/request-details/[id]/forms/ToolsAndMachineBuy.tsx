@@ -67,14 +67,14 @@ export default function ToolsAndMachineBuy() {
         approved_total_amount:
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
-      if (res.status === 201) {
+      if (res.status === 200 || res.status === 201) {
         toast({
           title: "Request Approved",
           variant: "success",
         });
         form.reset();
-        router.refresh();
         onClose();
+        window.location.reload();
       }
     } catch (error) {
       toast({

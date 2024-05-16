@@ -68,13 +68,14 @@ export default function ToolsAndMachineRent() {
         approved_total_amount:
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request created successfully",
+          title: "Request Approved",
           variant: "success",
         });
         form.reset();
         onClose();
+        window.location.reload();
       }
     } catch (error) {
       toast({

@@ -70,14 +70,14 @@ export default function Labour() {
         status: "PENDING",
 
       });
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request edited successfully",
+          title: "Request Approved",
           variant: "success",
         });
         form.reset();
-        router.refresh();
         onClose();
+        window.location.reload();
       }
     } catch (error) {
       toast({

@@ -77,14 +77,14 @@ export default function CashAdvance() {
         status: "PENDING",
         amount: Number(data.amount),
       });
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request edited successfully",
+          title: "Request Approved",
           variant: "success",
         });
         form.reset();
-        router.refresh();
         onClose();
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

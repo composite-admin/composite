@@ -88,15 +88,14 @@ export default function CashAdvance() {
         status: "APPROVED",
         amount: Number(data.approved_amount),
       });
-
       if (res.status === 200 || res.status === 201) {
-        await createCashAdvance(data);
         toast({
           title: "Request Approved",
           variant: "success",
         });
-        router.push("/requests");
+        form.reset();
         onClose();
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
