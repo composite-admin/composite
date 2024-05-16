@@ -52,7 +52,7 @@ export default function DashboardPage() {
   );
 
   const pendingReports = reports?.filter(
-    (report) => report.status === "Pending" || null
+    (report) => report.status === "Pending" || !report.status
   );
   const trimmedPendingRequests = pendingRequests?.slice(0, 3);
   const trimmedPendingReports = pendingReports?.slice(0, 3);

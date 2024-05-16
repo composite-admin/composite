@@ -19,7 +19,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useInventoryStore } from "@/store/project/useProjectStore";
-import { useRouter } from "next/navigation";
+
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
@@ -57,14 +58,14 @@ export default function ToolsAndMachineStore() {
         status: "APPROVED",
         approved_quantity: Number(data.approved_quantity),
       });
-      if (res.status === 201) {
+      if (res.status === 201 || res.status === 200) {
         toast({
           title: "Request Approved",
           variant: "success",
         });
         form.reset();
-        router.refresh();
         onClose();
+        router.reload();
       }
     } catch (error) {
       toast({

@@ -33,9 +33,7 @@ export const ToolsAndMachineStoreSchema = z.object({
   quantity: z.string({
     required_error: "Quantity is required",
   }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
+
   tool_machinery_type: z.string({
     required_error: "Tool description is required",
   }),
@@ -98,7 +96,6 @@ export default function ToolsAndMachineStore() {
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         quantity: Number(data.quantity),
-        unit_price: Number(data.unit_price),
         project_code: projectsData?.find(
           (item: any) => item.project_name === data.project_name
         )?.project_code,
@@ -110,7 +107,6 @@ export default function ToolsAndMachineStore() {
         });
         form.reset();
         router.push("/staff/requests");
-
       }
     } catch (error) {
       toast({
@@ -179,20 +175,12 @@ export default function ToolsAndMachineStore() {
               control={form.control}
               items={ToolDescription || [" "]}
             />
-            <div className="grid md:grid-cols-2 gap-4 py-3">
-              <CustomFormField
-                name="quantity"
-                control={form.control}
-                label="Quantity"
-                placeholder="Enter Quantity"
-              />
-              <CustomFormField
-                name="unit_price"
-                control={form.control}
-                label="Unit Price"
-                placeholder="Enter Unit Price"
-              />
-            </div>
+            <CustomFormField
+              name="quantity"
+              control={form.control}
+              label="Quantity"
+              placeholder="Enter Quantity"
+            />
 
             <div className="flex flex-col gap-4 py-4">
               <CustomFormTextareaField

@@ -327,13 +327,13 @@ export default function RequestDetailsPage({
                 <div className="flex justify-between items-center">
                   <span>Unit Price:</span>
                   <span className="capitalize text-sm font-semibold">
-                    {requestDetails?.unit_price}
+                    {data && formatCurrency(requestDetails?.unit_price)}
                   </span>
                 </div>{" "}
                 <div className="flex justify-between items-center">
                   <span>Requested Total Price:</span>
                   <span className="capitalize text-sm font-semibold">
-                    {requestDetails?.total_price}
+                    {data && formatCurrency(requestDetails?.total_price)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
@@ -355,12 +355,6 @@ export default function RequestDetailsPage({
                       formatCurrency(requestDetails?.approved_total_amount)}
                   </span>
                 </div>{" "}
-                <div className="flex justify-between items-center">
-                  <span>Approved Total Price</span>
-                  <span className="capitalize text-sm font-semibold">
-                    {data && formatCurrency(requestDetails?.total_price)}
-                  </span>
-                </div>
                 <div className="flex justify-between items-center">
                   <span>Approved On</span>
                   <span className="capitalize text-sm font-semibold">
