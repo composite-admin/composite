@@ -124,42 +124,42 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
       return <ColumnHeader column={column} title="Actions" />;
     },
     cell: ({ row }) => {
-      const { action_type, cash_id } = row.original;
+      const { action_type, cash_id, decision } = row.original;
 
-      if(action_type === "return cash balance"){
+      if (action_type === "return cash balance") {
         return (
           <TableAction
-          formType={"return" as CashAdvanceFormTypes}
-          currentFormType={"return" as CashAdvanceFormTypes}
-          cash_id={String(cash_id)}
-          onActionClick={() => {}}
-        >
-          <p className="cursor-pointer font-semibold text-primaryLight uppercase">
-            {action_type}
-          </p>
-        </TableAction>
-        )
+            formType={"return" as CashAdvanceFormTypes}
+            currentFormType={"return" as CashAdvanceFormTypes}
+            cash_id={String(cash_id)}
+            onActionClick={() => {}}
+          >
+            <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+              {action_type}
+            </p>
+          </TableAction>
+        );
       }
 
-      else if(action_type === "request iou"){
+      if (action_type === "request iou" && !decision) {
         return (
           <TableAction
-          formType={"request" as CashAdvanceFormTypes}
-          currentFormType={"request" as CashAdvanceFormTypes}
-          cash_id={String(cash_id)}
-          onActionClick={() => {
-            return cash_id;
-          }}
-        >
-          <p className="cursor-pointer font-semibold text-primaryLight uppercase">
-            {action_type}
-          </p>
-        </TableAction>
-        )
+            formType={"request" as CashAdvanceFormTypes}
+            currentFormType={"request" as CashAdvanceFormTypes}
+            cash_id={String(cash_id)}
+            onActionClick={() => {
+              return cash_id;
+            }}
+          >
+            <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+              {action_type}
+            </p>
+          </TableAction>
+        );
       }
-        else{
-          return (
-            <TableAction
+      if (!decision) {
+        return (
+          <TableAction
             formType={"request" as CashAdvanceFormTypes}
             currentFormType={"request" as CashAdvanceFormTypes}
             cash_id={String(cash_id)}
@@ -171,8 +171,25 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
               {action_type}
             </p>
           </TableAction>
-          )
-        }
+        );
+      }
+
+      if (decision === "Approved" && action_type === "request iou") {
+        return (
+          <TableAction
+            formType={"request" as CashAdvanceFormTypes}
+            currentFormType={"request" as CashAdvanceFormTypes}
+            cash_id={String(cash_id)}
+            onActionClick={() => {
+              return cash_id;
+            }}
+          >
+            <p className="font-semibold text-textColor cursor-not-allowed uppercase">
+              Return Cash Complete
+            </p>
+          </TableAction>
+        );
+      }
 
     },
   },

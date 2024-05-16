@@ -9,7 +9,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import TableAction from "./details/(forms_and_modals)/TableAction";
 import { CashAdvanceFormTypes } from "@/store/cash-advance/useCashAdvanceStore";
-import { ViewCell } from "../facility/all-flats/EditCell";
+import EditCell, { ViewCell } from "../facility/all-flats/EditCell";
 
 export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
   {
@@ -78,9 +78,30 @@ export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "decision",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Status" />;
+    },
+    cell: ({ row }) => {
+      const { decision, cash_id } = row.original;
+      return (
+        <span
+          className={`${
+            decision === "Approved" ? "text-success" : "text-error"
+          } font-semibold`}
+        >
+          {decision === "Approved" ? (
+            <Link
+              href={`/cash-advance/${cash_id}/approved-details`}
+              className="underline text-primaryLight"
+            >
+              View
+            </Link>
+          ) : (
+            decision ?? "Pending"
+          )}
+        </span>
+      );
     },
   },
   {
@@ -89,8 +110,29 @@ export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
       return <ColumnHeader column={column} title="Actions" />;
     },
     cell: ({ row }) => {
-      const { cash_id } = row.original;
-      return <ViewCell isLink href={`/cash-advance/${cash_id}`} />;
+      const { cash_id, decision } = row.original;
+      return (
+        <>
+          {decision === "Approved" ? (
+            <p className="font-semibold text-textColor-500 uppercase disabled cursor-not-allowed">
+              Return Cash Complete
+            </p>
+          ) : (
+            <TableAction
+              cash_id={String(cash_id)}
+              formType={"refund" as CashAdvanceFormTypes}
+              currentFormType={"refund" as CashAdvanceFormTypes}
+              onActionClick={() => {
+                return cash_id;
+              }}
+            >
+              <p className="font-semibold text-primaryLight underline uppercase ">
+                Approve refund
+              </p>
+            </TableAction>
+          )}
+        </>
+      );
     },
   },
 

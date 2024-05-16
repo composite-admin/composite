@@ -12,12 +12,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
+import Link from "next/link";
+import { userStore } from "@/store/auth/AuthStore";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const RefundRequestOrIOUSchema = z.object({
   cash_advance_type: z.string().optional(),
   description: z.string().optional(),
-  amount_recorded: z.string().optional(),
-  decison: z.string().optional(),
+  // amount_recorded: z.string().optional(),
+  decision: z.string().optional(),
   decision_reason: z.string().optional(),
   staff_name: z.string().optional(),
 });
@@ -25,13 +29,16 @@ const RefundRequestOrIOUSchema = z.object({
 type RefundRequestOrIOUFormType = z.infer<typeof RefundRequestOrIOUSchema>;
 
 export default function RefundRequestOrIOUForm() {
-  const { CashAdvanceDetails } = useCashAdvanceStore();
+  const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
+  const { username } = userStore();
+  const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<RefundRequestOrIOUFormType>({
     resolver: zodResolver(RefundRequestOrIOUSchema),
     defaultValues: {
       cash_advance_type: CashAdvanceDetails?.cash_advance_type,
-      amount_recorded: CashAdvanceDetails?.amount_recorded,
+      // amount_recorded: CashAdvanceDetails?.amount_recorded,
       staff_name: CashAdvanceDetails?.staff_name,
     },
   });
@@ -41,13 +48,25 @@ export default function RefundRequestOrIOUForm() {
     mutationFn: async (data: RefundRequestOrIOUFormType) => {
       try {
         const response = await api.put(
-          `/cash-advancess/${CashAdvanceDetails?.cash_id}`,
+          `/cash-advances/${CashAdvanceDetails?.cash_id}`,
           {
             ...data,
-            amount: Number(data.amount_recorded),
-            amount_recorded: Number(data.amount_recorded),
+            // amount_recorded: Number(data.amount_recorded),
+            action_by: username,
           }
         );
+
+        if (response.status === 200) {
+          toast({
+            title: "Success",
+            description: "Cash Advance complete",
+            variant: "success",
+          });
+          onClose();
+          router.push(
+            `/cash-advance/${CashAdvanceDetails?.cash_id}/approved-details`
+          );
+        }
 
         return response.data;
       } catch (error) {
@@ -67,7 +86,7 @@ export default function RefundRequestOrIOUForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submit)}>
+      <form onSubmit={form.handleSubmit(submit)} className="space-y-2">
         <div className="grid md:grid-cols-2 gap-5 pb-3">
           <CustomFormField
             name="type"
@@ -87,14 +106,14 @@ export default function RefundRequestOrIOUForm() {
             name="returned_amount"
             control={form.control}
             label={"Returned Amount"}
-            placeholder={CashAdvanceDetails?.amount_collected}
+            placeholder={CashAdvanceDetails?.balance}
             disabled
           />
           <CustomFormSelect
             name="decision"
             control={form.control}
             labelText={"Decision"}
-            items={["Approve", "Pending"]}
+            items={["Approved", "Rejected"]}
           />
         </div>
 

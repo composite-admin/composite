@@ -57,7 +57,6 @@ export default function RequestIOUForm() {
           {
             ...data,
             decision: "Pending",
-            amount: Number(data.amount),
             balance: Number(data.balance),
             amount_recorded: Number(data.amount_recorded),
           }

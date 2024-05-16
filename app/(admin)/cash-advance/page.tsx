@@ -35,7 +35,6 @@ export default function CashAdvancePage() {
           "/cash-advances"
         );
 
-        console.log(pendingCashAdvanceData);
         return response.data.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -45,12 +44,11 @@ export default function CashAdvancePage() {
         }
       }
     },
+    refetchOnMount: "always",
   });
 
   const pendingCashAvance = data?.filter(
-    (decision) =>
-      (decision.decision === "Pending" || !decision.decision) &&
-      decision.action_type !== "cash retirement complete"
+    (decision) => decision.decision === "Pending"
   );
 
   const approvedCashAdvance = data?.filter(
@@ -84,7 +82,7 @@ export default function CashAdvancePage() {
       <div>
         <PageHeaderComponent
           title="Cash Advances"
-          subTitle="View all staff here"
+          subTitle="View all cash advances here"
         />
 
         <RequestStatusBadges
@@ -129,10 +127,9 @@ const RequestStatusBadges = ({
   const badgeData = [
     {
       icon: <DashboardIcon />,
-      title: "Cash Advancces",
+      title: "Cash Advances",
       status: "all_decisions",
-      notification:
-        data?.filter((decision) => decision.decision !== "Pending").length ?? 0,
+      notification: data?.length ?? 0,
     },
     {
       icon: <ClockIcon />,
@@ -156,11 +153,7 @@ const RequestStatusBadges = ({
       title: "Pending IOU/Refund",
       status: "pending",
       notification:
-        data?.filter(
-          (decision) =>
-            (decision.decision === "Pending" || !decision.decision) &&
-            decision.action_type !== "cash retirement complete"
-        ).length ?? 0,
+        data?.filter((decision) => decision.decision === "Pending").length ?? 0,
     },
   ];
 

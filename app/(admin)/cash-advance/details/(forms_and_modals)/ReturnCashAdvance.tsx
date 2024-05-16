@@ -11,6 +11,8 @@ import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const ReturnCashAdvanceSchema = z.object({
   cash_advance_type: z.string().optional(),
@@ -22,7 +24,9 @@ const ReturnCashAdvanceSchema = z.object({
 type ReturnCashAdvanceFormType = z.infer<typeof ReturnCashAdvanceSchema>;
 
 export default function ReturnCashAdvance() {
-  const { CashAdvanceDetails } = useCashAdvanceStore();
+  const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
+  const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<ReturnCashAdvanceFormType>({
     resolver: zodResolver(ReturnCashAdvanceSchema),
@@ -40,9 +44,19 @@ export default function ReturnCashAdvance() {
           `/cash-advances/${CashAdvanceDetails?.cash_id}`,
           {
             ...data,
+            decision: "Pending",
             amount_recorded: Number(data.amount_recorded),
           }
         );
+        if (response.status === 200) {
+          toast({
+            title: "Cash Advance Returned",
+            description: "Cash Advance Returned Successfully",
+            variant: "success",
+          });
+
+          onClose();
+        }
 
         return response.data;
       } catch (error) {
