@@ -39,7 +39,7 @@ const AddStakeholder = () => {
             <h2 className="text-[#101928] font-[600] text-[22px]">
               Add Stakeholder
             </h2>
-            <p>Update Stakeholder Details here.</p>
+            <p>New Stakeholder Details here.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-5 my-5 edit">

@@ -36,99 +36,101 @@ export default function ApproveContractorForm({ id }: { id: string }) {
     },
   });
 
-  const { mutate, error } = useMutation({
-    mutationKey: ["editContractorForm", id],
-    mutationFn: async (data: IEditContractorForm) => {
-      try {
-        const response = await api.put(`/contractor-projects/${id}`, data);
-        return response.data;
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          throw new Error(error.message);
-        } else {
-          throw error;
-        }
+console.log(projectDetails);
+
+const { mutate, error } = useMutation({
+  mutationKey: ["editContractorForm", id],
+  mutationFn: async (data: IEditContractorForm) => {
+    try {
+      const response = await api.put(`/contractor-projects/${id}`, data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.message);
+      } else {
+        throw error;
       }
-    },
-    onSuccess: () => {
-      toast({
-        title: "Contractor approved successfully",
-        variant: "success",
-      });
-      router.push("/contractors");
-    },
-    onError: (error: Error) => {
-      toast({
-        title: error.toString(),
-        variant: "destructive",
-      });
-    },
-  });
+    }
+  },
+  onSuccess: () => {
+    toast({
+      title: "Contractor approved successfully",
+      variant: "success",
+    });
+    router.push("/contractors");
+  },
+  onError: (error: Error) => {
+    toast({
+      title: error.toString(),
+      variant: "destructive",
+    });
+  },
+});
 
-  const onSubmit = (data: IEditContractorForm) => {
-    mutate(data);
-  };
-  return (
-    <div>
-      <GoBack />
-      <FormContainer isColumn title="Pending Contractor Project">
-        <Form {...form}>
-          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+const onSubmit = (data: IEditContractorForm) => {
+  mutate(data);
+};
+return (
+  <div>
+    <GoBack />
+    <FormContainer isColumn title="Pending Contractor Project">
+      <Form {...form}>
+        <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+          <CustomFormField
+            control={form.control}
+            name="project_name"
+            placeholder={projectDetails?.contractor_project_code}
+            disabled
+            className="placeholder:uppercase"
+            label="Project Name"
+          />
+          <CustomFormField
+            control={form.control}
+            name="contractor_name"
+            placeholder={projectDetails?.contractor_code}
+            disabled
+            className="placeholder:uppercase"
+            label="Contractor Name/Code"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <CustomFormField
               control={form.control}
-              name="project_name"
-              placeholder={projectDetails?.contractor_project_code}
+              name="contractor_amount"
+              placeholder={projectDetails?.contractor_amount}
               disabled
               className="placeholder:uppercase"
-              label="Project Name"
-            />
+              label="Official amount"
+            />{" "}
             <CustomFormField
               control={form.control}
-              name="contractor_name"
-              placeholder={projectDetails?.contractor_code}
-              disabled
-              className="placeholder:uppercase"
-              label="Contractor Name/Code"
+              name="approved_amount"
+              label="Approved amount"
             />
+          </div>
+          <CustomFormSelect
+            name="status"
+            control={form.control}
+            items={["Pending", "Approved", "Declined"]}
+            placeholder="Status"
+            labelText="Status"
+          />
+          <CustomFormTextareaField
+            name="comment"
+            control={form.control}
+            placeholder="Enter comment"
+            label="Comment"
+          />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <CustomFormField
-                control={form.control}
-                name="contractor_amount"
-                placeholder={projectDetails?.contractor_amount}
-                disabled
-                className="placeholder:uppercase"
-                label="Approved amount"
-              />{" "}
-              <CustomFormField
-                control={form.control}
-                name="approved_amount"
-                label="Approved amount"
-              />
-            </div>
-            <CustomFormSelect
-              name="status"
-              control={form.control}
-              items={["Pending", "Approved", "Declined"]}
-              placeholder="Status"
-              labelText="Status"
-            />
-            <CustomFormTextareaField
-              name="comment"
-              control={form.control}
-              placeholder="Enter comment"
-              label="Comment"
-            />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <Button onClick={() => router.back()} variant="secondary">
-                Cancel
-              </Button>
-              <Button>Submit</Button>
-            </div>
-          </form>
-        </Form>
-      </FormContainer>
-    </div>
-  );
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <Button onClick={() => router.back()} variant="secondary">
+              Cancel
+            </Button>
+            <Button>Submit</Button>
+          </div>
+        </form>
+      </Form>
+    </FormContainer>
+  </div>
+);
 }

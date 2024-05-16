@@ -41,7 +41,7 @@ const AddWorker = () => {
             <h2 className="text-[#101928] font-[600] text-[22px]">
               Add Worker
             </h2>
-            <p>Update Worker Details here.</p>
+            <p>New Worker Details here.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-5 my-5 edit">

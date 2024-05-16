@@ -20,13 +20,15 @@ const Page = (props:any) => {
 
   useEffect(() => {
     action(id);
-  }, [])
+  }, [action, id]);
 
   const [data, setData] = useState<any>({});
 
-  useEffect(()=> {
-    setData(singleInventoryData)
-  }, [singleInventoryData])
+  useEffect(() => {
+    setData(singleInventoryData);
+  }, [singleInventoryData]);
+
+  console.log(data);
   
 
   return (
