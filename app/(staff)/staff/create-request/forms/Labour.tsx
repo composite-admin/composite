@@ -1,4 +1,5 @@
 import {
+  CustomFormField,
   CustomFormSelect,
   CustomFormTextareaField,
 } from "@/components/shared/FormComponent";
@@ -26,6 +27,9 @@ export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   project_name: z.string({
     required_error: "Project Name is required",
+  }),
+  amount: z.string({
+    required_error: "Amount is required",
   }),
   worker_name: z.string({
     required_error: "Worker Name is required",
@@ -63,6 +67,7 @@ export default function Labour() {
       const res = await api.post("/requests", {
         ...data,
         status: "PENDING",
+        amount: Number(data.amount),
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         project_code: projectsData?.find(
@@ -147,6 +152,12 @@ export default function Labour() {
               </div>
             </div>
             <div className="flex flex-col py-3 gap-4 w-full">
+              <CustomFormField
+                name="amount"
+                label="Amount"
+                control={form.control}
+                placeholder="Enter Amount"
+              />
               <CustomFormTextareaField
                 name="description"
                 label="Description"
