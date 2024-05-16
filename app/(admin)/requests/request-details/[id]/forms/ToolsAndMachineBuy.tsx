@@ -48,7 +48,7 @@ export default function ToolsAndMachineBuy() {
   const { projectsData } = useProjectData();
   const router = useRouter();
   const { toast } = useToast();
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const form = useForm<ToolsAndMachineBuyType>({
     resolver: zodResolver(ToolsAndMachineBuySchema),
@@ -56,11 +56,14 @@ export default function ToolsAndMachineBuy() {
       request_type: RequestType.ToolsAndMachineBuy,
     },
   });
+  // to locale nigerian data string
 
   const handleSubmit = async (data: ToolsAndMachineBuyType) => {
     try {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
+        approved_by: username,
+        approved_on: new Date(),
         status: "APPROVED",
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
@@ -112,7 +115,7 @@ export default function ToolsAndMachineBuy() {
           <CustomFormField
             name="supplier_material"
             control={form.control}
-            placeholder={formDetails?.supplier_material}
+            placeholder={formDetails?.tool_machinery_type}
             label="Material Description"
             disabled
           />
