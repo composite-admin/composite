@@ -22,32 +22,44 @@ export default function StaffDashboardPage() {
     queryFn: () => getStuffTyped<IRequestData[]>(`/requests/user/${userId}`),
   });
 
-  return (
-    <div>
-      <PageHeaderComponent
-        title={
-          isLoading ? "Welcome User" : `Welcome ${staffDetails?.firstname}`
-        }
-        subTitle="This is your dashboard, an overview of everything going on."
-        buttonText="New Request"
-        href="/staff/create-request"
-      />
+const approved = data?.filter((item) => item.status === "APPROVED");
 
-      <div className="grid-cols-1">
-        <div className="xl:col-span-6">
-          <div className="pb-12 flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">
-            <DashboardCard title="Total Requests" description="123" />
-            <DashboardCard title="Approved Requests" description="13" />
-            <DashboardCard title="Pending Requests" description="32" />
-            <DashboardCard title="Rejected Requests" description="233" />
-          </div>
-          <DataTable
-            columns={columns}
-            isLoading={isPending}
-            data={data ?? []}
+const pending = data?.filter((item) => item.status === "PENDING");
+
+const rejected = data?.filter((item) => item.status === "REJECTED");
+
+return (
+  <div>
+    <PageHeaderComponent
+      title={isLoading ? "Welcome User" : `Welcome ${staffDetails?.firstname}`}
+      subTitle="This is your dashboard, an overview of everything going on."
+      buttonText="New Request"
+      href="/staff/create-request"
+    />
+
+    <div className="grid-cols-1">
+      <div className="xl:col-span-6">
+        <div className="pb-12 flex gap-5 py-3 md:overflow-x-visible overflow-x-auto hide">
+          <DashboardCard
+            title="Total Requests"
+            description={(data?.length || 0).toString()}
+          />
+          <DashboardCard
+            title="Approved Requests"
+            description={approved?.length.toString()}
+          />
+          <DashboardCard
+            title="Pending Requests"
+            description={pending?.length.toString()}
+          />
+          <DashboardCard
+            title="Rejected Requests"
+            description={rejected?.length.toString()}
           />
         </div>
+        <DataTable columns={columns} isLoading={isPending} data={data ?? []} />
       </div>
     </div>
-  );
+  </div>
+);
 }

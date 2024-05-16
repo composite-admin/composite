@@ -1,7 +1,10 @@
 "use client";
+import { RequestColumns } from "@/app/(admin)/requests/request-details/[id]/columns";
+import { DataTable } from "@/components/shared/DataTable";
 /* eslint-disable react/no-unescaped-entities */
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
+import { useGetRequestComments } from "@/hooks/useSelectOptions";
 import {
   useAddCommentModal,
   useUpdateRequestModal,
@@ -16,9 +19,12 @@ export default function RequestDetailsPage({
 }: {
   params: { id: string };
 }) {
-  const onOpen = useAddCommentModal((state) => state.onOpen);
+  const { onOpen: onAddComment } = useAddCommentModal();
   const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
   const { requestDetails } = useRequestStore();
+  const { comments, isCommentsLoading } = useGetRequestComments(
+    requestDetails?.request_code as string
+  );
 
   const { data, isPending } = useQuery({
     queryKey: ["get all tenants", params.id],
@@ -318,10 +324,20 @@ export default function RequestDetailsPage({
             </aside>
           </div>
         </div>
-        <Button onClick={onOpen} className="w-max ml-auto">
-          {" "}
-          Add Comment
-        </Button>
+        <div className="py-8">
+          <div className="flex justify-between items-center">
+            <span>Comments</span>
+            {requestDetails?.status !== "APPROVED" && (
+              <Button onClick={onAddComment}>Add Comment</Button>
+            )}
+          </div>
+          <DataTable
+            data={comments || []}
+            columns={RequestColumns}
+            isLoading={isCommentsLoading}
+            showSearch={false}
+          />
+        </div>
       </div>
     </div>
   );

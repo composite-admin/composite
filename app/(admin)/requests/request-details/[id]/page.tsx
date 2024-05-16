@@ -17,8 +17,7 @@ import {
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { useQuery } from "@tanstack/react-query";
-import { columns } from "./columns";
-import Material from "../../../../(staff)/staff/create-request/forms/Material";
+import { RequestColumns } from "./columns";
 
 export default function RequestDetailsPage({
   params,
@@ -388,7 +387,7 @@ export default function RequestDetailsPage({
         </div>
         <DataTable
           data={comments || []}
-          columns={columns}
+          columns={RequestColumns}
           isLoading={isCommentsLoading}
           showSearch={false}
         />
