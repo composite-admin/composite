@@ -75,7 +75,7 @@ export default function ToolsAndMachineRent() {
   const form = useForm<ToolsAndMachineRentType>({
     resolver: zodResolver(ToolsAndMachineRentSchema),
     defaultValues: {
-      request_type: RequestType.ToolsAndMachineRent,
+      request_type: RequestType.ToolsAndMachineryRent,
       project_name: formDetails?.project_name,
       tool_name: formDetails?.tool_name,
       company: formDetails?.company,
@@ -123,7 +123,7 @@ export default function ToolsAndMachineRent() {
           control={form.control}
           labelText="Request Type"
           disabled
-          items={[RequestType.ToolsAndMachineRent]}
+          items={[RequestType.ToolsAndMachineryRent]}
         />
         <div className="py-4 w-full">
           <div className="flex flex-col lg:flex-row gap-4 items-center py-3">

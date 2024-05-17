@@ -76,7 +76,7 @@ export default function ToolsAndMachineBuy() {
   const form = useForm<ToolsAndMachineBuyType>({
     resolver: zodResolver(ToolsAndMachineBuySchema),
     defaultValues: {
-      request_type: RequestType.ToolsAndMachineBuy,
+      request_type: RequestType.ToolsAndMachineryBuy,
       project_name: formDetails?.project_name,
       tool_name: formDetails?.tool_name,
       company: formDetails?.company,
@@ -124,7 +124,7 @@ export default function ToolsAndMachineBuy() {
           control={form.control}
           labelText="Request Type"
           disabled
-          items={[RequestType.ToolsAndMachineBuy]}
+          items={[RequestType.ToolsAndMachineryBuy]}
         />
         <div className="py-4 w-full">
           <div className="flex flex-col lg:flex-row gap-4 items-center py-3">

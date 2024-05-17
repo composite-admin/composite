@@ -112,7 +112,7 @@ export default function Material() {
 
       materialDescription();
     }
-  }, [supplierCode, watchSupplier]);
+  }, [form, router, supplierCode, toast, watchSupplier]);
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {

@@ -68,7 +68,7 @@ export default function ToolsAndMachineStore() {
   const form = useForm<ToolsAndMachineStoreType>({
     resolver: zodResolver(ToolsAndMachineStoreSchema),
     defaultValues: {
-      request_type: RequestType.ToolsAndMachineStore,
+      request_type: RequestType.ToolsAndMachineryStore,
       project_name: formDetails?.project_name,
       quantity: formDetails?.quantity as unknown as string,
       unit_price: formDetails?.unit_price as unknown as string,
@@ -131,7 +131,7 @@ export default function ToolsAndMachineStore() {
           control={form.control}
           labelText="Request Type"
           disabled
-          items={[RequestType.ToolsAndMachineStore]}
+          items={[RequestType.ToolsAndMachineryStore]}
         />
         <div className="py-4 w-full">
           <div className="grid md:grid-cols-2 gap-4 py-3">
