@@ -61,7 +61,7 @@ export default function CashAdvance() {
         balance: 0,
         project_code: formDetails?.project_code,
         project_name: formDetails?.project_name,
-        cash_advance_type: "Cash Advance Office",
+        cash_advance_type: "Cash Advance Project",
         request_code: formDetails?.request_code,
         bank_to: data.bank,
         payment_method: data.payment_method,
