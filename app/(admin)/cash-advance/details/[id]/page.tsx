@@ -63,7 +63,9 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
               <h1 className="font-semibold text-responsive">
                 Cash Advance details
               </h1>
-              <p className="text-textColor">Submitted on Jul, 2023</p>
+              <p className="text-textColor">
+                Submitted on {details && formatDate(details.createdAt)}
+              </p>
               <Button className="w-max" onClick={() => setModalType("add")}>
                 Add Breakdown
               </Button>
@@ -73,40 +75,34 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
                   <span>Request code:</span>
                   <span>Staff Name:</span>
-                  <span>Project Name:</span>
-                  <span>Amount Recorded:</span>
+                  <span>Transfer Method:</span>
+                  <span>Bank Name:</span>
                   <span>Date Updated:</span>
-                  <span>Balance:</span>
                 </div>
 
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
                   <span className="uppercase">{details?.request_code}</span>
-
                   <span>{details?.staff_name}</span>
-
-                  <span>{details?.project_name}</span>
-                  <span>{formatCurrency(details?.amount_recorded)}</span>
+                  <span>{details?.payment_method}</span>
+                  <span>{details?.bank_to}</span>
                   <span>{details && formatDate(details.updatedAt)}</span>
-
-                  <span>{formatCurrency(details?.balance)}</span>
                 </div>
               </div>
 
               <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8  ">
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                  <span>Request code:</span>
-                  <span>Staff Name:</span>
-                  <span>Transfer Method:</span>
-                  <span>Bank Name:</span>
                   <span>Project Name:</span>
+                  <span>Amount Collected:</span>
+                  <span>Amount Recorded:</span>
+                  <span>Balance:</span>
                 </div>
-
                 <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm capitalize">
-                  <span>{details?.request_code}</span>
-                  <span>{details?.staff_name}</span>
-                  <span>{details?.payment_method}</span>
-                  <span>{details?.bank_to}</span>
                   <span>{details?.project_name}</span>
+                  <span>
+                    {details && formatCurrency(details?.amount_collected)}
+                  </span>
+                  <span>{formatCurrency(details?.amount_recorded)}</span>
+                  <span>{formatCurrency(details?.balance)}</span>
                 </div>
               </div>
             </div>

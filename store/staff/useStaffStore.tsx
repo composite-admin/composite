@@ -3,11 +3,11 @@ import { create } from "zustand";
 export type FormType =
   | "Cash Advance Project"
   | "Material"
-  | "Tools and Machine Buy"
-  | "Tools and Machine Store"
-  | "Tools and Machine Rent"
+  | "Tools and Machinery Buy"
+  | "Tools and Machinery Store"
+  | "Tools and Machinery Rent"
   | "Cash Advance Office"
-  | "Labour";
+  | "labour";
 interface StaffStore {
   formType: FormType;
   setFormType: (type: FormType) => void;

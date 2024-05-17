@@ -51,12 +51,12 @@ export default function RequestApprovalModal() {
       classname="max-w-3xl"
     >
       {formType === "Material" && <Material />}
-      {formType === "Labour" && <Labour />}
+      {formType === "labour" && <Labour />}
       {formType === "Cash Advance Project" && <CashAdvance />}
       {formType === "Cash Advance Office" && <CashAdvanceOffice />}
-      {formType === "Tools and Machine Buy" && <ToolsAndMachineBuy />}
-      {formType === "Tools and Machine Rent" && <ToolsAndMachineRent />}
-      {formType === "Tools and Machine Store" && <ToolAndMachineStore />}
+      {formType === "Tools and Machinery Buy" && <ToolsAndMachineBuy />}
+      {formType === "Tools and Machinery Rent" && <ToolsAndMachineRent />}
+      {formType === "Tools and Machinery Store" && <ToolAndMachineStore />}
     </Modal>
   );
 }

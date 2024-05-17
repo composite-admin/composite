@@ -65,7 +65,7 @@ export default function ToolsAndMachineStore() {
   const form = useForm<ToolsAndMachineStoreType>({
     resolver: zodResolver(ToolsAndMachineStoreSchema),
     defaultValues: {
-      request_type: RequestType.ToolsAndMachineStore,
+      request_type: RequestType.ToolsAndMachineryRent,
     },
   });
   const { watch } = form;
@@ -136,21 +136,21 @@ export default function ToolsAndMachineStore() {
           <select
             id="request_type"
             {...form.register("request_type")}
-            defaultValue="Tools and Machine Store"
+            defaultValue="Tools and Machinery Store"
             onChange={(e: any) => setFormType(e.target.value)}
           >
             <option value="Material">Material</option>
-            <option value="Labour">Labour</option>
+            <option value="labour">Labour</option>
             <option value="Cash Advance Project">Cash Advance - Project</option>
             <option value="Cash Advance Office">Cash Advance - Office</option>
-            <option value="Tools and Machine Buy">
-              Tools and Machines - Buy
+            <option value="Tools and Machinery Buy">
+              Tools and Machinery - Buy
             </option>
-            <option value="Tools and Machine Rent">
-              Tools and Machines - Rent
+            <option value="Tools and Machinery Rent">
+              Tools and Machinery - Rent
             </option>
-            <option value="Tools and Machine Store">
-              Tools and Machines - Store
+            <option value="Tools and Machinery Store">
+              Tools and Machinery - Store
             </option>
           </select>
           <div className="py-4 w-full">
@@ -167,21 +167,20 @@ export default function ToolsAndMachineStore() {
                 control={form.control}
                 items={toolType || [" "]}
               />
-                        <CustomFormSelect
-              name="tool_machinery_type"
-              className="col-span-full"
-              labelText="Tool Description"
-              control={form.control}
-              items={ToolDescription || [" "]}
-            />
-            <CustomFormField
-              name="quantity"
-              control={form.control}
-              label="Quantity"
-              placeholder="Enter Quantity"
-            />
+              <CustomFormSelect
+                name="tool_machinery_type"
+                className="col-span-full"
+                labelText="Tool Description"
+                control={form.control}
+                items={ToolDescription || [" "]}
+              />
+              <CustomFormField
+                name="quantity"
+                control={form.control}
+                label="Quantity"
+                placeholder="Enter Quantity"
+              />
             </div>
-  
 
             <div className="flex flex-col gap-4 py-4">
               <CustomFormTextareaField

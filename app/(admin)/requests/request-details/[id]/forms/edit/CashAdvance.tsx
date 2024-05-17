@@ -19,12 +19,12 @@ import { z } from "zod";
 
 export enum RequestType {
   Material = "Material",
-  Labour = "Labour",
+  Labour = "labour",
   CashAdvanceProject = "Cash Advance Project",
   CashAdvanceOffice = "Cash Advance Office",
-  ToolsAndMachineBuy = "Tools and Machine Buy",
-  ToolsAndMachineRent = "Tools and Machine Rent",
-  ToolsAndMachineStore = "Tools and Machine Store",
+  ToolsAndMachineryBuy = "Tools and Machinery Buy",
+  ToolsAndMachineryRent = "Tools and Machinery Rent",
+  ToolsAndMachineryStore = "Tools and Machinery Store",
 }
 
 export const createCashAdvanceOfficeSchema = z.object({

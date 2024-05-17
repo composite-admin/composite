@@ -58,7 +58,15 @@ export const getrequestById = async (id: number | string) => {
   }
 };
 
-export type RequestType = "Material" | "Labour" | "Cash Advance Project" | "Cash Advance Office" | "Tools and Machine Buy" | "Tools and Machine Rent" | "Tools and Machine Store" | null; 
+export type RequestType =
+  | "Material"
+  | "labour"
+  | "Cash Advance Project"
+  | "Cash Advance Office"
+  | "Tools and Machinery Buy"
+  | "Tools and Machinery Rent"
+  | "Tools and Machinery Store"
+  | null; 
 interface UpdateRequestStoreState {
   formType: RequestType | null;
   formDetails: IRequestData | null;

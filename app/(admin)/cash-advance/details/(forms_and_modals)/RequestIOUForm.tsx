@@ -12,27 +12,13 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const RequestAndIOUSchema = z
-  .object({
-    cash_advance_type: z.string().optional(),
-    description: z.string().optional(),
-    amount_recorded: z.string().optional(),
-    balance: z.string().optional(),
-    amount: z.string().optional(),
-    staff_name: z.string().optional(),
-  })
-  .refine(
-    (data) => {
-      if (data.amount && data.balance) {
-        return Number(data.amount) <= Number(data.balance);
-      }
-      return true;
-    },
-    {
-      message: "Amount must be less than or equal to approved amount",
-      path: ["amount"], // Specify the field associated with the error
-    }
-  );
+const RequestAndIOUSchema = z.object({
+  cash_advance_type: z.string().optional(),
+  description: z.string().optional(),
+  amount_recorded: z.string().optional(),
+  balance: z.string().optional(),
+  staff_name: z.string().optional(),
+});
 
 type RequestAndIOUFomType = z.infer<typeof RequestAndIOUSchema>;
 
@@ -42,7 +28,7 @@ export default function RequestIOUForm() {
     resolver: zodResolver(RequestAndIOUSchema),
     defaultValues: {
       cash_advance_type: CashAdvanceDetails?.cash_advance_type,
-      amount_recorded: CashAdvanceDetails?.amount_recorded,
+      amount_recorded: CashAdvanceDetails?.amount_collected,
       balance: CashAdvanceDetails?.balance,
       staff_name: CashAdvanceDetails?.staff_name,
     },
@@ -101,7 +87,7 @@ export default function RequestIOUForm() {
           control={form.control}
           label={"Approved Amount"}
           disabled
-          placeholder={CashAdvanceDetails?.amount_recorded}
+          placeholder={CashAdvanceDetails?.amount_collected}
         />
         <CustomFormField
           name="balance"

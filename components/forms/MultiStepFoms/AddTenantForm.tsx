@@ -173,7 +173,7 @@ export default function AddTenantForm() {
               <FormContainer
                 title="Add tenant"
                 isColumn={false}
-                description="Create a new staff profile here"
+                description="Create a new tenant profile here"
               >
                 <div className="flex flex-col gap-5">
                   <CustomFormSelect
@@ -248,7 +248,7 @@ export default function AddTenantForm() {
               <FormContainer
                 title="Add tenant"
                 isColumn={false}
-                description="Create a new staff profile here"
+                description="Create a new tenant profile here"
               >
                 <div className="flex flex-col gap-5">
                   <CustomFormField
@@ -330,15 +330,6 @@ export default function AddTenantForm() {
                   </div>
 
                   <div className=" relative">
-                    <div className="ml-auto w-max">
-                      <div
-                        onClick={() => append({ type: "", value: "" })}
-                        className="text-xs text-primaryLight flex gap-1 font-semibold cursor-pointer"
-                      >
-                        <PlusCircle className="size-4" />
-                        <p>Add Other Fees</p>
-                      </div>
-                    </div>
                     {fields.map((field, index) => (
                       <div key={field.id} className=" mb-2 relative">
                         <div className="grid grid-cols-2  gap-4">
@@ -363,6 +354,15 @@ export default function AddTenantForm() {
                         </div>
                       </div>
                     ))}
+                    <div className="ml-auto w-max">
+                      <div
+                        onClick={() => append({ type: "", value: "" })}
+                        className="text-xs text-primaryLight flex gap-1 font-semibold cursor-pointer"
+                      >
+                        <PlusCircle className="size-4" />
+                        <p>Add Other Fees</p>
+                      </div>
+                    </div>
                   </div>
                   <div className=" flex flex-col lg:flex-row justify-between items-center gap-8 pt-7">
                     <Button

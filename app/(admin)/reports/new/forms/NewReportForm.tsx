@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { useGetAllStaffs, useProjectData } from "@/hooks/useSelectOptions";
 import { api } from "@/config/api";
 import { useRouter } from "next/navigation";
-import { X } from "lucide-react";
+import { UploadCloud, X } from "lucide-react";
 
 type Inputs = z.infer<typeof ProjectReportSchema>;
 export default function NewReportForm() {
@@ -278,6 +278,19 @@ export default function NewReportForm() {
                     label="Weather Report"
                   />
                 </div>
+                <div className="grid md:grid-cols-2 gap-5 pt-7">
+                  <Button
+                    className="w-full disabled:"
+                    variant={"secondary"}
+                    disabled={currentStep === 0}
+                    onClick={prev}
+                  >
+                    Back
+                  </Button>
+                  <Button className="w-full" onClick={next}>
+                    Next
+                  </Button>
+                </div>
               </FormContainer>
             </motion.div>
           )}
@@ -300,9 +313,9 @@ export default function NewReportForm() {
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
                       onDrop={handleDrop}
-                      className={`border-2 border-dashed ${
+                      className={`border-2 border-dashed w-full ${
                         isDragOver ? "border-blue-500" : "border-gray-300"
-                      } p-6 rounded-md w-full max-w-md`}
+                      } p-6 rounded-md w-full`}
                     >
                       <input
                         type="file"
@@ -315,16 +328,26 @@ export default function NewReportForm() {
                         htmlFor="file-input"
                         className="cursor-pointer text-gray-500 text-center"
                       >
-                        <span className="text-lg font-semibold">
-                          Drag and drop files here or click to select
-                        </span>
+                        <div className="flex flex-col items-center justify-center bg-gray-100 mx-auto rounded-full w-14 h-14 ">
+                          <UploadCloud />
+                        </div>
+                        <p className="text-lg font-semibold ">
+                          <span className="text-primaryLight font-semibold">
+                            Click to upload
+                          </span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-sm">
+                          SVG, PNG, JPG or GIF (max. 2MB)
+                        </p>
+
                         <p className="text-sm">
                           Maximum {5} files allowed. Supported types: images.
                         </p>
                       </label>
                     </div>
 
-                    <div className="mt-4">
+                    <div className="my-8">
                       <ul className="list-none space-y-2 flex gap-3">
                         {files.map((file, index) => (
                           <li
@@ -356,23 +379,17 @@ export default function NewReportForm() {
                 </div>
                 <div className="py-5 flex flex-col lg:flex-row gap-6 lg:absolute bottom-0 left-0 right-0 w-full px-6">
                   <Button className="w-full" variant="secondary" onClick={prev}>
-                    Cancel
+                    Go Back
                   </Button>
-                  {files.length > 0 && <Button className="w-full">Done</Button>}
+                  {files.length > 0 && (
+                    <Button className="w-full">Submit</Button>
+                  )}
                 </div>
               </FormContainer>
             </motion.div>
           )}
         </form>
       </Form>
-
-      <StepBottomNav
-        steps={steps}
-        currentStep={currentStep}
-        next={next}
-        prev={prev}
-        className="max-w-4xl mx-auto w-full"
-      />
     </section>
   );
 }

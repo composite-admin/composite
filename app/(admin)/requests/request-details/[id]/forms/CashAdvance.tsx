@@ -3,28 +3,25 @@ import {
   CustomFormSelect,
   CustomFormTextareaField,
 } from "@/components/shared/FormComponent";
-import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
-import { useGetStaffDetails, useProjectData } from "@/hooks/useSelectOptions";
-import useAuthStore, { userStore } from "@/store/auth/AuthStore";
+import { useProjectData } from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
-import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export enum RequestType {
   Material = "Material",
-  Labour = "Labour",
+  Labour = "labour",
   CashAdvanceProject = "Cash Advance Project",
   CashAdvanceOffice = "Cash Advance Office",
-  ToolsAndMachineBuy = "Tools and Machine Buy",
-  ToolsAndMachineRent = "Tools and Machine Rent",
-  ToolsAndMachineStore = "Tools and Machine Store",
+  ToolsAndMachineBuy = "Tools and Machinery Buy",
+  ToolsAndMachineRent = "Tools and Machinery Rent",
+  ToolsAndMachineStore = "Tools and Machinery Store",
 }
 
 export const createCashAdvanceOfficeSchema = z.object({
@@ -49,12 +46,8 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function CashAdvance() {
   const { formDetails, onClose } = useUpdateRequestStore();
   const { userId, username } = userStore();
-  const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
-  const router = useRouter();
   const { projectsData } = useProjectData();
-  const projectName = projectsData?.map((item: any) => item.project_name);
-  const { setFormType } = useStaffStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
   });
