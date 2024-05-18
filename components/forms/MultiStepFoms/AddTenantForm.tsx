@@ -101,13 +101,13 @@ export default function AddTenantForm() {
         flat_description: flats?.find(
           (item) => item.flat_code === values.flat_code
         )?.flat_desc,
-        // comment: projectsData?.find(
-        //   (item: any) => item.project_name === values.project_name
-        // )?.comment,
-        comment: "Testing Submission",
+        comment: "New Tenant added",
         status: projectsData?.find(
           (item: any) => item.project_name === values.project_name
         )?.status,
+        project_code: projectsData?.find(
+          (item: any) => item.project_name === values.project_name
+        )?.project_code,
         ...values,
         fees: fees,
       });

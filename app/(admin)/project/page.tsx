@@ -13,13 +13,6 @@ export default function ProjectPage() {
   const onOpen = useAddProjectModal((state) => state.onOpen);
   const { projects } = useGetAllProjectData();
 
-  // const projects = useProjectActionsStore<any>((state) => state.items);
-  // const getAllProjects = useProjectActionsStore<any>((state) => state.getAllProjects);
-
-  // useEffect(() => {
-  //   getAllProjects();
-  // }, [getAllProjects]);
-
   return (
     <>
       <PageHead
