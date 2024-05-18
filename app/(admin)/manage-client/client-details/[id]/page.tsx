@@ -20,6 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAddToProjectModal } from "@/store/modals/useCreateModal";
 import Link from "next/link";
 import { userStore } from "@/store/auth/AuthStore";
+import { useEffect } from "react";
 
 type Params = {
   params: {
@@ -28,7 +29,7 @@ type Params = {
 };
 
 export default function ClientDetailsPage({ params }: Params) {
-  const { setClientDetailsData, clientData } = useManageClientStore();
+  const { setClientDetailsData } = useManageClientStore();
   // const { userId } = userStore();
 
   const { details, isClientDetailsLoading } = useGetClientDetails(params.id!);
@@ -37,24 +38,30 @@ export default function ClientDetailsPage({ params }: Params) {
     setAddToProjectFormType("client");
     onOpen();
   };
-  const { data } = useQuery({
-    queryKey: ["get all clients", params.id],
-    queryFn: async () => {
-      try {
-        const response = await api.get<ApiResponse<IClientData>>(
-          `/client/${params.id}`
-        );
-        setClientDetailsData(response.data.data);
-        return response.data.data;
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
-      }
-    },
-  });
+
+  useEffect(() => {
+    if (details) {
+      setClientDetailsData(details);
+    }
+  }, [details, setClientDetailsData]);
+  // const { data } = useQuery({
+  //   queryKey: ["get all clients", params.id],
+  //   queryFn: async () => {
+  //     try {
+  //       const response = await api.get<ApiResponse<IClientData>>(
+  //         `/client/${params.id}`
+  //       );
+  //       setClientDetailsData(response.data.data);
+  //       return response.data.data;
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error) && error.response) {
+  //         throw new Error(error.response.data.message);
+  //       } else {
+  //         throw error;
+  //       }
+  //     }
+  //   },
+  // });
 
   const { ClientProjectDetails, isClientProjectLoading } =
     useGetClientProjectData(params.id);

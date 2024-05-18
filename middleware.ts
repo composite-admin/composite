@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
 }
 
 function redirectToDashboard(userType: string | null, request: NextRequest) {
-  if (userType === "admin") {
+  if (userType === "admin" || userType === "supervisor") {
     return NextResponse.redirect(new URL("/", request.url));
   } else if (userType === "client") {
     return NextResponse.redirect(new URL("/client/dashboard", request.url));
@@ -42,7 +42,7 @@ function handleRouteAccess(
   currentURL: string,
   request: NextRequest
 ) {
-  if (userType === "admin") {
+  if (userType === "admin" || userType === "supervisor") {
     return NextResponse.next();
   } else if (userType === "client") {
     if (currentURL.startsWith("/client/")) {

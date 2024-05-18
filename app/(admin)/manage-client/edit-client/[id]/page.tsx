@@ -1,8 +1,6 @@
 "use client";
-import { getStuffTyped, useGetClientDetails } from "@/hooks/useSelectOptions";
 import EditClientForm from "./EditClientForm";
-import { useQuery } from "@tanstack/react-query";
-import { IClientDetails } from "@/utils/types";
+import useManageClientStore from "@/store/manage-client/useManageClientStore";
 
 type Params = {
   params: {
@@ -11,10 +9,7 @@ type Params = {
 };
 
 export default function EditClientPage({ params }: Params) {
-  const { data } = useQuery({
-    queryKey: ["get client details", params.id],
-    queryFn: () => getStuffTyped<IClientDetails>(`/client/${params.id}`),
-    refetchOnMount: "always",
-  });
-  return <EditClientForm data={data} />;
+  const { clientDetailsData } = useManageClientStore();
+
+  return <EditClientForm data={clientDetailsData} />;
 }

@@ -18,9 +18,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
-import { useFlats, useProjectData } from "@/hooks/useSelectOptions";
+import {
+  useFlats,
+  useProjectData,
+  useTenantDetails,
+} from "@/hooks/useSelectOptions";
 import { useRouter } from "next/navigation";
 import { PlusCircle, Trash2 } from "lucide-react";
+import { getTenantDetails } from "@/utils/actions";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -47,7 +52,8 @@ const steps = [
 export default function EditTenantForm({ id }: { id: string }) {
   const router = useRouter();
   const [previousStep, setPreviousStep] = useState(0);
-
+  const { tenantDetails } = useTenantDetails(Number(id));
+  const details = tenantDetails && tenantDetails?.data;
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
   const { flats } = useFlats();
@@ -59,15 +65,15 @@ export default function EditTenantForm({ id }: { id: string }) {
   const form = useForm<addTenantType>({
     resolver: zodResolver(FormDataSchema),
     defaultValues: {
-      project_name: "",
-      flat_code: "",
-      title: "Mr.",
-      full_name: "",
-      phone_number: "",
-      email: "",
-      annual_rent: "",
-      rent_payment: "",
-      reminder: "",
+      project_name: details?.project_name,
+      flat_code: details?.flat_code,
+      full_name: details?.full_name,
+      phone_number: details?.phone_number,
+      email: details?.email,
+      annual_rent: details?.annual_rent,
+      rent_payment: details?.rent_payment,
+      reminder: details?.reminder,
+      title: details?.title as any,
     },
   });
 
@@ -177,6 +183,7 @@ export default function EditTenantForm({ id }: { id: string }) {
                     name="project_name"
                     items={projects || []}
                     labelText="Select Project"
+                    // placeholder={details?.project_name}
                   />
                   <CustomFormSelect
                     control={form.control}

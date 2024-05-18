@@ -12,6 +12,7 @@ import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
+import axios from "axios";
 
 export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
   const { toast } = useToast();
@@ -43,24 +44,26 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
           address: values.Address,
           activation_code: "testing123",
         });
+        if (response.data) {
+          toast({
+            title: "Client created successfully",
+            description: "Client created successfully",
+          });
+          router.push("/clients");
+        }
         return response.data;
-      } catch (error) {}
+      } catch (error) {
+        axios.isAxiosError(error) && error.response;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+        });
+      }
     },
   });
   function onSubmit(values: CreateAddClientType) {
-    mutate(values, {
-      onSuccess: () => {
-        toast({
-          title: "Job created successfully",
-        });
-      },
-      onError: () => {
-        toast({
-          title: "Something went wrong",
-          variant: "destructive",
-        });
-      },
-    });
+    mutate(values);
 
     // form.reset();
   }

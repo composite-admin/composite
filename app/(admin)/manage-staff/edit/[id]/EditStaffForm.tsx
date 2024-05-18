@@ -4,6 +4,7 @@ import {
   CustomFormSelect,
 } from "@/components/shared/FormComponent";
 import FormContainer from "@/components/shared/FormContainer";
+import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
@@ -142,153 +143,156 @@ export default function EditStaffForm({ data }: props) {
     mutate(data);
   };
   return (
-    <FormContainer
-      isColumn={false}
-      title="Edit Staff"
-      description="Edit staff details here"
-    >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="space-y-2  w-full md:w-1/2">
-              <h2 className="text-lg font-semibold">Photograph</h2>
-              <p>This image will be used to recognize the staff</p>
-              <p className="flex gap-2 text-primaryLight items-center border w-max rounded-lg border-primaryLight p-1 cursor-pointer">
-                <Upload className="size-4" />
-                Upload Photo
-              </p>
+    <>
+      <GoBack />
+      <FormContainer
+        isColumn={false}
+        title="Edit Staff"
+        description="Edit staff details here"
+      >
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="space-y-2  w-full md:w-1/2">
+                <h2 className="text-lg font-semibold">Photograph</h2>
+                <p>This image will be used to recognize the staff</p>
+                <p className="flex gap-2 text-primaryLight items-center border w-max rounded-lg border-primaryLight p-1 cursor-pointer">
+                  <Upload className="size-4" />
+                  Upload Photo
+                </p>
+              </div>
+              <div className=" w-full md:w-1/2">
+                <AvatarComponent height="h-28" width="w-28" />
+              </div>
             </div>
-            <div className=" w-full md:w-1/2">
-              <AvatarComponent height="h-28" width="w-28" />
+
+            <div className="grid md:grid-cols-2 gap-4 pt-10 ">
+              <CustomFormField
+                control={form.control}
+                placeholder="Enter first name"
+                label="First name"
+                name="firstname"
+              />
+              <CustomFormField
+                control={form.control}
+                placeholder="Enter last name"
+                label="Last name"
+                name="lastname"
+              />
+              <CustomFormField
+                control={form.control}
+                placeholder="Enter phone number"
+                label="Home phone"
+                name="home_phone"
+              />
+              <CustomFormField
+                control={form.control}
+                placeholder="Enter email"
+                label="Email"
+                type="email"
+                name="email"
+              />
+
+              <CustomFormSelect
+                name="stateOfOrigin"
+                items={nigerianStates}
+                placeholder={data?.stateOfOrigin}
+                control={form.control}
+                labelText="State of Origin"
+              />
+              <CustomFormSelect
+                name="sex"
+                items={["Male", "Female"]}
+                placeholder="Select gender"
+                control={form.control}
+              />
+
+              <CustomFormField
+                control={form.control}
+                placeholder="Enter middle name"
+                label="Middle name"
+                name="middlename"
+              />
+              <CustomFormSelect
+                name="role"
+                items={selectOptionForRoles || []}
+                placeholder="Select Staff Role"
+                control={form.control}
+                labelText="Role"
+              />
+
+              <CustomFormField
+                control={form.control}
+                name="cell_phone"
+                placeholder="Enter cell phone number"
+                label="Cell phone"
+              />
+
+              <CustomFormField
+                control={form.control}
+                name="address"
+                placeholder="Enter address"
+                label="Address"
+              />
+
+              <CustomFormField
+                control={form.control}
+                name="lga"
+                placeholder="Enter lga"
+                label="LGA"
+              />
+              <CustomFormSelect
+                name="marital_status"
+                items={["Married", "Single"]}
+                placeholder="select marital status"
+                control={form.control}
+              />
+              <CustomFormField
+                name="nextOfKin"
+                control={form.control}
+                placeholder="Enter full name"
+                label="Full name of next of kin"
+              />
+              <CustomFormSelect
+                name="relationship"
+                items={["Father", "Mother", "Brother", "Sister", "Relative"]}
+                placeholder="select relationship"
+                control={form.control}
+                labelText="Relationship of next of kin"
+              />
+              <CustomFormField
+                name="phoneOfNOK"
+                control={form.control}
+                placeholder="Enter home phone number"
+                label="Home phone of next of kin"
+              />
+              <CustomFormField
+                name="emailOfNOK"
+                control={form.control}
+                placeholder="Enter email"
+                label="Email of next of kin"
+              />
+              <CustomFormField
+                name="addressOfNOK"
+                control={form.control}
+                placeholder="Enter address"
+                label="Address of next of kin"
+              />
+              <CustomFormField
+                name="cell_phone"
+                control={form.control}
+                placeholder="Enter cell phone number"
+                label="Cell phone of next of kin"
+              />
             </div>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-4 pt-10 ">
-            <CustomFormField
-              control={form.control}
-              placeholder="Enter first name"
-              label="First name"
-              name="firstname"
-            />
-            <CustomFormField
-              control={form.control}
-              placeholder="Enter last name"
-              label="Last name"
-              name="lastname"
-            />
-            <CustomFormField
-              control={form.control}
-              placeholder="Enter phone number"
-              label="Home phone"
-              name="home_phone"
-            />
-            <CustomFormField
-              control={form.control}
-              placeholder="Enter email"
-              label="Email"
-              type="email"
-              name="email"
-            />
-
-            <CustomFormSelect
-              name="stateOfOrigin"
-              items={nigerianStates}
-              placeholder="select state"
-              control={form.control}
-              labelText="State of Origin"
-            />
-            <CustomFormSelect
-              name="sex"
-              items={["Male", "Female"]}
-              placeholder="Select gender"
-              control={form.control}
-            />
-
-            <CustomFormField
-              control={form.control}
-              placeholder="Enter middle name"
-              label="Middle name"
-              name="middlename"
-            />
-            <CustomFormSelect
-              name="role"
-              items={selectOptionForRoles || []}
-              placeholder="Select Staff Role"
-              control={form.control}
-              labelText="Role"
-            />
-
-            <CustomFormField
-              control={form.control}
-              name="cell_phone"
-              placeholder="Enter cell phone number"
-              label="Cell phone"
-            />
-
-            <CustomFormField
-              control={form.control}
-              name="address"
-              placeholder="Enter address"
-              label="Address"
-            />
-
-            <CustomFormField
-              control={form.control}
-              name="lga"
-              placeholder="Enter lga"
-              label="LGA"
-            />
-            <CustomFormSelect
-              name="marital_status"
-              items={["Married", "Single"]}
-              placeholder="select marital status"
-              control={form.control}
-            />
-            <CustomFormField
-              name="nextOfKin"
-              control={form.control}
-              placeholder="Enter full name"
-              label="Full name of next of kin"
-            />
-            <CustomFormSelect
-              name="relationship"
-              items={["Father", "Mother", "Brother", "Sister", "Relative"]}
-              placeholder="select relationship"
-              control={form.control}
-              labelText="Relationship of next of kin"
-            />
-            <CustomFormField
-              name="phoneOfNOK"
-              control={form.control}
-              placeholder="Enter home phone number"
-              label="Home phone of next of kin"
-            />
-            <CustomFormField
-              name="emailOfNOK"
-              control={form.control}
-              placeholder="Enter email"
-              label="Email of next of kin"
-            />
-            <CustomFormField
-              name="addressOfNOK"
-              control={form.control}
-              placeholder="Enter address"
-              label="Address of next of kin"
-            />
-            <CustomFormField
-              name="cell_phone"
-              control={form.control}
-              placeholder="Enter cell phone number"
-              label="Cell phone of next of kin"
-            />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4 pt-8 ">
-            <Button variant="secondary">Cancel</Button>
-            <Button type="submit">Submit</Button>
-          </div>
-        </form>
-      </Form>
-    </FormContainer>
+            <div className="grid md:grid-cols-2 gap-4 pt-8 ">
+              <Button variant="secondary">Cancel</Button>
+              <Button type="submit">Submit</Button>
+            </div>
+          </form>
+        </Form>
+      </FormContainer>
+    </>
   );
 }

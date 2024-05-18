@@ -291,7 +291,7 @@ export interface ITenantDetails {
     reminder: string;
     createdAt: string;
     updatedAt: string;
-    fees: string;
+    fees: string[];
   };
   message: string;
 }

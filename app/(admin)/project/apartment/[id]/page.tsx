@@ -11,7 +11,7 @@ import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal"
 
 export interface IProjectFlatData {
   flat_id: number;
-  flate_code: string;
+  flat_code: string;
   flat_desc: string;
 }
 
@@ -24,12 +24,12 @@ const ApartmentPage = ({ params }: IProps) => {
   const { projectCode } = useProjectDetailsPageFormModal();
 
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all materials by project code", projectCode],
+    queryKey: ["get all materials by project code", code],
     queryFn: async () =>
       getStuffTyped<IProjectFlatData[]>(
-        `/project-flats/project-code/code?project_code=${projectCode}`
+        `/project-flats/project-code/code?project_code=${code}`
       ),
-    refetchOnMount: "always",
+    enabled: !!code,
   });
   return (
     <>

@@ -10,15 +10,15 @@ import { IProjectFlatData } from "./page";
 
 export const columns: ColumnDef<IProjectFlatData>[] = [
   {
-    accessorKey: "fiatCode",
+    accessorKey: "flat_code",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Fiat Code" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 flex items-center">
-            JHSDB7EIEWE
+          <span className="font-semibold text-primaryLight-500 flex items-cente uppercase">
+            {row.original["flat_code"]}
           </span>
         </div>
       );
@@ -26,23 +26,7 @@ export const columns: ColumnDef<IProjectFlatData>[] = [
   },
 
   {
-    accessorKey: "projectName",
-    header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Project Name" withSort={false} />
-      );
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="flex gap-2 items-center">
-          <span className="font-semibold">Alison Ogaga</span>
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "fiatDescription",
+    accessorKey: "flat_desc",
     header: ({ column }) => {
       return (
         <ColumnHeader
@@ -55,7 +39,7 @@ export const columns: ColumnDef<IProjectFlatData>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">Project Manager</span>
+          <span className="font-semibold "> {row.original["flat_desc"]}</span>
         </div>
       );
     },
@@ -69,7 +53,7 @@ export const columns: ColumnDef<IProjectFlatData>[] = [
     cell: ({ row }) => {
       return (
         <Link
-          href={"/"}
+          href={"/facility/all-flats"}
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
           <ViewUserPageIcon />

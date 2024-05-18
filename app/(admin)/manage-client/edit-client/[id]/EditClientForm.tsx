@@ -19,9 +19,10 @@ import {
 } from "@/components/shared/FormComponent";
 import { useGetClientDetails } from "@/hooks/useSelectOptions";
 import { useEffect } from "react";
+import useManageClientStore from "@/store/manage-client/useManageClientStore";
 
 export default function EditClientForm(data: any) {
-  console.log(data);
+  console.log(data, "data");
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm<CreateAddClientType>({
@@ -42,7 +43,7 @@ export default function EditClientForm(data: any) {
     mutationKey: ["Edit Client", data?.data?.id],
     mutationFn: async (values: CreateAddClientType) => {
       try {
-        const response = await api.put(`/client/${data?.data?.client_id}`, {
+        const response = await api.put(`/client/${data?.data?.userid}`, {
           first_name: values["First name"],
           last_name: values["Last name"],
           email: values.Email,

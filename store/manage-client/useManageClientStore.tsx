@@ -1,18 +1,18 @@
 import { create } from "zustand";
-import { IClientData } from "@/utils/types";
+import { IClientData, IClientDetails } from "@/utils/types";
 
 interface ManageClientStore {
   clientData: IClientData[] | null;
   tableData: any;
-  clientDetailsData: IClientData | null;
-  setClientDetailsData: (clientDetailsData: IClientData | null) => void;
+  clientDetailsData: IClientDetails | null;
+  setClientDetailsData: (clientDetailsData: IClientDetails | null) => void;
   setClientData: (clientData: IClientData[]) => void;
   setTableData: (tableData: IClientData[]) => void;
 }
 
 const useManageClientStore = create<ManageClientStore>((set) => ({
   clientDetailsData: null,
-  setClientDetailsData: (clientDetailsData: IClientData | null) =>
+  setClientDetailsData: (clientDetailsData: IClientDetails | null) =>
     set({ clientDetailsData }),
   tableData: null,
   clientData: null,

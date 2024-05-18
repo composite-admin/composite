@@ -13,7 +13,7 @@ import axios from "axios";
 
 export default function TenantPage({ params }: { params: { id: string } }) {
   const { data, isPending, error } = useQuery({
-    queryKey: ["get tenant details"],
+    queryKey: ["get tenant details", params.id],
     queryFn: async () => {
       try {
         const response = await api.get<ITenantDetails>(`/tenants/${params.id}`);
