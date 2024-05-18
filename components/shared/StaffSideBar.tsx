@@ -15,6 +15,11 @@ export const StaffSidebarLinks: NavLinkType[] = [
     icon: <DashboardIcon />,
   },
   {
+    href: "/staff/cash-advance",
+    label: "Cash Advance",
+    icon: <ReportsIcon />,
+  },
+  {
     href: "/staff/requests",
     label: "Requests",
     icon: <HashIcon />,

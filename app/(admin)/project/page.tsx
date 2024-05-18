@@ -1,27 +1,36 @@
 "use client";
-import { useEffect } from "react";
 import { DataTable } from "@/components/shared/DataTable";
 import PageHead from "@/components/ui/pageHead";
 import { columns } from "./columns";
-import { data } from "./data";
 import { useAddProjectModal } from "@/store/inventory/UseInventoryModal";
-import { useRouter } from "next/navigation";
-import useProjectActionsStore from "@/store/actions/projectActions"
 import { useGetAllProjectData } from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
+import { IProjectData } from "@/utils/types";
 
 export default function ProjectPage() {
   const onOpen = useAddProjectModal((state) => state.onOpen);
-  const { projects } = useGetAllProjectData();
+  const { username } = userStore();
+  const { projects, isLoading } = useGetAllProjectData();
+
+  const filterProjectBySupervisor = projects?.filter(
+    (project: IProjectData) => project.project_supervisor.trim() === username
+  );
 
   return (
     <>
       <PageHead
-        headText={`Projects (${projects ? projects.length : 0})`}
+        headText={`Projects (${
+          projects ? filterProjectBySupervisor?.length : 0
+        })`}
         subText="View all your Items here"
         buttonText="Add Project"
         buttonAction={onOpen}
       />
-      <DataTable columns={columns} data={projects ? projects : []} />
+      <DataTable
+        columns={columns}
+        data={projects ? filterProjectBySupervisor! : []}
+        isLoading={isLoading}
+      />
     </>
   );
 }

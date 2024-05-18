@@ -17,7 +17,7 @@ export const projectColumns: ColumnDef<IClientProjectData>[] = [
       const { project_code, project_name } = row.original;
       return (
         <div className="">
-          <div className="flex flex-col">
+          <div className="flex flex-col uppercase">
             <span className="capitalize font-semibold">{project_name}</span>
             <p>{project_code}</p>
           </div>
@@ -28,13 +28,17 @@ export const projectColumns: ColumnDef<IClientProjectData>[] = [
   {
     accessorKey: "project_duration",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Email Address" />;
+      return <ColumnHeader column={column} title="Duration" />;
+    },
+    cell: ({ row }) => {
+      const { project_duration } = row.original;
+      return <span>{project_duration} Days</span>;
     },
   },
   {
     accessorKey: "start_date",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Contact Phone" />;
+      return <ColumnHeader column={column} title="Start Date" />;
     },
     cell: ({ row }) => {
       const { start_date } = row.original;
@@ -51,23 +55,6 @@ export const projectColumns: ColumnDef<IClientProjectData>[] = [
       const { createdAt } = row.original;
       const formattedDate = formatDate(createdAt);
       return <span>{formattedDate}</span>;
-    },
-  },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      const { id } = row.original;
-      return (
-        <Link
-          href={`manage-client/client-details/${id}`}
-          className="text-primaryLight-500 underline flex items-center font-medium"
-        >
-          View
-        </Link>
-      );
     },
   },
 ];

@@ -2,7 +2,6 @@
 
 import { CheckCircleIcon, ClockIcon, XCircleIcon } from "lucide-react";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
-import { columns } from "./columns";
 import { DataTable } from "@/components/shared/DataTable";
 import SelectTableTypeBadge from "@/components/shared/SelectTableTypeBadge";
 import { DashboardIcon } from "@/components/icons";
@@ -14,17 +13,19 @@ import { ApiResponse, ICashAdvanceData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
-import { pendingAndApprovedColumns } from "./pendingAndApprovedCols";
+import { userStore } from "@/store/auth/AuthStore";
+import { columns } from "./columns";
 
-export default function CashAdvancePage() {
+export default function StaffCashAdvanceComponent() {
   const { setTableType, cashAdvanceTableState } = cashAdvanceTablesStore();
+  const { userId } = userStore();
 
   const { data } = useQuery({
-    queryKey: ["get cash advance"],
+    queryKey: ["get cash advance", userId],
     queryFn: async () => {
       try {
         const response = await api.get<ApiResponse<ICashAdvanceData[]>>(
-          "/cash-advances"
+          `/cash-advances/staff/${userId}`
         );
 
         return response.data.data;
@@ -78,12 +79,7 @@ export default function CashAdvancePage() {
             ? approvedCashAdvance ?? []
             : data ?? []
         }
-        columns={
-          cashAdvanceTableState === "pending" ||
-          cashAdvanceTableState === "approved"
-            ? pendingAndApprovedColumns
-            : columns
-        }
+        columns={columns}
       />
     </div>
   );
@@ -115,21 +111,6 @@ const RequestStatusBadges = ({
         data?.filter(
           (decision) => decision.action_type === "cash retirement complete"
         ).length ?? 0,
-    },
-    {
-      icon: <CheckCircleIcon />,
-      title: "Approved IOU/Refund",
-      status: "approved",
-      notification:
-        data?.filter((decision) => decision.decision === "Approved").length ??
-        0,
-    },
-    {
-      icon: <XCircleIcon />,
-      title: "Pending IOU/Refund",
-      status: "pending",
-      notification:
-        data?.filter((decision) => decision.decision === "Pending").length ?? 0,
     },
   ];
 

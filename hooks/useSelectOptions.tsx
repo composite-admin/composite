@@ -255,11 +255,11 @@ export const getStuffTyped = async <T,>(args: string): Promise<T> => {
 };
 
 export const useGetAllProjectData = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["get all projects"],
     queryFn: () => getStuffTyped<IProjectData[]>("/projects"),
   });
-  return { projects: data };
+  return { projects: data, isLoading };
 };
 
 export const useGetClientProjectData = (id: string) => {
