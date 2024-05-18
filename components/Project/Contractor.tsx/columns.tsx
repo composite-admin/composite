@@ -13,12 +13,6 @@ import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
 export const columns: ColumnDef<IContractorProjectData>[] = [
   {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="ID" />;
-    },
-  },
-  {
     accessorKey: "contractor_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Contractor Name" />;
@@ -42,7 +36,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
     cell: ({ row }) => {
       const amount = row.original.approved_amount;
       const formattedAmount = formatCurrency(amount);
-      return <span className="font-semibold ">N,100,000</span>;
+      return <span className="font-semibold ">{formattedAmount}</span>;
     },
   },
 
@@ -75,6 +69,15 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
     },
   },
   {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return <p className="capitalize">{row.original.comment}</p>;
+    },
+  },
+  {
     accessorKey: "createdAt",
     header: ({ column }) => {
       return (
@@ -91,22 +94,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
       );
     },
   },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-            <HiPencilAlt />
-            Edit{" "}
-          </span>
-        </div>
-      );
-    },
-  },
+
   {
     accessorKey: "id",
     header: ({ column }) => {

@@ -35,7 +35,6 @@ type AddStartUpCostType = z.infer<typeof AddStartUpCostSchema>;
 export default function AddStartUpForm() {
   const { projectCode, projectName, projectId } = useProjectDetails();
   const { onClose } = useProjectDetailsPageFormModal();
-  console.log(projectName, projectCode);
   const { toast } = useToast();
 
   const form = useForm<AddStartUpCostType>({
@@ -105,21 +104,22 @@ export default function AddStartUpForm() {
           placeholder="Description"
         />
 
-        <CustomFormSelect
-          control={form.control}
-          name="startup_type"
-          labelText="Startup Type"
-          items={selectOptionsForStartUpCostType || []}
-          placeholder="Startup Type"
-        />
+        <div className="grid grid-cols-2 gap-5">
+          <CustomFormSelect
+            control={form.control}
+            name="startup_type"
+            labelText="Startup Type"
+            items={selectOptionsForStartUpCostType || []}
+            placeholder="Startup Type"
+          />
 
-        <CustomFormField
-          control={form.control}
-          name="startup_cost"
-          label="Startup Cost"
-          placeholder="Startup Cost"
-        />
-
+          <CustomFormField
+            control={form.control}
+            name="startup_cost"
+            label="Startup Cost"
+            placeholder="Startup Cost"
+          />
+        </div>
         <CustomFormTextareaField
           control={form.control}
           name="comment"

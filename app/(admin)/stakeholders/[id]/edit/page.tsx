@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import useStakeholderActionsStore from "@/store/actions/stakeholdersActions"
 import { getStakeholderById } from '@/api/stakeholdersRequests';
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
+import { useMutation } from "@tanstack/react-query";
 
 const EditSingleStakeholder = () => {
   const router = useRouter();
@@ -25,12 +26,13 @@ const EditSingleStakeholder = () => {
     formState: { errors },
   } = useForm();
 
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationKey: ["update stakeholder", params.id],
+    mutationFn: updateStakeholder(Number(params.id)),
+  });
   const onSubmit = (data: any) => {
-    delete data.id;
-    onOpen();
-    updateStakeholder(Number(params.id), data);
-    router.back();
-    return;
+    // delete data.id;
+    mutate(data);
   };
 
   useEffect(() => {
@@ -195,16 +197,10 @@ const EditSingleStakeholder = () => {
               <textarea {...register("comment", { required: true })} />
             </div>
 
-            <button
-              className="bg-[#EBEBEB] text-textColor rounded-md"
-              onClick={() => router.back()}
-            >
+            <button className="bg-[#EBEBEB] text-textColor rounded-md">
               Cancel
             </button>
-            <button
-              className="bg-primaryLight text-white  p-3 rounded-md"
-              onClick={onOpen}
-            >
+            <button className="bg-primaryLight text-white  p-3 rounded-md">
               Submit
             </button>
           </div>

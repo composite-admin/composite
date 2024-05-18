@@ -13,15 +13,6 @@ import { formatDate } from "@/utils/formatDate";
 
 export const columns: ColumnDef<IStakeholderProjectData>[] = [
   {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="ID" />;
-    },
-    cell: ({ row }) => {
-      return <p className="text-textColor px-0 font-normal">1</p>;
-    },
-  },
-  {
     accessorKey: "stakeholder_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Stakeholder Name" />;
@@ -68,6 +59,15 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     },
   },
   {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return <p className="capitalize">{row.original.comment}</p>;
+    },
+  },
+  {
     accessorKey: "createdAt",
     header: ({ column }) => {
       return (
@@ -86,22 +86,7 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
       );
     },
   },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-            <HiPencilAlt />
-            Edit{" "}
-          </span>
-        </div>
-      );
-    },
-  },
+
   {
     accessorKey: "id",
     header: ({ column }) => {

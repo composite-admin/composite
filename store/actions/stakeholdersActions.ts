@@ -57,12 +57,17 @@ const useStore = create<StakeholderStore>((set) => ({
     }
   },
 
-  updateStakeholder: async (id: number, data: any) => {
+  updateStakeholder: async (id: number, data?: any) => {
     try {
       const updatedItem = await updateStakeholder(id, data);
       set((state: any) => ({
-        items: state.items.map((item: any) => (item.id === id ? updatedItem : item)),
-        selectedItem: updatedItem.id === state.selectedItem?.id ? updatedItem : state.selectedItem,
+        items: state.items.map((item: any) =>
+          item.id === id ? updatedItem : item
+        ),
+        selectedItem:
+          updatedItem.id === state.selectedItem?.id
+            ? updatedItem
+            : state.selectedItem,
       }));
     } catch (error) {
       set((state: any) => ({ error: "" }));
@@ -74,7 +79,10 @@ const useStore = create<StakeholderStore>((set) => ({
       await deleteStakeholder(id);
       set((state: any) => ({
         items: state.items.filter((item: any) => item.id !== id),
-        selectedItem: state.selectedItem && state.selectedItem.id === id ? null : state.selectedItem,
+        selectedItem:
+          state.selectedItem && state.selectedItem.id === id
+            ? null
+            : state.selectedItem,
       }));
     } catch (error) {
       set((state: any) => ({ error: "" }));

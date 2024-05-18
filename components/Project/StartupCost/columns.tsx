@@ -28,6 +28,15 @@ export const columns: ColumnDef<IStartupCostProjectData>[] = [
       return <ColumnHeader column={column} title="Type" withSort={false} />;
     },
   },
+  {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return <p className="capitalize">{row.original.comment}</p>;
+    },
+  },
 
   {
     accessorKey: "startup_cost",

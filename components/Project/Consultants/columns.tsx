@@ -51,32 +51,7 @@ export const columns: ColumnDef<IConsultantProjectData>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Amount" withSort={false} />;
-  //   },
-  //   cell: ({ row }) => {
-  //     const amount = row.original.approved_amount;
-  //     const formattedAmount = formatCurrency(amount);
-  //     return <span className="font-semibold ">N,100,000</span>;
-  //   },
-  // },
 
-  // {
-  //   accessorKey: "created_by",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Added by" withSort={false} />;
-  //   },
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex items-center gap-2">
-  //         <AvatarComponent />
-  //         <span className="w-16">{row.original.created_by}</span>
-  //       </div>
-  //     );
-  //   },
-  // },
   {
     accessorKey: "service",
     header: ({ column }) => {
@@ -91,22 +66,7 @@ export const columns: ColumnDef<IConsultantProjectData>[] = [
       );
     },
   },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-            <HiPencilAlt />
-            Edit{" "}
-          </span>
-        </div>
-      );
-    },
-  },
+
   {
     accessorKey: "id",
     header: ({ column }) => {

@@ -5,6 +5,7 @@ import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
 import { formatDate } from "@/utils/formatDate";
+import { IProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
@@ -21,9 +22,9 @@ export type ReportType = {
   materials: string;
 };
 
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IProjectData>[] = [
   {
-    accessorKey: "projectName",
+    accessorKey: "project_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Project Name" />;
     },
@@ -44,7 +45,7 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "startDate",
+    accessorKey: "start_date",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Start Date" />;
     },

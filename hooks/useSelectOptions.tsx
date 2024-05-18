@@ -176,7 +176,7 @@ export const useGetAllConsultants = () => {
 };
 
 export const useGetAllSuppliers = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["get all suppliers"],
     queryFn: () => getStuffTyped<ISupplierData[]>("/suppliers"),
   });
@@ -185,7 +185,7 @@ export const useGetAllSuppliers = () => {
     ?.filter((value, index, self) => {
       return self.indexOf(value) === index;
     });
-  return { suppliers: data, supplierList };
+  return { suppliers: data, supplierList, isLoading };
 };
 
 export const useGetInventoryData = (id: string) => {

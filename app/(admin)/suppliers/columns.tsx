@@ -3,11 +3,12 @@
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatDate, twelveHourTime } from "@/utils/formatDate";
+import { ISupplierData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiPencilAlt } from "react-icons/hi";
 
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<ISupplierData>[] = [
   // {
   //   accessorKey: "id",
   //   header: ({ column }) => {
@@ -24,7 +25,7 @@ export const columns: ColumnDef<any>[] = [
   //   },
   // },
   {
-    accessorKey: "supplier",
+    accessorKey: "supplier_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Supplier" />;
     },
@@ -48,61 +49,73 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "address",
+    accessorKey: "supplier_address",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Address" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["supplier_address"]}</span>
+          <span className="font-semibold ">
+            {row.original["supplier_address"]}
+          </span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "officePhone",
+    accessorKey: "supplier_ofc_phone",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Office Phone" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Office Phone" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["supplier_ofc_phone"]}</span>
+          <span className="font-semibold ">
+            {row.original["supplier_ofc_phone"]}
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "contactPerson",
+    accessorKey: "contact_person",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Contact Person" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Contact Person" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <span className="font-semibold">{row.original["contact_person"]}</span>
+          <span className="font-semibold">
+            {row.original["contact_person"]}
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "contactPhone",
+    accessorKey: "contact_mobile",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Contact Phone" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold text-primaryLight-500 text-center">{row.original["contact_mobile"]}</span>
+          <span className="font-semibold text-primaryLight-500 text-center">
+            {row.original["contact_mobile"]}
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "addedOn",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Added On" />;
     },
@@ -117,7 +130,7 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "action",
+    accessorKey: "id",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Action" />;
     },
