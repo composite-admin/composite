@@ -21,8 +21,8 @@ export default function ProjectPage() {
       <PageHead
         headText={`Projects (${
           userType !== "admin"
-            ? filterProjectBySupervisor?.length
-            : projects?.length
+            ? filterProjectBySupervisor?.length || 0
+            : projects?.length || 0
         })`}
         subText="View all your Items here"
         buttonText="Add Project"
