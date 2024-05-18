@@ -85,7 +85,7 @@ const AddProjectModal = () => {
           )?.userid as string,
           ...data,
         });
-        if (response.data) {
+        if (response.status === 201 || response.status === 200) {
           try {
             await api.post("/project-teams", {
               project_name: response.data.data.project_name,
@@ -98,10 +98,17 @@ const AddProjectModal = () => {
                   data.project_supervisor
               )?.userid,
             });
-          } catch (error) {}
-
-          router.push("/project");
-          window.location.reload();
+            if (response.status === 201 || response.status === 200) {
+              toast({
+                title: "Project created successfully",
+                variant: "success",
+              });
+              router.push("/project");
+              window.location.reload();
+            }
+          } catch (error) {
+            console.log(error);
+          }
         }
         return response.data;
       } catch (error) {
@@ -111,12 +118,6 @@ const AddProjectModal = () => {
           throw error;
         }
       }
-    },
-    onSuccess: () => {
-      toast({
-        title: "Project created successfully",
-        variant: "success",
-      });
     },
     onError: (error: Error) => {
       toast({
