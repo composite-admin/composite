@@ -9,7 +9,7 @@ import { IProjectData } from "@/utils/types";
 
 export default function ProjectPage() {
   const onOpen = useAddProjectModal((state) => state.onOpen);
-  const { username } = userStore();
+  const { username, userType } = userStore();
   const { projects, isLoading } = useGetAllProjectData();
 
   const filterProjectBySupervisor = projects?.filter(
@@ -20,7 +20,9 @@ export default function ProjectPage() {
     <>
       <PageHead
         headText={`Projects (${
-          projects ? filterProjectBySupervisor?.length : 0
+          userType !== "admin"
+            ? filterProjectBySupervisor?.length
+            : projects?.length
         })`}
         subText="View all your Items here"
         buttonText="Add Project"
@@ -28,7 +30,11 @@ export default function ProjectPage() {
       />
       <DataTable
         columns={columns}
-        data={projects ? filterProjectBySupervisor! : []}
+        data={
+          userType !== "admin"
+            ? filterProjectBySupervisor || []
+            : projects || []
+        }
         isLoading={isLoading}
       />
     </>
