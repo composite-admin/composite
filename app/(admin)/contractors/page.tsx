@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { DataTable } from "@/components/shared/DataTable";
 import PageHead from "@/components/ui/pageHead";
 import { columns } from "./columns";
-import { data } from "./pending-project/data";
 import { useRouter } from "next/navigation";
 import useContractorsActionsStore from "@/store/actions/contractorsActions"
 

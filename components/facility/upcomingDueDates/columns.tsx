@@ -97,23 +97,24 @@ export const columns: ColumnDef<IDeuDates>[] = [
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "due_date",
     header: ({ column }) => {
       return <ColumnHeader column={column} title={"Status"} withSort={false} />;
     },
     cell: ({ row }) => {
-      const { status } = row.original;
+      const { due_date } = row.original;
+      const comparedDates = new Date() === new Date(due_date);
 
       return (
         <div className="flex gap-2 items-center">
           <span
             className={`capitalize p-2 w-max font-semibold rounded-3xl text-xs ${
-              status === "Active"
+              !comparedDates
                 ? "text-green-500 bg-[#E7F6EC]"
-                : "text-[#865503] bg-[#FEF6E7]"
+                : "text-[#861d03] bg-red-500/20"
             }`}
           >
-            {status}
+            {!comparedDates ? "Active" : "Due"}
           </span>
         </div>
       );

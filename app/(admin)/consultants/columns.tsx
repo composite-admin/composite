@@ -8,12 +8,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
 export const columns: ColumnDef<IConsultantData>[] = [
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="ID" />;
-    },
-  },
+
   {
     accessorKey: "name",
     header: ({ column }) => {

@@ -12,8 +12,6 @@ import { useGetAllProjectData } from "@/hooks/useSelectOptions";
 export default function ProjectPage() {
   const onOpen = useAddProjectModal((state) => state.onOpen);
   const { projects } = useGetAllProjectData();
-  console.log(projects);
-  const router = useRouter();
 
   // const projects = useProjectActionsStore<any>((state) => state.items);
   // const getAllProjects = useProjectActionsStore<any>((state) => state.getAllProjects);

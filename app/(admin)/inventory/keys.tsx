@@ -25,10 +25,7 @@ const keys: Keys[] = [
     key: "unit_price",
     text: "Unit Price",
   },
-  {
-    key: "quantity",
-    text: "Quantity",
-  },
+
   {
     key: "total_price",
     text: "Total Price",
@@ -38,8 +35,8 @@ const keys: Keys[] = [
     text: "Total Quantity",
   },
   {
-    key: "remaining_quantity",
-    text: "Remaining Quantity",
+    key: "quantity",
+    text: "Remaining uantity",
   },
   {
     key: "comment",

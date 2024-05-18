@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
 import {
+  useGetAllInventoryItems,
   useGetAllInventoryTypes,
   useGetStaffDetails,
   useProjectData,
@@ -23,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const ToolsAndMachineStoreSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -37,11 +39,13 @@ export const ToolsAndMachineStoreSchema = z.object({
 type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 
 export default function ToolsAndMachineStore() {
-  const { projectsData } = useProjectData();
   const { formDetails, onClose } = useUpdateRequestStore();
+  const { inventory } = useGetAllInventoryItems();
+  const inventoryItemID = inventory?.find(
+    (item) => item.name === formDetails?.tool_machinery_type
+  )?.inventory_id;
   const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
-  const router = useRouter();
   const { toast } = useToast();
   const form = useForm<ToolsAndMachineStoreType>({
     resolver: zodResolver(ToolsAndMachineStoreSchema),
@@ -60,13 +64,27 @@ export default function ToolsAndMachineStore() {
         approved_quantity: Number(data.approved_quantity),
       });
       if (res.status === 201 || res.status === 200) {
-        toast({
-          title: "Request Approved",
-          variant: "success",
-        });
-        form.reset();
-        onClose();
-        window.location.reload();
+        try {
+          await api.put(`/inventory/${inventoryItemID}`, {
+            quantity:
+              Number(
+                inventory?.find(
+                  (item) => item.name === formDetails?.tool_machinery_type
+                )?.quantity
+              ) - Number(data.approved_quantity),
+          });
+          if (res.status === 200) {
+            toast({
+              title: "Request Approved",
+              variant: "success",
+            });
+            form.reset();
+            onClose();
+            window.location.reload();
+          }
+        } catch (error) {
+          console.log("error");
+        }
       }
     } catch (error) {
       toast({
@@ -133,7 +151,9 @@ export default function ToolsAndMachineStore() {
           <Button variant="secondary" className="w-full">
             Cancel
           </Button>
-          <Button className="w-full">Approve Request</Button>
+          <Button className="w-full" disabled={inventory?.length === 0}>
+            Approve Request
+          </Button>
         </div>
       </form>
     </Form>

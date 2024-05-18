@@ -20,7 +20,7 @@ export type ReportType = {
 
 export const columns: ColumnDef<ReportType | any>[] = [
   {
-    accessorKey: "worker",
+    accessorKey: "worker_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Worker" withSort={false} />;
     },
@@ -33,7 +33,9 @@ export const columns: ColumnDef<ReportType | any>[] = [
               <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
                 {row.original["worker_name"]}
               </span>
-              <span className="text-xs font-semibold text-gray-500">{row.original["worker_code"]}</span>
+              <span className="text-xs font-semibold text-gray-500">
+                {row.original["worker_code"]}
+              </span>
             </div>
           </div>
         </Link>
@@ -41,36 +43,42 @@ export const columns: ColumnDef<ReportType | any>[] = [
     },
   },
   {
-    accessorKey: "workerCompany",
+    accessorKey: "worker_company",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Company" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_company"]}</span>
+          <span className="font-semibold ">
+            {row.original["worker_company"]}
+          </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "workerAddress",
+    accessorKey: "worker_address",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Address" withSort={false} />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_address"]}</span>
+          <span className="font-semibold ">
+            {row.original["worker_address"]}
+          </span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "emailAddress",
+    accessorKey: "worker_email",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Email Address" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Email Address" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -81,14 +89,18 @@ export const columns: ColumnDef<ReportType | any>[] = [
     },
   },
   {
-    accessorKey: "officePhone",
+    accessorKey: "worker_ofc_phone",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Office Phone" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Office Phone" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["worker_ofc_phone"]}</span>
+          <span className="font-semibold ">
+            {row.original["worker_ofc_phone"]}
+          </span>
         </div>
       );
     },

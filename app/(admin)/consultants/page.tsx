@@ -11,6 +11,7 @@ export default function ConsultantsPage() {
   const { data, error, isPending } = useQuery({
     queryKey: ["get all consultants"],
     queryFn: getAllConsultantData,
+    refetchOnMount: "always",
   });
   return (
     <div className="space-y-8">

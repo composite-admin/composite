@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import keys from '../keys';
 import useFetchEachInventoryData from '@/mutations/EachInventoryMutation';
-import { useGetEachinventory } from '@/store/inventory/InventoryStore';
-import useUpdateEachInventoryData from '@/mutations/UpdateInventoryMutation';
+import { useGetEachinventory } from "@/store/inventory/InventoryStore";
 
 const Page = (props:any) => {
   const router = useRouter();
@@ -28,7 +27,6 @@ const Page = (props:any) => {
     setData(singleInventoryData);
   }, [singleInventoryData]);
 
-  console.log(data);
   
 
   return (

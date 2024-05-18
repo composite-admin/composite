@@ -21,7 +21,7 @@ export const columns: ColumnDef<IRequestData>[] = [
           <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
             {row.original["request_type"]}
           </span>
-          <span> {row.original["request_code"]}</span>
+          <span className="uppercase"> {row.original["request_code"]}</span>
         </div>
       );
     },
@@ -39,7 +39,7 @@ export const columns: ColumnDef<IRequestData>[] = [
         <div className="">
           <span className="font-semibold ">
             {" "}
-            {row.original["tool_name"] ?? "N/A"}
+            {row.original["tool_machinery_type"] ?? "N/A"}
           </span>
         </div>
       );
@@ -94,7 +94,7 @@ export const columns: ColumnDef<IRequestData>[] = [
       return (
         <div className="flex gap-2 items-center">
           <span className="font-semibold">
-            {row.original["approved_by"] ?? "N/A"}
+            {row.original["staff_name"] ?? "N/A"}
           </span>
         </div>
       );

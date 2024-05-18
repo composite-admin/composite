@@ -19,7 +19,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
-import { useStaffRoles } from "@/hooks/useSelectOptions";
+import { useGetAllStaffs, useStaffRoles } from "@/hooks/useSelectOptions";
 import { useProjectStore } from "@/store/project/useProjectStore";
 import { useRouter } from "next/navigation";
 
@@ -28,6 +28,10 @@ const AddProjectModal = () => {
   const onClose = useAddProjectModal((state) => state.onClose);
   const { setTeamMemberData, teamMemberData } = useProjectStore();
   const { staffRoles } = useStaffRoles();
+  const { staffs } = useGetAllStaffs();
+  const staffsFullname = staffs?.map(
+    (staff: any) => `${staff.firstname} ${staff.middlename} ${staff.lastname}`
+  );
   const { toast } = useToast();
   const router = useRouter();
 
@@ -82,6 +86,20 @@ const AddProjectModal = () => {
           ...data,
         });
         if (response.data) {
+          try {
+            await api.post("/project-teams", {
+              project_name: response.data.data.project_name,
+              project_code: response.data.data.project_code,
+              role: "Supervisor",
+              staff_name: data.project_supervisor,
+              staff_id: staffs.find(
+                (staff: any) =>
+                  `${staff.firstname} ${staff.middlename} ${staff.lastname}` ===
+                  data.project_supervisor
+              )?.userid,
+            });
+          } catch (error) {}
+
           router.push("/project");
           window.location.reload();
         }
@@ -99,10 +117,6 @@ const AddProjectModal = () => {
         title: "Project created successfully",
         variant: "success",
       });
-      window.location.reload();
-      router.push("/project");
-      router.refresh();
-      onClose();
     },
     onError: (error: Error) => {
       toast({

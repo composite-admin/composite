@@ -196,6 +196,14 @@ export const useGetInventoryData = (id: string) => {
   return { inventory: data };
 };
 
+export const useGetAllInventoryItems = () => {
+  const { data } = useQuery({
+    queryKey: ["get all inventory items"],
+    queryFn: () => getStuffTyped<InventoryItemData[]>("/inventory"),
+  });
+  return { inventory: data };
+};
+
 export const useGetAllConsultantProjects = () => {
   const { data } = useQuery({
     queryKey: ["get all consultants projects"],
@@ -301,7 +309,6 @@ export const useGetCashAdvanceBreakdownById = (id: string) => {
   return { cashAdvanceBreakdown: data || [], isBreakDownLoading: isPending };
 };
 
-
 export const useGetCashAdvanceBreakdownByCode = (id: string) => {
   const { data, isPending } = useQuery({
     queryKey: ["get cash advance breakdown table data", id],
@@ -348,3 +355,4 @@ export const useGetAllPendingProjects = () => {
   });
   return { pendingProjects: data };
 };
+

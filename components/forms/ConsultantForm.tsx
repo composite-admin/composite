@@ -15,8 +15,10 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "@/config/api";
+import { useRouter } from "next/navigation";
 
 export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
+  const router = useRouter();
   const form = useForm<AddConsultantType>({
     resolver: zodResolver(AddConsultantSchema),
     defaultValues: {
@@ -28,11 +30,14 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
     },
   });
 
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["add consultant"],
     mutationFn: async (data: { [Key in keyof AddConsultantType]: string }) => {
       try {
         const response = await api.post("/consultants", data);
+        if (response.status === 201 || response.status === 200) {
+          router.push("/consultants");
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
