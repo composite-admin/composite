@@ -22,6 +22,7 @@ import AdvancesModals from "@/app/(admin)/cash-advance/details/(forms_and_modals
 import { AddAndEditApartmentModal } from "@/components/Modals/AddAndEditApartmentModal";
 import ClientModal from "@/app/(client)/client/project/ClientModal";
 import TableActionModal from "@/components/Modals/TableActionModal";
+import IDModal from "@/components/Modals/IdModal";
 
 export const ModalProvider = () => {
   const [ismounted, setIsMounted] = useState(false);
@@ -36,6 +37,7 @@ export const ModalProvider = () => {
 
   return (
     <>
+      <IDModal />
       <AddAndEditApartmentModal />
       <ClientModal />
       <EditFlatModal />

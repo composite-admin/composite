@@ -39,8 +39,10 @@ const useEditFlatModal = createModalStore();
 const useAddAndEditBreakDownModal = createModalStore();
 const useSuccessModal = createModalStore()
 const useAddToProjectModal = createModalStore();
+const useIdModal = createModalStore();
 
 export {
+  useIdModal,
   useAddCommentModal,
   useUpdateRequestModal,
   useAddNewApartmentModal,

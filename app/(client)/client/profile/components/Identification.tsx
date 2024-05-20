@@ -112,7 +112,7 @@ export default function Identification() {
         title: "Client details updated successfully",
         variant: "success",
       });
-      router.push("client/dashboard");
+      router.push("/client/dashboard");
       setClientImage(null);
       setFile(null);
       setIsLoading({ isLoading: false, success: false });

@@ -17,7 +17,10 @@ import {
 import { projectColumns } from "./projectColumn";
 import useManageClientStore from "@/store/manage-client/useManageClientStore";
 import { useQuery } from "@tanstack/react-query";
-import { useAddToProjectModal } from "@/store/modals/useCreateModal";
+import {
+  useAddToProjectModal,
+  useIdModal,
+} from "@/store/modals/useCreateModal";
 import Link from "next/link";
 import { userStore } from "@/store/auth/AuthStore";
 import { useEffect } from "react";
@@ -30,7 +33,7 @@ type Params = {
 
 export default function ClientDetailsPage({ params }: Params) {
   const { setClientDetailsData } = useManageClientStore();
-  // const { userId } = userStore();
+  const { onOpen: onOpenIdImage } = useIdModal();
 
   const { details, isClientDetailsLoading } = useGetClientDetails(params.id!);
   const { onOpen, setAddToProjectFormType } = useAddToProjectModal();
@@ -44,24 +47,6 @@ export default function ClientDetailsPage({ params }: Params) {
       setClientDetailsData(details);
     }
   }, [details, setClientDetailsData]);
-  // const { data } = useQuery({
-  //   queryKey: ["get all clients", params.id],
-  //   queryFn: async () => {
-  //     try {
-  //       const response = await api.get<ApiResponse<IClientData>>(
-  //         `/client/${params.id}`
-  //       );
-  //       setClientDetailsData(response.data.data);
-  //       return response.data.data;
-  //     } catch (error) {
-  //       if (axios.isAxiosError(error) && error.response) {
-  //         throw new Error(error.response.data.message);
-  //       } else {
-  //         throw error;
-  //       }
-  //     }
-  //   },
-  // });
 
   const { ClientProjectDetails, isClientProjectLoading } =
     useGetClientProjectData(params.id);
@@ -82,7 +67,7 @@ export default function ClientDetailsPage({ params }: Params) {
             </div>
           </div>
           <div>
-            <Button>View ID Image</Button>
+            <Button onClick={onOpenIdImage}>View ID Image</Button>
           </div>
         </div>
 

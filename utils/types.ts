@@ -55,6 +55,9 @@ export interface IClientDetails {
   createdAt: string;
   updatedAt: string;
   image: string | null;
+  id_type: string;
+  id_number: string;
+  id_image: string | null;
 }
 
 export interface ApiResponse<T> {
