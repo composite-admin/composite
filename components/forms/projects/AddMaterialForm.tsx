@@ -16,10 +16,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useGetAllSuppliers } from "@/hooks/useSelectOptions";
+import {
+  useGetAllSuppliers,
+  useGetMaterialDetails,
+} from "@/hooks/useSelectOptions";
 import { ISupplierData } from "@/utils/types";
 import { useEffect, useState } from "react";
-import { describe } from "node:test";
+import { useTableActionStore } from "@/store/useTableActionStore";
 
 const AddMaterialSchema = z.object({
   supplier_code: z.string().optional(),
@@ -31,23 +34,44 @@ const AddMaterialSchema = z.object({
   }),
   quantity: z.string().optional(),
   unit_price: z.string().optional(),
+  comment: z.string().optional(),
 });
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
 export default function AddMaterialForm() {
   const [matDesc, setMatDesc] = useState<string[]>([]);
   const [suplierCode, setSuplierCode] = useState<string | undefined>("");
-  const form = useForm<AddMaterialType>({
-    resolver: zodResolver(AddMaterialSchema),
-  });
+  const {
+    isEditOrDelete,
+    rowID,
+    onClose: onCloseModal,
+  } = useTableActionStore();
   const { toast } = useToast();
   const { onClose } = useProjectDetailsPageFormModal();
-  const { projectName, projectId, projectCode } = useProjectDetails();
-  const { suppliers } = useGetAllSuppliers();
+  const { projectName, projectCode } = useProjectDetails();
+  const { suppliers, supplierList } = useGetAllSuppliers();
   const supplierName = suppliers?.map(
     (supplier: ISupplierData) => supplier.supplier_name
   );
-  const watchSupplier = form.watch("supplier_name");
 
+  const { isLoading, materialDetails } = useGetMaterialDetails(Number(rowID));
+  let values;
+  if (isEditOrDelete) {
+    values = {
+      supplier_code: materialDetails?.supplier_code,
+      supplier_name: materialDetails?.supplier_name as string,
+      payment_mode: materialDetails?.payment_mode as string,
+      description: materialDetails?.description,
+      quantity: String(materialDetails?.quantity),
+      unit_price: String(materialDetails?.unit_price),
+      comment: materialDetails?.comment,
+    };
+  }
+  const form = useForm<AddMaterialType>({
+    resolver: zodResolver(AddMaterialSchema),
+    values: values,
+  });
+
+  const watchSupplier = form.watch("supplier_name");
   useEffect(() => {
     if (watchSupplier) {
       const supplier_code = suppliers?.find(
@@ -77,13 +101,21 @@ export default function AddMaterialForm() {
     mutationKey: ["add-material"],
     mutationFn: async (values: AddMaterialType) => {
       try {
-        const response = await api.post("/materials", {
-          ...values,
-          project_code: projectCode,
-          supplier_code: suplierCode,
-          quantity: Number(values.quantity),
-          unit_price: Number(values.unit_price),
-        });
+        const response = isEditOrDelete
+          ? await api.put(`/materials/${rowID}`, {
+              ...values,
+              project_code: projectCode,
+              supplier_code: suplierCode,
+              quantity: Number(values.quantity),
+              unit_price: Number(values.unit_price),
+            })
+          : await api.post("/materials", {
+              ...values,
+              project_code: projectCode,
+              supplier_code: suplierCode,
+              quantity: Number(values.quantity),
+              unit_price: Number(values.unit_price),
+            });
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -133,7 +165,7 @@ export default function AddMaterialForm() {
               name="supplier_name"
               labelText="Supplier"
               placeholder="Select Supplier"
-              items={supplierName || []}
+              items={supplierList || []}
             />
             <CustomFormField
               control={form.control}
@@ -156,7 +188,7 @@ export default function AddMaterialForm() {
               control={form.control}
               name="payment_mode"
               labelText="Payment Mode"
-              placeholder="Payment Mode"
+              placeholder={materialDetails?.payment_mode || "Payment Mode"}
               items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
             />
           </div>
@@ -175,10 +207,19 @@ export default function AddMaterialForm() {
         />
 
         <div className="flex gap-4 flex-col lg:flex-row">
-          <Button variant={"secondary"} className="w-full" onClick={onClose}>
+          <Button
+            variant={"secondary"}
+            className="w-full"
+            type="button"
+            onClick={() => {
+              isEditOrDelete ? onCloseModal() : onClose();
+            }}
+          >
             Cancel
           </Button>
-          <Button className="w-full">Add</Button>
+          <Button className="w-full">
+            {isEditOrDelete ? "Update" : "Add"}
+          </Button>
         </div>
       </form>
     </Form>

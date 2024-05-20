@@ -1,8 +1,10 @@
 "use client";
 
+import EditCell from "@/app/(admin)/facility/all-flats/EditCell";
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
+import { ProjectPageFormType } from "@/store/useTableActionStore";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { IStartupCostProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
@@ -82,12 +84,11 @@ export const columns: ColumnDef<IStartupCostProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-            <HiPencilAlt />
-            Edit{" "}
-          </span>
-        </div>
+        <EditCell
+          row={row}
+          rowId={Number(row.original.id)}
+          action={"start-up-cost-edit" as ProjectPageFormType}
+        />
       );
     },
   },

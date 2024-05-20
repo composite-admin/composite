@@ -1,9 +1,13 @@
 "use client";
 
+import EditCell, {
+  DeleteCell,
+} from "@/app/(admin)/facility/all-flats/EditCell";
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
+import { ProjectPageFormType } from "@/store/useTableActionStore";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { IMaterialsByProjectData } from "@/utils/types";
@@ -102,22 +106,6 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
       );
     },
   },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-            <HiPencilAlt />
-            Edit{" "}
-          </span>
-        </div>
-      );
-    },
-  },
 
   {
     accessorKey: "id",
@@ -126,10 +114,21 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="cursor-pointer">
-          <p className="px-1 font-semibold w-fit  text-red-500">Delete</p>
-        </div>
+        <EditCell
+          action={"material-edit" as ProjectPageFormType}
+          row={row}
+          rowId={row.original.id}
+        />
       );
+    },
+  },
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Actions" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return <DeleteCell />;
     },
   },
 ];

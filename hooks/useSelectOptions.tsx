@@ -13,16 +13,15 @@ import {
   IConsultantData,
   IConsultantProjectData,
   IContractorProjectData,
+  IMaterialDetails,
   InventoryItemData,
   IProjectData,
   IProjectReport,
   IRequestData,
   IStaffDetailsData,
   IStakeholderProjectData,
+  IStartupCostDetails,
   ISupplierData,
-  ISupplierMaterial,
-  ISupplierMaterialTypesData,
-  ITenantDetails,
   IWorkerData,
   PendingProjectDetails,
 } from "@/utils/types";
@@ -356,3 +355,21 @@ export const useGetAllPendingProjects = () => {
   return { pendingProjects: data };
 };
 
+export const useGetStartupCostDetails = (id: number) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get startup cost details", id],
+    queryFn: () => getStuffTyped<IStartupCostDetails>(`/startup-costs/${id}`),
+    enabled: !!id,
+  });
+
+  return { startupCostDetails: data, isLoading };
+};
+
+export const useGetMaterialDetails = (id: number) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get material details", id],
+    queryFn: () => getStuffTyped<IMaterialDetails>(`/materials/${id}`),
+    enabled: !!id,
+  });
+  return { materialDetails: data, isLoading };
+};

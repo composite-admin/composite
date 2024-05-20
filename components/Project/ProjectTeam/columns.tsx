@@ -1,5 +1,6 @@
 "use client";
 
+import { DeleteCell } from "@/app/(admin)/facility/all-flats/EditCell";
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
@@ -61,11 +62,7 @@ export const columns: ColumnDef<IProjectTeamMemberByProjectData>[] = [
       return <ColumnHeader column={column} title="Action" withSort={false} />;
     },
     cell: ({ row }) => {
-      return (
-        <div className="cursor-pointer">
-          <p className="px-1 font-semibold w-fit  text-red-500">Remove</p>
-        </div>
-      );
+      return <DeleteCell row={row} rowId={row.original.id} url="/project" />;
     },
   },
 ];

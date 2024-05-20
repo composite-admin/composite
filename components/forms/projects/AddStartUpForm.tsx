@@ -9,10 +9,12 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
+import { useGetStartupCostDetails } from "@/hooks/useSelectOptions";
 import {
   useProjectDetails,
   useProjectDetailsPageFormModal,
 } from "@/store/project/useProjectModal";
+import { useTableActionStore } from "@/store/useTableActionStore";
 import { selectOptionsForStartUpCostType } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -23,7 +25,6 @@ import { z } from "zod";
 interface Props {}
 
 const AddStartUpCostSchema = z.object({
-  project_name: z.string().optional(),
   startup_desc: z.string().optional(),
   startup_type: z.string().optional(),
   startup_cost: z.string().optional(),
@@ -33,26 +34,53 @@ const AddStartUpCostSchema = z.object({
 type AddStartUpCostType = z.infer<typeof AddStartUpCostSchema>;
 
 export default function AddStartUpForm() {
-  const { projectCode, projectName, projectId } = useProjectDetails();
+  const { projectCode, projectName } = useProjectDetails();
+  const {
+    isEditOrDelete,
+    rowID,
+    onClose: onCloseModal,
+  } = useTableActionStore();
+  const { isLoading, startupCostDetails } = useGetStartupCostDetails(
+    Number(rowID)
+  );
+
   const { onClose } = useProjectDetailsPageFormModal();
   const { toast } = useToast();
 
   const form = useForm<AddStartUpCostType>({
     resolver: zodResolver(AddStartUpCostSchema),
-    defaultValues: {
-      project_name: projectName,
+    values: {
+      startup_desc: startupCostDetails?.startup_desc,
+      startup_type: startupCostDetails?.startup_type,
+      startup_cost: startupCostDetails?.startup_cost,
+      comment: startupCostDetails?.comment,
     },
   });
 
   const { mutate } = useMutation({
-    mutationKey: ["add-startup-cost"],
+    mutationKey: ["add-startup-cost", rowID],
     mutationFn: async (values: AddStartUpCostType) => {
       try {
-        const response = await api.post("/startup-costs", {
-          ...values,
-          startup_cost: Number(values.startup_cost),
-          project_code: projectCode,
+        const response = isEditOrDelete
+          ? await api.put(`/startup-costs/${rowID}`, {
+              ...values,
+              startup_cost: Number(values.startup_cost),
+              project_code: projectCode,
+            })
+          : await api.post("/startup-costs", {
+              ...values,
+              startup_cost: Number(values.startup_cost),
+              project_code: projectCode,
+            });
+        toast({
+          title: `Start up cost ${
+            isEditOrDelete ? "updated" : "added"
+          } successfully`,
+          variant: "success",
         });
+        onClose();
+        onCloseModal();
+
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -66,14 +94,6 @@ export default function AddStartUpForm() {
 
   const handleSubmit = (data: AddStartUpCostType) => {
     mutate(data, {
-      onSuccess: () => {
-        form.reset();
-        onClose();
-        toast({
-          title: "Start up cost added successfully",
-          variant: "success",
-        });
-      },
       onError: () => {
         toast({
           title: "Something went wrong",
@@ -93,15 +113,16 @@ export default function AddStartUpForm() {
           control={form.control}
           name="project_name"
           label="Project Name"
-          placeholder="Project Name"
+          placeholder={projectName}
           disabled
         />
 
         <CustomFormField
           control={form.control}
           name="startup_desc"
+          disabled={isLoading}
           label="Description"
-          placeholder="Description"
+          placeholder={startupCostDetails?.startup_desc || "Description"}
         />
 
         <div className="grid grid-cols-2 gap-5">
@@ -109,29 +130,41 @@ export default function AddStartUpForm() {
             control={form.control}
             name="startup_type"
             labelText="Startup Type"
+            disabled={isLoading}
             items={selectOptionsForStartUpCostType || []}
-            placeholder="Startup Type"
+            placeholder={startupCostDetails?.startup_type || "Startup Type"}
           />
 
           <CustomFormField
             control={form.control}
             name="startup_cost"
             label="Startup Cost"
-            placeholder="Startup Cost"
+            disabled={isLoading}
+            placeholder={startupCostDetails?.startup_cost || "Startup Cost"}
           />
         </div>
         <CustomFormTextareaField
           control={form.control}
           name="comment"
           label="Comment"
-          placeholder="Comment"
+          disabled={isLoading}
+          placeholder={startupCostDetails?.comment || "Comment"}
         />
 
         <div className="flex gap-4 flex-col lg:flex-row">
-          <Button variant={"secondary"} className="w-full">
+          <Button
+            variant={"secondary"}
+            className="w-full"
+            type="button"
+            onClick={() => {
+              isEditOrDelete ? onCloseModal() : onClose();
+            }}
+          >
             Cancel
           </Button>
-          <Button className="w-full">Add</Button>
+          <Button className="w-full">
+            {isEditOrDelete ? "Update" : "Add"}
+          </Button>
         </div>
       </form>
     </Form>

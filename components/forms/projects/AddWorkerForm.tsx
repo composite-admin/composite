@@ -29,23 +29,26 @@ export default function AddWorkerForm() {
   const { onClose } = useProjectDetailsPageFormModal();
   const { projectName, projectId, projectCode } = useProjectDetails();
 
-  const { mutate } = useMutation({
-    mutationKey: ["add-stakeholder"],
-    mutationFn: async (values: AddWorkerSchemaType) => {
-      try {
-        const response = await api.post("/stakeholder-project", {
-          ...values,
-        });
-        return response.data;
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
+console.log(projectCode);
+
+const { mutate } = useMutation({
+  mutationKey: ["add-stakeholder"],
+  mutationFn: async (values: AddWorkerSchemaType) => {
+    try {
+      const response = await api.post("/stakeholder-project", {
+        ...values,
+        project_code: projectCode,
+      });
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw error;
       }
-    },
-  });
+    }
+  },
+});
 
   const handleSubmit = (data: AddWorkerSchemaType) => {
     mutate(data, {

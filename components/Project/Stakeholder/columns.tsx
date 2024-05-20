@@ -10,6 +10,7 @@ import Link from "next/link";
 import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 import { formatCurrency } from "../../../utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
+import { DeleteCell } from "@/app/(admin)/facility/all-flats/EditCell";
 
 export const columns: ColumnDef<IStakeholderProjectData>[] = [
   {
@@ -94,11 +95,11 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="">
-          <span className="hover:underline text-red-500 font-semibold">
-            Delete
-          </span>
-        </div>
+        <DeleteCell
+          row={row}
+          rowId={row.original.id}
+          url="stakeholder-project"
+        />
       );
     },
   },

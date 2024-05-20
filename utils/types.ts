@@ -896,3 +896,36 @@ export interface ICashAdvanceBreakdownData {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IStartupCostDetails {
+  id: number;
+  startup_code: string;
+  project_code: string;
+  startup_desc: string;
+  startup_type: string;
+  startup_cost: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IMaterialDetails {
+  id: number;
+  project_code: string;
+  supplier_code: string;
+  supplier_name: string;
+  material_code: string;
+  company: string;
+  address: string;
+  contact_person: string;
+  contact_mobile: string;
+  ofc_phone: string;
+  description: string;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  payment_mode: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
