@@ -50,7 +50,7 @@ export default function AddContractorForm() {
             (item: any) => item.contractor_name === values.contractor_name
           )?.contractor_code,
           contractor_project_code: projectCode,
-          contractor_service: contractors.find(
+          service: contractors.find(
             (item: any) => item.contractor_name === values.contractor_name
           )?.contractor_service,
         });

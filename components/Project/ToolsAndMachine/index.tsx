@@ -10,8 +10,8 @@ const ToolsAndMachine = ({ projectCode }: { projectCode: string }) => {
   const { requests, isLoading, isError } = useGetAllRequests();
   const toolsAndMachine = requests?.filter(
     (request: IRequestData) =>
-      (request.request_type === "Tools and Machine Buy" ||
-        request.request_type === "Tools and Machine Rent") &&
+      (request.request_type === "Tools and Machinery Buy" ||
+        request.request_type === "Tools and Machinery Rent") &&
       request.status === "APPROVED" &&
       request.project_code === projectCode
   );

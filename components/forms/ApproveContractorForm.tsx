@@ -36,7 +36,6 @@ export default function ApproveContractorForm({ id }: { id: string }) {
     },
   });
 
-console.log(projectDetails);
 
 const { mutate, error } = useMutation({
   mutationKey: ["editContractorForm", id],

@@ -1,5 +1,6 @@
 "use client";
 
+import { DeleteCell } from "@/app/(admin)/facility/all-flats/EditCell";
 import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
@@ -102,11 +103,11 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="">
-          <span className="hover:underline text-red-500 font-semibold">
-            Delete
-          </span>
-        </div>
+        <DeleteCell
+          rowId={row.original.id}
+          row={row}
+          url="contractor-projects"
+        />
       );
     },
   },

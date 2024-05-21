@@ -120,14 +120,14 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="font-semibold flex gap-1 text-primaryLight-500">
+        <div className="font-semibold  ">
           <Link
             href={`pending-project/approve/${row.original["id"]}`}
-            className="cursor-pointer"
+            className="cursor-pointer flex gap-1"
           >
-            Approve
+            <span className="text-primaryLight"> Approve </span>/
+            <span className="cursor-pointer text-red-500">Reject</span>
           </Link>
-          /<span className="cursor-pointer text-red-500">Reject</span>
         </div>
       );
     },

@@ -62,7 +62,7 @@ export const columns: ColumnDef<IProjectTeamMemberByProjectData>[] = [
       return <ColumnHeader column={column} title="Action" withSort={false} />;
     },
     cell: ({ row }) => {
-      return <DeleteCell row={row} rowId={row.original.id} url="/project" />;
+      return <DeleteCell row={row} rowId={row.original.id} url="project" />;
     },
   },
 ];

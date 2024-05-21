@@ -10,7 +10,7 @@ import { IContractorProjectData } from "@/utils/types";
 
 const PendingProject = () => {
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all materials by project code"],
+    queryKey: ["get all contractor projects project code"],
     queryFn: async () =>
       getStuffTyped<IContractorProjectData[]>(`/contractor-projects`),
     refetchOnMount: "always",

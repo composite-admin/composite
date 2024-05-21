@@ -15,11 +15,8 @@ export default function TableActionModal() {
       if (res.status === 200) {
         onClose();
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     onClose();
-    console.log(rowID);
   };
 
   if (isEditOrDelete === "delete") {

@@ -22,6 +22,28 @@ export function SkeleCard() {
   );
 }
 
-export function SkeleTopCard() {
-  return <div>meh</div>;
+export function ReportPageSkeleton() {
+  return (
+    <div className="my-5 rounded-lg  bg-white p-[29px] w-full min-h-[42rem]">
+      <div className="grid md:grid-cols-6 gap-x-20">
+        <div className="col-span-1 space-y-2">
+          <Skeleton className="w-2/3 h-5" />
+          <Skeleton className="w-full h-4" />
+          <Skeleton className="w-2/3 h-6" />
+        </div>
+        <div className="col-span-5 md:flex gap-5 ">
+          <div className="grid grid-cols-2 gap-10  w-1/2">
+            {Array.from({ length: 20 }).map((_, id) => (
+              <Skeleton className="h-4 w-44" key={id} />
+            ))}
+          </div>
+          <div className="grid grid-cols-2   w-1/2">
+            {Array.from({ length: 20 }).map((_, id) => (
+              <Skeleton className="h-4 w-52" key={id} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

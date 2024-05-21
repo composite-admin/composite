@@ -21,11 +21,9 @@ export const columns: ColumnDef<IRequestData>[] = [
     cell: ({ row }) => {
       return (
         // <Link href={`/project/${row.original["id"]}`}>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center uppercase">
           <div>
-            <p className="font-semibold underline text-primaryLight">
-              {row.original["description"]}
-            </p>
+            <p className="font-semibold ">{row.original["description"]}</p>
             <p>{row.original["request_code"]}</p>
           </div>
         </div>
