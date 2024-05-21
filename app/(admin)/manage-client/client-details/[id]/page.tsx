@@ -1,14 +1,8 @@
 "use client";
-import { cookies } from "next/headers";
-import { columns as columnTwo } from "@/app/(admin)/consultants/columns";
-import { data as dataTwo } from "@/app/(admin)/consultants/data";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { DataTable } from "@/components/shared/DataTable";
 import GoBack from "@/components/shared/GoBack";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { api } from "@/config/api";
-import { ApiResponse, IClientData, IClientDetails } from "@/utils/types";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
   useGetClientDetails,
@@ -16,13 +10,11 @@ import {
 } from "@/hooks/useSelectOptions";
 import { projectColumns } from "./projectColumn";
 import useManageClientStore from "@/store/manage-client/useManageClientStore";
-import { useQuery } from "@tanstack/react-query";
 import {
   useAddToProjectModal,
   useIdModal,
 } from "@/store/modals/useCreateModal";
 import Link from "next/link";
-import { userStore } from "@/store/auth/AuthStore";
 import { useEffect } from "react";
 
 type Params = {
@@ -77,23 +69,41 @@ export default function ClientDetailsPage({ params }: Params) {
             <h2 className="border-b p-7 text-lg font-semibold">
               Client Details
             </h2>
-            <div className="p-7 flex flex-col gap-5 md:flex-row pb-28">
-              <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
+            <div className="p-7 grid sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-dense grid-rows-2">
+              <div className="flex flex-col gap-1 ">
                 <span>Contact Person:</span>
-                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg capitalize">
+                <span className="font-semibold  md:text-lg capitalize">
                   {details?.first_name} {details?.last_name}
                 </span>
               </div>
-              <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
+              <div className="flex flex-col gap-1 ">
                 <span>Contact Mobile:</span>
-                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                <span className="font-semibold  md:text-lg">
                   {details?.mobile_number}
                 </span>
               </div>
-              <div className="flex flex-col gap-1 md:w-1/4 flex-1 ">
+              <div className="flex flex-col gap-1 ">
                 <span>Office Phone:</span>
-                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                <span className="font-semibold  md:text-lg">
                   {details?.phone_number}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 ">
+                <span>Email:</span>
+                <span className="font-semibold  md:text-lg">
+                  {details?.email}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1 ">
+                <span>State:</span>
+                <span className="font-semibold  md:text-lg">
+                  {details?.state}
+                </span>
+              </div>{" "}
+              <div className="flex flex-col gap-1 ">
+                <span>Address:</span>
+                <span className="font-semibold  md:text-lg">
+                  {details?.address}
                 </span>
               </div>
             </div>

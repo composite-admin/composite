@@ -78,7 +78,7 @@ return (
           <CustomFormField
             control={form.control}
             name="project_name"
-            placeholder={projectDetails?.contractor_project_code}
+            placeholder={projectDetails?.project_name}
             disabled
             className="placeholder:uppercase"
             label="Project Name"
@@ -86,7 +86,7 @@ return (
           <CustomFormField
             control={form.control}
             name="contractor_name"
-            placeholder={projectDetails?.contractor_code}
+            placeholder={projectDetails?.contractor_name}
             disabled
             className="placeholder:uppercase"
             label="Contractor Name/Code"

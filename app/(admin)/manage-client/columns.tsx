@@ -14,7 +14,7 @@ export const columns: ColumnDef<IClientData>[] = [
       return <ColumnHeader column={column} title="Full Name" />;
     },
     cell: ({ row }) => {
-      const { first_name, last_name, activation_code, image } = row.original;
+      const { first_name, last_name, userid, image } = row.original;
       return (
         <div className="">
           <div className="flex gap-2.5 items-center">
@@ -23,7 +23,7 @@ export const columns: ColumnDef<IClientData>[] = [
               <span className="capitalize font-semibold">
                 {first_name} {last_name}
               </span>
-              <p>{activation_code}</p>
+              <p className="uppercase">{userid}</p>
             </div>
           </div>
         </div>

@@ -10,15 +10,16 @@ import Link from "next/link";
 
 export const columns: ColumnDef<IContractorProjectData>[] = [
   {
-    accessorKey: "contractor_code",
+    accessorKey: "contractor_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Contractor Code" />;
     },
     cell: ({ row }) => {
       return (
         <div>
-          <p className="font-semibold uppercase">
-            {row.original["contractor_code"]}
+          <p className="font-semibold capitalize flex flex-col">
+            <span>{row.original["contractor_name"]}</span>
+            <span className="uppercase">{row.original["contractor_code"]}</span>
           </p>
         </div>
       );

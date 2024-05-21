@@ -30,7 +30,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
     },
   });
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["addClient"],
     mutationFn: async (values: CreateAddClientType) => {
       try {
@@ -42,14 +42,13 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
           mobile_number: values["Mobile number"],
           state: values.State,
           address: values.Address,
-          activation_code: "testing123",
         });
         if (response.data) {
           toast({
             title: "Client created successfully",
-            description: "Client created successfully",
+            variant: "success",
           });
-          router.push("/clients");
+          router.push("/manage-client");
         }
         return response.data;
       } catch (error) {

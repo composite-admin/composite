@@ -87,7 +87,7 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
             <CustomFormField
               control={form.control}
               name="contractor_name"
-              placeholder={projectDetails?.stakeholder_code}
+              placeholder={projectDetails?.stakeholder_name}
               disabled
               className="placeholder:uppercase"
               label="Stakeholder Name/Code"

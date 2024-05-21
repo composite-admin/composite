@@ -23,7 +23,7 @@ const ToolsTable = ({ supplier }: any) => {
         columns={materialsColumns}
         data={supplierTools ?? []}
         isLoading={store.requestLoading}
-        withTitle={{ title: "Tools and Machine", data: supplierTools.length }}
+        withTitle={{ title: "Tools and Machinery", data: supplierTools.length }}
       />
     </motion.div>
   );

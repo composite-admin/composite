@@ -34,17 +34,17 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
   },
 
   {
-    accessorKey: "stakeholder_project_code",
+    accessorKey: "project_name",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Project Code" withSort={false} />
+        <ColumnHeader column={column} title="Project Name" withSort={false} />
       );
     },
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">
-            {row.original["stakeholder_project_code"]}
+          <span className="font-semibold uppercase">
+            {row.original["project_name"]}
           </span>
         </div>
       );

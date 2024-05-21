@@ -5,8 +5,8 @@ import GoBack from "@/components/shared/GoBack";
 export default function AddNewClientPage() {
   return (
     <>
-            <GoBack/>
-            <AddNewClientForm/>
+      <GoBack />
+      <AddNewClientForm />
     </>
-  )
+  );
 }
