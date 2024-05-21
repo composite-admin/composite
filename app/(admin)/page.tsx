@@ -20,6 +20,7 @@ import {
 } from "@/hooks/useSelectOptions";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import Link from "next/link";
+import { SkeleCard } from "@/components/skeletons/SkeleCard";
 
 export default function DashboardPage() {
   const { projects } = useGetAllProjectData();
@@ -93,63 +94,74 @@ export default function DashboardPage() {
         </div>
 
         <div className="xl:col-span-2 grid md:grid-cols-2 xl:grid-cols-1 gap-5 auto-rows-min  place-items-center w-full">
-          <SideCards
-            title="Pending Requests"
-            href="/requests"
-            description={pendingRequests?.length ?? 0}
-          >
-            {trimmedPendingRequests?.map((request) => (
-              <div
-                className="flex justify-between items-center border-b py-3"
-                key={request.id}
-              >
-                <div className="flex gap-2 items-center">
-                  <div className="text-xs flex flex-col">
-                    <span className="text-sm font-semibold">
-                      {request.request_type}
-                    </span>
-                    <span className="font-semibold uppercase">
-                      {request.request_code}
-                    </span>
-                  </div>
-                </div>
-                <Link
-                  href={`/requests/request-details/${request.id}`}
-                  className="text-primaryLight-500 font-semibold"
+          {isPending ? (
+            <SkeleCard />
+          ) : (
+            <SideCards
+              title="Pending Requests"
+              href="/requests"
+              description={pendingRequests?.length ?? 0}
+            >
+              {trimmedPendingRequests?.map((request) => (
+                <div
+                  className="flex justify-between items-center border-b py-3"
+                  key={request.id}
                 >
-                  View
-                </Link>
-              </div>
-            ))}
-          </SideCards>
-          <SideCards
-            title="Pending Reports"
-            description={pendingReports?.length ?? 0}
-            href="/reports"
-          >
-            {trimmedPendingReports?.map((report) => (
-              <div
-                className="flex justify-between items-center border-b py-3"
-                key={report.id}
-              >
-                <div className="flex gap-2 items-center">
-                  <AvatarComponent />
-                  <div className="text-xs flex flex-col">
-                    <span className="text-sm font-semibold">{report.name}</span>
-                    <span className="font-semibold uppercase">
-                      {report.report_code}
-                    </span>
+                  <div className="flex gap-2 items-center">
+                    <div className="text-xs flex flex-col">
+                      <span className="text-sm font-semibold">
+                        {request.request_type}
+                      </span>
+                      <span className="font-semibold uppercase">
+                        {request.request_code}
+                      </span>
+                    </div>
                   </div>
+                  <Link
+                    href={`/requests/request-details/${request.id}`}
+                    className="text-primaryLight-500 font-semibold"
+                  >
+                    View
+                  </Link>
                 </div>
-                <Link
-                  href={`/reports/${report.id}`}
-                  className="text-primaryLight-500 font-semibold"
+              ))}
+            </SideCards>
+          )}
+
+          {isPending ? (
+            <SkeleCard />
+          ) : (
+            <SideCards
+              title="Pending Reports"
+              description={pendingReports?.length ?? 0}
+              href="/reports"
+            >
+              {trimmedPendingReports?.map((report) => (
+                <div
+                  className="flex justify-between items-center border-b py-3"
+                  key={report.id}
                 >
-                  View
-                </Link>
-              </div>
-            ))}
-          </SideCards>
+                  <div className="flex gap-2 items-center">
+                    <AvatarComponent />
+                    <div className="text-xs flex flex-col">
+                      <span className="text-sm font-semibold">
+                        {report.name}
+                      </span>
+                      <span className="font-semibold uppercase">
+                        {report.report_code}
+                      </span>
+                    </div>
+                  </div>
+                  <Link
+                    href={`/reports/${report.id}`}
+                    className="text-primaryLight-500 font-semibold"
+                  >
+                    View
+                  </Link>
+                </div>
+              ))}
+            </SideCards>
+          )}
         </div>
       </div>
     </div>
