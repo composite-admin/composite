@@ -6,7 +6,6 @@ import { useRouter, usePathname } from "next/navigation";
 import { userStore } from "@/store/auth/AuthStore";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { token, userType } = userStore();
   const router = useRouter();
   const pathname = usePathname();
   // useEffect(() => {
