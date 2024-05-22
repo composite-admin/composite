@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Stakeholder = ({ projectCode }: { projectCode: string }) => {
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all stakeholders  by project code"],
+    queryKey: ["get stakeholders by project code"],
     queryFn: async () => {
       try {
         const response = await api.get<ApiResponse<IStakeholderProjectData[]>>(

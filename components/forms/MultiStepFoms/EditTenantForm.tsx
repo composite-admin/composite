@@ -4,7 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import { z } from "zod";
-import { addTenantType, FormDataSchema } from "./formtypes";
+import {
+  addTenantType,
+  editTenantType,
+  FormDataSchema,
+  FormDataSchemaEdit,
+} from "./formtypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import StepTopNav from "./StepTopNav";
@@ -25,9 +30,8 @@ import {
 } from "@/hooks/useSelectOptions";
 import { useRouter } from "next/navigation";
 import { PlusCircle, Trash2 } from "lucide-react";
-import { getTenantDetails } from "@/utils/actions";
 
-type Inputs = z.infer<typeof FormDataSchema>;
+type Inputs = z.infer<typeof FormDataSchemaEdit>;
 
 const steps = [
   {
@@ -61,19 +65,24 @@ export default function EditTenantForm({ id }: { id: string }) {
   const { toast } = useToast();
   const projects = projectsData?.map((item: any) => item.project_name);
   const flatList = flats?.map((item) => item.flat_code);
+  const fees = details?.fees?.map((fee: any) => ({
+    value: fee.value,
+    type: fee.type,
+  }));
 
-  const form = useForm<addTenantType>({
-    resolver: zodResolver(FormDataSchema),
-    defaultValues: {
-      project_name: details?.project_name,
-      flat_code: details?.flat_code,
-      full_name: details?.full_name,
-      phone_number: details?.phone_number,
-      email: details?.email,
-      annual_rent: details?.annual_rent,
-      rent_payment: details?.rent_payment,
-      reminder: details?.reminder,
+  const form = useForm<editTenantType>({
+    resolver: zodResolver(FormDataSchemaEdit),
+    values: {
+      project_name: details?.project_name || "",
+      flat_code: details?.flat_code || "",
       title: details?.title as any,
+      full_name: details?.full_name || "",
+      phone_number: details?.phone_number || "",
+      email: details?.email || "",
+      annual_rent: details?.annual_rent || "",
+      rent_payment: details?.rent_payment || "",
+      reminder: details?.reminder || "",
+      fees: fees || [],
     },
   });
 
@@ -82,25 +91,8 @@ export default function EditTenantForm({ id }: { id: string }) {
     name: "fees",
   });
 
-  const processForm: SubmitHandler<Inputs> = async (values: addTenantType) => {
+  const processForm: SubmitHandler<Inputs> = async (values: editTenantType) => {
     try {
-      const fees = [
-        {
-          type: values.facility_management,
-          value: values.facility_management_value,
-        },
-        {
-          type: values.diesel,
-          value: values.diesel_value,
-        },
-        {
-          type: values.electricity,
-          value: values.electricity_value,
-        },
-        // Spread the existing fees from the form
-        ...values.fees,
-      ];
-
       const res = await api.put(`/tenants/${id}`, {
         project_details: projectsData?.find(
           (item: any) => item.project_name === values.project_name
@@ -115,7 +107,6 @@ export default function EditTenantForm({ id }: { id: string }) {
           (item: any) => item.project_name === values.project_name
         )?.status,
         ...values,
-        fees: fees,
       });
       if (res.status === 200) {
         toast({
@@ -277,61 +268,6 @@ export default function EditTenantForm({ id }: { id: string }) {
                     }
                   />
 
-                  <div className="flex gap-5 flex-col lg:flex-row">
-                    <div className="lg:w-full">
-                      <CustomFormSelect
-                        control={form.control}
-                        name="facility_management"
-                        items={["Facility Management"] || []}
-                        labelText="Fee type"
-                      />
-                    </div>
-                    <div className="lg:w-full">
-                      <CustomFormField
-                        control={form.control}
-                        name="facility_management_value"
-                        placeholder="Enter value"
-                        label="Value"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex gap-5 flex-col lg:flex-row">
-                    <div className="lg:w-full">
-                      <CustomFormSelect
-                        control={form.control}
-                        name="diesel"
-                        items={["Diesel"] || []}
-                        labelText="Fee type"
-                      />
-                    </div>
-                    <div className="lg:w-full">
-                      <CustomFormField
-                        control={form.control}
-                        name="diesel_value"
-                        placeholder="Enter value"
-                        label="Value"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex gap-5 flex-col lg:flex-row">
-                    <div className="lg:w-full">
-                      <CustomFormSelect
-                        control={form.control}
-                        name="electricity"
-                        items={["Electricity"] || []}
-                        labelText="Fee type"
-                      />
-                    </div>
-                    <div className="lg:w-full">
-                      <CustomFormField
-                        control={form.control}
-                        name="electricity_value"
-                        placeholder="Enter value"
-                        label="Value"
-                      />
-                    </div>
-                  </div>
-
                   <div className=" relative">
                     <div className="ml-auto w-max">
                       <div
@@ -350,6 +286,11 @@ export default function EditTenantForm({ id }: { id: string }) {
                             name={`fees.${index}.type`}
                             placeholder="Enter type"
                             label="Type"
+                            disabled={
+                              field.type === "Diesel" ||
+                              field.type === "Electricity" ||
+                              field.type === "Facility Management"
+                            }
                           />
                           <CustomFormField
                             control={form.control}

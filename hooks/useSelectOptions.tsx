@@ -26,6 +26,7 @@ import {
   PendingProjectDetails,
 } from "@/utils/types";
 import { IRequestCommentData } from "@/app/(admin)/requests/request-details/[id]/columns";
+import { ICommentData } from "@/app/(admin)/manage-client/client-details/[id]/commentCol";
 
 export const useTenants = () => {
   const { isPending, isSuccess, isError, error, data } = useQuery({
@@ -377,4 +378,12 @@ export const useGetMaterialDetails = (id: number) => {
     enabled: !!id,
   });
   return { materialDetails: data, isLoading };
+};
+
+export const useGetAllClientComments = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get all client comments"],
+    queryFn: () => getStuffTyped<ICommentData[]>("/project-comments"),
+  });
+  return { clientComments: data, isLoading };
 };

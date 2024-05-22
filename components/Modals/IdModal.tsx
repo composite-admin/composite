@@ -30,11 +30,23 @@ export default function IDModal() {
                 </p>
               </div>
             ) : (
-              <img
-                src={clientDetailsData?.id_image}
-                alt="ID"
-                className="w-full h-full object-cover"
-              />
+              <div>
+                <div className=" pb-5">
+                  <p>
+                    <span className="font-semibold">ID Type: </span>
+                    <span>{clientDetailsData?.id_type}</span>
+                  </p>
+                  <p>
+                    <span className="font-semibold">Card NO: </span>
+                    <span>{clientDetailsData?.id_number}</span>
+                  </p>
+                </div>
+                <img
+                  src={clientDetailsData?.id_image}
+                  alt="ID"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             )}
           </div>
         )}

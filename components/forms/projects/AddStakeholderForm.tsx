@@ -1,5 +1,4 @@
 "use client";
-
 import {
   CustomFormField,
   CustomFormSelect,
@@ -14,6 +13,7 @@ import {
   useProjectDetails,
   useProjectDetailsPageFormModal,
 } from "@/store/project/useProjectModal";
+import useRefetchQuery from "@/utils/refetchQuery";
 import { selectOptionsForStartUpCostType } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -35,7 +35,8 @@ type AddStakeHolderType = z.infer<typeof AddStakeHolderSchema>;
 export default function AddStakeHolderForm() {
   const { stakeholders } = useGetStakeHolders();
   const { onClose } = useProjectDetailsPageFormModal();
-  const { projectName, projectId, projectCode } = useProjectDetails();
+  const { refetchQuery } = useRefetchQuery();
+  const { projectCode, projectName } = useProjectDetails();
   const { toast } = useToast();
   const stakeHolderName = stakeholders?.map(
     (item: any) => item.stakeholder_name
@@ -77,6 +78,10 @@ export default function AddStakeHolderForm() {
           title: "Stakeholder added successfully",
           variant: "success",
         });
+        refetchQuery({
+          predicate: (query) =>
+            query.queryKey[0] === "get stakeholders by project code",
+        });
       },
       onError: () => {
         toast({
@@ -97,7 +102,7 @@ export default function AddStakeHolderForm() {
           control={form.control}
           name="project_name"
           label="Project Name"
-          placeholder="Project Name"
+          placeholder={projectName}
           disabled
         />
         <CustomFormSelect

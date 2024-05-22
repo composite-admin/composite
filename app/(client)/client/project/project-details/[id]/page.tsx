@@ -75,7 +75,7 @@ export default function ClientProjectDetailsPage({ params: { id } }: Params) {
             </Button>
           )}
           {TabType === "Project Flat" && (
-            <Button onClick={() => handleModal("add images")}>
+            <Button onClick={() => handleModal("add comment")}>
               Send Comment
             </Button>
           )}

@@ -5,6 +5,7 @@ import GoBack from "@/components/shared/GoBack";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
+  useGetAllClientComments,
   useGetClientDetails,
   useGetClientProjectData,
 } from "@/hooks/useSelectOptions";
@@ -16,6 +17,7 @@ import {
 } from "@/store/modals/useCreateModal";
 import Link from "next/link";
 import { useEffect } from "react";
+import { commentColumns } from "./commentCol";
 
 type Params = {
   params: {
@@ -42,6 +44,13 @@ export default function ClientDetailsPage({ params }: Params) {
 
   const { ClientProjectDetails, isClientProjectLoading } =
     useGetClientProjectData(params.id);
+
+  const { clientComments, isLoading } = useGetAllClientComments();
+  const filteredComment = clientComments?.filter(
+    (comment) =>
+      comment.sender_name === details?.first_name + " " + details?.last_name
+  );
+
   return (
     <>
       <GoBack />
@@ -154,7 +163,13 @@ export default function ClientDetailsPage({ params }: Params) {
               data={ClientProjectDetails ?? []}
             />
           </TabsContent>
-          {/* <DataTable columns={columnTwo} data={dataTwo}/> */}
+          <TabsContent value="comment">
+            <DataTable
+              columns={commentColumns}
+              data={filteredComment ?? []}
+              isLoading={isLoading}
+            />
+          </TabsContent>
         </Tabs>
       </div>
     </>

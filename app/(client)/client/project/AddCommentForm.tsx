@@ -4,16 +4,19 @@ import {
 } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
+import { api } from "@/config/api";
+import { useGetClientDetails } from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
 import useClientStore, {
   useClientStoreModal,
 } from "@/store/client/useClientStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const FormDataSchema = z.object({
-  project_code: z.string(),
-  project_name: z.string(),
   comment: z.string(),
   description: z.string(),
 });
@@ -22,13 +25,39 @@ type Formtype = z.infer<typeof FormDataSchema>;
 export default function AddCommentForm() {
   const { onClose } = useClientStoreModal();
   const { projectDetails } = useClientStore();
+  const { userId } = userStore();
+  const { toast } = useToast();
+
+  const { details, isClientDetailsLoading } = useGetClientDetails(userId!);
 
   const form = useForm<Formtype>({
     resolver: zodResolver(FormDataSchema),
   });
 
+  const { mutate } = useMutation({
+    mutationKey: ["Add client comment to project"],
+    mutationFn: async (data: Formtype) => {
+      try {
+        const res = await api.post("/project-comments", {
+          ...data,
+          project_code: projectDetails?.project_code,
+          sender_name: details?.first_name! + " " + details?.last_name,
+        });
+        if (res.status === 200) {
+          onClose();
+          toast({
+            title: "Comment Added to Project",
+            variant: "success",
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+
   const submit = (data: Formtype) => {
-    console.log(data);
+    mutate(data);
   };
   return (
     <div>
@@ -51,7 +80,7 @@ export default function AddCommentForm() {
               disabled
             />
           </div>
-          <CustomFormField
+          <CustomFormTextareaField
             name="comment"
             control={form.control}
             label="Comment"

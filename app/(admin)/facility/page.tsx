@@ -30,6 +30,8 @@ export default function FacilityPage() {
         }
       }
     },
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
   });
 
   return (

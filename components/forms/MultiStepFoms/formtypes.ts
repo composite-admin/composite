@@ -88,3 +88,30 @@ export const FormDataSchema = z.object({
 
 
 export type addTenantType = z.infer<typeof FormDataSchema>;
+
+
+
+export const FormDataSchemaEdit = z.object({
+  project_name: z.string().min(1, { message: "Project required" }),
+  flat_code: z.string().min(1, { message: "Flat required" }),
+  title: z.enum(["Mr.", "Mrs.", "Miss"], {
+    required_error: "Title required",
+  }),
+  fees: z.array(
+    z.object({
+      type: z.string().min(1, { message: "Fee type required" }),
+      value: z
+        .string()
+        .min(1, { message: "Fee value required" })
+        .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+    })
+  ),
+  full_name: z.string().min(1, { message: "Name required" }),
+  phone_number: z.string().min(1, { message: "Phone number required" }),
+  email: z.string().email({ message: "Email is invalid" }),
+  annual_rent: z.string().min(1, { message: "Annual rent cost required" }),
+  rent_payment: z.string().min(1, { message: "Rent payment required" }),
+  reminder: z.string().min(1, { message: "Set reminder required" }),
+});
+
+export type editTenantType = z.infer<typeof FormDataSchemaEdit>;
