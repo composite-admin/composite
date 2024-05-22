@@ -34,6 +34,7 @@ api.interceptors.response.use(
       if (error.response.status === 401) {
         deleteCookie("token");
         deleteCookie("user_type");
+        deleteCookie("username");
         window.location.href = "/login";
       }
       console.log(error.response.data.message);

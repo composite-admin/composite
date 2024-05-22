@@ -1,22 +1,14 @@
 "use client";
-import { userStore } from "@/store/auth/AuthStore";
+import useAuthStore, { userStore } from "@/store/auth/AuthStore";
 import { HiOutlineBell } from "react-icons/hi2";
-import { RiSearch2Line } from "react-icons/ri";
 import Image from "next/image";
-import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import Drop from "./Drop";
-import DropContent from "@/components/shared/Drop";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { getCookie } from "cookies-next";
 
 const TopNav = () => {
-  const { userType, username } = userStore();
-
-  // const [showDrop, setShowDrop] = useState(false);
-
-  // const updateDrop = (update: boolean) => setShowDrop(update);
-
+  const { username, userType } = userStore();
+  // const username = getCookie("username");
   const router = useRouter();
   const { logOut } = userStore();
 

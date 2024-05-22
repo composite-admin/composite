@@ -3,7 +3,6 @@ import DashboardCard from '../Dashboard/DashboardCard'
 import { TotalProjectsIcon } from "../icons";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { useQuery } from "@tanstack/react-query";
-import { IProjectTeamMemberByProjectData } from "@/utils/types";
 import { getStuffTyped } from "@/hooks/useSelectOptions";
 import SpinnerComponent from "../shared/SpinnerComponent";
 
@@ -47,13 +46,13 @@ const ProjectCost = ({ projectCode }: { projectCode: string }) => {
 
     const totalAmount =
       data && data.length > 0
-        ? parseFloat(data[0].startup_cost) +
-          parseFloat(data[0].stakeholder_amount) +
-          parseFloat(data[0].contractor_amount) +
-          parseFloat(data[0].material_amount) +
-          parseFloat(data[0].machinery_approved_amount) +
-          parseFloat(data[0].labour_approved_amount) +
-          parseFloat(data[0].cash_advance_approved_amount)
+        ? parseFloat(data[0].startup_cost ?? 0) +
+          parseFloat(data[0].stakeholder_amount ?? 0) +
+          parseFloat(data[0].contractor_amount ?? 0) +
+          parseFloat(data[0].material_amount ?? 0) +
+          parseFloat(data[0].machinery_approved_amount ?? 0) +
+          parseFloat(data[0].labour_approved_amount ?? 0) +
+          parseFloat(data[0].cash_advance_approved_amount ?? 0)
         : 0;
 
     return (

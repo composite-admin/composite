@@ -20,14 +20,12 @@ const useAuthStore = create<AuthStore>((set) => ({
 export default useAuthStore;
 
 interface IUserStoreType {
-  token: string | null;
   userType: string | null;
   userId: string | null;
   username: string | null;
   id: number | null;
   logOut: () => void;
   setUserStorage: (
-    token: string,
     userType: string | undefined,
     userId: string | null,
     username: string | null,
@@ -39,14 +37,12 @@ export const userStore = create<IUserStoreType>()(
   devtools(
     persist(
       (set) => ({
-        token: null,
         userType: null,
         userId: null,
         username: null,
         id: null,
-        setUserStorage: (userToken, userType, userId, username, id) => {
+        setUserStorage: (userType, userId, username, id) => {
           set({
-            token: userToken,
             userType,
             userId,
             username,
@@ -55,19 +51,20 @@ export const userStore = create<IUserStoreType>()(
         },
         logOut: () => {
           set({
-            token: null,
             userType: null,
             userId: null,
             username: null,
+            id: null,
           });
 
           deleteCookie("token");
           deleteCookie("user_type");
+          deleteCookie("username");
         },
       }),
       {
-        name: "token",
-        storage: createJSONStorage(() => sessionStorage),
+        name: "user_info",
+        storage: createJSONStorage(() => localStorage),
       }
     )
   )

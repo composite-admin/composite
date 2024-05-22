@@ -7,7 +7,7 @@ import { useGetAllRequests } from "@/hooks/useSelectOptions";
 import { IRequestData } from "@/utils/types";
 
 const ToolsAndMachine = ({ projectCode }: { projectCode: string }) => {
-  const { requests, isLoading, isError } = useGetAllRequests();
+  const { requests, isLoading } = useGetAllRequests();
   const toolsAndMachine = requests?.filter(
     (request: IRequestData) =>
       (request.request_type === "Tools and Machinery Buy" ||
@@ -25,6 +25,7 @@ const ToolsAndMachine = ({ projectCode }: { projectCode: string }) => {
         showSearch={false}
         columns={columns}
         data={toolsAndMachine ?? []}
+        isLoading={isLoading}
       />
     </div>
   );

@@ -40,7 +40,7 @@ export const columns: ColumnDef<IRequestData>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["quantity"]}</span>
+          <span className="font-semibold ">{row.original["approved_quantity"]}</span>
         </div>
       );
     },
@@ -57,7 +57,7 @@ export const columns: ColumnDef<IRequestData>[] = [
       return (
         <div className="">
           <span className="font-semibold ">
-            {formatCurrency(row.original["unit_price"])}
+            {formatCurrency(row.original["approved_unit_price"])}
           </span>
         </div>
       );
@@ -74,7 +74,7 @@ export const columns: ColumnDef<IRequestData>[] = [
       return (
         <div className="">
           <span className="font-semibold ">
-            {formatCurrency(row.original["total_price"])}
+            {formatCurrency(row.original["approved_total_amount"])}
           </span>
         </div>
       );

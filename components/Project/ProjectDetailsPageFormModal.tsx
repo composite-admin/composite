@@ -8,6 +8,7 @@ import AddMaterialForm from "../forms/projects/AddMaterialForm";
 import AddContractorForm from "../forms/projects/AddContractorForm";
 import AddConsultantForm from "../forms/projects/AddConsultantForm";
 import AddProjectTeamMember from "../forms/projects/AddProjectTeamMember";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {}
 
@@ -33,6 +34,7 @@ export default function ProjectDetailsPageFormModal() {
         return "";
     }
   };
+
   return (
     <Modal
       isOpen={isOpen}

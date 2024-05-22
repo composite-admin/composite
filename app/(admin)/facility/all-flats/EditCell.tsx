@@ -3,9 +3,11 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { EditUserPageIcon } from "@/components/icons/ViewUserPageIcon";
 import Link from "next/link";
 import { Row } from "@tanstack/react-table";
-import { ProjectPageFormType,useTableActionStore } from "@/store/useTableActionStore";
+import {
+  ProjectPageFormType,
+  useTableActionStore,
+} from "@/store/useTableActionStore";
 import TableAction from "../../cash-advance/details/(forms_and_modals)/TableAction";
-
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   href?: string;
@@ -13,21 +15,35 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   action?: string | ProjectPageFormType;
   row?: Row<any>;
   rowId?: number;
-  url?: string | undefined
+  url?: string | undefined;
 }
-export default function EditCell({ href, isLink, action, row, rowId, ...props  }: IProps) {
-  const {onOpen, setTableActions, setEditOrDelete, setRowID, rowID} = useTableActionStore();
+export default function EditCell({
+  href,
+  isLink,
+  action,
+  row,
+  rowId,
+  ...props
+}: IProps) {
+  const { onOpen, setTableActions, setEditOrDelete, setRowID, rowID } =
+    useTableActionStore();
 
-  const setAction =(args: any) => {
-    setTableActions(args)
-    setRowID(Number(rowId) )
-    setEditOrDelete("edit")
-    onOpen()
-  }
-  
+  const setAction = (args: any) => {
+    if (!isLink) {
+      setTableActions(args);
+      setRowID(Number(rowId));
+      setEditOrDelete("edit");
+      onOpen();
+    }
+    return;
+  };
 
   return (
-    <div className="flex gap-2 items-center" {...props} onClick={() => setAction(action)}>
+    <div
+      className="flex gap-2 items-center"
+      {...props}
+      onClick={() => setAction(action)}
+    >
       {isLink ? (
         <Link
           href={href || "/"}
@@ -71,29 +87,40 @@ export function ViewCell({ href, isLink, action, ...props }: IProps) {
   );
 }
 
-export function DeleteCell({ href, isLink, action, row, rowId, url, ...props}: IProps) {
-  const { onOpen, setTableActions, setEditOrDelete, setRowID, setDeleteUrl } = useTableActionStore();
+export function DeleteCell({
+  href,
+  isLink,
+  action,
+  row,
+  rowId,
+  url,
+  ...props
+}: IProps) {
+  const { onOpen, setTableActions, setEditOrDelete, setRowID, setDeleteUrl } =
+    useTableActionStore();
 
   const setAction = () => {
-    setTableActions(null)
-    setRowID(Number(rowId) )
-    setDeleteUrl(url || "")
-    setEditOrDelete("delete")
-    onOpen()
-  }
+    setTableActions(null);
+    setRowID(Number(rowId));
+    setDeleteUrl(url || "");
+    setEditOrDelete("delete");
+    onOpen();
+  };
   return (
-    <div className="flex gap-2 items-center" {...props} onClick={() => setAction()}>
-        <div
-          className="flex gap-2 items-center text-red-500 font-semibold cursor-pointer"
-          {...props}
-        >
-          Delete
-        </div>
+    <div
+      className="flex gap-2 items-center"
+      {...props}
+      onClick={() => setAction()}
+    >
+      <div
+        className="flex gap-2 items-center text-red-500 font-semibold cursor-pointer"
+        {...props}
+      >
+        Delete
+      </div>
     </div>
   );
 }
-
-
 
 // type Props = Row<Material>;
 
@@ -110,4 +137,3 @@ export function DeleteCell({ href, isLink, action, row, rowId, url, ...props}: I
 //     </div>
 //   );
 // };
-

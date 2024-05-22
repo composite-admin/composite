@@ -153,6 +153,7 @@ export const useGetAllRequests = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["get all requests"],
     queryFn: () => getStuffTyped<IRequestData[]>("/requests"),
+    refetchOnMount: "always",
   });
 
   return { requests: data, isLoading, isError };
@@ -257,6 +258,8 @@ export const useGetAllProjectData = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["get all projects"],
     queryFn: () => getStuffTyped<IProjectData[]>("/projects"),
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
   });
   return { projects: data, isLoading };
 };
@@ -324,6 +327,8 @@ export const useGetAllCashAdvance = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["get all cash advances"],
     queryFn: () => getStuffTyped<ICashAdvanceData[]>("/cash-advances"),
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
   });
   return { cashAdvances: data, isCashAdvanceLoading: isLoading };
 };

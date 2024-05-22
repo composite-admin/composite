@@ -9,7 +9,7 @@ import { api } from "@/config/api";
 
 const StartupCost = ({ projectCode }: { projectCode: string }) => {
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all startup cost by project code"],
+    queryKey: ["get startup cost by project code"],
     queryFn: async () => {
       try {
         const response = await api.get<ApiResponse<IStartupCostProjectData[]>>(
@@ -24,6 +24,9 @@ const StartupCost = ({ projectCode }: { projectCode: string }) => {
         }
       }
     },
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
+    staleTime: 60_000,
   });
   return (
     <div>
