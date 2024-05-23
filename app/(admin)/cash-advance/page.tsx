@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircleIcon, ClockIcon, XCircleIcon } from "lucide-react";
+import { CheckCircleIcon, ClockIcon, Hand, XCircleIcon } from "lucide-react";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { columns } from "./columns";
 import { DataTable } from "@/components/shared/DataTable";
@@ -15,10 +15,10 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import { pendingAndApprovedColumns } from "./pendingAndApprovedCols";
+import useRefetchQuery from "@/utils/refetchQuery";
 
 export default function CashAdvancePage() {
   const { setTableType, cashAdvanceTableState } = cashAdvanceTablesStore();
-
   const { data } = useQuery({
     queryKey: ["get cash advance"],
     queryFn: async () => {
@@ -76,7 +76,7 @@ export default function CashAdvancePage() {
             ? pendingCashAvance ?? []
             : cashAdvanceTableState === "approved"
             ? approvedCashAdvance ?? []
-            : data ?? []
+            : data?.filter((decision) => decision.decision !== "Pending") ?? []
         }
         columns={
           cashAdvanceTableState === "pending" ||
@@ -100,12 +100,21 @@ const RequestStatusBadges = ({
   currentTable,
   setCurrentTable,
 }: CashAdvanceProps) => {
+  const { refetchQuery } = useRefetchQuery();
+
+  const handleRefecth = () => {
+    refetchQuery({
+      predicate: (query) => query.queryKey[0] === "get cash advance",
+    });
+  };
+
   const badgeData = [
     {
       icon: <DashboardIcon />,
       title: "Cash Advances",
       status: "all_decisions",
-      notification: data?.length ?? 0,
+      notification:
+        data?.filter((decision) => decision.decision !== "Pending").length ?? 0,
     },
     {
       icon: <ClockIcon />,
@@ -139,7 +148,10 @@ const RequestStatusBadges = ({
         <SelectTableTypeBadge
           key={badge.status}
           icon={badge.icon}
-          onclick={() => setCurrentTable(badge.status as CashAdvanceTables)}
+          onclick={() => {
+            setCurrentTable(badge.status as CashAdvanceTables);
+            handleRefecth();
+          }}
           title={badge.title}
           notification={badge.notification}
           className={`${

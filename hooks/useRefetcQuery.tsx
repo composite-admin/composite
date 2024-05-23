@@ -1,13 +1,13 @@
-import { useQueryClient, InvalidateQueryFilters } from "@tanstack/react-query";
+// import { useQueryClient, InvalidateQueryFilters } from "@tanstack/react-query";
 
-const useRefetchQuery = () => {
-  const queryClient = useQueryClient();
+// const useRefetchQuery = () => {
+//   const queryClient = useQueryClient();
 
-  const refetchQuery = (queryKey: InvalidateQueryFilters) => {
-    queryClient.invalidateQueries(queryKey);
-  };
+//   const refetchQuery = (queryKey: InvalidateQueryFilters) => {
+//     queryClient.invalidateQueries(queryKey);
+//   };
 
-  return { refetchQuery };
-};
+//   return { refetchQuery };
+// };
 
-export default useRefetchQuery;
+// export default useRefetchQuery;

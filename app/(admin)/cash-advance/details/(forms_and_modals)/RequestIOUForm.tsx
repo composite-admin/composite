@@ -15,7 +15,7 @@ import { z } from "zod";
 const RequestAndIOUSchema = z.object({
   cash_advance_type: z.string().optional(),
   description: z.string().optional(),
-  amount_recorded: z.string().optional(),
+  amount_recorded: z.string().optional(), // unused_cash
   balance: z.string().optional(),
   staff_name: z.string().optional(),
 });
