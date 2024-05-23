@@ -113,10 +113,10 @@ const SidebarLinks: NavLinkType[] = [
 
 export default SidebarLinks;
 
-// export const footerLinks: NavLinkType[] = [
-
-//   {
-//     href: "/settings",
-//     label: "Settings",
-//   },
-// ];
+export const footerLinks: NavLinkType[] = [
+  {
+    href: "/settings",
+    label: "Settings",
+    icon: <SettingsIcon />,
+  },
+];
