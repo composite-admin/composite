@@ -15,7 +15,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { opacityVariant } from "@/utils/variants";
 import BankDetailsModal from "./(modal)/bank-details";
 import { useModal } from "@/utils/modalContext";
-import { IWorkerData } from "@/utils/types";
+import { ApiResponse, IWorkerData } from "@/utils/types";
 import axios from "axios";
 import { api } from "@/config/api";
 import { useQuery } from "@tanstack/react-query";
@@ -41,11 +41,13 @@ const SingleWorker = () => {
 
   const editWorker = () => router.push(`/workers/${params.id}/edit`);
 
-  const { data, error, isPending, isError } = useQuery({
+  const { data, error, isPending } = useQuery({
     queryKey: ["get worker details"],
     queryFn: async () => {
       try {
-        const response = await api.get(`/worker/${params.id}`);
+        const response = await api.get<ApiResponse<IWorkerData[]>>(
+          `/worker-jobs`
+        );
         return response;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -57,7 +59,6 @@ const SingleWorker = () => {
     },
     refetchOnMount: "always",
   });
-  const workerDataArray: IWorkerData[] = [data?.data.data];
   const showBankModal = () =>
     showModal(
       worker && (
@@ -80,14 +81,12 @@ const SingleWorker = () => {
         <div className="bg-white rounded-lg border-[#D0D5DD] py-10 my-10">
           <div className="grid grid-cols-3 p-5 gap-5">
             <div className="space-y-4">
-              <AvatarComponent classes="size-24" />
-
               <AnimatePresence mode="wait">
                 {worker?.createdAt && (
                   <motion.div {...opacityVariant} className="space-y-4">
                     <div className="space-y-1">
                       <h1 className="font-bold text-2xl capitalize">
-                        {worker?.worker_company}
+                        {worker?.worker_name}
                       </h1>
                       <p className="font-light">
                         Submitted on {formatDate(`${worker?.createdAt}`)}
@@ -159,22 +158,6 @@ const SingleWorker = () => {
                   isLoading={fetching}
                 />
               </div>
-
-              {/* <div>
-                <p className="text-[#475367] text-sm">Bank Name:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.bank_name}</p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Account Name:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.account_name}</p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Account Number:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">{selectedItem && selectedItem.account_number}</p>
-              </div> */}
-
               <div>
                 <p className="text-[#475367] text-sm">Comment:</p>
                 <TextSkeleton text={worker?.comment} isLoading={fetching} />
@@ -188,9 +171,9 @@ const SingleWorker = () => {
         />
         <DataTable
           columns={columns}
-          data={workerDataArray ?? []}
+          data={data?.data.data ?? []}
           clickAction={() => {}}
-          isLoading={jobsFetching}
+          isLoading={isPending}
         />
       </div>
     </>

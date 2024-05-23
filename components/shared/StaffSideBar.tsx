@@ -1,11 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import  { footerLinks } from "@/utils/links";
+// import  { footerLinks } from "@/utils/links";
 import Link from "next/link";
 import Image from "next/image";
 import { NavLinkType } from "@/utils/types";
-import { DashboardIcon, HashIcon, ReportsIcon } from "../icons";
+import { DashboardIcon, HashIcon, ReportsIcon, SettingsIcon } from "../icons";
 
 
 export const StaffSidebarLinks: NavLinkType[] = [
@@ -27,7 +27,8 @@ export const StaffSidebarLinks: NavLinkType[] = [
   {
     href: "/staff/change-password",
     label: "Change Password",
-    icon: <HashIcon />,
+icon: <SettingsIcon />,
+
   },
 ];
 
@@ -61,7 +62,7 @@ const StaffSidebar = () => {
         })}
       </div>
 
-      <div className="pt-20 justify-self-end">
+      {/* <div className="pt-20 justify-self-end">
         {footerLinks.map((item: NavLinkType) => {
           return (
             <Link
@@ -78,7 +79,7 @@ const StaffSidebar = () => {
             </Link>
           );
         })}
-      </div>
+      </div> */}
     </aside>
   );
 };

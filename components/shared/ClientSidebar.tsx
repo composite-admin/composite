@@ -1,12 +1,10 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import  { footerLinks } from "@/utils/links";
 import Link from "next/link";
 import Image from "next/image";
 import { NavLinkType } from "@/utils/types";
-import { DashboardIcon, HashIcon, ReportsIcon } from "../icons";
-
+import { DashboardIcon, HashIcon, ReportsIcon, SettingsIcon } from "../icons";
 
 export const StaffSidebarLinks: NavLinkType[] = [
   {
@@ -22,18 +20,16 @@ export const StaffSidebarLinks: NavLinkType[] = [
   {
     href: "/client/profile",
     label: "Profile",
-    icon: <HashIcon />,
+    icon: <SettingsIcon />,
   },
 ];
-
-
 
 const ClientSidebar = () => {
   const pathname = usePathname();
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full flex flex-col">
       <div className="flex gap-2 items-center justify-center pb-5">
-        <Image src="/./logo.png" alt="" unoptimized width={30} height={30}/>
+        <Image src="/./logo.png" alt="" unoptimized width={30} height={30} />
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
       </div>
 
@@ -55,7 +51,7 @@ const ClientSidebar = () => {
           );
         })}
       </div>
-
+      {/* 
       <div className="pt-20 justify-self-end">
         {footerLinks.map((item: NavLinkType) => {
           return (
@@ -73,7 +69,7 @@ const ClientSidebar = () => {
             </Link>
           );
         })}
-      </div>
+      </div> */}
     </aside>
   );
 };

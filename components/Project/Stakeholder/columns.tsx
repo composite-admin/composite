@@ -31,9 +31,36 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
   },
 
   {
+    accessorKey: "stakeholder_amount",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader
+          column={column}
+          title="Stakeholder Amount"
+          withSort={false}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const { stakeholder_amount } = row.original;
+      return (
+        <span className="font-semibold ">
+          {formatCurrency(stakeholder_amount)}
+        </span>
+      );
+    },
+  },
+
+  {
     accessorKey: "approved_amount",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Amount" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Approved Amount"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       const { approved_amount } = row.original;
@@ -41,6 +68,21 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
         <span className="font-semibold ">
           {formatCurrency(approved_amount)}
         </span>
+      );
+    },
+  },
+
+  {
+    accessorKey: "other_amount",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Other Amount" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      const { other_amount } = row.original;
+      return (
+        <span className="font-semibold ">{formatCurrency(other_amount)}</span>
       );
     },
   },
@@ -80,9 +122,7 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
       const formatted = formatDate(createdAt);
       return (
         <div className="">
-          <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
-            {formatted}
-          </p>
+          <p className="">{formatted}</p>
         </div>
       );
     },

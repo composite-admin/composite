@@ -15,11 +15,12 @@ export const columns: ColumnDef<IWorkerData>[] = [
       return <ColumnHeader column={column} title="Job Code" withSort={false} />;
     },
     cell: ({ row }) => {
-      const worker_code = row.original?.worker_code;
       return (
         <div className="">
           <span className="font-semibold ">
-            {worker_code ? worker_code.toUpperCase() : "N/A"}
+            {/* {worker_code ? worker_code.toUpperCase() : "N/A"}
+             */}
+            {row.original?.worker_code}
           </span>
         </div>
       );
@@ -31,7 +32,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       return <ColumnHeader column={column} title="Service" withSort={false} />;
     },
     cell: ({ row }) => {
-      const service_type = row.original?.service_type;
+      const service_type = row.original?.worker_service;
       return (
         <div className="">
           <span className="font-semibold ">{service_type}</span>
@@ -65,7 +66,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       );
     },
     cell: ({ row }) => {
-      const amount_paid  = row.original?.amount_paid;
+      const amount_paid = row.original?.amount_paid;
       const formatted = formatCurrency(amount_paid);
       return (
         <div className="">
@@ -81,7 +82,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
       return <ColumnHeader column={column} title="Balance" withSort={false} />;
     },
     cell: ({ row }) => {
-      const  outstanding_balance  = row.original?.outstanding_balance
+      const outstanding_balance = row.original?.outstanding_balance;
       const formatted = formatCurrency(outstanding_balance);
       return (
         <div className="">
@@ -93,10 +94,10 @@ export const columns: ColumnDef<IWorkerData>[] = [
   {
     accessorKey: "comment",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Balance" withSort={false} />;
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
     },
     cell: ({ row }) => {
-      const comment  = row.original?.comment
+      const comment = row.original?.comment;
       return (
         <div className="">
           <span className="font-semibold ">{comment}</span>
@@ -107,10 +108,12 @@ export const columns: ColumnDef<IWorkerData>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Balance" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Date Added" withSort={false} />
+      );
     },
     cell: ({ row }) => {
-      const createdAt  = row.original?.createdAt
+      const createdAt = row.original?.createdAt;
       const formatted = formatDate(createdAt);
       return (
         <div className="">
