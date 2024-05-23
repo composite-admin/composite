@@ -16,6 +16,7 @@ import { api } from "@/config/api";
 import axios from "axios";
 import { pendingAndApprovedColumns } from "./pendingAndApprovedCols";
 import useRefetchQuery from "@/utils/refetchQuery";
+import { approvedColumns } from "./approvedCols";
 
 export default function CashAdvancePage() {
   const { setTableType, cashAdvanceTableState } = cashAdvanceTablesStore();
@@ -79,9 +80,10 @@ export default function CashAdvancePage() {
             : data?.filter((decision) => decision.decision !== "Pending") ?? []
         }
         columns={
-          cashAdvanceTableState === "pending" ||
-          cashAdvanceTableState === "approved"
+          cashAdvanceTableState === "pending"
             ? pendingAndApprovedColumns
+            : cashAdvanceTableState === "approved"
+            ? approvedColumns
             : columns
         }
       />

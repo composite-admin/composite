@@ -20,7 +20,7 @@ import { useToast } from "@/components/ui/use-toast";
 const RefundRequestOrIOUSchema = z.object({
   cash_advance_type: z.string().optional(),
   description: z.string().optional(),
-  // amount_recorded: z.string().optional(),
+  amount_recorded: z.string().optional(),
   decision: z.string().optional(),
   decision_reason: z.string().optional(),
   staff_name: z.string().optional(),
@@ -34,11 +34,18 @@ export default function RefundRequestOrIOUForm() {
   const router = useRouter();
   const { toast } = useToast();
 
+  const amountRequested = () => {
+    return (
+      Number(CashAdvanceDetails?.amount_collected) -
+      Number(CashAdvanceDetails?.unused_cash)
+    );
+  };
+
   const form = useForm<RefundRequestOrIOUFormType>({
     resolver: zodResolver(RefundRequestOrIOUSchema),
-    defaultValues: {
+    values: {
       cash_advance_type: CashAdvanceDetails?.cash_advance_type,
-      // amount_recorded: CashAdvanceDetails?.amount_recorded,
+      amount_recorded: CashAdvanceDetails?.unused_cash,
       staff_name: CashAdvanceDetails?.staff_name,
     },
   });
@@ -47,28 +54,40 @@ export default function RefundRequestOrIOUForm() {
     mutationKey: ["request iou", CashAdvanceDetails?.cash_id],
     mutationFn: async (data: RefundRequestOrIOUFormType) => {
       try {
-        const response = await api.put(
-          `/cash-advances/${CashAdvanceDetails?.cash_id}`,
-          {
-            ...data,
-            // amount_recorded: Number(data.amount_recorded),
-            action_by: username,
-          }
-        );
-
-        if (response.status === 200) {
-          toast({
-            title: "Success",
-            description: "Cash Advance complete",
-            variant: "success",
-          });
-          onClose();
-          router.push(
-            `/cash-advance/${CashAdvanceDetails?.cash_id}/approved-details`
+        if (data.decision === "Approved") {
+          const response = await api.put(
+            `/cash-advances/${CashAdvanceDetails?.cash_id}`,
+            {
+              ...data,
+              amount_recorded: Number(data.amount_recorded),
+              action_by: username,
+            }
           );
+
+          //     }
+          // if (response.status === 200) {
+          //   toast({
+          //     title: "Success",
+          //     description: "Cash Advance complete",
+          //     variant: "success",
+          //   });
+          //   onClose();
+          //   router.push(
+          //     `/cash-advance/${CashAdvanceDetails?.cash_id}/approved-details`
+          //   );
+          // }
         }
 
-        return response.data;
+        if (data.decision === "Declined") {
+          const response = await api.put(
+            `/cash-advances/${CashAdvanceDetails?.cash_id}`,
+            {
+              decision_reason: data.decision_reason,
+              action_by: username,
+            }
+          );
+        }
+        // return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           throw new Error(error.response.data.message);
@@ -103,7 +122,7 @@ export default function RefundRequestOrIOUForm() {
             placeholder={CashAdvanceDetails?.staff_name}
           />
           <CustomFormField
-            name="returned_amount"
+            name="amount_recorded"
             control={form.control}
             label={"Returned Amount"}
             placeholder={CashAdvanceDetails?.balance}

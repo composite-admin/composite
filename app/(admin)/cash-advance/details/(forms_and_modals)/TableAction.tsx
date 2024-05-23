@@ -3,6 +3,7 @@ import useCashAdvanceStore, {
   CashAdvanceFormTypes,
 } from "@/store/cash-advance/useCashAdvanceStore";
 import { ICashAdvanceData } from "@/utils/types";
+import { useQuery } from "@tanstack/react-query";
 
 interface Props {
   children?: React.ReactNode;
@@ -23,6 +24,7 @@ export default function TableAction({
   const showModal = (formType: CashAdvanceFormTypes) => {
     setFormTypes(formType);
     onOpen();
+
     const GetDetails = async () => {
       const res = await getStuffTyped<ICashAdvanceData>(
         `/cash-advances/${cash_id}`

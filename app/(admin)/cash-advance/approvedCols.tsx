@@ -11,7 +11,7 @@ import TableAction from "./details/(forms_and_modals)/TableAction";
 import { CashAdvanceFormTypes } from "@/store/cash-advance/useCashAdvanceStore";
 import EditCell, { ViewCell } from "../facility/all-flats/EditCell";
 
-export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
+export const approvedColumns: ColumnDef<ICashAdvanceData>[] = [
   {
     accessorKey: "request_code",
     header: ({ column }) => {
@@ -77,10 +77,30 @@ export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
       return <span>{fromatted}</span>;
     },
   },
+
+  {
+    accessorKey: "cash_id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Status" />;
+    },
+    cell: ({ row }) => {
+      const { decision } = row.original;
+      return (
+        <>
+          {decision === "Approved" ? (
+            <p className="font-semibold text-textColor-500 uppercase disabled cursor-not-allowed w-max px-1 p-.5">
+              {decision}
+            </p>
+          ) : null}
+        </>
+      );
+    },
+  },
+
   {
     accessorKey: "decision",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Status" />;
+      return <ColumnHeader column={column} title="Action" />;
     },
     cell: ({ row }) => {
       const { decision, cash_id } = row.original;
@@ -104,59 +124,4 @@ export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
       );
     },
   },
-  {
-    accessorKey: "cash_id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" />;
-    },
-    cell: ({ row }) => {
-      const { cash_id, decision } = row.original;
-      return (
-        <>
-          {decision === "Approved" ? (
-            <p className="font-semibold text-textColor-500 uppercase disabled cursor-not-allowed">
-              Return Cash Complete
-            </p>
-          ) : (
-            <TableAction
-              cash_id={String(cash_id)}
-              formType={"refund" as CashAdvanceFormTypes}
-              currentFormType={"refund" as CashAdvanceFormTypes}
-              onActionClick={() => {
-                return cash_id;
-              }}
-            >
-              <p className="font-semibold text-primaryLight underline uppercase ">
-                Approve / Reject
-              </p>
-            </TableAction>
-          )}
-        </>
-      );
-    },
-  },
-
-  // {
-  //   accessorKey: "cash_id",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Actions" />;
-  //   },
-  //   cell: ({ row }) => {
-  //     const { cash_id, action_type } = row.original;
-  //     return (
-  //       <TableAction
-  //         formType={"refund" as CashAdvanceFormTypes}
-  //         currentFormType={"refund" as CashAdvanceFormTypes}
-  //         cash_id={String(cash_id)}
-  //         onActionClick={() => {
-  //           return cash_id;
-  //         }}
-  //       >
-  //         <p className="cursor-pointer font-semibold text-primaryLight uppercase">
-  //           Approve Refund
-  //         </p>
-  //       </TableAction>
-  //     );
-  //   },
-  // },
 ];

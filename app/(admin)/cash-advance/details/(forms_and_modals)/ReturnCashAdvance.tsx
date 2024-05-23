@@ -14,25 +14,62 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
-const ReturnCashAdvanceSchema = z.object({
-  cash_advance_type: z.string().optional(),
-  amount_collected: z.string().optional(),
-  amount_recorded: z.string().optional(),
-  description: z.string().optional(),
-});
+const ReturnCashAdvanceSchema = z
+  .object({
+    cash_advance_type: z.string().optional(),
+    amount_collected: z.string().optional(),
+    balance: z.string({
+      required_error: " Balance is required",
+    }),
+    unused_cash: z.string({
+      required_error: " Amount is required",
+    }),
+    description: z
+      .string({
+        required_error: " Description is required",
+      })
+      .refine(
+        (val) => {
+          return val.length > 0;
+        },
+        {
+          message: "Description is required",
+          params: {
+            min: 0,
+            max: 500,
+          },
+        }
+      ),
+  })
+  // Unused cash must not be greater than amount collected
+  .refine(
+    (data) => {
+      return Number(data.unused_cash) <= Number(data.amount_collected);
+    },
+    {
+      message: "Unused cash CANNOT be more than the Approved amount",
+      path: ["unused_cash"],
+    }
+  );
 
 type ReturnCashAdvanceFormType = z.infer<typeof ReturnCashAdvanceSchema>;
 
 export default function ReturnCashAdvance() {
   const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
-  const router = useRouter();
   const { toast } = useToast();
 
   const form = useForm<ReturnCashAdvanceFormType>({
     resolver: zodResolver(ReturnCashAdvanceSchema),
-    defaultValues: {
-      cash_advance_type: CashAdvanceDetails?.cash_advance_type,
-      amount_collected: CashAdvanceDetails?.amount_collected,
+    values: {
+      cash_advance_type: CashAdvanceDetails?.cash_advance_type || "",
+      balance: CashAdvanceDetails?.balance || "",
+      amount_collected: CashAdvanceDetails?.amount_collected || "",
+      unused_cash:
+        CashAdvanceDetails?.unused_cash ||
+        CashAdvanceDetails?.decision === "Approved"
+          ? ""
+          : "",
+      description: CashAdvanceDetails?.description || "",
     },
   });
 
@@ -45,9 +82,10 @@ export default function ReturnCashAdvance() {
           {
             ...data,
             decision: "Pending",
-            amount_recorded: Number(data.amount_recorded),
+            unused_cash: Number(data.unused_cash),
           }
         );
+
         if (response.status === 200) {
           toast({
             title: "Cash Advance Returned",
@@ -70,7 +108,6 @@ export default function ReturnCashAdvance() {
   });
 
   const submit = (data: ReturnCashAdvanceFormType) => {
-    console.log(data);
     mutate(data);
   };
 
@@ -92,12 +129,19 @@ export default function ReturnCashAdvance() {
           placeholder={CashAdvanceDetails?.amount_collected}
         />
         <CustomFormField
-          name="amount_recorded"
+          name="balance"
+          control={form.control}
+          label={"Balance"}
+          disabled
+          placeholder={CashAdvanceDetails?.balance}
+        />
+        <CustomFormField
+          name="unused_cash"
           control={form.control}
           label={"Unused Cash Amount"}
         />
         <CustomFormTextareaField
-          name="Description"
+          name="description"
           control={form.control}
           label={"Description"}
         />

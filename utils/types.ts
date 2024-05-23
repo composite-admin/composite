@@ -219,6 +219,7 @@ export interface ICashAdvanceData {
   payment_method: string;
   createdAt: string;
   updatedAt: string;
+  unused_cash: string;
   description: string;
   decision: string;
   decision_reason: string;
