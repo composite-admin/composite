@@ -20,10 +20,6 @@ const TopNav = () => {
   return (
     <div className="bg-white py-3 px-8 flex items-center justify-end border-b border-borderColor">
       <div className="flex items-center justify-end gap-2">
-        <div className="flex w-[40px] h-[40px] bg-grey  items-center justify-center rounded-full">
-          <HiOutlineBell className="text-xl" />
-        </div>
-
         <div className="relative">
           <div className="flex items-center gap-4 py-1 px-3 duration-300 rounded-xl">
             <div className="size-[40px] rounded-full overflow-hidden flex-shrink-0">

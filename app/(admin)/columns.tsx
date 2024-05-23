@@ -54,7 +54,7 @@ export const columns: ColumnDef<PendingProjectDetails>[] = [
   {
     accessorKey: "machinery_approved_amount",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Tools And Machine" />;
+      return <ColumnHeader column={column} title="Tools And Machinery" />;
     },
     cell: ({ row }) => {
       return (

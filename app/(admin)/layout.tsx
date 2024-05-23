@@ -6,7 +6,7 @@ export default function layout({ children }: PropsWithChildren) {
   return (
     <main className="bg-[#F5F6F8] ">
       <div className="max-w-[140rem] flex mx-auto">
-        <div className="hidden lg:block w-[15.5rem] z-50 relative ">
+        <div className="hidden lg:block w-[15.5rem] z-50 relative h-screen">
           <Sidebar />
         </div>
         <div className="lg:col-span-5 w-full  lg:w-[calc(100%-15.5rem)] overflow-y-scroll h-screen bg-[#F5F6F8]">

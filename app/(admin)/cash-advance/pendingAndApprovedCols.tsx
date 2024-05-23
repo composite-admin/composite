@@ -46,6 +46,21 @@ export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
       );
     },
   },
+
+  {
+    accessorKey: "unused_cash",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Unused Cash Requested For" />;
+    },
+    cell: ({ row }) => {
+      const amt = formatCurrency(row.getValue("unused_cash"));
+      return (
+        <div className="flex gap-2 items-center">
+          <span>{amt}</span>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "description",
     header: ({ column }) => {

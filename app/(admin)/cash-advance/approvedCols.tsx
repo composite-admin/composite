@@ -47,6 +47,34 @@ export const approvedColumns: ColumnDef<ICashAdvanceData>[] = [
     },
   },
   {
+    accessorKey: "amount_recorded",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Amount Recorded" />;
+    },
+    cell: ({ row }) => {
+      const amt = formatCurrency(row.getValue("amount_recorded"));
+      return (
+        <div className="flex gap-2 items-center">
+          <span>{amt}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "balance",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Balance" />;
+    },
+    cell: ({ row }) => {
+      const amt = formatCurrency(row.getValue("balance"));
+      return (
+        <div className="flex gap-2 items-center">
+          <span>{amt}</span>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "description",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Description" />;

@@ -124,7 +124,7 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
       return <ColumnHeader column={column} title="Actions" />;
     },
     cell: ({ row }) => {
-      const { action_type, cash_id, decision } = row.original;
+      const { action_type, cash_id, decision, balance } = row.original;
 
       if (action_type === "return cash balance") {
         return (
@@ -174,7 +174,7 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
         );
       }
 
-      if (decision === "Approved" && action_type === "request iou") {
+      if (decision === "Approved" && balance === "0.00") {
         return (
           <TableAction
             formType={"request" as CashAdvanceFormTypes}
@@ -190,6 +190,21 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
           </TableAction>
         );
       }
+
+      return (
+        <TableAction
+          formType={"request" as CashAdvanceFormTypes}
+          currentFormType={"request" as CashAdvanceFormTypes}
+          cash_id={String(cash_id)}
+          onActionClick={() => {
+            return cash_id;
+          }}
+        >
+          <p className="cursor-pointer font-semibold text-primaryLight uppercase">
+            {action_type}
+          </p>
+        </TableAction>
+      );
 
     },
   },

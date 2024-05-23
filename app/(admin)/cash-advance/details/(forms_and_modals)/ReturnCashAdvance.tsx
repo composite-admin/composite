@@ -21,9 +21,18 @@ const ReturnCashAdvanceSchema = z
     balance: z.string({
       required_error: " Balance is required",
     }),
-    unused_cash: z.string({
-      required_error: " Amount is required",
-    }),
+    unused_cash: z
+      .string({
+        required_error: " Amount is required",
+      })
+      .refine(
+        (val) => {
+          return val.length > 0;
+        },
+        {
+          message: "Amount is required",
+        }
+      ),
     description: z
       .string({
         required_error: " Description is required",
@@ -69,7 +78,11 @@ export default function ReturnCashAdvance() {
         CashAdvanceDetails?.decision === "Approved"
           ? ""
           : "",
-      description: CashAdvanceDetails?.description || "",
+      description:
+        CashAdvanceDetails?.description ||
+        CashAdvanceDetails?.decision === "Approved"
+          ? ""
+          : "",
     },
   });
 

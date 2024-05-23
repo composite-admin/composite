@@ -12,13 +12,43 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const RequestAndIOUSchema = z.object({
-  cash_advance_type: z.string().optional(),
-  description: z.string().optional(),
-  amount_recorded: z.string().optional(), // unused_cash
-  balance: z.string().optional(),
-  staff_name: z.string().optional(),
-});
+const RequestAndIOUSchema = z
+  .object({
+    balance: z.string().optional(),
+    description: z
+      .string({
+        required_error: "Description is required",
+      })
+      .refine(
+        (val) => {
+          return val.length > 0;
+        },
+        {
+          message: "Description is required",
+        }
+      ),
+    unused_cash: z
+      .string({
+        required_error: " Amount is required",
+      })
+      .refine(
+        (val) => {
+          return val.length > 0;
+        },
+        {
+          message: "Amount is required",
+        }
+      ),
+  })
+  .refine(
+    (data) => {
+      return Number(data.unused_cash) <= Number(data.balance);
+    },
+    {
+      message: "Unused cash CANNOT be greater than balance",
+      path: ["unused_cash"],
+    }
+  );
 
 type RequestAndIOUFomType = z.infer<typeof RequestAndIOUSchema>;
 
@@ -26,11 +56,19 @@ export default function RequestIOUForm() {
   const { CashAdvanceDetails } = useCashAdvanceStore();
   const form = useForm<RequestAndIOUFomType>({
     resolver: zodResolver(RequestAndIOUSchema),
-    defaultValues: {
-      cash_advance_type: CashAdvanceDetails?.cash_advance_type,
-      amount_recorded: CashAdvanceDetails?.amount_collected,
-      balance: CashAdvanceDetails?.balance,
-      staff_name: CashAdvanceDetails?.staff_name,
+    values: {
+      balance: CashAdvanceDetails?.balance || "",
+
+      unused_cash:
+        CashAdvanceDetails?.unused_cash ||
+        CashAdvanceDetails?.decision === "Approved"
+          ? ""
+          : "",
+      description:
+        CashAdvanceDetails?.description ||
+        CashAdvanceDetails?.decision === "Approved"
+          ? ""
+          : "",
     },
   });
 
@@ -43,8 +81,6 @@ export default function RequestIOUForm() {
           {
             ...data,
             decision: "Pending",
-            balance: Number(data.balance),
-            amount_recorded: Number(data.amount_recorded),
           }
         );
 
@@ -97,9 +133,10 @@ export default function RequestIOUForm() {
           placeholder={CashAdvanceDetails?.balance}
         />
         <CustomFormField
-          name="amount_collected"
+          name="unused_cash"
           control={form.control}
           label={" Amount"}
+          placeholder={"Amount"}
         />
         <CustomFormTextareaField
           name="description"

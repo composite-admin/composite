@@ -109,6 +109,11 @@ const SidebarLinks: NavLinkType[] = [
     label: "Manage Client",
     icon: <SidebarContractorIcon />,
   },
+  {
+    href: "/settings",
+    label: "Change Password",
+    icon: <SettingsIcon />,
+  },
 ];
 
 export default SidebarLinks;
