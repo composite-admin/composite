@@ -6,6 +6,7 @@ import { api } from "@/config/api";
 import { userStore } from "@/store/auth/AuthStore";
 import { useAddCommentModal } from "@/store/modals/useCreateModal";
 import { useRequestStore } from "@/store/requests/RequestStore";
+import useRefetchQuery from "@/utils/refetchQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -28,6 +29,13 @@ export default function AddCommentForm() {
   const { requestDetails } = useRequestStore();
   const { userId } = userStore();
   const { onClose } = useAddCommentModal();
+  const { refetchQuery } = useRefetchQuery();
+
+  const refectOnClose = () => {
+    refetchQuery({
+      predicate: (query) => query.queryKey[0] === "get request comments",
+    });
+  };
 
   const { toast } = useToast();
 
@@ -44,6 +52,9 @@ export default function AddCommentForm() {
           request_code: requestDetails?.request_code,
           user_id: userId,
         });
+        if (response.status === 201 || response.status === 200) {
+          refectOnClose();
+        }
         return response.data;
       } catch (error) {
         console.log(error);
@@ -74,12 +85,6 @@ export default function AddCommentForm() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(submit)}>
-          <div className="space-y-1.5 pb-2">
-            <h3 className="capitalize font-semibold text-lg">
-              Make addition comment
-            </h3>
-            <p>Write addition information about this request</p>
-          </div>
           <CustomFormTextareaField
             name="comment"
             label="Comment"

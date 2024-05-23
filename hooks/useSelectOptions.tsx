@@ -339,7 +339,9 @@ export const useGetRequestComments = (id: string) => {
     queryKey: ["get request comments", id],
     queryFn: () =>
       getStuffTyped<IRequestCommentData[]>(`/request-comments/${id}`),
+    refetchOnMount: "always",
   });
+  
   return { comments: data, isCommentsLoading: isLoading };
 };
 

@@ -14,32 +14,30 @@ export const StaffSidebarLinks: NavLinkType[] = [
     label: "Dashboard",
     icon: <DashboardIcon />,
   },
-  {
-    href: "/staff/cash-advance",
-    label: "Cash Advance",
-    icon: <ReportsIcon />,
-  },
+
   {
     href: "/staff/requests",
     label: "Requests",
     icon: <HashIcon />,
   },
   {
+    href: "/staff/cash-advance",
+    label: "Cash Advance",
+    icon: <ReportsIcon />,
+  },
+  {
     href: "/staff/change-password",
     label: "Change Password",
-icon: <SettingsIcon />,
-
+    icon: <SettingsIcon />,
   },
 ];
-
-
 
 const StaffSidebar = () => {
   const pathname = usePathname();
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full flex flex-col">
       <div className="flex gap-2 items-center justify-center pb-5">
-        <Image src="/./logo.png" alt="" unoptimized width={30} height={30}/>
+        <Image src="/./logo.png" alt="" unoptimized width={30} height={30} />
         <h1 className="text-white text-[26px] font-[600]">composite</h1>
       </div>
 
@@ -61,25 +59,6 @@ const StaffSidebar = () => {
           );
         })}
       </div>
-
-      {/* <div className="pt-20 justify-self-end">
-        {footerLinks.map((item: NavLinkType) => {
-          return (
-            <Link
-              href={item.href}
-              key={item.label}
-              className={`flex gap-3.5 pb-2.5 p-[12px_16px] rounded-md hover:scale-105 ${
-                pathname === item.href
-                  ? "bg-layer-500 text-primaryLight-500 scale-105"
-                  : "text-textColor-500"
-              }`}
-            >
-              <div>{item.icon}</div>
-              <p className=" text-sm">{item.label}</p>
-            </Link>
-          );
-        })}
-      </div> */}
     </aside>
   );
 };

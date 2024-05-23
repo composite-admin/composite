@@ -7,6 +7,7 @@ export default function page() {
       title="Change Password"
       description="Set a new password here"
       isColumn={false}
+      className="w-full max-w-7xl"
     >
       <div>
         <ChangePasswordForm />

@@ -10,6 +10,7 @@ import { api } from "@/config/api";
 import { useProjectData } from "@/hooks/useSelectOptions";
 import { userStore } from "@/store/auth/AuthStore";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
+import useRefetchQuery from "@/utils/refetchQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -51,6 +52,7 @@ export default function CashAdvance() {
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
   });
+  const { refetchQuery } = useRefetchQuery();
 
   const createCashAdvance = async (data: any) => {
     try {
@@ -70,7 +72,9 @@ export default function CashAdvance() {
         staff_id: formDetails?.staff_id,
       });
       if (res.status === 200 || res.status === 201) {
-        window.location.reload();
+        refetchQuery({
+          predicate: (query) => query.queryKey[0] === "get request details",
+        });
       }
       return res.data.data;
     } catch (error) {}
@@ -83,7 +87,6 @@ export default function CashAdvance() {
         approved_by: username,
         approved_on: new Date(),
         status: "APPROVED",
-        amount: Number(data.approved_amount),
       });
       if (res.status === 200 || res.status === 201) {
         toast({

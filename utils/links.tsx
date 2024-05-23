@@ -116,7 +116,7 @@ export default SidebarLinks;
 export const footerLinks: NavLinkType[] = [
   {
     href: "/settings",
-    label: "Settings",
+    label: "Change Password",
     icon: <SettingsIcon />,
   },
 ];

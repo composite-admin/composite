@@ -69,7 +69,7 @@ export default function RequestDetailsPage({
   }
 
   const { data, isPending } = useQuery({
-    queryKey: ["get all request", params.id],
+    queryKey: ["get request details", params.id],
     queryFn: () => getrequestById(params.id),
     refetchOnMount: "always",
   });
