@@ -6,10 +6,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useWorkersActionsStore from "@/store/actions/worker/workersActions";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
+import { useToast } from "@/components/ui/use-toast";
 
 const AddWorker = () => {
-  const onOpen = useSuccessModal((state) => state.onOpen);
   const router = useRouter();
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -22,11 +23,12 @@ const AddWorker = () => {
   );
 
   const onSubmit = (data: any) => {
-    // Pass the form data to your submitForm action
-    console.log(data);
-
+    toast({
+      title: "Worker created successfully",
+      variant: "success",
+    });
+    router.push("/workers");
     createWorker(data);
-    onOpen();
     reset();
     return;
   };

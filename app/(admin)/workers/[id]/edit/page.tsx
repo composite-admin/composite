@@ -10,11 +10,11 @@ import { useForm } from "react-hook-form";
 import useWorkersActionsStore from "@/store/actions/worker/workersActions";
 import { getWorkerById } from "@/api/worker/workersRequests";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
+import { useToast } from "@/components/ui/use-toast";
 
 const SingleWorker = () => {
   const router = useRouter();
-  const onOpen = useSuccessModal((state) => state.onOpen);
-
+  const { toast } = useToast();
   const params = useParams<{ id: string }>();
 
   const updateWorker = useWorkersActionsStore<any>(
@@ -29,10 +29,11 @@ const SingleWorker = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    // Pass the form data to your submitForm action
-    console.log(data);
     delete data.id;
-    onOpen();
+    toast({
+      title: "Worker updated successfully",
+      variant: "success",
+    });
     updateWorker(Number(params.id), data);
     router.back();
     return;
