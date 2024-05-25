@@ -1,18 +1,17 @@
 "use client";
-import GoBack from '@/components/shared/GoBack'
-import { useSuccessModal } from '@/store/inventory/UseInventoryModal';
-import React, { useEffect } from 'react'
-import { useRouter, useParams } from 'next/navigation'
-import { useForm } from 'react-hook-form';
-import useStakeholderActionsStore from "@/store/actions/stakeholdersActions"
-import { getStakeholderById } from '@/api/stakeholdersRequests';
+import GoBack from "@/components/shared/GoBack";
+import React, { useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import useStakeholderActionsStore from "@/store/actions/stakeholdersActions";
+import { getStakeholderById } from "@/api/stakeholdersRequests";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/components/ui/use-toast";
 
 const EditSingleStakeholder = () => {
   const router = useRouter();
-  const onOpen = useSuccessModal((state) => state.onOpen);
-
+  const { toast } = useToast();
   const params = useParams<{ id: string }>();
 
   const updateStakeholder = useStakeholderActionsStore<any>(
@@ -26,12 +25,18 @@ const EditSingleStakeholder = () => {
     formState: { errors },
   } = useForm();
 
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["update stakeholder", params.id],
     mutationFn: updateStakeholder(Number(params.id)),
+    onSuccess: () => {
+      toast({
+        title: "Stakeholder updated successfully",
+        variant: "success",
+      });
+      router.push("/stakeholders");
+    },
   });
   const onSubmit = (data: any) => {
-    // delete data.id;
     mutate(data);
   };
 

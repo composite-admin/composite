@@ -1,14 +1,15 @@
 "use client";
-import GoBack from '@/components/shared/GoBack'
-import { useSuccessModal } from '@/store/inventory/UseInventoryModal'
-import { useRouter } from 'next/navigation';
-import React from 'react'
-import { useForm } from 'react-hook-form';
-import useStakeholdersActionsStore from "@/store/actions/stakeholdersActions"
+import GoBack from "@/components/shared/GoBack";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
+import useStakeholdersActionsStore from "@/store/actions/stakeholdersActions";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
+import { useToast } from "@/components/ui/use-toast";
 
 const AddStakeholder = () => {
   const router = useRouter();
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -21,10 +22,12 @@ const AddStakeholder = () => {
   );
 
   const onSubmit = (data: any) => {
-    // Pass the form data to your submitForm action
-    console.log(data);
-
+    toast({
+      title: "Stakeholder created successfully",
+      variant: "success",
+    });
     createStakeholder(data);
+    router.push("/stakeholders");
     reset();
     return;
   };
