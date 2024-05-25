@@ -9,8 +9,10 @@ import EditCell, { ViewCell } from "../facility/all-flats/EditCell";
 
 export const columns: ColumnDef<IManageStaffData>[] = [
   {
-    accessorKey: "full_name",
-
+    accessorKey: "firstname",
+    accessorFn: (row) => {
+      return `${row.firstname} ${row.middlename} ${row.lastname}`;
+    },
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Full Name" />;
     },

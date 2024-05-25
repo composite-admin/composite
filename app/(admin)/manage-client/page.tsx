@@ -37,7 +37,7 @@ export default function ManageClientPage() {
       <div>
         <PageHeaderComponent
           title={`Client (${clientData?.length || 0})`}
-          subTitle="View all staff here"
+          subTitle="View all client here"
           buttonText="Add Client"
           href="manage-client/add-new-client"
         />

@@ -8,8 +8,8 @@ import Link from "next/link";
 
 export const columns: ColumnDef<IClientData>[] = [
   {
-    accessorKey: "full_name",
-
+    accessorKey: "first_name",
+    accessorFn: (row) => row.first_name + " " + row.last_name,
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Full Name" />;
     },
