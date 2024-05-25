@@ -8,7 +8,7 @@ interface FacilityStore {
   setFlatFormType: (type: FlatFormType) => void;
   tenantData: ITenantData[] | null;
   flatData: IFlatData[] | null;
-  dueDatesData: IDeuDates[] | null;
+  dueDatesData: IDeuDates[];
   setDueDatesData: (dueDatesData: IDeuDates[]) => void;
   currentTable: "all_tenants" | "upcoming_due_dates";
   setCurrentTable: (currentTable: "all_tenants" | "upcoming_due_dates") => void;
@@ -20,7 +20,7 @@ const useFacilityStore = create<FacilityStore>((set) => ({
   tenantData: null,
   flatData: null,
   currentTable: "all_tenants",
-  dueDatesData: null,
+  dueDatesData: [],
   flatFormType: null,
   setFlatFormType: (type: FlatFormType) => set({ flatFormType: type }),
   setDueDatesData: (dueDatesData: IDeuDates[]) => set({ dueDatesData }),

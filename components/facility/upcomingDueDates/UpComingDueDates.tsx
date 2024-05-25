@@ -25,6 +25,8 @@ export default function UpComingDueDates() {
         }
       }
     },
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
   return (
     <DataTable data={data ?? []} columns={columns} isLoading={isPending} />
