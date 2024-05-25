@@ -7,11 +7,11 @@ import { useForm } from 'react-hook-form';
 import useContractorsActionsStore from "@/store/actions/contractorsActions"
 import { getContractorById} from '@/api/contractorsRequests';
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
+import { useToast } from "@/components/ui/use-toast";
 
 const SingleContractorEdit = () => {
+  const { toast } = useToast();
   const router = useRouter();
-  const onOpen = useSuccessModal((state) => state.onOpen);
-
   const params = useParams<{ id: string }>();
 
   const updateContractor = useContractorsActionsStore<any>(
@@ -27,7 +27,11 @@ const SingleContractorEdit = () => {
 
   const onSubmit = (data: any) => {
     delete data.id;
-    onOpen();
+    toast({
+      title: "Success",
+      description: "Contractor updated successfully",
+      variant: "success",
+    });
     updateContractor(Number(params.id), data);
     router.back();
     return;

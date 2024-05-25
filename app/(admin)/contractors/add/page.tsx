@@ -1,14 +1,14 @@
 "use client"
-import GoBack from '@/components/shared/GoBack'
-import { useSuccessModal } from '@/store/modals/useCreateModal'
-import { useRouter } from 'next/navigation'
-import React from 'react'
-import { useForm } from 'react-hook-form';
-import useContractorsActionsStore from "@/store/actions/contractorsActions"
+import GoBack from "@/components/shared/GoBack";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
+import useContractorsActionsStore from "@/store/actions/contractorsActions";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
+import { useToast } from "@/components/ui/use-toast";
 
 const AddContractor = () => {
-  const onOpen = useSuccessModal((state) => state.onOpen);
+  const { toast } = useToast();
   const router = useRouter();
   const {
     register,
@@ -23,7 +23,8 @@ const AddContractor = () => {
 
   const onSubmit = (data: any) => {
     createContractor(data);
-    onOpen();
+    router.push("/contractors");
+    toast({ title: "Contractor created successfully", variant: "success" });
     reset();
     return;
   };

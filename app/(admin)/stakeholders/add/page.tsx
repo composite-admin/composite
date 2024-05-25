@@ -8,7 +8,6 @@ import useStakeholdersActionsStore from "@/store/actions/stakeholdersActions"
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 
 const AddStakeholder = () => {
-  const onOpen = useSuccessModal((state) => state.onOpen);
   const router = useRouter();
   const {
     register,
@@ -26,7 +25,6 @@ const AddStakeholder = () => {
     console.log(data);
 
     createStakeholder(data);
-    onOpen();
     reset();
     return;
   };
