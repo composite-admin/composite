@@ -73,6 +73,12 @@ export const materialsColumns: ColumnDef<Material>[] = [
     },
   },
   {
+    accessorKey: "mat_desc",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+  },
+  {
     accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Date Added" />;
@@ -87,15 +93,4 @@ export const materialsColumns: ColumnDef<Material>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "action",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Action" withSort={false} />;
-  //   },
-  //   cell: ({ row }) => {
-  //     const {} = row.original;
-
-  //     return <EditPartMaterial {...row} />;
-  //   },
-  // },
 ];

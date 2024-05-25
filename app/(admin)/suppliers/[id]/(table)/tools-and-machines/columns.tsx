@@ -45,15 +45,12 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "total_cost",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Total Cost" />;
-  //   },
-  //   cell: ({ row }) => {
-  //     return <p className="font-semibold">{row.original['']}</p>;
-  //   },
-  // },
+  {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+  },
   {
     accessorKey: "created_by",
     header: ({ column }) => {
@@ -84,13 +81,4 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "action",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Action" withSort={false} />;
-  //   },
-  //   cell: ({ row }) => {
-  //     return <EditColumn row={row} />;
-  //   },
-  // },
 ];

@@ -3,16 +3,14 @@ import { useState } from "react";
 import MaterialsTable from "./materials";
 import ToolsTable from "./tools-and-machines";
 
-export type MaterialTab = "materials" | "tools-and-machine";
+export type MaterialTab = "materials" | "tools-and-machinery";
 
 type Tab = { name: string; tab: MaterialTab };
 
 const tabs: Tab[] = [
   { tab: "materials", name: "Materials" },
-  { tab: "tools-and-machine", name: "Tools and Machine" },
+  { tab: "tools-and-machinery", name: "Tools and machinery" },
 ];
-
-
 
 const MaterialTableArea = ({ supplier }: any) => {
   const [selectedTab, setSelectedTab] = useState<MaterialTab>("materials");
@@ -22,7 +20,7 @@ const MaterialTableArea = ({ supplier }: any) => {
     switch (selectedTab) {
       case "materials":
         return <MaterialsTable key={"material"} supplier={supplier} />;
-      case "tools-and-machine":
+      case "tools-and-machinery":
         return <ToolsTable key={"tools"} supplier={supplier} />;
       // no default
     }
