@@ -331,15 +331,16 @@ const SingleProject = () => {
         <TabsContent value="workers">
           <Worker projectCode={projectCode} />
         </TabsContent>
+        <TabsContent value="consultants">
+          <Consultant projectCode={projectCode} />
+        </TabsContent>
         <TabsContent value="material">
           <Materials projectCode={projectCode} />
         </TabsContent>
         <TabsContent value="tool_and_machinery">
           <ToolsAndMachine projectCode={projectCode} />
         </TabsContent>
-        <TabsContent value="consultants">
-          <Consultant projectCode={projectCode} />
-        </TabsContent>
+
         <TabsContent value="cash_advance">
           <CashAdvanced projectCode={projectCode} />
         </TabsContent>
