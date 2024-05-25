@@ -7,9 +7,10 @@ import { HiBellAlert } from 'react-icons/hi2'
 import useSuppliersActionsStore from "@/store/actions/suppliersActions"
 import { useForm } from 'react-hook-form';
 import { validatePhoneNumber } from "../../../../utils/validatePhoneNumberInput";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/components/ui/use-toast";
 
 const AddSuppliers = () => {
-  const onOpen = useSuccessModal((state) => state.onOpen);
   const router = useRouter();
   const {
     register,
@@ -17,17 +18,28 @@ const AddSuppliers = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const { toast } = useToast();
 
   const createSupplier = useSuppliersActionsStore<any>(
     (state) => state.createSupplier
   );
 
-  const onSubmit = (data: any) => {
-    // Pass the form data to your submitForm action
-    console.log(data);
+  const { mutate } = useMutation({
+    mutationKey: ["createSupplier"],
+    mutationFn: (data: any) => {
+      return createSupplier(data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Supplier created successfully",
+        variant: "success",
+      });
+      router.push("/suppliers");
+    },
+  });
 
-    createSupplier(data);
-    onOpen();
+  const onSubmit = (data: any) => {
+    mutate(data);
     reset();
     return;
   };
@@ -35,12 +47,10 @@ const AddSuppliers = () => {
   return (
     <>
       <GoBack />
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
           <div className="flex gap-2 items-center border-b border-b-gray-200 py-3">
             <HiBellAlert />
-
             <h2 className="text-[#101928] font-[600] text-[22px]">
               Add Supplier
             </h2>
