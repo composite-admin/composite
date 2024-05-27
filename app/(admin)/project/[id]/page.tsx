@@ -238,12 +238,6 @@ const SingleProject = () => {
               </p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">Project Location:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
-                {(selectedItem && selectedItem.project_location) ?? "N/A"}
-              </p>
-            </div>
-            <div>
               <p className="text-[#475367] text-sm">Project Supervisor:</p>
               <p className="text-[#101928] text-[16px] font-[600]">
                 {selectedItem && selectedItem.project_supervisor}
@@ -255,19 +249,19 @@ const SingleProject = () => {
                 {selectedItem && projectCode}
               </p>
             </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-5">
-            <div className="px-5">
-              <p className="text-[#475367] text-sm">Address:</p>
-              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
-                {selectedItem && selectedItem.address}
-              </p>
-            </div>
             <div>
               <p className="text-[#475367] text-sm">Project Description:</p>
               <p className="text-[#101928] text-[16px] font-[600]">
                 {selectedItem && selectedItem.project_description}
+              </p>
+            </div>
+          </div>
+
+          <div className="">
+            <div className="px-5">
+              <p className="text-[#475367] text-sm">Address:</p>
+              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
+                {selectedItem && selectedItem.address}
               </p>
             </div>
           </div>

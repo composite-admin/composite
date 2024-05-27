@@ -30,6 +30,18 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
   },
 
   {
+    accessorKey: "contractor_amount",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Amount" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      const amount = row.original.contractor_amount;
+      const formattedAmount = formatCurrency(amount);
+      return <span className="font-semibold ">{formattedAmount}</span>;
+    },
+  },
+
+  {
     accessorKey: "approved_amount",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount" withSort={false} />;

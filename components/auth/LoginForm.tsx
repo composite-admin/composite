@@ -8,15 +8,9 @@ import { useForm } from "react-hook-form";
 import { LoginType, loginSchema } from "@/utils/types";
 import { CustomFormField } from "../shared/FormComponent";
 import useLogin from "@/mutations/LoginMutation";
-import useAuthStore from "@/store/auth/AuthStore";
-import userStore from "@/store/auth/AuthStore";
-import { useRouter } from "next/navigation";
-import { useToast } from "../ui/use-toast";
 
 export default function LoginForm() {
-  const router = useRouter();
-  const { user } = useAuthStore();
-  const { isPending, login, isError, isSuccess, error } = useLogin();
+  const { isPending, login } = useLogin();
 
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),

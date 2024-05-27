@@ -160,18 +160,18 @@ export default function AddMaterialForm() {
         />
         <div className=" grid lg:grid-cols-2 gap-5">
           <div className="space-y-5">
-            <CustomFormField
-              control={form.control}
-              name="unit_price"
-              label="Unit Price"
-              placeholder="Enter Amount"
-            />
             <CustomFormSelect
               control={form.control}
               name="supplier_name"
               labelText="Supplier"
               placeholder="Select Supplier"
               items={supplierList || []}
+            />
+            <CustomFormField
+              control={form.control}
+              name="unit_price"
+              label="Unit Price"
+              placeholder="Enter Amount"
             />
           </div>
           <div className="space-y-5">
