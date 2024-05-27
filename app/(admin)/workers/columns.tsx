@@ -106,21 +106,8 @@ export const columns: ColumnDef<ReportType | any>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "createdOn",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Added On" />;
-  //   },
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="">
-  //         <span className=" ">{formatDate(row.original["createdAt"])}</span>
-  //       </div>
-  //     );
-  //   },
-  // },
   {
-    accessorKey: "action",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Action" />;
     },

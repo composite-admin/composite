@@ -21,7 +21,6 @@ interface IProps {
 
 const ApartmentPage = ({ params }: IProps) => {
   const code = params.id;
-  const { projectCode } = useProjectDetailsPageFormModal();
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get all materials by project code", code],

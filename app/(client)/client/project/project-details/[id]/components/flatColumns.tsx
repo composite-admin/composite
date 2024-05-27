@@ -1,33 +1,32 @@
 "use client";
 
+import { IProjectFlatData } from "@/app/(admin)/project/apartment/[id]/page";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatDate } from "@/utils/formatDate";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 
-export interface IFlatData {
-  flat_code: string;
-  flat_description: string;
-  statement: string;
-}
-
-export const flatColumns: ColumnDef<IFlatData>[] = [
+export const flatColumns: ColumnDef<IProjectFlatData>[] = [
   {
     accessorKey: "flat_code",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Flat Code" />;
     },
+    cell: ({ row }) => {
+      const { flat_code } = row.original;
+      return <span className="w-32 uppercase font-semibold">{flat_code}</span>;
+    },
   },
   {
-    accessorKey: "flat_description",
+    accessorKey: "flat_desc",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Flat Description" />;
     },
   },
-  {
-    accessorKey: "statement",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Statement" />;
-    },
-  },
+  // {
+  //   accessorKey: "",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Statement" />;
+  //   },
+  // },
 ];

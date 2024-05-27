@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function ClientHomePage() {
   const { userId } = userStore();
-  
+
   const { details, isClientDetailsLoading } = useGetClientDetails(userId!);
   return (
     <div className="lg:pr-24">
@@ -38,34 +38,54 @@ export default function ClientHomePage() {
         </aside>
       </div>
       <div>
-        <div className="pb-12 flex gap-10 py-3  md:overflow-x-visible overflow-x-auto hide">
-          <Card />
-          <Card />
-          <Card />
+        <div className="pb-12 flex gap-10 py-3 pt-5  md:overflow-x-visible overflow-x-auto hide">
+          <Card
+            details="View and manage all the information regarding your projects"
+            title="Projects"
+            total="0"
+            href="/client/projects"
+          />
+          <Card
+            details="View and manage all the information regarding your tenants"
+            title="Tenants"
+            total="0"
+            href="/client/tenants"
+          />
+          <Card
+            details="View and manage all the information regarding your cash advances"
+            title="Cash Advances"
+            total="0"
+            href="/client/cash-advance"
+          />
         </div>
       </div>
     </div>
   );
 }
 
-const Card = () => {
+interface Props {
+  title: string;
+  total: string;
+  details: string;
+  href?: string;
+}
+
+const Card = ({ title, details, href, total }: Props) => {
   return (
     <div className="flex-col gap-6 space-y-3 border-borderColor border rounded-xl shadow-lg p-6 w-full min-w-[250px] sm:min-w-0 bg-white">
       <div className="flex justify-between items-center">
         <span>
           <HomeIcon />
         </span>
-        <span className="text-primaryLight font-semibold">5</span>
+        <span className="text-primaryLight font-semibold">{total}</span>
       </div>
-      <div className="space-y-2">
-        <h2 className="font-semibold">Projects</h2>
-        <p className="text-textColor text-xs w-52  text-wrap">
-          View and manage all the information regarding your projects
-        </p>
+      <div className="space-y-2 pb-5">
+        <h2 className="font-semibold">{title}</h2>
+        <p className="text-textColor text-sm text-wrap">{details}</p>
       </div>
-      <div className=" text-sm text-white font-semibold">
+      <Link href={href ?? ""} className=" text-sm text-white font-semibold">
         <Button className="rounded-xl">View</Button>
-      </div>
+      </Link>
     </div>
   );
 };

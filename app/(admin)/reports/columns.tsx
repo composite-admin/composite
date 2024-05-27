@@ -28,7 +28,7 @@ export const columns: ColumnDef<IProjectReport>[] = [
   },
 
   {
-    accessorKey: "submitted_on",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Submitted On" withSort={false} />

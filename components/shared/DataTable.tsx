@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   ColumnDef,
   SortingState,
@@ -11,13 +10,18 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import React from "react";
 import { DataTablePagination } from "./PaginationComponent";
 import { Input } from "../ui/input";
 import { Search } from "lucide-react";
-import { IoFilterOutline } from "react-icons/io5";
-import { FaSort } from "react-icons/fa";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -45,7 +49,34 @@ export function DataTable<TData, TValue>({
   isError,
   withTitle,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  // const setId = (id: string) => {
+  //   switch (id) {
+  //     case "createdAt":
+  //       return "createdAt";
+  //     case "start_date":
+  //       return "Start Date";
+  //     case "end_date":
+  //       return "End Date";
+  //     default:
+  //       return null;
+  //   }
+  // };
+  const [sorting, setSorting] = React.useState<SortingState>([
+    {
+      id: "createdAt",
+      desc: true,
+    },
+    {
+      id: "updatedAt",
+      desc: true,
+    },
+    {
+      id: "start_date",
+      desc: true,
+    },
+  ]);
+  console.log();
+
   const [globalFilter, setGlobalFilter] = React.useState<string>("");
   const table = useReactTable({
     data,
@@ -61,7 +92,6 @@ export function DataTable<TData, TValue>({
     },
     onGlobalFilterChange: setGlobalFilter,
   });
-
   return (
     <div className="">
       <div

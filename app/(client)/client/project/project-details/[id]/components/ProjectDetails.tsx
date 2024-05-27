@@ -3,114 +3,77 @@
 import { useGetProjectById } from "@/hooks/useSelectOptions";
 import useClientStore from "@/store/client/useClientStore";
 import { formatDate } from "@/utils/formatDate";
+import * as React from "react";
 
 export default function ProjectDetails() {
   const { projectDetails } = useClientStore();
+  const isDateField = (key: string) => {
+    const dateFields = [
+      "createdAt",
+      "end_date",
+      "updatedAt",
+      "start_date",
+      "date_added",
+    ];
+    return dateFields.includes(key);
+  };
+
+  const renderProjectDetail = (key: string, value: any) => (
+    <div className="flex justify-between">
+      <span className="self-start items-start justify-end block w-full capitalize">
+        {key.replace(/\_/g, " ")}
+      </span>
+      <span className="self-start items-start justify-end block w-full">
+        {isDateField(key) && value
+          ? formatDate(value)
+          : typeof value === "object"
+          ? JSON.stringify(value)
+          : value}
+      </span>
+    </div>
+  );
+
+  // Create an array of keys you want to display
+  const keysToDisplay = [
+    "project_name",
+    "project_code",
+    "address",
+    "state",
+    "project_duration",
+    "start_date",
+    "end_date",
+    "project_description",
+    "comment",
+  ];
 
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg mt-5 py-10">
-      <div className="grid md:grid-cols-2 gap-8  w-4/5">
-        <div className=" space-y-8">
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full">
-              Project Code
-            </span>
-            <span className="self-start items-start justify-end block  w-full uppercase">
-              {projectDetails?.project_code}
-            </span>
-          </p>
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              Start Date
-            </span>
-            <span className="self-start items-start justify-end block  w-full uppercase">
-              {projectDetails?.start_date}
-            </span>
-          </p>{" "}
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              Address
-            </span>
-            <span className="self-start items-start justify-end block  w-full uppercase">
-              {projectDetails?.address}
-            </span>
-          </p>{" "}
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              State
-            </span>
-            <span className="self-start items-start justify-end block  w-full uppercase">
-              {projectDetails?.state}
-            </span>
-          </p>
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              Duration
-            </span>
-            <span className="self-start items-start justify-end block  w-full ">
-              {projectDetails?.project_duration} Days
-            </span>
-          </p>
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              Project Description
-            </span>
-            <span className="self-start items-start justify-end block  w-full uppercase">
-              {projectDetails?.project_description}
-            </span>
-          </p>{" "}
+      {projectDetails ? (
+        <div className="grid md:grid-cols-2 gap-8 mx-auto">
+          <div className="space-y-8">
+            {Object.entries(projectDetails)
+              .filter(([key]) => keysToDisplay.includes(key))
+              .slice(0, keysToDisplay.length / 2)
+              .map(([key, value], index) => (
+                <React.Fragment key={index}>
+                  {renderProjectDetail(key, value)}
+                </React.Fragment>
+              ))}
+          </div>
+          <div className="space-y-8">
+            {Object.entries(projectDetails)
+              .filter(([key]) => keysToDisplay.includes(key))
+              .slice(keysToDisplay.length / 2)
+              .map(([key, value], index) => (
+                <React.Fragment key={index}>
+                  {renderProjectDetail(key, value)}
+                </React.Fragment>
+              ))}
+          </div>
         </div>
-        <div className=" space-y-8">
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              Date Added
-            </span>
-            <span className="self-start items-start justify-end block  w-full ">
-              {formatDate(projectDetails?.createdAt)}
-            </span>
-          </p>
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              End Date
-            </span>
-            <span className="self-start items-start justify-end block  w-full ">
-              {formatDate(projectDetails?.end_date)}
-            </span>
-          </p>
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              City
-            </span>
-            <span className="self-start items-start justify-end block  w-full ">
-              {projectDetails?.city}
-            </span>
-          </p>{" "}
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              LGA
-            </span>
-            <span className="self-start items-start justify-end block  w-full ">
-              {projectDetails?.lga}
-            </span>
-          </p>{" "}
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              Status
-            </span>
-            <span className="self-start items-start justify-end block  w-full ">
-              {projectDetails?.status}
-            </span>
-          </p>{" "}
-          <p className="flex justify-between">
-            <span className="self-start items-start justify-end block  w-full ">
-              Comment
-            </span>
-            <span className="self-start items-start justify-end block  w-full ">
-              {projectDetails?.comment ?? "N/A"}
-            </span>
-          </p>
-        </div>
-      </div>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 }

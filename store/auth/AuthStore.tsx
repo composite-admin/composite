@@ -2,6 +2,7 @@ import { UserData } from '@/utils/types';
 import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import { deleteCookie } from "cookies-next";
+import useClientStore from "../client/useClientStore";
 
 interface AuthStore {
   user: UserData | null;
@@ -60,6 +61,7 @@ export const userStore = create<IUserStoreType>()(
           deleteCookie("token");
           deleteCookie("user_type");
           deleteCookie("username");
+          useClientStore.getState().setTabType("Project Details");
         },
       }),
       {

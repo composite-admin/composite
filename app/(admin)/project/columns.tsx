@@ -11,16 +11,6 @@ import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
 import { RiToolsFill } from "react-icons/ri";
 
-export type ReportType = {
-  id: string;
-  projectName: string;
-  startDate: string;
-  endDate: string;
-  status: string;
-  totalWorker: string;
-  worker: string;
-  materials: string;
-};
 
 export const columns: ColumnDef<IProjectData>[] = [
   {
@@ -111,7 +101,7 @@ export const columns: ColumnDef<IProjectData>[] = [
     },
   },
   {
-    accessorKey: "id",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Materials" withSort={false} />

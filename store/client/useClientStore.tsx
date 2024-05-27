@@ -1,9 +1,8 @@
 import { tabType } from "@/app/(client)/client/project/project-details/[id]/page";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { Modal } from "../../components/shared/Modal";
 
-export type editType = "information" | "identification" | "password";
+export type editType = "information" | "identification" | "password"; 
 
 interface ClientStore {
   TabType: tabType;
