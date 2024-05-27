@@ -4,16 +4,26 @@ import AddStartUpForm from "../forms/projects/AddStartUpForm";
 import AddMaterialForm from "../forms/projects/AddMaterialForm";
 import { Button } from "../ui/button";
 import { api } from "@/config/api";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function TableActionModal() {
-  const { onClose, isOpen, tableActions, isEditOrDelete, rowID, deleteUrl } =
-    useTableActionStore();
+  const {
+    onClose,
+    isOpen,
+    tableActions,
+    isEditOrDelete,
+    rowID,
+    deleteUrl,
+    query,
+  } = useTableActionStore();
+  const queryClient = useQueryClient();
 
   const deleteRow = async (arg: string) => {
     try {
       const res = await api.delete(`/${arg}/${rowID}`);
       if (res.status === 200) {
         onClose();
+        queryClient.invalidateQueries({ queryKey: [`${query}`] });
       }
     } catch (error) {}
     onClose();

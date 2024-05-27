@@ -4,6 +4,7 @@ import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { formatDate } from "@/utils/formatDate";
 import { IRequestData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
@@ -16,7 +17,7 @@ export const columns: ColumnDef<IRequestData>[] = [
       return <ColumnHeader column={column} title="Request Type" />;
     },
     cell: ({ row }) => {
-      const { request_type, id, request_code } = row.original;
+      const { request_type, request_code } = row.original;
       return (
         <Link
           href={`requests/request-details/${row.getValue("id")}`}
@@ -112,10 +113,20 @@ export const columns: ColumnDef<IRequestData>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">
-          <AvatarComponent />
           <span className="font-semibold">{row.getValue("staff_name")}</span>
         </div>
       );
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Created At" />;
+    },
+    cell: ({ row }) => {
+      const { createdAt } = row.original;
+      const formatted = formatDate(createdAt);
+      return <span className="">{formatted}</span>;
     },
   },
   {

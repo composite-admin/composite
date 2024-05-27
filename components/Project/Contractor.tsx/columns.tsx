@@ -1,16 +1,12 @@
 "use client";
 
 import { DeleteCell } from "@/app/(admin)/facility/all-flats/EditCell";
-import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { IContractorProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
-import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
 export const columns: ColumnDef<IContractorProjectData>[] = [
   {
@@ -118,6 +114,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
         <DeleteCell
           rowId={row.original.id}
           row={row}
+          query="get all contractors by project code"
           url="contractor-projects"
         />
       );

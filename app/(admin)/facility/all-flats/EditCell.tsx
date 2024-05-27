@@ -15,6 +15,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   action?: string | ProjectPageFormType;
   row?: Row<any>;
   rowId?: number;
+  query?: string | undefined;
   url?: string | undefined;
 }
 export default function EditCell({
@@ -94,6 +95,7 @@ export function DeleteCell({
   row,
   rowId,
   url,
+  query,
   ...props
 }: IProps) {
   const { onOpen, setTableActions, setEditOrDelete, setRowID, setDeleteUrl } =
@@ -104,6 +106,7 @@ export function DeleteCell({
     setRowID(Number(rowId));
     setDeleteUrl(url || "");
     setEditOrDelete("delete");
+    useTableActionStore.setState({ query: query || "" });
     onOpen();
   };
   return (

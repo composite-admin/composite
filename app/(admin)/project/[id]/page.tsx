@@ -300,11 +300,11 @@ const SingleProject = () => {
           <TabsTrigger value="stakeholder">Stakeholder</TabsTrigger>
           <TabsTrigger value="contractors">Contractors</TabsTrigger>
           <TabsTrigger value="workers">Workers</TabsTrigger>
+          <TabsTrigger value="consultants">Consultants</TabsTrigger>
           <TabsTrigger value="material">Material</TabsTrigger>
           <TabsTrigger value="tool_and_machinery">
             Tool and Machinery
           </TabsTrigger>
-          <TabsTrigger value="consultants">Consultants</TabsTrigger>
           <TabsTrigger value="cash_advance">Cash Advance</TabsTrigger>
         </TabsList>
         <TabsContent value="project_cost">

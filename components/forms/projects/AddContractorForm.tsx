@@ -14,20 +14,26 @@ import {
   useProjectDetailsPageFormModal,
 } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useGetContractor } from "../../../hooks/useSelectOptions";
+import { useStore } from "zustand";
 
 const AddContractorSchema = z.object({
-  contractor_amount: z.string().optional(),
-  contractor_name: z.string().optional(),
-  createdBy: z.string().optional(),
+  contractor_amount: z.string({
+    required_error: "Contractor amount is required",
+  }),
+  contractor_name: z.string({
+    required_error: "Contractor name is required",
+  }),
+
   comment: z.string().optional(),
 });
 
 type AddContractorType = z.infer<typeof AddContractorSchema>;
 export default function AddContractorForm() {
   const { onClose } = useProjectDetailsPageFormModal();
+  const queryClient = useQueryClient();
   const { projectName, projectId, projectCode } = useProjectDetails();
   const { toast } = useToast();
   const { contractors } = useGetContractor();
@@ -70,6 +76,9 @@ export default function AddContractorForm() {
     mutate(data, {
       onSuccess: () => {
         form.reset();
+        queryClient.invalidateQueries({
+          queryKey: ["get all contractors by project code"],
+        });
         onClose();
         toast({
           title: "Contactor added successfully",

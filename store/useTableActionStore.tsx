@@ -8,6 +8,7 @@ interface TableAction {
   isEditOrDelete: "edit" | "delete" | false;
   rowID: number | null;
   deleteUrl: string | null;
+  query: string | null;
   setDeleteUrl: (deleteUrl: string | null) => void;
   setRowID: (rowID: number) => void;
   setEditOrDelete: (editOrDelete: "edit" | "delete" | false) => void;
@@ -21,6 +22,7 @@ export const useTableActionStore = create<TableAction>((set) => ({
   isEditOrDelete: false,
   isOpen: false,
   rowID: null,
+  query: null,
   deleteUrl: null,
   setDeleteUrl: (deleteUrl) => set({ deleteUrl }),
   setRowID: (rowID) => set({ rowID }),
