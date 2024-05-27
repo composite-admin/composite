@@ -62,7 +62,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
       return (
         <div className="flex items-center gap-2">
           <AvatarComponent />
-          <span className="w-16">{row.original.created_by}</span>
+          <span>{row.original.created_by}</span>
         </div>
       );
     },
