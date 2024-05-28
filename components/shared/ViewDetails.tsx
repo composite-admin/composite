@@ -71,7 +71,7 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
                 }
                 if (key.key == "report_code" || key.key == "project_code") {
                   // make uppercase
-                  formatted = data[key.key].toUpperCase();
+                  formatted = data[key.key]?.toUpperCase();
                 }
 
                 return (
