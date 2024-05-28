@@ -25,6 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { IWorkerData, selectOtionsForWorkerServiceType } from "@/utils/types";
 import { getStuffTyped, useGetAllProjectData } from "@/hooks/useSelectOptions";
+import Link from "next/link";
 
 const AddWorkerSchema = z.object({
   project_name: z.string({
@@ -123,7 +124,9 @@ const AddWorkerToProject = () => {
       <div className="flex items-center justify-between">
         <GoBack />
 
-        <Button onClick={onOpenCreateWorker}>Create New Worker</Button>
+        <Button>
+          <Link href="/workers/add">Create New Worker</Link>
+        </Button>
       </div>
       <div className="max-w-3xl mx-auto w-full border border-borderColor bg-white rounded-lg p-7 my-16">
         <Form {...form}>

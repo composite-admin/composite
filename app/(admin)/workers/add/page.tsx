@@ -27,7 +27,7 @@ const AddWorker = () => {
       title: "Worker created successfully",
       variant: "success",
     });
-    router.push("/workers");
+    router.back();
     createWorker(data);
     reset();
     return;
