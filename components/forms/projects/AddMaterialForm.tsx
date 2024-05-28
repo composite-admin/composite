@@ -14,7 +14,7 @@ import {
   useProjectDetailsPageFormModal,
 } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {
   useGetAllSuppliers,
@@ -39,6 +39,7 @@ const AddMaterialSchema = z.object({
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
 export default function AddMaterialForm() {
   const [matDesc, setMatDesc] = useState<string[]>([]);
+  const queryClient = useQueryClient();
   const [suplierCode, setSuplierCode] = useState<string | undefined>("");
   const {
     isEditOrDelete,
@@ -135,6 +136,9 @@ export default function AddMaterialForm() {
         toast({
           title: "Material added successfully",
           variant: "success",
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["get all materials by project code", projectCode],
         });
       },
       onError: () => {

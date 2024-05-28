@@ -51,7 +51,7 @@ export default function ReportPage() {
   return (
     <div>
       <PageHead
-        headText="Report"
+        headText={`Reports (${data?.length || 0})`}
         subText="A report of daily, weekly and monthly activities"
         buttonText="Add Report"
         buttonAction={() => router.push("/reports/new")}
@@ -71,7 +71,10 @@ export default function ReportPage() {
           onClick={() => filter("Daily")}
         >
           <HiOutlineClock className="text-[#036B26]" />
-          <p className="text-[#036B26]">Daily Report</p>
+          <p className="text-[#036B26]">
+            Daily Report (
+            {data?.filter((item) => item.report_type === "Daily").length})
+          </p>
         </div>
 
         <div
@@ -79,7 +82,10 @@ export default function ReportPage() {
           onClick={() => filter("Weekly")}
         >
           <HiHome className="text-[#865503]" />
-          <p className="text-[#865503]">Weekly Report</p>
+          <p className="text-[#865503]">
+            Weekly Report (
+            {data?.filter((item) => item.report_type === "Weekly").length})
+          </p>
         </div>
 
         <div
@@ -87,7 +93,10 @@ export default function ReportPage() {
           onClick={() => filter("Monthly")}
         >
           <HiHome className="text-[#8A0000]" />
-          <p className="text-[#8A0000]">Monthly Report</p>
+          <p className="text-[#8A0000]">
+            Monthly Report (
+            {data?.filter((item) => item.report_type === "Monthly").length})
+          </p>
         </div>
       </div>
 

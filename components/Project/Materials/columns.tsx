@@ -122,13 +122,21 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
       );
     },
   },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return <DeleteCell />;
-    },
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Actions" withSort={false} />;
+  //   },
+  //   cell: ({ row }) => {
+  //     const { id } = row.original;
+  //     return (
+  //       <DeleteCell
+  //         row={row}
+  //         rowId={Number(id)}
+  //         url="material"
+  //         query="get all materials by project code"
+  //       />
+  //     );
+  //   },
+  // },
 ];

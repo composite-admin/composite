@@ -18,7 +18,7 @@ import { useTableActionStore } from "@/store/useTableActionStore";
 import useRefetchQuery from "@/utils/refetchQuery";
 import { selectOptionsForStartUpCostType } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,6 +32,7 @@ const AddStartUpCostSchema = z.object({
 type AddStartUpCostType = z.infer<typeof AddStartUpCostSchema>;
 
 export default function AddStartUpForm() {
+  const queryClient = useQueryClient();
   const { projectCode, projectName } = useProjectDetails();
   const { refetchQuery } = useRefetchQuery();
   const {
@@ -43,6 +44,7 @@ export default function AddStartUpForm() {
     Number(rowID)
   );
 
+  console.log(startupCostDetails);
   const { onClose } = useProjectDetailsPageFormModal();
   const { toast } = useToast();
 
@@ -83,6 +85,9 @@ export default function AddStartUpForm() {
         refetchQuery({
           predicate: (query) =>
             query.queryKey[0] === "get startup cost by project code",
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["get startup cost details"],
         });
         return response.data;
       } catch (error) {

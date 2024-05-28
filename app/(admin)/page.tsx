@@ -88,7 +88,6 @@ export default function DashboardPage() {
           <DataTable
             columns={columns}
             data={pendingProjects ?? []}
-            showSearch={false}
             isLoading={isPending}
           />
         </div>

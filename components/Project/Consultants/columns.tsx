@@ -1,12 +1,7 @@
 "use client";
 
 import { DeleteCell } from "@/app/(admin)/facility/all-flats/EditCell";
-import { ViewUserPageIcon } from "@/components/icons";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
-import { formatCurrency } from "@/utils/formatCurrency";
-import { formatDate } from "@/utils/formatDate";
 import { IConsultantProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
@@ -79,7 +74,8 @@ export const columns: ColumnDef<IConsultantProjectData>[] = [
         <DeleteCell
           row={row}
           rowId={Number(id)}
-          url={`consultant-projects/${row.original.id}`}
+          url={`consultant-projects`}
+          query="get all consultants by project code"
         />
       );
     },

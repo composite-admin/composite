@@ -13,7 +13,7 @@ import axios from "axios";
 
 const Consultant = ({ projectCode }: { projectCode: string }) => {
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all contractors by project code"],
+    queryKey: ["get all consultants by project code"],
     queryFn: async () => {
       try {
         const response = await api.get<ApiResponse<IConsultantProjectData[]>>(
