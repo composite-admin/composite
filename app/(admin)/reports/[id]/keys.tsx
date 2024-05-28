@@ -23,7 +23,7 @@ const keys: Keys[] = [
   },
   {
     key: "report_summary",
-    text: "Project Summary",
+    text: "Report Summary",
   },
   {
     key: "challenges",

@@ -53,16 +53,17 @@ p {
   @apply flex items-center justify-between;
 }
 
-.info > div {
+/* .info > div {
   @apply grid grid-cols-2;
-}
+} */
 
 .key {
-  @apply text-textColor-500;
+  /* @apply text-textColor-500; */
+  @apply text-[#475367] font-[600];
+
 }
 
 .value {
-  @apply text-[#475367] font-[600];
 }
 
 .line {

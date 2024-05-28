@@ -185,7 +185,7 @@ export default function NewReportForm() {
                   ))}
                 </div>
                 <div className="flex gap-5 w-full flex-col lg:flex-row py-4">
-                  <div className="w-full">
+                  <div className="grid md:grid-cols-2 w-full gap-5">
                     <CustomFormSelect
                       labelText="Project Name"
                       placeholder="Select Project Name"
@@ -193,24 +193,25 @@ export default function NewReportForm() {
                       items={projectName || ["Loading Projects.... 🏠"]}
                       control={form.control}
                     />
+
+                    <CustomFormSelect
+                      labelText="Project Supervisor"
+                      placeholder=" Select Project Supervisor"
+                      name="project_supervisor"
+                      items={projectSupervisor || ["Loading Staff.... 👷🏾‍♂️"]}
+                      control={form.control}
+                    />
                   </div>
+                </div>
+                <div>
                   <div className="w-full">
-                    <CustomFormField
+                    <CustomFormTextareaField
                       label="Report Summary"
                       placeholder="Add report Summary"
                       name="report_summary"
                       control={form.control}
                     />
                   </div>
-                </div>
-                <div>
-                  <CustomFormSelect
-                    labelText="Project Supervisor"
-                    placeholder=" Select Project Supervisor"
-                    name="project_supervisor"
-                    items={projectSupervisor || ["Loading Staff.... 👷🏾‍♂️"]}
-                    control={form.control}
-                  />
                 </div>
                 <div className="flex flex-col lg:flex-row py-5 gap-5">
                   <div className="w-full">
