@@ -38,10 +38,7 @@ const keys: Keys[] = [
     key: "quantity",
     text: "Remaining uantity",
   },
-  {
-    key: "comment",
-    text: "Comment",
-  },
+
   {
     key: "updated_by",
     text: "Updated By",

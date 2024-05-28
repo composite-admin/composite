@@ -25,7 +25,7 @@ export const columns: ColumnDef<IProjectData>[] = [
             <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
               {row.original["project_name"]}
             </span>
-            <span className="text-xs font-semibold text-gray-500">
+            <span className="font-semibold text-gray-500 uppercase">
               {row.original["project_code"]}
             </span>
           </div>

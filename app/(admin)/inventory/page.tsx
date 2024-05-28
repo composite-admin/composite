@@ -30,12 +30,18 @@ export default function InventoryPage() {
 
   return (
     <>
-      <PageHead headText="Inventory" subText="View all your inventories here" buttonText="Add Inventory" buttonAction={()=> router.push("/inventory/new")}/>
+      <PageHead
+        headText={`Inventories (${data?.length || 0})`}
+        subText="View all your inventories here"
+        buttonText="Add Inventory"
+        buttonAction={() => router.push("/inventory/new")}
+      />
       {/* <DataTable columns={columns} data={data} clickAction={()=> onOpen()}/> */}
-      {
-        data?.length > 0 &&
-        <DataTable columns={columns} data={data} />
-      }
+      <DataTable
+        columns={columns}
+        data={data || []}
+        isLoading={!inventoryData}
+      />
     </>
-  )
+  );
 }

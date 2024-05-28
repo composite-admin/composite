@@ -4,6 +4,7 @@ import {
   convertDateFormatToAllString,
   formatDateToString,
 } from "@/utils/formatDate";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 export interface Keys {
@@ -33,9 +34,10 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
     headerChildren,
     data,
   }) => {
+    const pathname = usePathname();
     return (
       <div className="my-5 rounded-lg  bg-white p-[29px] w-full">
-        <div className="grid sm:grid-cols-[1fr_3fr] gap-6 sm:gap-2 border-b border-b-outline pb-10">
+        <div className="grid sm:grid-cols-[1fr_3fr] gap-6 sm:gap-2  pb-10">
           <div className="flex gap-3 flex-col">
             {overideHeader ? (
               headerChildren
@@ -58,36 +60,61 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
           </div>
 
           {data && (
-            <div className="grid sm:grid-cols-2 gap-10 info">
-              {keys.map((key: Keys, i: number) => {
-                let date;
-                let formatted;
-                if (key.key == "createdAt" || key.key == "updatedAt") {
-                  date = formatDateToString(data?.[key.key]);
-                }
+            <>
+              <div
+                className={`grid gap-10 info ${
+                  pathname.includes("/inventory/")
+                    ? "sm:grid-cols-2 md:grid-cols-3 "
+                    : "sm:grid-cols-2 "
+                }`}
+              >
+                {keys.map((key: Keys, i: number) => {
+                  let date;
+                  let formatted;
+                  if (key.key == "createdAt" || key.key == "updatedAt") {
+                    date = formatDateToString(data?.[key.key]);
+                  }
 
-                if (key.key == "unit_price" || key.key == "total_price") {
-                  formatted = formatCurrency(data[key.key]);
-                }
-                if (key.key == "report_code" || key.key == "project_code") {
-                  // make uppercase
-                  formatted = data[key.key]?.toUpperCase();
-                }
+                  if (key.key == "unit_price" || key.key == "total_price") {
+                    formatted = formatCurrency(data[key.key]);
+                  }
+                  if (
+                    key.key == "report_code" ||
+                    key.key == "project_code" ||
+                    key.key == "inventory_code"
+                  ) {
+                    // make uppercase
+                    formatted = data[key.key]?.toUpperCase();
+                  }
 
-                return (
-                  <div key={i} className="flex flex-col gap-0.5">
-                    <p className="text-black/80 font-semibold">{key.text}</p>
-                    <p className="font-normal text-textColor">
-                      {!date && !formatted ? data[key.key] : formatted || date}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
+                  return (
+                    <div key={i} className="flex flex-col gap-0.5">
+                      <p className="text-black/80 font-semibold">{key.text}</p>
+                      <p className="font-normal text-textColor">
+                        {!date && !formatted
+                          ? data[key.key]
+                          : formatted || date}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
 
-        <div>{children}</div>
+        <div>
+          {pathname.includes("/inventory/") && (
+            <div className="grid grid-cols-8 w-full">
+              <p className="col-span-2"></p>
+              <p className="flex flex-col font-normal text-textColor col-span-6 w-full">
+                <span className="text-textColor font-semibold">Comments:</span>{" "}
+                <span className="capitalize">{data?.comment}</span>
+              </p>
+            </div>
+          )}
+          {children}
+        </div>
       </div>
     );
   }

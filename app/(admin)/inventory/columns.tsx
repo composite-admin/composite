@@ -68,7 +68,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.getValue("remaining_quantity")}</span>
+          <span className="font-semibold ">{row.getValue("remaining_quantity") ?? '-'}</span>
         </div>
       );
     },
@@ -81,7 +81,9 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold">{row.getValue("inventory_code")}</span>
+          <span className="font-semibold uppercase">
+            {row.getValue("inventory_code")}
+          </span>
         </div>
       );
     },

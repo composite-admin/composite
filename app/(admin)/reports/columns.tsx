@@ -10,19 +10,21 @@ import Link from "next/link";
 
 export const columns: ColumnDef<IProjectReport>[] = [
   {
-    accessorKey: "reportTitle",
+    accessorKey: "report_code",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Report Title" />;
+      return <ColumnHeader column={column} title="Report Code" />;
     },
     cell: ({ row }) => {
-      const { project_name, project_code } = row.original;
+      const { report_code } = row.original;
       return (
-        <div className="flex flex-col w-20 truncate">
-          <span className="font-semibold text-primaryLight-500 ">
-            {project_name}
-          </span>
-          <span>{project_code}</span>
-        </div>
+        <span className="font-semibold uppercase ">
+          <Link
+            href={`/reports/${row.getValue("id")}`}
+            className="text-primaryLight-500 underline font-semibold"
+          >
+            {report_code}
+          </Link>
+        </span>
       );
     },
   },
