@@ -13,10 +13,13 @@ const TextSkeleton: FC<Props> = (props) => {
     <>
       <AnimatePresence mode="wait">
         {isLoading ? (
-          <div className={`w-full rounded-full py-2 animate-pulse bg-zinc-200 ${className}`} {...rest}></div>
+          <div
+            className={`w-full rounded-full py-2 animate-pulse bg-zinc-200 ${className}`}
+            {...rest}
+          ></div>
         ) : (
           <div>
-            <p className="text-[#101928] text-[16px] font-[600]">{text}</p>
+            <p className="text-textColor  font-[600]">{text}</p>
           </div>
         )}
       </AnimatePresence>
