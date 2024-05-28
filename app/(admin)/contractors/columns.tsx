@@ -42,7 +42,7 @@ export const columns: ColumnDef<ContractorType>[] = [
             <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
               {row.original["contractor_name"]}
             </span>
-            <span className="text-xs font-semibold text-gray-500">
+            <span className="uppercase font-semibold text-gray-500">
               {row.original["contractor_code"]}
             </span>
           </div>
