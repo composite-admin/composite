@@ -1,20 +1,12 @@
 "use client";
 
-import { ViewUserPageIcon } from "@/components/icons";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatCurrency } from "@/utils/formatCurrency";
-import { formatDate, formatDateToString } from "@/utils/formatDate";
+import { formatDateToString } from "@/utils/formatDate";
 import { IStakeholderProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import {
-  HiEye,
-  HiOutlineCog,
-  HiOutlineDocumentRemove,
-  HiPencilAlt,
-  HiUserAdd,
-} from "react-icons/hi";
+import { HiPencilAlt } from "react-icons/hi";
 
 export const columns: ColumnDef<IStakeholderProjectData>[] = [
   {

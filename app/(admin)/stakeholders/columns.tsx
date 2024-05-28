@@ -20,112 +20,125 @@ export type ReportType = {
 };
 
 export const columns: ColumnDef<any>[] = [
-{
-  accessorKey: "stakeHolder",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="StakeHolder" />;
+  {
+    accessorKey: "stakeHolder",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="StakeHolder" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <Link href={`/stakeholders/${row.original["id"]}`}>
+          <div className="flex gap-2 items-center">
+            <AvatarComponent />
+            <div className="flex flex-col">
+              <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+                {row.original["stakeholder_name"]}
+              </span>
+              <span className="uppercase font-semibold text-gray-500">
+                {row.original["stakeholder_code"]}
+              </span>
+            </div>
+          </div>
+        </Link>
+      );
+    },
   },
-  cell: ({ row }) => {
-    return (
-      <Link href={`/stakeholders/${row.original["id"]}`}>
+
+  {
+    accessorKey: "address",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Address" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">
+            {row.original["stakeholder_address"]}
+          </span>
+        </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "officePhone",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Office Phone" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">
+            {row.original["stakeholder_ofc_phone"]}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "contactPerson",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Contact Person" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return (
         <div className="flex gap-2 items-center">
           <AvatarComponent />
-          <div className="flex flex-col">
-            <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
-              {row.original["stakeholder_name"]}
-            </span>
-            <span className="text-xs font-semibold text-gray-500">
-              {row.original["stakeholder_code"]}
-            </span>
-          </div>
+          <span className="font-semibold">
+            {row.original["contact_person"]}
+          </span>
         </div>
-      </Link>
-    );
+      );
+    },
   },
-},
-
-{
-  accessorKey: "address",
-  header: ({ column }) => {
-    return (
-      <ColumnHeader column={column} title="Address" withSort={false} />
-    );
+  {
+    accessorKey: "contactPhone",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Contact Phone" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold text-primaryLight-500 text-center">
+            {row.original["contact_mobile"]}
+          </span>
+        </div>
+      );
+    },
   },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold ">{row.original["stakeholder_address"]}</span>
-      </div>
-    );
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Added On" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div>
+          <p>{formatDate(row.original["createdAt"])}</p>
+        </div>
+      );
+    },
   },
-},
-
-{
-  accessorKey: "officePhone",
-  header: ({ column }) => {
-    return (
-      <ColumnHeader column={column} title="Office Phone" withSort={false} />
-    );
+  {
+    accessorKey: "action",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Action" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <Link href={`/stakeholders/${row.original["id"]}/edit`}>
+            <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
+              <HiPencilAlt />
+              Edit{" "}
+            </span>
+          </Link>
+        </div>
+      );
+    },
   },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold ">{row.original["stakeholder_ofc_phone"]}</span>
-      </div>
-    );
-  },
-},
-{
-  accessorKey: "contactPerson",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Contact Person" withSort={false} />;
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="flex gap-2 items-center">
-        <AvatarComponent />
-        <span className="font-semibold">{row.original["contact_person"]}</span>
-      </div>
-    );
-  },
-},
-{
-  accessorKey: "contactPhone",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Contact Phone" />;
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <span className="font-semibold text-primaryLight-500 text-center">{row.original["contact_mobile"]}</span>
-      </div>
-    );
-  },
-},
-{
-  accessorKey: "addedOn",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Added On" />;
-  },
-  cell: ({ row }) => {
-    return (
-      <div>
-        <p>{formatDate(row.original["createdAt"])}</p>
-      </div>
-    );
-  },
-},
-{
-  accessorKey: "action",
-  header: ({ column }) => {
-    return <ColumnHeader column={column} title="Action" />;
-  },
-  cell: ({ row }) => {
-    return (
-      <div className="">
-        <Link href={`/stakeholders/${row.original["id"]}/edit`}><span className="hover:underline font-semibold text-primaryLight-500 flex items-center"><HiPencilAlt />Edit </span></Link>
-      </div>
-    );
-  },
-},
 ];

@@ -202,7 +202,13 @@ const EditSingleStakeholder = () => {
               <textarea {...register("comment", { required: true })} />
             </div>
 
-            <button className="bg-[#EBEBEB] text-textColor rounded-md">
+            <button
+              className="bg-[#EBEBEB] text-textColor rounded-md"
+              type="button"
+              onClick={() => {
+                router.back();
+              }}
+            >
               Cancel
             </button>
             <button className="bg-primaryLight text-white  p-3 rounded-md">

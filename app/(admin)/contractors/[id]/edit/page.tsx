@@ -169,6 +169,7 @@ const SingleContractorEdit = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
+              type="button"
             >
               Cancel
             </button>

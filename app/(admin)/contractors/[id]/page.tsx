@@ -28,7 +28,7 @@ const ContractorDetails = ({ selectedItem }: any) => {
     { label: "Contractor Name", value: selectedItem.contractor_name },
     {
       label: "Contractor Code",
-      value: selectedItem.contractor_code.toUpperCase(),
+      value: selectedItem && selectedItem.contractor_code?.toUpperCase(),
     },
     { label: "Contractor Phone", value: selectedItem.contractor_ofc_phone },
     { label: "Contact Person", value: selectedItem.contact_person },
@@ -73,10 +73,8 @@ const ContractorDetails = ({ selectedItem }: any) => {
         </div>
 
         <div className="p-5">
-          <p className="text-[#475367] text-sm">Comment:</p>
-          <p className="text-[#101928] text-[16px] font-[600]">
-            {selectedItem.comment}
-          </p>
+          <p className="text-[#101928] text-[16px] font-[600]">Comment:</p>
+          <p className="text-textColor  font-[600]">{selectedItem.comment}</p>
         </div>
       </div>
     </div>

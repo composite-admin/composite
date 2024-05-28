@@ -9,6 +9,75 @@ import useStakeholdersActionsStore from "@/store/actions/stakeholdersActions"
 import { useQuery } from "@tanstack/react-query";
 import { IStakeholderProjectData } from "@/utils/types";
 import { getStuffTyped } from "@/hooks/useSelectOptions";
+import { Button } from "@/components/ui/button";
+import Stakeholder from "@/components/Project/Stakeholder";
+
+const DetailItem = ({ label, value }: any) => (
+  <div>
+    <p className="text-[#101928]  font-semibold">{label}</p>
+    <p className="text-textColor ">{value}</p>
+  </div>
+);
+
+const StakeholderDetails = ({ selectedItem }: any) => {
+  const router = useRouter();
+  if (!selectedItem) {
+    return null;
+  }
+
+  const detailItems = [
+    { label: "Stakeholder Name", value: selectedItem.stakeholder_name },
+    {
+      label: "Stakeholder Code",
+      value: selectedItem && selectedItem.stakeholder_code?.toUpperCase(),
+    },
+    { label: "Stakeholder Phone", value: selectedItem.stakeholder_ofc_phone },
+    { label: "Government Agencies", value: selectedItem.government_agencies },
+    {
+      label: "Non Government Agencies",
+      value: selectedItem.non_government_agencies,
+    },
+    { label: "Contact Person", value: selectedItem.contact_person ?? "-" },
+    { label: "Contact Mobile", value: selectedItem.contact_mobile },
+    { label: "Contact Home Phone", value: selectedItem.contact_home_phone },
+    { label: "Address", value: selectedItem.stakeholder_address, colSpan: 3 },
+  ];
+
+  return (
+    <div className="gap-5 my-10">
+      <div className="col-span-2 bg-white rounded-lg border-[#D0D5DD] ">
+        <div className="p-5 border-b border-b-gray-300 flex justify-between items-center">
+          <h1 className="text-[#101928] text-[18px] font-[600]">
+            Stakeholder Details
+          </h1>
+          <Button
+            onClick={() => {
+              selectedItem &&
+                router.push(`/stakeholders/${selectedItem.id}/edit`);
+            }}
+          >
+            Edit Stakeholder
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-4 p-5 gap-5">
+          {detailItems.map(({ label, value, colSpan = 1 }, index) => (
+            <div
+              key={index}
+              className={colSpan > 1 ? `col-span-${colSpan}` : ""}
+            >
+              <DetailItem label={label} value={value} />
+            </div>
+          ))}
+        </div>
+        <div className="p-5">
+          <p className="text-[#101928] text-[16px] font-[600]">Comment:</p>
+          <p className="text-textColor  font-[600]">{selectedItem.comment}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const SingleStakeholder = () => {
   const router = useRouter();
@@ -20,11 +89,8 @@ const SingleStakeholder = () => {
   const getStakeholderById = useStakeholdersActionsStore<any>(
     (state) => state.getStakeholderById
   );
-  const stakeholders = useStakeholdersActionsStore<any>(
-    (state: any) => state.items
-  );
   const getAllStakeholders = useStakeholdersActionsStore<any>(
-    (state: any) => state.getAllStakeholders
+    (state) => state.getAllStakeholders
   );
 
   useEffect(() => {
@@ -36,6 +102,7 @@ const SingleStakeholder = () => {
       getStakeholderById(params.id);
     }
   }, [getStakeholderById, params.id]);
+
   const { data, error, isPending, isError } = useQuery({
     queryKey: [
       "get all stakeholder projects by stakeholder code",
@@ -53,92 +120,15 @@ const SingleStakeholder = () => {
       <GoBack />
 
       <div>
-        <PageHead
+        {/* <PageHead
           headText={selectedItem && selectedItem.stakeholder_name}
           subText={selectedItem && selectedItem.stakeholder_code}
           buttonText="Edit Stakeholder"
           buttonAction={() =>
             selectedItem && router.push(`/stakeholders/${selectedItem.id}/edit`)
           }
-        />
-
-        <div className="gap-5 my-10">
-          <div className="col-span-2 bg-white rounded-lg border-[#D0D5DD] ">
-            <div className="p-5 border-b border-b-gray-300">
-              <h1 className="text-[#101928] text-[18px] font-[600]">
-                Stakeholder Details
-              </h1>
-            </div>
-
-            <div className="grid grid-cols-4 p-5 gap-5">
-              <div>
-                <p className="text-[#475367] text-sm">Stakeholder Name:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.stakeholder_name}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Stakeholder Code:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.stakeholder_code}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Address:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.stakeholder_address}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Stakeholder Phone:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.stakeholder_ofc_phone}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Government Agencies:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.government_agencies}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">
-                  Non Government Agencies:
-                </p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.non_government_agencies}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Contact Person:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.contact_person}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Contact Mobile:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.contact_mobile}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#475367] text-sm">Contact Home Phone:</p>
-                <p className="text-[#101928] text-[16px] font-[600]">
-                  {selectedItem && selectedItem.contact_home_phone}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        /> */}
+        <StakeholderDetails selectedItem={selectedItem} />
         <PageHead
           headText="Projects"
           subText="View all your stakeholder's projects here"
