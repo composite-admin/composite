@@ -15,6 +15,59 @@ interface IProps {
   params: { id: string };
 }
 
+const staffDetailsKeys = [
+  "Staff Code",
+  "Employee Status",
+  "Email",
+  "Cell Number",
+  "Gender",
+  "Address",
+  "State of Origin",
+  "Next of Kin",
+  "Address (Next of Kin)",
+  "Phone Number (Next of Kin)",
+  "Grade",
+  "Date employed",
+  "Type",
+  "Mobile",
+  "Date of birth",
+  "Marital status",
+  "Marital Status of Next of Kin",
+  "LGA",
+  "Relationship",
+  "Email of Next of Kin",
+  "Department",
+  "Branch",
+];
+
+const staffDetailsValues = [
+  "userid",
+  "employee_status",
+  "email",
+  "cell_phone",
+  "sex",
+  "address",
+  "stateOfOrigin",
+  "nextOfKin",
+  "addressOfNOK",
+  "phoneOfNOK",
+  "gradeid",
+  "date_employed",
+  "staff_type",
+  "home_phone",
+  "dob",
+  "marital_status",
+  "marital_status",
+  "lga",
+  "relationship",
+  "emailOfNOK",
+  "deptid",
+  "branchcode",
+];
+
+const bankDetailsKeys = ["Bank name", "Account name", "Account number"];
+const bankDetailsValues = ["bank_name", "account_name", "account_number"];
+
 export default function ManageStaffPage({ params }: IProps) {
   const { setStaffDetails, staffDetails } = useManageStaffStore();
   const [toggle, setToggle] = useState(false);
@@ -46,10 +99,9 @@ export default function ManageStaffPage({ params }: IProps) {
         <div className="p-5">
           <div className="flex justify-between items-center">
             <aside className="flex items-center gap-2">
-              <AvatarComponent height="h-14" width="w-14" />
               <div className="flex flex-col">
                 <span className="text-responsive font-semibold">
-                  {staffDetails?.firstname} {staffDetails?.middlename}
+                  {staffDetails?.firstname} {staffDetails?.middlename}{" "}
                   {staffDetails?.lastname}
                 </span>
                 <span className="text-xs ">
@@ -65,67 +117,27 @@ export default function ManageStaffPage({ params }: IProps) {
               </Button>
             </aside>
           </div>
-          <div className="flex flex-wrap justify-between gap-10 lg:flex-nowrap mt-10">
-            <div className="w-full lg:w-1/2">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex flex-col gap-10 text-sm  w-1/2 ">
-                  <span>Staff Code:</span>
-                  <span>Employee Status:</span>
-                  <span>Email:</span>
-                  <span>Cell Number:</span>
-                  <span>Gender</span>
-                  <span>Address</span>
-                  <span>State of Origin</span>
-                  <span>Next of Kin</span>
-                  <span>Address (Next of Kin)</span>
-                  <span>Phone Number (Next of Kin)</span>
-                  <span>Grade</span>
+          <div className="mt-10">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 ">
+              {staffDetailsKeys.map((key, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between  flex-col gap-2"
+                >
+                  <span className="font-semibold">{key}:</span>
+                  <span
+                    className={`text-textColor ${
+                      staffDetailsValues[index] === "userid" ? "uppercase" : ""
+                    }`}
+                  >
+                    {
+                      staffDetails?.[
+                        staffDetailsValues[index] as keyof IManageStaffData
+                      ]
+                    }
+                  </span>
                 </div>
-                <div className="flex flex-col text-sm font-semibold gap-10 w-1/2 ">
-                  <span>{staffDetails?.userid}</span>
-                  <span>{staffDetails?.employee_status}</span>
-                  <span>{staffDetails?.email}</span>
-                  <span>{staffDetails?.cell_phone}</span>
-                  <span>{staffDetails?.sex}</span>
-                  <span>{staffDetails?.address}</span>
-                  <span>{staffDetails?.stateOfOrigin}</span>
-                  <span>{staffDetails?.nextOfKin}</span>
-                  <span>{staffDetails?.addressOfNOK}</span>
-                  <span>{staffDetails?.phoneOfNOK}</span>
-                  <span>{staffDetails?.gradeid}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full lg:w-1/2">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex flex-col gap-10 text-sm ">
-                  <span>Date employed:</span>
-                  <span>Type:</span>
-                  <span>Mobile:</span>
-                  <span>Date of birth:</span>
-                  <span>Marital status:</span>
-                  <span>Marital Status of Next of Kin:</span>
-                  <span>LGA:</span>
-                  <span>Relationship:</span>
-                  <span>Email of Next of Kin:</span>
-                  <span>Department:</span>
-                  <span>Branch:</span>
-                </div>
-                <div className="flex flex-col text-sm font-semibold gap-10 ">
-                  <span>{staffDetails?.date_employed}</span>
-                  <span>{staffDetails?.staff_type}</span>
-                  <span>{staffDetails?.home_phone}</span>
-                  <span>{staffDetails?.dob}</span>
-                  <span>{staffDetails?.marital_status}</span>
-                  <span>{staffDetails?.marital_status}</span>
-                  <span>{staffDetails?.lga}</span>
-                  <span>{staffDetails?.relationship}</span>
-                  <span>{staffDetails?.emailOfNOK}</span>
-                  <span>{staffDetails?.deptid}</span>
-                  <span>{staffDetails?.branchcode}</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -139,18 +151,18 @@ export default function ManageStaffPage({ params }: IProps) {
             <div className="py-3">
               <h2>Bank Details</h2>
             </div>
-            <div className="w-full lg:w-1/2">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex flex-col gap-10 text-sm ">
-                  <span>Bank name:</span>
-                  <span>Account name:</span>
-                  <span>Account number:</span>
-                </div>
-                <div className="flex flex-col text-sm font-semibold gap-10 ">
-                  <span>{staffDetails?.bank_name}</span>
-                  <span>{staffDetails?.account_name}</span>
-                  <span>{staffDetails?.account_number}</span>
-                </div>
+            <div className="flex justify-between items-center w-full">
+              <div className="flex flex-col gap-10 text-sm ">
+                {bankDetailsKeys.map((key, index) => (
+                  <span key={index}>{key}:</span>
+                ))}
+              </div>
+              <div className="flex flex-col text-sm font-semibold gap-10 ">
+                {bankDetailsValues.map((value, index) => (
+                  <span key={index}>
+                    {staffDetails?.[value as keyof IManageStaffData]}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

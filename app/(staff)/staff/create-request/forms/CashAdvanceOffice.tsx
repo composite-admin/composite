@@ -20,9 +20,6 @@ import { useMutation } from "@tanstack/react-query";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project Name is required",
-  }),
   amount: z.string({
     required_error: "Amount is required",
   }),
@@ -64,9 +61,6 @@ export default function CashAdvanceOffice() {
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         amount: Number(data.amount),
-        project_code: projectsData?.find(
-          (item: any) => item.project_name === data.project_name
-        )?.project_code,
       });
       if (res.status === 201) {
         toast({
@@ -123,15 +117,6 @@ export default function CashAdvanceOffice() {
           </select>
           <div className="py-4 w-full">
             <div className="flex flex-col lg:flex-row gap-4 w-full">
-              <div className="w-full">
-                <CustomFormSelect
-                  name="project_name"
-                  labelText="Project Name"
-                  control={form.control}
-                  placeholder="Select Project"
-                  items={projectName || []}
-                />
-              </div>
               <div className="w-full">
                 <CustomFormField
                   name="amount"
