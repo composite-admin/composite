@@ -19,6 +19,7 @@ import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
+import { IStakeholderProjectData } from "@/utils/types";
 
 const EditStakeholderSchema = z.object({
   approved_amount: z.string({
@@ -42,7 +43,21 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
     mutationKey: ["edit stakeholder form", id],
     mutationFn: async (data: IEditStakeholderForm) => {
       try {
-        const response = await api.put(`/stakeholder-project/${id}`, data);
+        const response = await api.put<IStakeholderProjectData>(
+          `/stakeholder-project/${id}`,
+          data
+        );
+        if (data.status === "DECLINED") {
+          toast({
+            title: "Stakeholder Declined",
+            variant: "destructive",
+          });
+        } else if (response.status === 200 && data.status === "APPROVED") {
+          toast({
+            title: "Stakeholder approved successfully",
+            variant: "success",
+          });
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -53,10 +68,6 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
       }
     },
     onSuccess: () => {
-      toast({
-        title: "Stakeholder is now approved ",
-        variant: "success",
-      });
       router.push("/stakeholders/pending-project");
     },
     onError: (error: Error) => {
@@ -119,7 +130,7 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
               <CustomFormSelect
                 name="status"
                 control={form.control}
-                items={["PENDING", "APPROVED", "DECLINED"]}
+                items={["APPROVED", "DECLINED"]}
                 placeholder="Status"
                 labelText="Status"
               />
@@ -140,7 +151,9 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
               >
                 Cancel
               </Button>
-              <Button type="submit">Approve</Button>
+              <Button type="submit">
+                {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+              </Button>
             </div>
           </form>
         </Form>

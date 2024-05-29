@@ -24,9 +24,9 @@ const PendingStakeholderProject = () => {
     <>
       <PageHead
         headText={
-          `Pending Stakeholder Project (${pendingStakeholders?.length})` ?? 0
+          `Pending Stakeholder Project (${pendingStakeholders?.length})` || "0"
         }
-        subText="View all pending stakeholder prohjects here"
+        subText="View all pending stakeholder projects here"
       />
       <DataTable
         columns={columns}

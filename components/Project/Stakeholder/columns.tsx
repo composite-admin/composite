@@ -22,7 +22,7 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
       return (
         <div className="flex flex-col text-primaryLight gap-1 font-semibold">
           <p className="">{row.original["stakeholder_name"]}</p>
-          <p className="text-textColor font-normal">
+          <p className="text-textColor font-normal uppercase">
             {row.original["stakeholder_code"]}
           </p>
         </div>

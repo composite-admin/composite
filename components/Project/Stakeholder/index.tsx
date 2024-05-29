@@ -23,6 +23,8 @@ const Stakeholder = ({ projectCode }: { projectCode: string }) => {
         }
       }
     },
+    refetchOnWindowFocus: "always",
+    refetchOnMount: "always",
   });
   return (
     <div>
