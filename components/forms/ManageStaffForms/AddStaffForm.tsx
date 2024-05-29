@@ -257,6 +257,16 @@ export default function AddStaffForm() {
                     />
                   </div>
                 </div>
+                <div className="grid pt-4 md:grid-cols-2 gap-5 ">
+                  <Button
+                    type="button"
+                    variant={"secondary"}
+                    onClick={() => router.back()}
+                  >
+                    Cancel
+                  </Button>
+                  <Button onClick={next}>Next</Button>
+                </div>
               </FormContainer>
             </motion.div>
           )}
@@ -319,6 +329,12 @@ export default function AddStaffForm() {
                       label="Cell phone of next of kin"
                     />
                   </div>
+                </div>
+                <div className="grid pt-4 md:grid-cols-2 gap-5 ">
+                  <Button type="button" variant={"secondary"} onClick={prev}>
+                    Back
+                  </Button>
+                  <Button onClick={next}>Next</Button>
                 </div>
               </FormContainer>
             </motion.div>
@@ -383,6 +399,12 @@ export default function AddStaffForm() {
                     </div>
                   </div>
                 </div>
+                <div className="grid pt-4 md:grid-cols-2 gap-5 ">
+                  <Button type="button" variant={"secondary"} onClick={prev}>
+                    Back
+                  </Button>
+                  <Button onClick={next}>Next</Button>
+                </div>
               </FormContainer>
             </motion.div>
           )}
@@ -429,12 +451,6 @@ export default function AddStaffForm() {
           )}
         </form>
       </Form>
-      <StepBottomNav
-        next={next}
-        prev={prev}
-        currentStep={currentStep}
-        steps={steps}
-      />
     </section>
   );
 }

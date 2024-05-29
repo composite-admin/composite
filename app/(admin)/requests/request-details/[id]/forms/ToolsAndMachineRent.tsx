@@ -9,6 +9,7 @@ import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
 import {
   useGetAllInventoryTypes,
+  useGetAllStaffs,
   useGetStaffDetails,
   useProjectData,
 } from "@/hooks/useSelectOptions";
@@ -21,6 +22,7 @@ import { RequestType } from "./CashAdvance";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
+import { IStaffDetailsData } from "@/utils/types";
 // use teh names in the form
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -39,22 +41,29 @@ export const ToolsAndMachineRentSchema = z.object({
   supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
+  account_number: z.string({
+    required_error: "Account number is required",
+  }),
+  account_name: z.string({
+    required_error: "Account name is required",
+  }),
 });
 
 type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 
 export default function ToolsAndMachineRent() {
   const { formDetails, onClose } = useUpdateRequestStore();
-  const { projectsData } = useProjectData();
-  const router = useRouter();
   const { toast } = useToast();
   const { userId, username } = userStore();
-  const { staffDetails } = useGetStaffDetails(userId);
-  const { setFormType } = useStaffStore();
+  const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
+
   const form = useForm<ToolsAndMachineRentType>({
     resolver: zodResolver(ToolsAndMachineRentSchema),
     defaultValues: {
       request_type: RequestType.ToolsAndMachineRent,
+      bank: staffDetails?.bank_name,
+      account_number: staffDetails?.account_number,
+      account_name: staffDetails?.account_name,
     },
   });
 
@@ -155,7 +164,22 @@ export default function ToolsAndMachineRent() {
             name="bank"
             control={form.control}
             label="Bank Name"
-            placeholder="Enter Bank Name"
+            disabled
+            placeholder={staffDetails?.bank_name}
+          />
+          <CustomFormField
+            name="account_name"
+            control={form.control}
+            label="Account Name"
+            disabled
+            placeholder={staffDetails?.account_name}
+          />{" "}
+          <CustomFormField
+            name="account_number"
+            control={form.control}
+            label="Account number"
+            disabled
+            placeholder={staffDetails?.account_number}
           />
         </div>
         <div className="py-6">

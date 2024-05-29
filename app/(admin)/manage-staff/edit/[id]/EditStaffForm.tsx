@@ -17,7 +17,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -67,6 +66,15 @@ const EditStaffFormSchema = z.object({
   addressOfNOK: z.string({
     required_error: "Next of kin address is required",
   }),
+  bank_name: z.string({
+    required_error: "Bank name is required",
+  }),
+  account_name: z.string({
+    required_error: "Account name is required",
+  }),
+  account_number: z.string({
+    required_error: "Account number is required",
+  }),
 });
 
 type EditStaffType = z.infer<typeof EditStaffFormSchema>;
@@ -104,6 +112,9 @@ export default function EditStaffForm({ data }: props) {
       form.setValue("emailOfNOK", data?.emailOfNOK);
       form.setValue("addressOfNOK", data?.addressOfNOK);
       form.setValue("cell_phone", data?.cell_phone);
+      form.setValue("bank_name", data?.bank_name);
+      form.setValue("account_name", data?.account_name);
+      form.setValue("account_number", data?.account_number);
     }
   }, [data, form]);
 
@@ -146,27 +157,13 @@ export default function EditStaffForm({ data }: props) {
     <>
       <GoBack />
       <FormContainer
-        isColumn={false}
+        isColumn
         title="Edit Staff"
         description="Edit staff details here"
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="space-y-2  w-full md:w-1/2">
-                <h2 className="text-lg font-semibold">Photograph</h2>
-                <p>This image will be used to recognize the staff</p>
-                <p className="flex gap-2 text-primaryLight items-center border w-max rounded-lg border-primaryLight p-1 cursor-pointer">
-                  <Upload className="size-4" />
-                  Upload Photo
-                </p>
-              </div>
-              <div className=" w-full md:w-1/2">
-                <AvatarComponent height="h-28" width="w-28" />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4 pt-10 ">
+            <div className="grid md:grid-cols-2 gap-4 pt-4 pb-3">
               <CustomFormField
                 control={form.control}
                 placeholder="Enter first name"
@@ -284,7 +281,28 @@ export default function EditStaffForm({ data }: props) {
                 placeholder="Enter cell phone number"
                 label="Cell phone of next of kin"
               />
+
+              <CustomFormField
+                name="bank_name"
+                control={form.control}
+                placeholder="Enter bank name"
+                label="Bank name"
+              />
+
+              <CustomFormField
+                name="account_name"
+                control={form.control}
+                placeholder="Enter account name"
+                label="Account name"
+              />
             </div>
+
+            <CustomFormField
+              name="account_number"
+              control={form.control}
+              placeholder="Enter account number"
+              label="Account number"
+            />
 
             <div className="grid md:grid-cols-2 gap-4 pt-8 ">
               <Button variant="secondary">Cancel</Button>
