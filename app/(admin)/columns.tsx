@@ -5,6 +5,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { IProjectData, PendingProjectDetails } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import TableLink from "./TableLink";
 
 export const columns: ColumnDef<PendingProjectDetails>[] = [
   {
@@ -14,14 +15,14 @@ export const columns: ColumnDef<PendingProjectDetails>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div>
-          <div className="flex  flex-col">
+        <TableLink row={row} rowId={row.original.project_code}>
+          <div className="flex font-semibold  underline text-primaryLight flex-col">
             <span>{row.original["project_name"]}</span>
-            <span className="font-semibold text-gray-500 uppercase text-semibold">
+            <span className="uppercase text-semibold">
               {row.original["project_code"]}
             </span>
           </div>
-        </div>
+        </TableLink>
       );
     },
   },
