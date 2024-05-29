@@ -32,8 +32,12 @@ const AddMaterialSchema = z.object({
   payment_mode: z.string({
     required_error: "Payment Mode is required",
   }),
-  quantity: z.string().optional(),
-  unit_price: z.string().optional(),
+  quantity: z.string({
+    required_error: "Quantity is required",
+  }),
+  unit_price: z.string({
+    required_error: "Unit price is required",
+  }),
   comment: z.string().optional(),
 });
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
@@ -50,11 +54,8 @@ export default function AddMaterialForm() {
   const { onClose } = useProjectDetailsPageFormModal();
   const { projectName, projectCode } = useProjectDetails();
   const { suppliers, supplierList } = useGetAllSuppliers();
-  const supplierName = suppliers?.map(
-    (supplier: ISupplierData) => supplier.supplier_name
-  );
 
-  const { isLoading, materialDetails } = useGetMaterialDetails(Number(rowID));
+  const { materialDetails } = useGetMaterialDetails(Number(rowID));
   let values;
   if (isEditOrDelete) {
     values = {
@@ -79,13 +80,16 @@ export default function AddMaterialForm() {
         (supplier: ISupplierData) => supplier.supplier_name === watchSupplier
       )?.supplier_code;
       setSuplierCode(supplier_code);
-      // /suppliers-materials/supplier/description?supplierCode
       const materialDescription = async () => {
         try {
           const response = await api.get(
             `/suppliers-materials/supplier/description?supplierCode=${supplier_code}`
           );
-          setMatDesc(response.data.data?.map((item: any) => item.description));
+          const descriptions = response.data?.data?.map(
+            (item: any) => item.mat_desc
+          );
+          const uniqueDescriptions = Array.from(new Set(descriptions));
+          setMatDesc(uniqueDescriptions as string[]);
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message);
@@ -185,7 +189,7 @@ export default function AddMaterialForm() {
               labelText="Material Description"
               placeholder="Material Description"
               items={matDesc ?? ["Loading..."]}
-              disabled={!watchSupplier}
+              disabled={!watchSupplier || matDesc.length === 0}
             />
 
             <CustomFormSelect

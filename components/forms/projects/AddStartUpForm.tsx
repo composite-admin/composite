@@ -26,7 +26,7 @@ const AddStartUpCostSchema = z.object({
   startup_desc: z.string({ required_error: "Startup description is required" }),
   startup_type: z.string({ required_error: "Startup type is required" }),
   startup_cost: z.string({ required_error: "Startup cost is required" }),
-  comment: z.string({ required_error: "Comment is required" }),
+  comment: z.string().optional(),
 });
 
 type AddStartUpCostType = z.infer<typeof AddStartUpCostSchema>;
@@ -44,17 +44,16 @@ export default function AddStartUpForm() {
     Number(rowID)
   );
 
-  console.log(startupCostDetails);
   const { onClose } = useProjectDetailsPageFormModal();
   const { toast } = useToast();
 
   const form = useForm<AddStartUpCostType>({
     resolver: zodResolver(AddStartUpCostSchema),
-    values: {
-      startup_desc: startupCostDetails?.startup_desc || "",
-      startup_type: startupCostDetails?.startup_type || "",
-      startup_cost: startupCostDetails?.startup_cost || "",
-      comment: startupCostDetails?.comment || "",
+    defaultValues: {
+      startup_desc: startupCostDetails?.startup_desc,
+      startup_type: startupCostDetails?.startup_type,
+      startup_cost: startupCostDetails?.startup_cost,
+      comment: startupCostDetails?.comment,
     },
   });
 

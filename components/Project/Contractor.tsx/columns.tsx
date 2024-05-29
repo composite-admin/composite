@@ -19,7 +19,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
       return (
         <div className="flex flex-col text-primaryLight gap-1 font-semibold">
           <p className="">{contractor_name}</p>
-          <p className="text-textColor font-normal">{contractor_code}</p>
+          <p className="text-textColor font-normal uppercase">{contractor_code}</p>
         </div>
       );
     },
@@ -28,7 +28,7 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
   {
     accessorKey: "contractor_amount",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Amount" withSort={false} />;
+      return <ColumnHeader column={column} title="Requested Amount" withSort={false} />;
     },
     cell: ({ row }) => {
       const amount = row.original.contractor_amount;
@@ -40,7 +40,13 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
   {
     accessorKey: "approved_amount",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Amount" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Approved Amount"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       const amount = row.original.approved_amount;
