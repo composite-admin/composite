@@ -22,11 +22,16 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const AddStakeHolderSchema = z.object({
-  stakeholder_code: z.string().optional(),
-  stakeholder_name: z.string().optional(),
-  stakeholder_amount: z.string().optional(),
-  approved_amount: z.string().optional(),
-  other_amount: z.string().optional(),
+  stakeholder_name: z.string({
+    required_error: "Stakeholder name is required",
+  }),
+  stakeholder_amount: z.string({
+    required_error: "Add a stakeholder amount",
+  }),
+
+  other_amount: z.string({
+    required_error: "This field is required",
+  }),
   comment: z.string().optional(),
 });
 
@@ -115,7 +120,7 @@ export default function AddStakeHolderForm() {
 
         <div className="grid lg:grid-cols-2 gap-2">
           <CustomFormField
-            name="approved_amount"
+            name="stakeholder_amount"
             control={form.control}
             label="Official Amount"
             placeholder="Official Amount"

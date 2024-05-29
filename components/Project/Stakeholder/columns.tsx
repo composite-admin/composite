@@ -36,7 +36,7 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
       return (
         <ColumnHeader
           column={column}
-          title="Stakeholder Amount"
+          title="Requested Amount"
           withSort={false}
         />
       );

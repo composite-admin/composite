@@ -21,7 +21,7 @@ import axios from "axios";
 import { useToast } from "../ui/use-toast";
 
 const EditStakeholderSchema = z.object({
-  stakeholder_amount: z.string({
+  approved_amount: z.string({
     required_error: "Add an approved amount",
   }),
   comment: z.string().optional(),
@@ -86,7 +86,7 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
             />
             <CustomFormField
               control={form.control}
-              name="contractor_name"
+              name="stakeholder_name"
               placeholder={projectDetails?.stakeholder_name}
               disabled
               className="placeholder:uppercase"
@@ -96,8 +96,8 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <CustomFormField
                 control={form.control}
-                name="contractor_amount"
-                placeholder={projectDetails?.approved_amount}
+                name="stakeholder_amount"
+                placeholder={projectDetails?.stakeholder_amount}
                 disabled
                 className="placeholder:uppercase"
                 label="Official Amount"
@@ -112,7 +112,7 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
               />
               <CustomFormField
                 control={form.control}
-                name="stakeholder_amount"
+                name="approved_amount"
                 label="Approved amount"
                 placeholder="Add approved amount"
               />

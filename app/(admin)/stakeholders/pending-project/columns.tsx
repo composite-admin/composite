@@ -1,6 +1,4 @@
 "use client";
-
-import { ViewUserPageIcon } from "@/components/icons";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatCurrency } from "@/utils/formatCurrency";
@@ -8,7 +6,6 @@ import { formatDate } from "@/utils/formatDate";
 import { IStakeholderProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
 export const columns: ColumnDef<IStakeholderProjectData>[] = [
   {
@@ -19,12 +16,11 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">
-          <AvatarComponent />
           <div className="flex flex-col">
             <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
               {row.original["stakeholder_name"]}
             </span>
-            <span className="text-xs font-semibold text-gray-500">
+            <span className="uppercase font-semibold text-gray-500">
               {row.original["stakeholder_code"]}
             </span>
           </div>
