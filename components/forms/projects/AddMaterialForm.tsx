@@ -32,12 +32,16 @@ const AddMaterialSchema = z.object({
   payment_mode: z.string({
     required_error: "Payment Mode is required",
   }),
-  quantity: z.string({
-    required_error: "Quantity is required",
-  }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
+  quantity: z
+    .string({
+      required_error: "Quantity is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+  unit_price: z
+    .string({
+      required_error: "Unit price is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   comment: z.string().optional(),
 });
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;

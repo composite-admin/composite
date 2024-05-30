@@ -30,12 +30,16 @@ export const ToolsAndMachineStoreSchema = z.object({
     required_error: "Project name is required",
   }),
 
-  quantity: z.string({
-    required_error: "Quantity is required",
-  }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
+  quantity: z
+    .string({
+      required_error: "Quantity is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+  unit_price: z
+    .string({
+      required_error: "Unit price is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   tool_machinery_type: z.string({
     required_error: "Tool description is required",
   }),
@@ -45,9 +49,7 @@ export const ToolsAndMachineStoreSchema = z.object({
   tool_name: z.string({
     required_error: "Type is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;

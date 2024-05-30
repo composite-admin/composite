@@ -28,9 +28,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const ToolsAndMachineStoreSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  approved_quantity: z.string({
-    required_error: "Quantity is required",
-  }),
+  approved_quantity: z
+    .string({
+      required_error: "Quantity is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   supervisor_comment: z.string({
     required_error: "Comment is required",
   }),

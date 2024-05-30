@@ -36,18 +36,20 @@ export const createCashAdvanceOfficeSchema = z.object({
   supplier_material: z.string({
     required_error: "Material description is required",
   }),
-  quantity: z.string({
-    required_error: "Quantity is required",
-  }),
-  unit_price: z.string({
-    required_error: "Unit price is required",
-  }),
+  quantity: z
+    .string({
+      required_error: "Quantity is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+  unit_price: z
+    .string({
+      required_error: "Unit price is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   description: z.string({
     required_error: "Description is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<

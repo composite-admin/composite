@@ -33,31 +33,37 @@ export const ToolsAndMachineBuySchema = z.object({
   company: z.string({
     required_error: "Company name is required",
   }),
-  contact_mobile: z.string({
-    required_error: "Contact number is required",
-  }),
+  contact_mobile: z
+    .string({
+      required_error: "Contact number is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   company_address: z.string({
     required_error: "Company address is required",
   }),
-  ofc_phone: z.string({
-    required_error: "Office phone is required",
-  }),
+  ofc_phone: z
+    .string({
+      required_error: "Office phone is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   contact_person: z.string({
     required_error: "Contact person is required",
   }),
   description: z.string({
     required_error: "Item description is required",
   }),
-  quantity: z.coerce.string({
-    required_error: "Quantity is required",
-  }),
-  unit_price: z.coerce.string({
-    required_error: "Unit price is required",
-  }),
+  quantity: z.coerce
+    .string({
+      required_error: "Quantity is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+  unit_price: z.coerce
+    .string({
+      required_error: "Unit price is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
 
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type ToolsAndMachineBuyType = z.infer<typeof ToolsAndMachineBuySchema>;

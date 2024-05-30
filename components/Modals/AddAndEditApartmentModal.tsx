@@ -25,9 +25,7 @@ const FormSchema = z.object({
   flat_desc: z.string({
     required_error: "Flat Description is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;

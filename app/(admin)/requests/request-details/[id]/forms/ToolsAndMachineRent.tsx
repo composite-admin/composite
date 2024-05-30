@@ -18,12 +18,16 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  approved_quantity: z.string({
-    required_error: "Amount is required",
-  }),
-  approved_unit_price: z.string({
-    required_error: "Approved unit price is required",
-  }),
+  approved_quantity: z
+    .string({
+      required_error: "Amount is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+  approved_unit_price: z
+    .string({
+      required_error: "Approved unit price is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   payment_method: z.string({
     required_error: "Payment method is required",
   }),
@@ -33,9 +37,11 @@ export const ToolsAndMachineRentSchema = z.object({
   supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
-  account_number: z.string({
-    required_error: "Account number is required",
-  }),
+  account_number: z
+    .string({
+      required_error: "Account number is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   account_name: z.string({
     required_error: "Account name is required",
   }),
