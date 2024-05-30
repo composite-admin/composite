@@ -10,7 +10,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "@/config/api";
 import {
@@ -34,6 +34,7 @@ type EditConsultantType = z.infer<typeof EditConsultantSchema>;
 export default function EditConsultantForm({ data }: IConsultantDetailsData) {
   const router = useRouter();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const form = useForm<EditConsultantType>({
     resolver: zodResolver(EditConsultantSchema),
     defaultValues: {
@@ -42,7 +43,7 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
     },
   });
 
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const { mutate, isPending, error } = useMutation({
     mutationKey: ["edit consultant", data.id],
     mutationFn: async (args: { formData: EditConsultantType; id: number }) => {
       try {
@@ -60,6 +61,7 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
       }
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get all consultants"] });
       form.reset();
       toast({
         title: "Consultant updated successfully",

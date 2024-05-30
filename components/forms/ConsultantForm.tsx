@@ -12,13 +12,16 @@ import {
   AddConsultantType,
   selectOptionsForConsultantsType,
 } from "@/utils/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "@/config/api";
 import { useRouter } from "next/navigation";
+import { useToast } from "../ui/use-toast";
 
 export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
   const form = useForm<AddConsultantType>({
     resolver: zodResolver(AddConsultantSchema),
     defaultValues: {
@@ -36,6 +39,13 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
       try {
         const response = await api.post("/consultants", data);
         if (response.status === 201 || response.status === 200) {
+          queryClient.invalidateQueries({
+            queryKey: ["get all consultants"],
+          });
+          toast({
+            title: "Consultant created successfully",
+            variant: "success",
+          });
           router.push("/consultants");
         }
         return response.data;
