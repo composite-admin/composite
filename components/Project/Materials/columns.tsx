@@ -42,6 +42,12 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
       return <ColumnHeader column={column} title="Supplier" withSort={false} />;
     },
   },
+  {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+  },
 
   {
     accessorKey: "quantity",

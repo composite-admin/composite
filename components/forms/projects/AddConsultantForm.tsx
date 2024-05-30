@@ -13,7 +13,7 @@ import {
   useProjectDetailsPageFormModal,
 } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { selectOptionsForConsultantsType } from "@/utils/types";
 import { useGetAllConsultants } from "@/hooks/useSelectOptions";
@@ -28,6 +28,7 @@ export default function AddConsultantForm() {
   const form = useForm<AddConsultantSchemaType>({
     resolver: zodResolver(AddConsultantSchema),
   });
+  const queryClient = useQueryClient();
   const { watch } = form;
   const watchType = watch("consultant_type");
   const { consultants } = useGetAllConsultants();
@@ -67,6 +68,9 @@ export default function AddConsultantForm() {
       onSuccess: () => {
         form.reset();
         onClose();
+        queryClient.invalidateQueries({
+          queryKey: ["get all consultants by project code", projectCode],
+        });
         toast({
           title: "Consultant added successfully",
           variant: "success",

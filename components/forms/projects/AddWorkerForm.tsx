@@ -13,7 +13,7 @@ import {
   useProjectDetailsPageFormModal,
 } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { selectOtionsForWorkerServiceType } from "@/utils/types";
 
@@ -24,35 +24,35 @@ export default function AddWorkerForm() {
   const form = useForm<AddWorkerSchemaType>({
     resolver: zodResolver(AddWorkerSchema),
   });
-
+  const queryClient = useQueryClient();
   const { toast } = useToast();
   const { onClose } = useProjectDetailsPageFormModal();
-  const { projectName, projectId, projectCode } = useProjectDetails();
-
-console.log(projectCode);
-
-const { mutate } = useMutation({
-  mutationKey: ["add-stakeholder"],
-  mutationFn: async (values: AddWorkerSchemaType) => {
-    try {
-      const response = await api.post("/stakeholder-project", {
-        ...values,
-        project_code: projectCode,
-      });
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw new Error(error.response.data.message);
-      } else {
-        throw error;
+  const { projectName, projectCode } = useProjectDetails();
+  const { mutate } = useMutation({
+    mutationKey: ["add-stakeholder"],
+    mutationFn: async (values: AddWorkerSchemaType) => {
+      try {
+        const response = await api.post("/stakeholder-project", {
+          ...values,
+          project_code: projectCode,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
       }
-    }
-  },
-});
+    },
+  });
 
   const handleSubmit = (data: AddWorkerSchemaType) => {
     mutate(data, {
       onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["get all workers by project code", projectCode],
+        });
         form.reset();
         onClose();
         toast({

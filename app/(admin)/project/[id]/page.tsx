@@ -176,14 +176,6 @@ const SingleProject = () => {
         </div>
 
         <div className="flex gap-3 items-center">
-          {/* <div>
-            <Button
-              className=" top-5 right-5 hover:text-primaryLight/80 text-primaryLight border border-primaryLight bg-white font-semibold"
-              variant={"outline"}
-            >
-              View Project Images
-            </Button>
-          </div> */}
           <div>
             <Link href={`/project/${selectedItem?.id}/edit`}>
               <Button className="w-max py-2">Edit Project</Button>
@@ -202,56 +194,66 @@ const SingleProject = () => {
 
           <div className="grid grid-cols-5 p-5 gap-5">
             <div>
-              <p className="text-[#475367] text-sm">Start Date:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                Start Date:
+              </p>
+              <p className="text-[#475367] text-sm">
                 {selectedItem && formatDate(selectedItem.start_date)}
               </p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">End Date:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                End Date:
+              </p>
+              <p className="text-[#475367] text-sm">
                 {selectedItem && formatDate(selectedItem.end_date)}
               </p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">Status:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
+              <p className=" text-[#101928] text-[16px] font-[600] ">Status:</p>
+              <p className="text-[#475367] text-sm">
                 {selectedItem && selectedItem.status}
               </p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">City:</p>
-              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
+              <p className=" text-[#101928] text-[16px] font-[600] ">City:</p>
+              <p className="text-[#475367] text-sm h-16 overflow-auto">
                 {selectedItem && selectedItem.city}
               </p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">LGA:</p>
-              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
+              <p className=" text-[#101928] text-[16px] font-[600] ">LGA:</p>
+              <p className="text-[#475367] text-sm h-16 overflow-auto">
                 {selectedItem && selectedItem.lga}
               </p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">Project Duration:</p>
-              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                Project Duration:
+              </p>
+              <p className="text-[#475367] text-sm h-16 overflow-auto">
                 {selectedItem && selectedItem.project_duration} days
               </p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">Project Supervisor:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                Project Supervisor:
+              </p>
+              <p className="text-[#475367] text-sm">
                 {selectedItem && selectedItem.project_supervisor}
               </p>
             </div>{" "}
             <div>
-              <p className="text-[#475367] text-sm">Project Code:</p>
-              <p className="text-[#101928] text-[16px] font-[600] uppercase">
-                {selectedItem && projectCode}
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                Project Code:
               </p>
+              <p className=" uppercase">{selectedItem && projectCode}</p>
             </div>
             <div>
-              <p className="text-[#475367] text-sm">Project Description:</p>
-              <p className="text-[#101928] text-[16px] font-[600]">
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                Project Description:
+              </p>
+              <p className="text-[#475367] text-sm">
                 {selectedItem && selectedItem.project_description}
               </p>
             </div>
@@ -259,16 +261,18 @@ const SingleProject = () => {
 
           <div className="">
             <div className="px-5">
-              <p className="text-[#475367] text-sm">Address:</p>
-              <p className="text-[#101928] text-[16px] font-[600] h-16 overflow-auto">
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                Address:
+              </p>
+              <p className=" h-16 overflow-auto">
                 {selectedItem && selectedItem.address}
               </p>
             </div>
           </div>
 
           <div className="p-5">
-            <p className="text-[#475367] text-sm">Comment:</p>
-            <p className="text-[#101928] text-[16px] font-[600]">
+            <p className=" text-[#101928] text-[16px] font-[600] ">Comment:</p>
+            <p className="text-[#475367] text-sm">
               {(selectedItem && selectedItem.comment) ??
                 "No comment has been added yet"}
             </p>

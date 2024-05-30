@@ -19,10 +19,9 @@ export const columns: ColumnDef<IWorkerByProjectData>[] = [
       const { worker_name, worker_code } = row.original;
       return (
         <div className="flex gap-2 items-center">
-          <AvatarComponent />
           <div>
             <p className="font-semibold">{worker_name}</p>
-            <p className="text-textColor">{worker_code}</p>
+            <p className="text-textColor uppercase">{worker_code}</p>
           </div>
         </div>
       );

@@ -17,12 +17,13 @@ import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useGetContractor } from "../../../hooks/useSelectOptions";
-import { useStore } from "zustand";
 
 const AddContractorSchema = z.object({
-  contractor_amount: z.string({
-    required_error: "Contractor amount is required",
-  }),
+  contractor_amount: z
+    .string({
+      required_error: "Contractor amount is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   contractor_name: z.string({
     required_error: "Contractor name is required",
   }),
@@ -34,7 +35,7 @@ type AddContractorType = z.infer<typeof AddContractorSchema>;
 export default function AddContractorForm() {
   const { onClose } = useProjectDetailsPageFormModal();
   const queryClient = useQueryClient();
-  const { projectName, projectId, projectCode } = useProjectDetails();
+  const { projectName, projectCode } = useProjectDetails();
   const { toast } = useToast();
   const { contractors } = useGetContractor();
   const form = useForm<AddContractorType>({

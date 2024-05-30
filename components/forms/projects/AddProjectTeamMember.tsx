@@ -14,7 +14,7 @@ import {
 } from "@/store/project/useProjectModal";
 import { useProjectStore } from "@/store/project/useProjectStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -32,7 +32,7 @@ type AddProjectTeamMemberType = z.infer<typeof AddProjectTeamMemberSchema>;
 export default function AddProjectTeamMember() {
   const { setTeamMemberData, teamMemberData } = useProjectStore();
   const { staffRoles } = useStaffRoles();
-  const router = useRouter();
+  const queryClient = useQueryClient();
   const allRoles = staffRoles?.map((role: any) => role.role);
   const { onClose } = useProjectDetailsPageFormModal();
   let staff_id: string | undefined;
@@ -110,9 +110,10 @@ export default function AddProjectTeamMember() {
         title: "Management member created successfully",
         variant: "success",
       });
-      // window.location.reload();
-      // router.push("/project");
-      // router.refresh();
+
+      queryClient.invalidateQueries({
+        queryKey: ["get all project team members by project code", projectCode],
+      });
       onClose();
     },
     onError: (error: Error) => {
