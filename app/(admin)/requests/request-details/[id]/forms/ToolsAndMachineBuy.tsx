@@ -36,6 +36,12 @@ export const ToolsAndMachineBuySchema = z.object({
   bank: z.string({
     required_error: "Bank name is required",
   }),
+  account_number: z.string({
+    required_error: "Account number is required",
+  }),
+  account_name: z.string({
+    required_error: "Account name is required",
+  }),
   supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
@@ -45,11 +51,9 @@ type ToolsAndMachineBuyType = z.infer<typeof ToolsAndMachineBuySchema>;
 
 export default function ToolsAndMachineBuy() {
   const { formDetails, onClose } = useUpdateRequestStore();
-  const { projectsData } = useProjectData();
-  const router = useRouter();
   const { toast } = useToast();
-  const { userId, username } = userStore();
-  const { staffDetails } = useGetStaffDetails(userId);
+  const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
+  const { username } = userStore();
   const form = useForm<ToolsAndMachineBuyType>({
     resolver: zodResolver(ToolsAndMachineBuySchema),
     defaultValues: {
@@ -155,7 +159,22 @@ export default function ToolsAndMachineBuy() {
             name="bank"
             control={form.control}
             label="Bank Name"
-            placeholder="Enter Bank Name"
+            disabled
+            placeholder={staffDetails?.bank_name}
+          />
+          <CustomFormField
+            name="account_name"
+            control={form.control}
+            label="Account Name"
+            disabled
+            placeholder={staffDetails?.account_name}
+          />{" "}
+          <CustomFormField
+            name="account_number"
+            control={form.control}
+            label="Account number"
+            disabled
+            placeholder={staffDetails?.account_number}
           />
         </div>
         <div className="py-6">

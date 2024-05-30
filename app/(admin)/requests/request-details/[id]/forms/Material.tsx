@@ -42,6 +42,12 @@ export const createCashAdvanceOfficeSchema = z.object({
   supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
+  account_number: z.string({
+    required_error: "Account number is required",
+  }),
+  account_name: z.string({
+    required_error: "Account name is required",
+  }),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<
@@ -49,15 +55,13 @@ type CreateCashAdvanceOfficeType = z.infer<
 >;
 
 export default function Material() {
-  const { projectsData } = useProjectData();
   const { formDetails, onClose } = useUpdateRequestStore();
-
+  const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
   const { formType, setFormType } = useStaffStore();
   const { toast } = useToast();
   const router = useRouter();
   const [matDesc, setMatDesc] = useState<string[]>([]);
-  const { userId, username } = userStore();
-  const { staffDetails } = useGetStaffDetails(userId);
+  const { username } = userStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
@@ -187,6 +191,20 @@ export default function Material() {
               control={form.control}
               label="Bank Name"
               placeholder="Enter Bank Name"
+            />
+            <CustomFormField
+              name="account_name"
+              control={form.control}
+              label="Account Name"
+              disabled
+              placeholder={staffDetails?.account_name}
+            />{" "}
+            <CustomFormField
+              name="account_number"
+              control={form.control}
+              label="Account number"
+              disabled
+              placeholder={staffDetails?.account_number}
             />
           </div>
           <CustomFormTextareaField

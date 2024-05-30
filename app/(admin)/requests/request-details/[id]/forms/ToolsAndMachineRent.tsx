@@ -7,23 +7,15 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import {
-  useGetAllInventoryTypes,
-  useGetAllStaffs,
-  useGetStaffDetails,
-  useProjectData,
-} from "@/hooks/useSelectOptions";
-import useAuthStore, { userStore } from "@/store/auth/AuthStore";
-import useStaffStore from "@/store/staff/useStaffStore";
+import { useGetStaffDetails } from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
-import { IStaffDetailsData } from "@/utils/types";
-// use teh names in the form
+
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
   approved_quantity: z.string({
@@ -54,7 +46,7 @@ type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 export default function ToolsAndMachineRent() {
   const { formDetails, onClose } = useUpdateRequestStore();
   const { toast } = useToast();
-  const { userId, username } = userStore();
+  const { username } = userStore();
   const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
 
   const form = useForm<ToolsAndMachineRentType>({

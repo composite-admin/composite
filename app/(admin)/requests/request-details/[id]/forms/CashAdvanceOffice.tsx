@@ -6,7 +6,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import { useProjectData } from "@/hooks/useSelectOptions";
+import { useGetStaffDetails, useProjectData } from "@/hooks/useSelectOptions";
 import { userStore } from "@/store/auth/AuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,7 +15,6 @@ import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
-
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -31,6 +30,12 @@ export const createCashAdvanceOfficeSchema = z.object({
   supervisor_comment: z.string({
     required_error: "Comment is required",
   }),
+  account_number: z.string({
+    required_error: "Account number is required",
+  }),
+  account_name: z.string({
+    required_error: "Account name is required",
+  }),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<
@@ -39,11 +44,9 @@ type CreateCashAdvanceOfficeType = z.infer<
 
 export default function CashAdvanceOffice() {
   const { formDetails, onClose } = useUpdateRequestStore();
-  const { projectsData } = useProjectData();
-  console.log(formDetails);
+  const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
   const { toast } = useToast();
-  const router = useRouter();
-  const { userId, username } = userStore();
+  const { username } = userStore();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
@@ -150,6 +153,20 @@ export default function CashAdvanceOffice() {
               control={form.control}
               label="Bank Name"
               placeholder="Enter Bank Name"
+            />
+            <CustomFormField
+              name="account_name"
+              control={form.control}
+              label="Account Name"
+              disabled
+              placeholder={staffDetails?.account_name}
+            />{" "}
+            <CustomFormField
+              name="account_number"
+              control={form.control}
+              label="Account number"
+              disabled
+              placeholder={staffDetails?.account_number}
             />
           </div>
           <CustomFormTextareaField

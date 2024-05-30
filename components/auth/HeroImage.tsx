@@ -8,9 +8,7 @@ export default function HeroImage() {
 
       <div className="loginFoot bg-primaryLight-500 absolute bottom-0 left-0 right-0 w-full text-white p-[30px]">
         <h1 className="text-[50px] font-[600]">
-          <span className="text-loginOther">Manage</span> and monitor all
-          project from <span className="text-loginOther">idea</span> to{" "}
-          <span className="text-loginOther">execution</span>
+          Manage and monitor all project from idea to execution
         </h1>
         <p className="text-[20px]">
           Oversee and track all phases of construction projects, from conception
