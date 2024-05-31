@@ -45,7 +45,6 @@ export default function ProjectDetails() {
     "start_date",
     "end_date",
     "project_description",
-    "comment",
   ];
 
   return (
@@ -71,6 +70,10 @@ export default function ProjectDetails() {
                   {renderProjectDetail(key, value)}
                 </React.Fragment>
               ))}
+          </div>
+          <div>
+            <p className="font-semibold">Comment:</p>
+            <p>{projectDetails?.comment ?? "-"} </p>
           </div>
         </div>
       ) : (
