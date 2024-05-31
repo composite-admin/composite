@@ -53,7 +53,7 @@ export default function TenantPage({ params }: { params: { id: string } }) {
       <div>
         <div>
           <h1 className="font-semibold">{full_name}</h1>
-          <span className="text-textColor upper">{tenant_code}</span>
+          <span className="text-textColor uppercase">{tenant_code}</span>
         </div>
         <div className="flex flex-col lg:grid gap-8 lg:grid-cols-6">
           <div className="col-span-4">
