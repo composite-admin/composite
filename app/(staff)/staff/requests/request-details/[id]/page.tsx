@@ -20,7 +20,6 @@ export default function RequestDetailsPage({
   params: { id: string };
 }) {
   const { onOpen: onAddComment } = useAddCommentModal();
-  const onRequestModal = useUpdateRequestModal((state) => state.onOpen);
   const { requestDetails } = useRequestStore();
   const { comments, isCommentsLoading } = useGetRequestComments(
     requestDetails?.request_code as string
@@ -30,6 +29,38 @@ export default function RequestDetailsPage({
     queryKey: ["get all tenants", params.id],
     queryFn: () => getrequestById(params.id),
   });
+
+  const requestDetailsData = [
+    { label: "Request code", value: data?.request_code?.toUpperCase() },
+    { label: "Staff Name", value: data?.staff_name },
+    { label: "Project Name", value: data?.project_name },
+    { label: "Supervisor's Comment", value: data?.supervisor_comment },
+    { label: "Date Added", value: data && formatDate(data?.createdAt) },
+    { label: "Status", value: data?.status },
+    { label: "Project Code", value: data?.project_code?.toUpperCase() },
+    { label: "Requestor's Comment", value: data?.comment },
+  ];
+
+  const serviceDetailsData = [
+    {
+      label: "Cash Advance Requested Purpose",
+      value: requestDetails?.cash_advance_purpose,
+    },
+    { label: "Service Rendered", value: requestDetails?.worker_service },
+    { label: "Company Phone", value: requestDetails?.company },
+    { label: "Contact Person", value: requestDetails?.contact_person },
+    { label: "Job Code", value: requestDetails?.job_code?.toUpperCase() },
+    {
+      label: "Supplier Code",
+      value: requestDetails?.supplier_code?.toUpperCase(),
+    },
+    { label: "Worker's Name", value: requestDetails?.worker_name },
+    { label: "Company", value: requestDetails?.company },
+    { label: "Company Address", value: requestDetails?.company_address },
+    { label: "Contact Mobile", value: requestDetails?.contact_mobile },
+    { label: "Tool Name", value: requestDetails?.tool_name },
+    { label: "Supplier Material", value: requestDetails?.supplier_material },
+  ];
 
   return (
     <div>
@@ -45,73 +76,29 @@ export default function RequestDetailsPage({
             </div>
             <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
               <div className="space-y-6 ">
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Request code:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data?.request_code}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Staff Name:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data?.staff_name}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Project Name:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data?.project_name}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Supervisor's Comment:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data?.supervisor_comment}
-                  </span>
-                </div>
+                {requestDetailsData.slice(0, 4).map((item, index) => (
+                  <div key={index} className="flex justify-between flex-col">
+                    <span className="self-start items-start justify-end block w-full font-semibold">
+                      {item.label}:
+                    </span>
+                    <span className="self-start items-start justify-end block w-full text-textColor">
+                      {item.value ?? "-"}
+                    </span>
+                  </div>
+                ))}
               </div>
 
               <div className="space-y-6">
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Date Added:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data && formatDate(data?.createdAt)}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Status:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data?.status}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Project Code:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data?.project_code}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="self-start items-start justify-end block  w-full">
-                    Requestor's Comment:
-                  </span>
-                  <span className="self-start items-start justify-end block  w-full uppercase">
-                    {data?.comment}
-                  </span>
-                </div>
+                {requestDetailsData.slice(4).map((item, index) => (
+                  <div key={index} className="flex justify-between flex-col">
+                    <span className="self-start items-start justify-end block w-full font-semibold">
+                      {item.label}:
+                    </span>
+                    <span className="self-start items-start justify-end block w-full text-textColor">
+                      {item.value ?? "-"}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </aside>
@@ -138,7 +125,13 @@ export default function RequestDetailsPage({
                 </div>
               </div>
 
-              <div className="bg-[#FEF6e7] p-3 text-[#865503] text-center lg:tracking-widest mb-12">
+              <div
+                className={`text-center lg:tracking-widest mb-12 flex justify-between items-center ${
+                  requestDetails?.status === "APPROVED"
+                    ? "text-green-500 bg-[#E5F8E0] p-3"
+                    : "bg-[#FEF6e7] p-3 text-[#865503] "
+                }`}
+              >
                 <span>Status:</span>
                 <span className="uppercase lg:text-xl font-semibold">
                   {requestDetails?.status ?? "-"}
@@ -162,109 +155,29 @@ export default function RequestDetailsPage({
               <h2 className="font-bold mb-4">Service Details</h2>
               <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5">
                 <div className="space-y-6 ">
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Cash Advance Requested Purpose:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.cash_advance_purpose ?? "-"}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Service Rendered:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.worker_service ?? "-"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Company Phone:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.company ?? "-"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Contact Person:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.contact_person ?? "-"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Job Code:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.job_code ?? "-"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Supplier Code:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.supplier_code ?? "-"}
-                    </span>
-                  </div>
+                  {serviceDetailsData.slice(0, 6).map((item, index) => (
+                    <div key={index} className="flex justify-between flex-col">
+                      <span className="self-start items-start justify-end block font-semibold w-full">
+                        {item.label}:
+                      </span>
+                      <span className="self-start items-start justify-end block text-textColor w-full">
+                        {item.value ?? "-"}
+                      </span>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="space-y-6">
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Worker's Name:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.worker_name ?? "-"}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Company:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.company ?? "-"}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Company:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.company_address ?? "-"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Contact Mobile:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.contact_mobile ?? "-"}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Tool Name:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.tool_name ?? "-"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="self-start items-start justify-end block  w-full">
-                      Supplier Material:
-                    </span>
-                    <span className="self-start items-start justify-end block  w-full uppercase">
-                      {requestDetails?.supplier_material ?? "-"}
-                    </span>
-                  </div>
+                  {serviceDetailsData.slice(6).map((item, index) => (
+                    <div key={index} className="flex justify-between flex-col">
+                      <span className="self-start items-start justify-end block font-semibold w-full">
+                        {item.label}:
+                      </span>
+                      <span className="self-start items-start justify-end text-textColor block w-full">
+                        {item.value ?? "-"}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </aside>
@@ -310,7 +223,11 @@ export default function RequestDetailsPage({
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Approved On</span>
-                  <span>{formatDate(requestDetails?.approved_on ?? "-")}</span>
+                  <span>
+                    {(requestDetails?.approved_on &&
+                      formatDate(requestDetails?.approved_on || "-")) ??
+                      "-"}
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Approved by</span>
