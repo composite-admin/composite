@@ -19,13 +19,15 @@ export default function ProjectDetails() {
   };
 
   const renderProjectDetail = (key: string, value: any) => (
-    <div className="flex justify-between">
-      <span className="self-start items-start justify-end block w-full capitalize">
+    <div className="flex justify-between flex-col">
+      <span className="self-start items-start justify-end block w-full capitalize font-semibold">
         {key.replace(/\_/g, " ")}
       </span>
-      <span className="self-start items-start justify-end block w-full">
+      <span className="self-start items-start justify-end block w-full text-textColor">
         {isDateField(key) && value
           ? formatDate(value)
+          : key === "project_code"
+          ? value.toUpperCase()
           : typeof value === "object"
           ? JSON.stringify(value)
           : value}
