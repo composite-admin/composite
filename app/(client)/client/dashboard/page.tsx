@@ -53,7 +53,7 @@ export default function ClientHomePage() {
           />
           <Card
             details="View and manage all the information regarding your cash advances"
-            title=""
+            title="Comments"
             total="0"
             // href="/client/cash-advance"
           />

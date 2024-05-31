@@ -23,7 +23,7 @@ export const columns: ColumnDef<IConsultantData>[] = [
           <AvatarComponent />
           <div className="flex-col flex">
             <span className="font-semibold">{row.getValue("name")}</span>
-            <span className="text-sm text-textColor font-semibold">
+            <span className="text-sm text-textColor font-semibold uppercase">
               {consultant_code}
             </span>
           </div>

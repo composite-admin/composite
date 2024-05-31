@@ -59,14 +59,11 @@ export default function ClientDetailsPage({ params }: Params) {
           {/* details */}
           <div className="bg-white rounded-lg md:col-span-4 ">
             <div className="border-b ">
-              <div className="flex flex-col md:flex-row gap-4 px-7 py-2 justify-between md:items-center">
+              <div className="flex flex-col md:flex-row gap-4 px-7 py-4 justify-between md:items-center">
                 <div className="pt-1 flex gap-2.5">
                   <div className="flex flex-col">
-                    <span className="text-responsive font-semibold capitalize">
-                      {details?.first_name} {details?.last_name}
-                    </span>
-                    <span className="text-xs text-subtext uppercase">
-                      {details?.activation_code}
+                    <span className="font-semibold capitalize">
+                      Client Details
                     </span>
                   </div>
                 </div>

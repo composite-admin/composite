@@ -15,7 +15,7 @@ export const columns: ColumnDef<IConsultantProjectData>[] = [
       return <ColumnHeader column={column} title="Project Name" />;
     },
     cell: ({ row }) => {
-      const { project_name, project_code } = row.original;
+      const { project_name } = row.original;
       return (
         <div className="flex gap-2 items-center">
           <span className="font-semibold  text-primaryLight underline">

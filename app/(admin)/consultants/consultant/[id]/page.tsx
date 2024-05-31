@@ -59,16 +59,6 @@ export default function ConsultantDetailsPage({ params }: Params) {
     <>
       <GoBack />
       <div>
-        <div className="pt-10 flex gap-2.5 xl:">
-          <AvatarComponent height="h-16" width="w-16" />
-          <div className="flex flex-col">
-            <span className="text-responsive font-semibold">{data?.name}</span>
-            <span className="text-xs text-subtext">
-              {data?.consultant_code}
-            </span>
-          </div>
-        </div>
-
         <div className="grid md:grid-cols-6 gap-10 pt-10">
           {/* details */}
           <div className="bg-white rounded-lg md:col-span-4 ">
@@ -77,26 +67,26 @@ export default function ConsultantDetailsPage({ params }: Params) {
             </h2>
             <div className="p-7 flex flex-col justify-between flex-wrap gap-5 md:flex-row pb-28">
               <div className="flex flex-col gap-1 ">
-                <span>Type:</span>
-                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                <span className="font-semibold">Type:</span>
+                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
                   {data?.type}
                 </span>
               </div>
               <div className="flex flex-col gap-1 ">
-                <span>Contact Mobile:</span>
-                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                <span className="font-semibold">Contact Mobile:</span>
+                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
                   {data?.contact}
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <span>Email:</span>
-                <p className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                <span className="font-semibold">Email:</span>
+                <p className=" text-[calc(.5rem + 1vw)] md:text-lg">
                   {data?.email}
                 </p>
               </div>
               <div className="flex flex-col gap-1">
-                <span>Website:</span>
-                <span className="font-semibold text-[calc(.5rem + 1vw)] md:text-lg">
+                <span className="font-semibold">Website:</span>
+                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
                   {data?.website}
                 </span>
               </div>
@@ -104,15 +94,12 @@ export default function ConsultantDetailsPage({ params }: Params) {
           </div>
 
           <div className="bg-white flex-col flex max-w-xs rounded-lg md:col-span-2 auto-rows-min min-h-[20rem] md:max-w-full">
-            <h2 className="border-b p-7 text-lg font-semibold">
+            <h2 className="border-b p-7 text-lg font-bold">
               Consultant Details
             </h2>
 
             <div className="flex flex-col">
               <div className="flex gap-5 items-center border-b p-8">
-                <div className="flex gap-2 items-center">
-                  <AvatarComponent />
-                </div>
                 <Link
                   href={`/consultants/edit-consultant/ ${data?.id}`}
                   className="text-primaryLight-500 font-semibold"
@@ -121,9 +108,6 @@ export default function ConsultantDetailsPage({ params }: Params) {
                 </Link>
               </div>
               <div className="flex gap-5 items-center p-8">
-                <div className="flex gap-2 items-center">
-                  <AvatarComponent />
-                </div>
                 <div
                   className="text-primaryLight-500 font-semibold  cursor-pointer"
                   onClick={showModal}
