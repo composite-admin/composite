@@ -53,7 +53,7 @@ export default function TenantPage({ params }: { params: { id: string } }) {
       <div>
         <div>
           <h1 className="font-semibold">{full_name}</h1>
-          <span className="text-textColor">{tenant_code}</span>
+          <span className="text-textColor upper">{tenant_code}</span>
         </div>
         <div className="flex flex-col lg:grid gap-8 lg:grid-cols-6">
           <div className="col-span-4">
@@ -81,40 +81,53 @@ export default function TenantPage({ params }: { params: { id: string } }) {
                 </div>
                 <div className="flex flex-col md:flex-row">
                   <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between lg:pr-8 gap-3 ">
-                    <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                      <span>Tenant code:</span>
-                      <span>Full Name:</span>
-
-                      <span>Email:</span>
-
-                      <span>Flat Description:</span>
-                    </div>
-
-                    <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm font-semibold">
+                    <div className="flex flex-col gap-6 w-1/2 flex-1 text-textColor text-sm">
+                      <span className="font-semibold text-black">
+                        Tenant code:
+                      </span>
                       <span className="uppercase ">{tenant_code}</span>
 
+                      <span className="font-semibold text-black">
+                        Full Name:
+                      </span>
                       <span>{full_name}</span>
 
+                      <span className="font-semibold text-black">Email:</span>
                       <span className="block">{email}</span>
 
+                      <span className="font-semibold text-black">
+                        Flat Description:
+                      </span>
                       <span>{flat_description}</span>
                     </div>
+
+                    <div className="flex flex-col gap-6 w-1/2 flex-1 text-sm font-semibold"></div>
                   </div>
 
                   <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8  ">
-                    <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                      <span>Date Added:</span>
-                      <span>Phone Number:</span>
-                      <span>Project Details:</span>
-                      <span>Flat Code:</span>
+                    <div className="flex flex-col gap-6 w-1/2 flex-1 text-textColor text-sm">
+                      <span className="font-semibold text-black">
+                        Date Added:
+                      </span>
+                      <span>{formatDate(createdAt as string)}</span>
+
+                      <span className="font-semibold text-black">
+                        Phone Number:
+                      </span>
+                      <span>{phone_number}</span>
+
+                      <span className="font-semibold text-black">
+                        Project Details:
+                      </span>
+                      <span>{project_details}</span>
+
+                      <span className="font-semibold text-black">
+                        Flat Code:
+                      </span>
+                      <span className="uppercase">{flat_code}</span>
                     </div>
 
-                    <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
-                      <span>{formatDate(createdAt as string)}</span>
-                      <span>{phone_number}</span>
-                      <span>{project_details}</span>
-                      <span>{flat_code}</span>
-                    </div>
+                    <div className="flex flex-col gap-6 w-1/2 flex-1 text-sm"></div>
                   </div>
                 </div>
               </aside>
