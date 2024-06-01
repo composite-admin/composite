@@ -93,7 +93,6 @@ export default function ToolsAndMachineRent() {
       });
     }
   };
-  console.log(formDetails);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -115,7 +114,7 @@ export default function ToolsAndMachineRent() {
           <CustomFormField
             name="supplier_name"
             control={form.control}
-            placeholder={formDetails?.company}
+            placeholder={formDetails?.supplier_name}
             label="Supplier Name"
             disabled
           />
