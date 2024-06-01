@@ -97,6 +97,7 @@ export default function ToolsAndMachineRent() {
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
         quantity: Number(data.quantity),
+        supplier_name: data.company,
         unit_price: Number(data.unit_price),
         project_code: projectsData?.find(
           (item: any) => item.project_name === data.project_name

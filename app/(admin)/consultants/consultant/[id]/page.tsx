@@ -94,9 +94,7 @@ export default function ConsultantDetailsPage({ params }: Params) {
           </div>
 
           <div className="bg-white flex-col flex max-w-xs rounded-lg md:col-span-2 auto-rows-min min-h-[20rem] md:max-w-full">
-            <h2 className="border-b p-7 text-lg font-bold">
-              Consultant Details
-            </h2>
+            <h2 className="border-b p-7 text-lg font-bold">Quick Actions</h2>
 
             <div className="flex flex-col">
               <div className="flex gap-5 items-center border-b p-8">

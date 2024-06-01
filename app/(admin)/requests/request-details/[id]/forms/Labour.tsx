@@ -25,9 +25,11 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  approved_amount: z.string({
-    required_error: "Amount is required",
-  }),
+  approved_amount: z
+    .string({
+      required_error: "Amount is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   description: z.string({
     required_error: "Description is required",
   }),

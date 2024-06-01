@@ -33,7 +33,7 @@ export const columns: ColumnDef<ReportType | any>[] = [
               <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
                 {row.original["worker_name"]}
               </span>
-              <span className="text-xs font-semibold text-gray-500">
+              <span className="text-xs font-semibold text-gray-500 uppercase">
                 {row.original["worker_code"]}
               </span>
             </div>

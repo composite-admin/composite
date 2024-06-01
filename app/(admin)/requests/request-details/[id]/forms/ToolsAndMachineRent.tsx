@@ -93,7 +93,7 @@ export default function ToolsAndMachineRent() {
       });
     }
   };
-
+  console.log(formDetails);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -115,14 +115,14 @@ export default function ToolsAndMachineRent() {
           <CustomFormField
             name="supplier_name"
             control={form.control}
-            placeholder={formDetails?.supplier_name}
+            placeholder={formDetails?.company}
             label="Supplier Name"
             disabled
           />
           <CustomFormField
             name="supplier_material"
             control={form.control}
-            placeholder={formDetails?.supplier_material}
+            placeholder={formDetails?.tool_machinery_type}
             label="Material Description"
             disabled
           />

@@ -7,19 +7,13 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import {
-  useGetAllInventoryTypes,
-  useGetStaffDetails,
-  useProjectData,
-} from "@/hooks/useSelectOptions";
-import useAuthStore, { userStore } from "@/store/auth/AuthStore";
-import useStaffStore from "@/store/staff/useStaffStore";
+import { useGetStaffDetails } from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const ToolsAndMachineBuySchema = z.object({

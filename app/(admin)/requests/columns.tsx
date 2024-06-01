@@ -23,7 +23,7 @@ export const columns: ColumnDef<IRequestData>[] = [
           href={`requests/request-details/${row.getValue("id")}`}
           className="flex flex-col"
         >
-          <span className=" underline text-primaryLight-500 font-semibold">
+          <span className="capitalize underline text-primaryLight-500 font-semibold">
             {request_type}
           </span>
           <span className="uppercase text-textColor font-semibold">

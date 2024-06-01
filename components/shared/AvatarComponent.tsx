@@ -1,4 +1,7 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { userStore } from "@/store/auth/AuthStore";
 
 type AvatarProps = {
   width?: string;
@@ -8,10 +11,5 @@ type AvatarProps = {
 };
 
 export function AvatarComponent({ height, width, src, classes }: AvatarProps) {
-  return (
-    <Avatar className={`${width ?? ""} ${height ?? ""} ${classes ?? ""}`}>
-      <AvatarImage src={src ?? "https://github.com/shadcn.png"} alt="@shadcn" />
-      <AvatarFallback>CN</AvatarFallback>
-    </Avatar>
-  );
+  return null;
 }
