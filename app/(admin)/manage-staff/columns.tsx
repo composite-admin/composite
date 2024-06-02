@@ -19,17 +19,17 @@ export const columns: ColumnDef<IManageStaffData>[] = [
     cell: ({ row }) => {
       const { firstname, lastname, middlename, userid } = row.original;
       return (
-        <div className="">
+        <Link href={`manage-staff/staff/${userid}`}>
           <div className="flex gap-2.5 items-center">
             <AvatarComponent />
             <div className="flex flex-col">
-              <span className="capitalize font-semibold">
+              <span className="capitalize font-semibold underline text-primaryLight font-semibold">
                 {firstname} {middlename} {lastname}
               </span>
               <p className="uppercase text-textColor">{userid}</p>
             </div>
           </div>
-        </div>
+        </Link>
       );
     },
   },

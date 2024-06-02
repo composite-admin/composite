@@ -34,7 +34,7 @@ export default function ManageStaffPage() {
     <div className="space-y-8">
       <div>
         <PageHeaderComponent
-          title={`Manage Staff (${data?.length ?? ""})`}
+          title={`Manage Staff (${data?.length ?? "0"})`}
           subTitle="View all staff here"
           buttonText="Add Staff"
           href="manage-staff/add"

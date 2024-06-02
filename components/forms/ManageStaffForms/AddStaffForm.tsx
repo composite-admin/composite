@@ -436,8 +436,11 @@ export default function AddStaffForm() {
                     />
                   </div>
                 </div>
-                <div className="my-7 ">
-                  <Button type="submit" className="mt-4">
+                <div className="gap-5 grid md:grid-cols-2 mt-5">
+                  <Button type="button" variant={"secondary"} onClick={prev}>
+                    Back
+                  </Button>
+                  <Button type="submit">
                     {isPending ? "Saving..." : "Submit"}
                   </Button>
                 </div>

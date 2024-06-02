@@ -17,7 +17,7 @@ export default function ConsultantsPage() {
     <div className="space-y-8">
       <div>
         <PageHeaderComponent
-          title="Consultants"
+          title={`Consultants (${data?.length || 0})`}
           subTitle="View all consultants here"
           buttonText="Add consultant"
           href="consultants/add-consultant"

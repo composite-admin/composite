@@ -46,7 +46,7 @@ export default function RequestPage() {
     <>
       <PageHeaderComponent
         subTitle="A request of daily, weekly and monthly activites"
-        title="Request"
+        title={`Requests (${data?.length || 0})`}
       />
       <RequestStatusBadges
         data={data}
