@@ -59,7 +59,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
   const { projectDetails } = useGetProjectById(id);
 
   // const { projectName, projectId, projectCode } = useProjectDetails();
-  const { suppliers } = useGetAllSuppliers();
+  const { suppliers, supplierList } = useGetAllSuppliers();
   const supplierName = suppliers?.map(
     (supplier: ISupplierData) => supplier.supplier_name
   );
@@ -77,7 +77,11 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
           const response = await api.get(
             `/suppliers-materials/supplier/description?supplierCode=${supplier_code}`
           );
-          setMatDesc(response.data.data?.map((item: any) => item.description));
+          const descriptions = response.data?.data?.map(
+            (item: any) => item.mat_desc
+          );
+          const uniqueDescriptions = Array.from(new Set(descriptions));
+          setMatDesc(uniqueDescriptions as string[]);
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message);
@@ -157,7 +161,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
                   name="supplier_name"
                   labelText="Supplier"
                   placeholder="Select Supplier"
-                  items={supplierName || []}
+                  items={supplierList || []}
                 />
                 <CustomFormField
                   control={form.control}

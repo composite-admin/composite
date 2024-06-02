@@ -36,9 +36,7 @@ const FormSchema = z.object({
   description: z.string({
     required_error: "Please select a tool, then a description",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type FormDataType = z.infer<typeof FormSchema>;

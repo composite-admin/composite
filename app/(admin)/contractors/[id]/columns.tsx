@@ -85,40 +85,40 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
     },
   },
 
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Action" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <Link href="#">
-            <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-              View{" "}
-            </span>
-          </Link>
-        </div>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Action" />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="">
+  //         <Link href="#">
+  //           <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
+  //             View{" "}
+  //           </span>
+  //         </Link>
+  //       </div>
+  //     );
+  //   },
+  // },
 
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Action" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <Link href="#">
-            <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-              <HiPencilAlt />
-              Edit{" "}
-            </span>
-          </Link>
-        </div>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Action" />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="">
+  //         <Link href="#">
+  //           <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
+  //             <HiPencilAlt />
+  //             Edit{" "}
+  //           </span>
+  //         </Link>
+  //       </div>
+  //     );
+  //   },
+  // },
 ];
