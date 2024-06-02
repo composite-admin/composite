@@ -933,3 +933,17 @@ export interface IMaterialDetails {
   createdAt: string;
   updatedAt: string;
 }
+
+
+export interface IProjectTeamMember {
+  id: number;
+  project_name: string;
+  project_code: string;
+  role: string;
+  staff_id: string;
+  staff_name: string;
+  createdAt: string;
+  updatedAt: string;
+  status: string;
+  image: string | null;
+}

@@ -100,7 +100,7 @@ const SidebarLinks: NavLinkType[] = [
     label: "Manage Staff",
     icon: <ManageStaffIcon />,
     isCollapsible: true,
-    childHref: "/manage-staff/team-manager/id",
+    childHref: "/manage-staff/team-manager",
     childLabel: "Project Team Member",
   },
 

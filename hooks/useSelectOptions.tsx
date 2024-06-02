@@ -17,6 +17,7 @@ import {
   InventoryItemData,
   IProjectData,
   IProjectReport,
+  IProjectTeamMember,
   IRequestData,
   IStaffDetailsData,
   IStakeholderProjectData,
@@ -341,7 +342,7 @@ export const useGetRequestComments = (id: string) => {
       getStuffTyped<IRequestCommentData[]>(`/request-comments/${id}`),
     refetchOnMount: "always",
   });
-  
+
   return { comments: data, isCommentsLoading: isLoading };
 };
 
@@ -361,6 +362,15 @@ export const useGetAllPendingProjects = () => {
       getStuffTyped<PendingProjectDetails[]>("/dashboard/pending-project"),
   });
   return { pendingProjects: data };
+};
+// project-teams
+export const useGetAllProjectTeamMeambers = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get all project team members"],
+    queryFn: () => getStuffTyped<IProjectTeamMember[]>(`/project-teams`),
+  });
+
+  return { projectTeamMemberData: data, isLoading };
 };
 
 export const useGetStartupCostDetails = (id: number) => {

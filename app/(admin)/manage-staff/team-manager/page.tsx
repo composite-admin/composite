@@ -1,9 +1,13 @@
+"use client";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
-import { columns } from "@/app/(admin)/project/tenant/[id]/columns";
 import { DataTable } from "@/components/shared/DataTable";
-import { data } from "@/app/(admin)/project/tenant/[id]/data";
+import { useGetAllProjectTeamMeambers } from "@/hooks/useSelectOptions";
+import { columns } from "./columns";
 
 export default function ManageStaffPage() {
+  const { isLoading, projectTeamMemberData } = useGetAllProjectTeamMeambers();
+
+  console.log(projectTeamMemberData);
   return (
     <div className="space-y-8">
       <div>
@@ -13,7 +17,7 @@ export default function ManageStaffPage() {
           className="py-8"
         />
       </div>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={projectTeamMemberData || []} />
     </div>
   );
 }
