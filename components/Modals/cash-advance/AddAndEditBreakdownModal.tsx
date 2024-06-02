@@ -118,7 +118,9 @@ export default function AddAndEditBreakdownModal() {
                 <Button variant={"secondary"} className="w-full">
                   Cancel
                 </Button>
-                <Button className="w-full">Submit</Button>
+                <Button type="submit" className="w-full">
+                  Submit
+                </Button>
               </div>
             </div>
           </form>
@@ -170,7 +172,9 @@ export default function AddAndEditBreakdownModal() {
               <Button variant={"secondary"} className="w-full">
                 Cancel
               </Button>
-              <Button className="w-full">Submit</Button>
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
             </div>
           </div>
         </form>

@@ -112,7 +112,9 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
             <Button variant={"secondary"} className="w-full">
               Cancel
             </Button>
-            <Button className="w-full">Submit</Button>
+            <Button className="w-full" type="submit">
+              Submit
+            </Button>
           </div>
         </form>
       </Form>

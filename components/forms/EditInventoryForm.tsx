@@ -172,7 +172,9 @@ const EditInventoryForm = () => {
               <Button className="bg-[#EBEBEB] text-textColor w-full">
                 Cancel
               </Button>
-              <Button className="w-full">Submit</Button>
+              <Button className="w-full" type="submit">
+                Submit
+              </Button>
             </div>
           </form>
         </Form>

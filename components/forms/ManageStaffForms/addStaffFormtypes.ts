@@ -8,6 +8,8 @@ export const AddStaffSteps: IFormSteps[] = [
     fields: [
       "firstName",
       "middleName",
+      "date_employed",
+      "dob",
       "lastName",
       "typeOfStaff",
       "homePhone",
@@ -55,6 +57,10 @@ export type addStaffType = z.infer<typeof AddStaffFormSchema>;
 
 export const AddStaffFormSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
+  dob: z.date({ required_error: "Please select a date of birth" }),
+  date_employed: z.date({
+    required_error: "Please select an employment date",
+  }),
   middleName: z.string().optional(),
   lastName: z.string().min(2, "Last name is required"),
   typeOfStaff: z.enum(["Admin", "Staff"]),

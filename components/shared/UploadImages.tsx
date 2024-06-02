@@ -62,41 +62,73 @@ const UploadImages = (props: any) => {
     <div>
       <p>Upload Images</p>
 
-      <div className='flex-center flex-col gap-5 p-20 border border-dashed rounded-2xl my-2' >
-        <div className='p-3 bg-outline rounded-full w-fit cursor-pointer' onClick={openFileInput}>
+      <div className="flex-center flex-col gap-5 p-20 border border-dashed rounded-2xl my-2">
+        <div
+          className="p-3 bg-outline rounded-full w-fit cursor-pointer"
+          onClick={openFileInput}
+        >
           <HiCloudUpload size={30} />
         </div>
 
-        <div onClick={openFileInput} className='cursor-pointer'>
-          <p className='text-[#475367]'><span className='text-primaryLight font-[600]'>Click to upload</span> or drag and drop</p>
-          <p className='text-[#98A2B3] text-[12px]'>SVG, PNG, JPG or GIF (max. 800x400px)</p>
+        <div onClick={openFileInput} className="cursor-pointer">
+          <p className="text-[#475367]">
+            <span className="text-primaryLight font-[600]">
+              Click to upload
+            </span>{" "}
+            or drag and drop
+          </p>
+          <p className="text-[#98A2B3] text-[12px]">
+            SVG, PNG, JPG or GIF (max. 800x400px)
+          </p>
         </div>
 
         <div>
-          <input type="file" onChange={handleImageChange}
+          <input
+            type="file"
+            onChange={handleImageChange}
             ref={fileInputRef}
-            accept="image/*" multiple className="hidden" />
+            accept="image/*"
+            multiple
+            className="hidden"
+          />
           <div>
             {selectedImages.map((image, index) => (
-              <div key={index} style={{ display: 'inline-block', margin: '10px' }} className="relative m-2">
-                <img src={image} alt={`Selected ${index + 1}`} style={{ maxWidth: '150px', maxHeight: '150px' }} />
-                <HiX className='text-red-500 absolute top-1 right-1 cursor-pointer' onClick={() => removeImage(index)}/>
-                
+              <div
+                key={index}
+                style={{ display: "inline-block", margin: "10px" }}
+                className="relative m-2"
+              >
+                <img
+                  src={image}
+                  alt={`Selected ${index + 1}`}
+                  style={{ maxWidth: "150px", maxHeight: "150px" }}
+                />
+                <HiX
+                  className="text-red-500 absolute top-1 right-1 cursor-pointer"
+                  onClick={() => removeImage(index)}
+                />
               </div>
             ))}
           </div>
         </div>
-
       </div>
 
       <div className="grid grid-cols-2 gap-5 mt-5">
-        <button className="bg-[#EBEBEB] text-textColor rounded-md" onClick={() => router.back()}>Cancel</button>
-        <button className="bg-primaryLight text-white  p-3 rounded-md" onClick={onOpen}>Submit</button>
+        <button
+          className="bg-[#EBEBEB] text-textColor rounded-md"
+          onClick={() => router.back()}
+        >
+          Cancel
+        </button>
+        <button
+          className="bg-primaryLight text-white  p-3 rounded-md"
+          onClick={onOpen}
+        >
+          Submit
+        </button>
       </div>
-
-
     </div>
-  )
+  );
 }
 
 export default UploadImages

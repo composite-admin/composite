@@ -148,7 +148,7 @@ export default function RefundRequestOrIOUForm() {
         />
         <div className="grid md:grid-cols-2 gap-5 pt-6">
           <Button variant={"secondary"}>Cancel</Button>
-          <Button>Submit</Button>
+          <Button type="submit">Submit</Button>
         </div>
       </form>
     </Form>

@@ -12,6 +12,7 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Form } from "@/components/ui/form";
 import { AddStaffSteps as steps } from "./addStaffFormtypes";
 import {
+  CustomDatePicker,
   CustomFormField,
   CustomFormSelect,
 } from "@/components/shared/FormComponent";
@@ -24,6 +25,7 @@ import { api } from "@/config/api";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { formatDate } from "@/utils/formatDate";
 
 type Inputs = z.infer<typeof AddStaffFormSchema>;
 
@@ -37,33 +39,10 @@ export default function AddStaffForm() {
   const form = useForm<addStaffType>({
     resolver: zodResolver(AddStaffFormSchema),
     defaultValues: {
-      firstName: "",
-      middleName: "",
-      lastName: "",
       typeOfStaff: "Admin",
-      homePhone: "",
-      cellPhone: "",
-      email: "",
-      address: "",
-      stateOfOrigin: "",
-      lga: "",
       gender: "Male",
       maritalStatus: "Married",
-      nextOfKinFullName: "",
-      emailnextOfKin: "",
       relationship: "Father",
-      addressOfNextOfKin: "",
-      homePhoneOfNextOfKin: "",
-      cellPhoneOfNextOfKin: "",
-      userName: "",
-      role: "",
-      staff_type: "",
-      user_type: "",
-      password: "",
-      confirmPassword: "",
-      bankName: "",
-      accountName: "",
-      accountNumber: "",
     },
   });
 
@@ -75,6 +54,9 @@ export default function AddStaffForm() {
           ...data,
           firstname: data.firstName,
           middlename: data.middleName,
+          deptid: "1",
+          gradeid: "1",
+          branchcode: "CPD20",
           lastname: data.lastName,
           sex: data.gender,
           marital_status: data.maritalStatus,
@@ -116,12 +98,22 @@ export default function AddStaffForm() {
 
   const processForm: SubmitHandler<Inputs> = (data, event) => {
     const { password, confirmPassword } = form.getValues();
+    const birth = data.dob
+      ? data.dob.toISOString().slice(0, 19).replace("T", " ")
+      : "";
+    const employed = data.date_employed
+      ? data.date_employed.toISOString().slice(0, 19).replace("T", " ")
+      : "";
 
     if (password !== confirmPassword) {
       console.log("passwords do not match");
       return;
     }
-    mutate(data);
+    mutate({
+      ...data,
+      dob: birth,
+      date_employed: employed,
+    });
   };
 
   type FieldName = keyof Inputs;
@@ -181,6 +173,13 @@ export default function AddStaffForm() {
                       label="Last name"
                       name="lastName"
                     />
+                    <CustomDatePicker
+                      control={form.control}
+                      name="dob"
+                      label="Date of Birth"
+                      placeholder="Date of birth"
+                    />
+
                     <CustomFormField
                       control={form.control}
                       placeholder="Enter phone number"
@@ -222,6 +221,12 @@ export default function AddStaffForm() {
                       placeholder="Select Staff Role"
                       control={form.control}
                       labelText="Role"
+                    />
+                    <CustomDatePicker
+                      control={form.control}
+                      name="date_employed"
+                      label="Date Employed"
+                      placeholder="Date Employed"
                     />
 
                     <CustomFormField

@@ -201,8 +201,10 @@ export function CustomDatePicker({
                 mode="single"
                 selected={field.value?.toString()}
                 onSelect={field.onChange}
-                disabled={(date) => date < new Date()}
                 initialFocus
+                // captionLayout="dropdown-buttons"
+                // fromYear={1960}
+                // toYear={2024}
               />
             </PopoverContent>
           </Popover>
