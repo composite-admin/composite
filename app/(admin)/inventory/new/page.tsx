@@ -38,9 +38,7 @@ const newInventorySchema = z.object({
       required_error: "Quantity is required",
     })
     .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string(),
 });
 
 type newInventoryFormDataType = z.infer<typeof newInventorySchema>;

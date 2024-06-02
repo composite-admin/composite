@@ -25,7 +25,9 @@ import { z } from "zod";
 const AddStartUpCostSchema = z.object({
   startup_desc: z.string({ required_error: "Startup description is required" }),
   startup_type: z.string({ required_error: "Startup type is required" }),
-  startup_cost: z.string({ required_error: "Startup cost is required" }),
+  startup_cost: z
+    .string({ required_error: "Startup cost is required" })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
   comment: z.string().optional(),
 });
 
@@ -50,10 +52,10 @@ export default function AddStartUpForm() {
   const form = useForm<AddStartUpCostType>({
     resolver: zodResolver(AddStartUpCostSchema),
     defaultValues: {
-      startup_desc: startupCostDetails?.startup_desc,
-      startup_type: startupCostDetails?.startup_type,
-      startup_cost: startupCostDetails?.startup_cost,
-      comment: startupCostDetails?.comment,
+      startup_desc: startupCostDetails && startupCostDetails?.startup_desc,
+      startup_type: startupCostDetails && startupCostDetails?.startup_type,
+      startup_cost: startupCostDetails && startupCostDetails?.startup_cost,
+      comment: " ",
     },
   });
 
@@ -129,6 +131,7 @@ export default function AddStartUpForm() {
           name="startup_desc"
           disabled={isLoading}
           label="Description"
+          value={startupCostDetails?.startup_desc ?? ""}
           placeholder={startupCostDetails?.startup_desc || "Description"}
         />
 
@@ -147,6 +150,7 @@ export default function AddStartUpForm() {
             name="startup_cost"
             label="Startup Cost"
             disabled={isLoading}
+            value={startupCostDetails?.startup_cost}
             placeholder={startupCostDetails?.startup_cost || "Startup Cost"}
           />
         </div>
