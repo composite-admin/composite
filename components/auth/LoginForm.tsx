@@ -38,6 +38,7 @@ export default function LoginForm() {
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-3"
+          method="POST"
         >
           <div className="flex flex-col w-full gap-2">
             <CustomFormField

@@ -1,6 +1,5 @@
 "use client";
 import GoBack from "@/components/shared/GoBack";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/shared/DataTable";
 import { columns } from "./columns";
@@ -19,7 +18,6 @@ import { ApiResponse, IWorkerData } from "@/utils/types";
 import axios from "axios";
 import { api } from "@/config/api";
 import { useQuery } from "@tanstack/react-query";
-import { data } from "../../contractors/pending-project/data";
 
 const SingleWorker = () => {
   const router = useRouter();

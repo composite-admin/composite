@@ -1,6 +1,4 @@
 "use client";
-import { RiMailCloseLine } from "react-icons/ri";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
@@ -13,7 +11,7 @@ import { CustomFormField } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
 
 const FormSchema = z.object({
-  oldPassword: z.string({ required_error: "Please Enter your old password" }),
+  // oldPassword: z.string({ required_error: "Please Enter your old password" }),
   newPassword: z.string({ required_error: "Please Enter your new password" }),
 });
 
@@ -49,7 +47,7 @@ export default function ForgottenPassword() {
     onError: () => {
       toast({
         title: "Submission Error",
-        description: "Please check the email input and try again",
+        description: "Please check the password input and try again",
         variant: "destructive",
       });
     },
@@ -60,12 +58,12 @@ export default function ForgottenPassword() {
     mutate(values);
   }
   return (
-    <div className="loginScreen flex flex-col text-start w-full lg:w-3/5 m-auto gap-10">
+    <div className="loginScreen flex flex-col text-start w-full lg:w-4/5 m-auto gap-10">
       <div>
         <h1 className="text-[#101928] text-[36px] font-[600] ">
-          Forgot Password
+          Set A New Password
         </h1>
-        <p className="text-[#645D5D] ">Enter your email to reset password</p>
+        <p className="text-[#645D5D] ">Enter your new password</p>
       </div>
       <Form {...form}>
         <form
@@ -73,12 +71,12 @@ export default function ForgottenPassword() {
           className="flex flex-col gap-3"
         >
           <div className="flex flex-col w-full gap-2">
-            <CustomFormField
+            {/* <CustomFormField
               name="oldPassword"
               control={form.control}
               placeholder="Please enter your old password"
               type="password"
-            />
+            /> */}
             <CustomFormField
               name="newPassword"
               control={form.control}
@@ -92,9 +90,9 @@ export default function ForgottenPassword() {
           </Button>
         </form>
       </Form>
-      <p>
+      {/* <p>
         Remember Password? <Link href={"/login"}>Login</Link>
-      </p>
+      </p> */}
     </div>
   );
 }
