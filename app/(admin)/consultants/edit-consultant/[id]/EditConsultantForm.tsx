@@ -21,6 +21,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 const EditConsultantSchema = z
   .object({
+    name: z.string({
+      required_error: "Please enter a name",
+    }),
+    contact: z.string({
+      required_error: "Please enter a contact",
+    }),
     email: z
       .string()
       .min(1, { message: "Email is required" })
@@ -38,6 +44,8 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
   const form = useForm<EditConsultantType>({
     resolver: zodResolver(EditConsultantSchema),
     defaultValues: {
+      name: data.name,
+      contact: data.contact,
       email: data.email,
       website: data.website,
     },
@@ -128,7 +136,12 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
             label="Website"
           />
           <div className="flex flex-col md:flex-row gap-8 pt-8">
-            <Button variant={"secondary"} className="w-full">
+            <Button
+              variant={"secondary"}
+              className="w-full"
+              type="button"
+              onClick={() => router.push("/consultants")}
+            >
               Cancel
             </Button>
             <Button className="w-full" disabled={isPending}>
