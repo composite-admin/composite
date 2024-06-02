@@ -18,8 +18,12 @@ import useManageClientStore from "@/store/manage-client/useManageClientStore";
 import { data } from "../Project/ToolsAndMachine/data";
 
 const AddConsultantToProjectSchema = z.object({
-  flat: z.string().optional(),
-  project_name: z.string().optional(),
+  flat: z.string({
+    required_error: "Select A flat",
+  }),
+  project_name: z.string({
+    required_error: "Select A project",
+  }),
 });
 
 export type AddConsultantToProjectFormSchema = z.infer<
@@ -33,6 +37,10 @@ export default function AddClientToProject({
 }) {
   const form = useForm({
     resolver: zodResolver(AddConsultantToProjectSchema),
+    defaultValues: {
+      flat: "",
+      project_name: "",
+    },
   });
   const { toast } = useToast();
   const { onClose } = useAddToProjectModal();
@@ -124,7 +132,7 @@ export default function AddClientToProject({
             placeholder="Select Flat"
           />
           <div className="grid md:grid-cols-2 gap-4 pt-9">
-            <Button variant={"secondary"} onClick={() => router.back()}>
+            <Button variant={"secondary"} onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit" disabled={isPending}>

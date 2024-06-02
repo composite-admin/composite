@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomFormSelect } from "../shared/FormComponent";
 import { useProjectData } from "../../hooks/useSelectOptions";
 import { IProjectData } from "@/utils/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
@@ -16,13 +16,13 @@ import { Button } from "../ui/button";
 import { useAddToProjectModal } from "@/store/modals/useCreateModal";
 
 const AddConsultantToProjectSchema = z.object({
-  project_name: z.string().optional(),
+  project_name: z.string({
+    required_error: "Select A project",
+  }),
 });
-
 export type AddConsultantToProjectFormSchema = z.infer<
   typeof AddConsultantToProjectSchema
 >;
-
 export default function AddConsultantToProjectForm({
   id,
 }: {
@@ -30,13 +30,16 @@ export default function AddConsultantToProjectForm({
 }) {
   const form = useForm({
     resolver: zodResolver(AddConsultantToProjectSchema),
+    defaultValues: {
+      project_name: "",
+    },
   });
   const { toast } = useToast();
   const { onClose } = useAddToProjectModal();
-
   const router = useRouter();
   const watchProjectName = form.watch("project_name");
   const { consultantDetailsData } = useConsultantStore();
+  const qc = useQueryClient();
   const { projectsData } = useProjectData();
   const projectList = projectsData?.map((project: IProjectData) => {
     return project.project_name;
@@ -75,7 +78,9 @@ export default function AddConsultantToProjectForm({
         variant: "success",
       });
       onClose();
-      router.refresh();
+      qc.invalidateQueries({
+        queryKey: ["get all consultants projects"],
+      });
     },
   });
 
@@ -108,7 +113,7 @@ export default function AddConsultantToProjectForm({
             placeholder="Select Project Name"
           />
           <div className="grid md:grid-cols-2 gap-4 pt-9">
-            <Button variant={"secondary"} onClick={() => router.back()}>
+            <Button variant={"secondary"} onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit" disabled={isPending}>
