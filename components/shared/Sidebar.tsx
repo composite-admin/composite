@@ -68,18 +68,18 @@ const Sidebar = () => {
                         collapsed: { opacity: 0, height: 0 },
                       }}
                       transition={{ duration: 0.16, ease: "linear" }}
-                      className="rounded-md bg-layer-500 overflow-hidden"
+                      className="rounded-md bg-layer-500 min-w-max w-full"
                     >
                       <Link
                         href={item.childHref || ""}
-                        className={`py-1.5 ml-2 block transition-all ${
+                        className={`p-1.5 block transition-all ${
                           pathname === item.childHref
                             ? "text-primaryLight-500"
                             : "text-gray-500"
                         }`}
                         onClick={() => setActiveItem(null)}
                       >
-                        <div className="transition-all capitalize text-[.9rem] ">
+                        <div className="transition-all capitalize w-max text-[.8rem]">
                           {item.childLabel}
                         </div>
                       </Link>
