@@ -203,7 +203,12 @@ export default function EditReportForm() {
                 />
               </div>
               <div className="py-5 flex flex-col lg:flex-row gap-6 ">
-                <Button className="w-full" variant="secondary">
+                <Button
+                  className="w-full"
+                  variant="secondary"
+                  type="button"
+                  onClick={() => router.back()}
+                >
                   Cancel
                 </Button>
                 <Button className="w-full">Done</Button>
