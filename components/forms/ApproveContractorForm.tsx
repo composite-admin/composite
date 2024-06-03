@@ -129,7 +129,11 @@ export default function ApproveContractorForm({ id }: { id: string }) {
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <Button onClick={() => router.back()} variant="secondary">
+              <Button
+                onClick={() => router.back()}
+                variant="secondary"
+                type="button"
+              >
                 Cancel
               </Button>
               <Button>Submit</Button>

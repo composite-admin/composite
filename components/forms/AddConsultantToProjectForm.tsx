@@ -113,7 +113,7 @@ export default function AddConsultantToProjectForm({
             placeholder="Select Project Name"
           />
           <div className="grid md:grid-cols-2 gap-4 pt-9">
-            <Button variant={"secondary"} onClick={onClose}>
+            <Button variant={"secondary"} onClick={onClose} type="button">
               Cancel
             </Button>
             <Button type="submit" disabled={isPending}>

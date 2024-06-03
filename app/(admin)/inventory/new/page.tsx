@@ -167,7 +167,11 @@ const NewInventory = () => {
               placeholder="Enter Comment"
             />
             <div className="flex  gap-6 flex-col md:flex-row mt-5">
-              <Button className="bg-[#EBEBEB] text-textColor w-full">
+              <Button
+                className="bg-[#EBEBEB] text-textColor w-full"
+                type="button"
+                onClick={() => router.back}
+              >
                 Cancel
               </Button>
               <Button className="w-full">Submit</Button>

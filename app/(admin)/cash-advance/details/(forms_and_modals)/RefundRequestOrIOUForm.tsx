@@ -31,8 +31,6 @@ type RefundRequestOrIOUFormType = z.infer<typeof RefundRequestOrIOUSchema>;
 export default function RefundRequestOrIOUForm() {
   const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
   const { username } = userStore();
-  const router = useRouter();
-  const { toast } = useToast();
 
   const amountRequested = () => {
     return (
@@ -147,7 +145,9 @@ export default function RefundRequestOrIOUForm() {
           label={"Description"}
         />
         <div className="grid md:grid-cols-2 gap-5 pt-6">
-          <Button variant={"secondary"}>Cancel</Button>
+          <Button variant={"secondary"} type="button" onClick={onClose}>
+            Cancel
+          </Button>
           <Button type="submit">Submit</Button>
         </div>
       </form>

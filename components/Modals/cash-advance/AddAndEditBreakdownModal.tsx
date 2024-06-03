@@ -115,7 +115,12 @@ export default function AddAndEditBreakdownModal() {
               />
 
               <div className="flex flex-col lg:flex-row gap-8">
-                <Button variant={"secondary"} className="w-full">
+                <Button
+                  variant={"secondary"}
+                  className="w-full"
+                  type="button"
+                  onClick={onClose}
+                >
                   Cancel
                 </Button>
                 <Button type="submit" className="w-full">
@@ -169,7 +174,12 @@ export default function AddAndEditBreakdownModal() {
             </div>
 
             <div className="flex flex-col lg:flex-row gap-8">
-              <Button variant={"secondary"} className="w-full">
+              <Button
+                variant={"secondary"}
+                className="w-full"
+                type="button"
+                onClick={onClose}
+              >
                 Cancel
               </Button>
               <Button type="submit" className="w-full">

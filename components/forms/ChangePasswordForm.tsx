@@ -9,6 +9,7 @@ import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const ChangePasswordSchema = z
   .object({
@@ -30,6 +31,7 @@ const ChangePasswordSchema = z
 type ChangePasswordSchemaType = z.infer<typeof ChangePasswordSchema>;
 export default function ChangePasswordForm() {
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<ChangePasswordSchemaType>({
     resolver: zodResolver(ChangePasswordSchema),
   });
@@ -99,7 +101,12 @@ export default function ChangePasswordForm() {
           />
 
           <div className="flex flex-col md:flex-row gap-5">
-            <Button variant={"secondary"} className="w-full">
+            <Button
+              variant={"secondary"}
+              className="w-full"
+              type="button"
+              onClick={() => router.back()}
+            >
               Cancel
             </Button>
             <Button className="w-full">Submit</Button>

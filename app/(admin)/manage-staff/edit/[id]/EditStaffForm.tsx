@@ -305,7 +305,13 @@ export default function EditStaffForm({ data }: props) {
             />
 
             <div className="grid md:grid-cols-2 gap-4 pt-8 ">
-              <Button variant="secondary">Cancel</Button>
+              <Button
+                variant={"secondary"}
+                type="button"
+                onClick={() => router.back()}
+              >
+                Cancel
+              </Button>
               <Button type="submit">Submit</Button>
             </div>
           </form>

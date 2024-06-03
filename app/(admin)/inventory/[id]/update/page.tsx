@@ -189,6 +189,7 @@ const UpdateInventory = (props: any) => {
               <Button
                 onClick={() => router.push(`/inventory/${id} `)}
                 variant={"secondary"}
+                type="button"
                 className="w-full"
               >
                 Cancel

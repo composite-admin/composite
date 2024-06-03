@@ -140,7 +140,12 @@ export default function AddImages() {
         </div>
       </div>
       <div className="py-5 flex flex-col lg:flex-row gap-6 lg:absolute bottom-0 left-0 right-0 w-full px-6">
-        <Button className="w-full" variant="secondary">
+        <Button
+          className="w-full"
+          variant="secondary"
+          type="button"
+          onClick={onClose}
+        >
           Cancel
         </Button>
         {files.length > 0 && (

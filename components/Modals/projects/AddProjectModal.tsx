@@ -241,7 +241,12 @@ const AddProjectModal = () => {
               />
             </div>
             <div className="my-5 flex gap-6 justify-center items-center">
-              <Button variant="secondary" onClick={onClose} className="w-full">
+              <Button
+                variant="secondary"
+                onClick={onClose}
+                className="w-full"
+                type="button"
+              >
                 Cancel
               </Button>
               <Button className="w-full" type="submit">

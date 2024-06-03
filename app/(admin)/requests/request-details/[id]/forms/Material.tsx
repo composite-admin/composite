@@ -213,7 +213,12 @@ export default function Material() {
           />
         </div>
         <div className="flex flex-col lg:flex-row gap-5">
-          <Button variant="secondary" className="w-full">
+          <Button
+            variant="secondary"
+            className="w-full"
+            type="button"
+            onClick={onClose}
+          >
             Cancel
           </Button>
           <Button className="w-full">Approve Request</Button>

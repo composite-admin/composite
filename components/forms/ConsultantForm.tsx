@@ -109,7 +109,12 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
             label="Website"
           />
           <div className="flex flex-col md:flex-row gap-8 pt-8">
-            <Button variant={"secondary"} className="w-full">
+            <Button
+              variant={"secondary"}
+              className="w-full"
+              type="button"
+              onClick={() => router.back()}
+            >
               Cancel
             </Button>
             <Button className="w-full" type="submit">

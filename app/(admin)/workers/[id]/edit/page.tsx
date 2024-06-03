@@ -199,6 +199,7 @@ const SingleWorker = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.push("/contractors")}
+              type="button"
             >
               Cancel
             </button>

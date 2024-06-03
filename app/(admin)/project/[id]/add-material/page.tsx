@@ -212,6 +212,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
                 variant={"secondary"}
                 className="w-full"
                 onClick={onClose}
+                type="button"
               >
                 Cancel
               </Button>

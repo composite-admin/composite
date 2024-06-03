@@ -159,7 +159,9 @@ export default function ReturnCashAdvance() {
           label={"Description"}
         />
         <div className="grid md:grid-cols-2 gap-5">
-          <Button variant={"secondary"}>Cancel</Button>
+          <Button variant={"secondary"} type="button" onClick={onClose}>
+            Cancel
+          </Button>
           <Button>Submit</Button>
         </div>
       </form>

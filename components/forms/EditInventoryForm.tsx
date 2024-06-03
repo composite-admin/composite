@@ -46,7 +46,6 @@ const EditInventorySchema = z.object({
 type EditInventoryFormDataType = z.infer<typeof EditInventorySchema>;
 
 const EditInventoryForm = () => {
-  const onOpen = useSuccessModal((state) => state.onOpen);
   const router = useRouter();
   const { inventories } = useGetAllInventoryTypes();
   const { setToolData, toolData } = useInventoryStore();
@@ -169,7 +168,11 @@ const EditInventoryForm = () => {
               placeholder="Enter Comment"
             />
             <div className="flex  gap-6 flex-col md:flex-row mt-5">
-              <Button className="bg-[#EBEBEB] text-textColor w-full">
+              <Button
+                className="bg-[#EBEBEB] text-textColor w-full"
+                type="button"
+                onClick={() => router.back()}
+              >
                 Cancel
               </Button>
               <Button className="w-full" type="submit">

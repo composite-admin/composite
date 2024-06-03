@@ -129,6 +129,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
               variant={"secondary"}
               className="w-full"
               onClick={() => router.push("/manage-client")}
+              type="button"
             >
               Cancel
             </Button>

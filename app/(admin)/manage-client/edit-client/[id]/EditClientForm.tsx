@@ -136,7 +136,12 @@ export default function EditClientForm(data: any) {
             label="Address"
           />
           <div className="flex flex-col md:flex-row gap-8 pt-8">
-            <Button variant={"secondary"} className="w-full">
+            <Button
+              variant={"secondary"}
+              className="w-full"
+              type="button"
+              onClick={() => router.push(`/manage-client`)}
+            >
               Cancel
             </Button>
             <Button className="w-full">Submit</Button>

@@ -53,7 +53,7 @@ const RequestAndIOUSchema = z
 type RequestAndIOUFomType = z.infer<typeof RequestAndIOUSchema>;
 
 export default function RequestIOUForm() {
-  const { CashAdvanceDetails } = useCashAdvanceStore();
+  const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
   const form = useForm<RequestAndIOUFomType>({
     resolver: zodResolver(RequestAndIOUSchema),
     values: {
@@ -144,7 +144,9 @@ export default function RequestIOUForm() {
           label={"Description"}
         />
         <div className="grid md:grid-cols-2 gap-5">
-          <Button variant={"secondary"}>Cancel</Button>
+          <Button variant={"secondary"} type="button" onClick={onClose}>
+            Cancel
+          </Button>
           <Button>Submit</Button>
         </div>
       </form>

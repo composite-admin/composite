@@ -91,7 +91,10 @@ const UpdateProjectModal = () => {
               <textarea />
             </div>
 
-            <button className="bg-[#EBEBEB] text-textColor rounded-md">
+            <button
+              className="bg-[#EBEBEB] text-textColor rounded-md"
+              type="button"
+            >
               Cancel
             </button>
             <button

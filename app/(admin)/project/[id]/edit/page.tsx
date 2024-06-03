@@ -232,6 +232,7 @@ const EditProjectPage = ({ params: { id } }: Params) => {
               variant="secondary"
               className="w-full"
               onClick={() => router.back()}
+              type="button"
             >
               Cancel
             </Button>

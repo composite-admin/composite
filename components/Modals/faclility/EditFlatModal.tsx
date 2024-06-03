@@ -81,7 +81,7 @@ export default function EditFlatModal() {
           />
 
           <div className="grid grid-cols-2 gap-5 pt-4">
-            <Button variant="secondary" onClick={onClose}>
+            <Button variant="secondary" onClick={onClose} type="button">
               Cancel
             </Button>
             <Button type="submit">Submit</Button>

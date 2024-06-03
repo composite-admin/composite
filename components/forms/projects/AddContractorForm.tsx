@@ -130,7 +130,12 @@ export default function AddContractorForm() {
         />
 
         <div className="flex gap-4 flex-col lg:flex-row">
-          <Button variant={"secondary"} className="w-full" onClick={onClose}>
+          <Button
+            variant={"secondary"}
+            className="w-full"
+            type="button"
+            onClick={onClose}
+          >
             Cancel
           </Button>
           <Button className="w-full">Add</Button>

@@ -171,6 +171,7 @@ const AddWorkerToProject = () => {
                 variant={"secondary"}
                 className="w-full"
                 onClick={onClose}
+                type="button"
               >
                 Cancel
               </Button>
