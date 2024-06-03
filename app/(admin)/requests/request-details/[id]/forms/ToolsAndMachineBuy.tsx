@@ -56,6 +56,9 @@ export default function ToolsAndMachineBuy() {
     resolver: zodResolver(ToolsAndMachineBuySchema),
     defaultValues: {
       request_type: RequestType.ToolsAndMachineBuy,
+      bank: staffDetails?.bank_name,
+      account_number: staffDetails?.account_number,
+      account_name: staffDetails?.account_name,
     },
   });
   // to locale nigerian data string

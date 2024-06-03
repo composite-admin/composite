@@ -16,17 +16,17 @@ export const columns: ColumnDef<IClientData>[] = [
     cell: ({ row }) => {
       const { first_name, last_name, userid, image } = row.original;
       return (
-        <div className="">
+        <Link href={`manage-client/client-details/${userid}`}>
           <div className="flex gap-2.5 items-center">
             <AvatarComponent />
             <div className="flex flex-col">
-              <span className="capitalize font-semibold">
+              <span className="capitalize font-semibold underline text-primaryLight">
                 {first_name} {last_name}
               </span>
               <p className="uppercase">{userid}</p>
             </div>
           </div>
-        </div>
+        </Link>
       );
     },
   },

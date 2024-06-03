@@ -17,17 +17,22 @@ export const columns: ColumnDef<IConsultantData>[] = [
       );
     },
     cell: ({ row }) => {
-      const { consultant_code } = row.original;
+      const { consultant_code, id } = row.original;
       return (
-        <div className="flex gap-2 items-center">
+        <Link
+          href={`consultants/consultant/${id}`}
+          className="flex  gap-2 items-center"
+        >
           <AvatarComponent />
           <div className="flex-col flex">
-            <span className="font-semibold">{row.getValue("name")}</span>
+            <span className="font-semibold text-primaryLight underline">
+              {row.getValue("name")}
+            </span>
             <span className="text-sm text-textColor font-semibold uppercase">
               {consultant_code}
             </span>
           </div>
-        </div>
+        </Link>
       );
     },
   },

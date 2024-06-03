@@ -146,9 +146,11 @@ export default function RequestDetailsPage({
                 </div>
 
                 <div className="flex flex-col gap-10 text-xl font-bold">
-                  <span>{formatCurrency(requestDetails?.amount ?? 0)}</span>
                   <span>
-                    {formatCurrency(requestDetails?.approved_amount ?? 0)}
+                    {formatCurrency(requestDetails?.total_price ?? 0)}
+                  </span>
+                  <span>
+                    {formatCurrency(requestDetails?.approved_total_amount ?? 0)}
                   </span>
                 </div>
               </div>
@@ -161,7 +163,7 @@ export default function RequestDetailsPage({
                 }`}
               >
                 <span>Status:</span>
-                <span className="capitalize text-sm font-semibold  lg:text-xl font-semibold">
+                <span className="capitalize text-sm font-semibold  lg:text-xl ">
                   {requestDetails?.status}
                 </span>
               </div>
