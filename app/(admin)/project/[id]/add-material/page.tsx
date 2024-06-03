@@ -26,6 +26,7 @@ import { ISupplierData } from "@/utils/types";
 import { useEffect, useState } from "react";
 import { Params } from "../edit/page";
 import GoBack from "@/components/shared/GoBack";
+import { useRouter } from "next/navigation";
 
 const AddMaterialSchema = z.object({
   supplier_code: z.string().optional(),
@@ -56,6 +57,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
   });
   const { toast } = useToast();
   const { onClose } = useProjectDetailsPageFormModal();
+  const router = useRouter();
   const { projectDetails } = useGetProjectById(id);
 
   const { suppliers, supplierList } = useGetAllSuppliers();
@@ -210,7 +212,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
               <Button
                 variant={"secondary"}
                 className="w-full"
-                onClick={onClose}
+                onClick={() => router.back()}
                 type="button"
               >
                 Cancel

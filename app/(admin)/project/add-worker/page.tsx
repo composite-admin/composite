@@ -170,7 +170,7 @@ const AddWorkerToProject = () => {
               <Button
                 variant={"secondary"}
                 className="w-full"
-                onClick={onClose}
+                onClick={() => router.back()}
                 type="button"
               >
                 Cancel

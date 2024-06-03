@@ -46,16 +46,16 @@ export default function ClientHomePage() {
             // href="/client/projects"
           />
           <Card
+            details="View and manage all your comments for your projects"
+            title="Comments"
+            total="0"
+            // href="/client/cash-advance"
+          />
+          <Card
             details="View and manage all the information regarding your tenants"
             title="Tenants"
             total="0"
             // href="/client/tenants"
-          />
-          <Card
-            details="View and manage all the information regarding your cash advances"
-            title="Comments"
-            total="0"
-            // href="/client/cash-advance"
           />
         </div>
       </div>

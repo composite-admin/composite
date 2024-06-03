@@ -18,6 +18,11 @@ export const StaffSidebarLinks: NavLinkType[] = [
     icon: <HashIcon />,
   },
   {
+    href: "/client/comments",
+    label: "Comments",
+    icon: <ReportsIcon />,
+  },
+  {
     href: "/client/profile",
     label: "Profile",
     icon: <SettingsIcon />,

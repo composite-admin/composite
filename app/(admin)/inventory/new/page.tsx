@@ -170,7 +170,8 @@ const NewInventory = () => {
               <Button
                 className="bg-[#EBEBEB] text-textColor w-full"
                 type="button"
-                onClick={() => router.back}
+                variant={"secondary"}
+                onClick={() => router.back()}
               >
                 Cancel
               </Button>

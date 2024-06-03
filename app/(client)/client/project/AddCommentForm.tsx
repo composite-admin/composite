@@ -41,7 +41,9 @@ export default function AddCommentForm() {
         const res = await api.post("/project-comments", {
           ...data,
           project_code: projectDetails?.project_code,
+          client_id: details?.userid,
           sender_name: details?.first_name! + " " + details?.last_name,
+          comment_title: data.description,
         });
         if (res.status === 200) {
           onClose();
@@ -80,17 +82,17 @@ export default function AddCommentForm() {
               disabled
             />
           </div>
+          <CustomFormField
+            name="description"
+            control={form.control}
+            label="Comment Title"
+            placeholder="Coment Title"
+          />
           <CustomFormTextareaField
             name="comment"
             control={form.control}
             label="Comment"
             placeholder="Comment"
-          />
-          <CustomFormTextareaField
-            name="description"
-            control={form.control}
-            label="Description"
-            placeholder="Description"
           />
 
           <div className="grid md:grid-cols-2 gap-5">

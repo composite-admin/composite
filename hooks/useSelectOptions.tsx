@@ -396,6 +396,7 @@ export const useGetAllClientComments = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["get all client comments"],
     queryFn: () => getStuffTyped<ICommentData[]>("/project-comments"),
+    refetchOnMount: "always",
   });
   return { clientComments: data, isLoading };
 };

@@ -13,6 +13,7 @@ export interface ICommentData {
   sender_name: string | null;
   comment_title: string | null;
   comment: string;
+  project_name: string;
   status: string | null;
   createdAt: string;
   updatedAt: string;
