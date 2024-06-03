@@ -232,12 +232,18 @@ const AddProjectModal = () => {
                 />
               </div>
             </div>
-            <div>
+            <div className="space-y-3">
               <CustomFormTextareaField
                 label="Project Description"
                 name="project_description"
                 control={form.control}
                 placeholder="Enter description"
+              />
+              <CustomFormTextareaField
+                label="Project Comment"
+                name="comment"
+                control={form.control}
+                placeholder="Enter comment"
               />
             </div>
             <div className="my-5 flex gap-6 justify-center items-center">

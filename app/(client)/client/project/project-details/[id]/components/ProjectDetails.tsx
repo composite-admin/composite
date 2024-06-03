@@ -28,6 +28,8 @@ export default function ProjectDetails() {
           ? formatDate(value)
           : key === "project_code"
           ? value.toUpperCase()
+          : key === "project_duration"
+          ? `${value} ${value === 1 ? "day" : "days"}`
           : typeof value === "object"
           ? JSON.stringify(value)
           : value}
@@ -38,13 +40,17 @@ export default function ProjectDetails() {
   // Create an array of keys you want to display
   const keysToDisplay = [
     "project_name",
+    "lga",
     "project_code",
     "address",
+    "createdAt",
+    "city",
+    "status",
+    "project_duration",
     "state",
     "project_duration",
     "start_date",
     "end_date",
-    "project_description",
   ];
 
   return (
@@ -70,6 +76,10 @@ export default function ProjectDetails() {
                   {renderProjectDetail(key, value)}
                 </React.Fragment>
               ))}
+          </div>
+          <div>
+            <p className="font-semibold">Description:</p>
+            <p>{projectDetails?.project_description ?? "-"} </p>
           </div>
           <div>
             <p className="font-semibold">Comment:</p>

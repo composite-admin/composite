@@ -1,14 +1,31 @@
 "use client";
 
+import { ICommentData } from "@/app/(admin)/manage-client/client-details/[id]/commentCol";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { Button } from "@/components/ui/button";
-import { useGetClientDetails } from "@/hooks/useSelectOptions";
+import {
+  useGetAllClientComments,
+  useGetClientDetails,
+  useGetClientFlats,
+  useGetClientProjectData,
+} from "@/hooks/useSelectOptions";
 import { userStore } from "@/store/auth/AuthStore";
+import useClientStore from "@/store/client/useClientStore";
 import { ChevronRight, HomeIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function ClientHomePage() {
+  const { projectDetails } = useClientStore();
+  const { clientFlats } = useGetClientFlats(projectDetails?.project_code);
+  const { clientComments } = useGetAllClientComments();
   const { userId } = userStore();
+  const filteredComment = clientComments?.filter(
+    (item: ICommentData) => String(item?.client_id) === userId
+  );
+  const idString = userId !== null ? userId.toString() : "";
+
+  const { ClientProjectDetails, isClientProjectLoading } =
+    useGetClientProjectData(idString);
 
   const { details, isClientDetailsLoading } = useGetClientDetails(userId!);
   return (
@@ -42,20 +59,20 @@ export default function ClientHomePage() {
           <Card
             details="View and manage all the information regarding your projects"
             title="Projects"
-            total="0"
-            // href="/client/projects"
+            total={String(ClientProjectDetails?.length || 0)}
+            href="/client/projects"
           />
           <Card
             details="View and manage all your comments for your projects"
             title="Comments"
-            total="0"
-            // href="/client/cash-advance"
+            total={String(filteredComment?.length || 0)}
+            href="/client/comments"
           />
           <Card
-            details="View and manage all the information regarding your tenants"
-            title="Tenants"
-            total="0"
-            // href="/client/tenants"
+            details="View and manage all the information regarding your flats"
+            title="Flat"
+            total={String(clientFlats?.length || 0)}
+            href="/client/project"
           />
         </div>
       </div>

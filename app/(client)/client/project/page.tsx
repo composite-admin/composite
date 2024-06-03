@@ -15,7 +15,10 @@ export default function ClientProjectPage() {
 
   return (
     <>
-      <PageHead headText="Project" subText="View all your projects here" />
+      <PageHead
+        headText={`Project (${ClientProjectDetails?.length || 0})`}
+        subText="View all your projects here"
+      />
       <DataTable
         columns={columns}
         data={ClientProjectDetails ?? []}

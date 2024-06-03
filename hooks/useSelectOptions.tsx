@@ -28,6 +28,7 @@ import {
 } from "@/utils/types";
 import { IRequestCommentData } from "@/app/(admin)/requests/request-details/[id]/columns";
 import { ICommentData } from "@/app/(admin)/manage-client/client-details/[id]/commentCol";
+import { IProjectFlatData } from "@/app/(admin)/project/apartment/[id]/page";
 
 export const useTenants = () => {
   const { isPending, isSuccess, isError, error, data } = useQuery({
@@ -400,3 +401,27 @@ export const useGetAllClientComments = () => {
   });
   return { clientComments: data, isLoading };
 };
+
+export const useGetClientFlats = (code:string | number) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get client flat", code],
+  queryFn: () =>
+    getStuffTyped<IProjectFlatData[]>(
+      `/project-flats/project-code/code?project_code=${code}`
+    ),
+    refetchOnMount: "always",
+  });
+  return { clientFlats: data, isLoading };
+};
+
+// const { data, isPending } = useQuery({
+//   queryKey: [
+//     "get all materials by project code",
+//     projectDetails?.project_code,
+//   ],
+//   queryFn: async () =>
+//     getStuffTyped<IProjectFlatData[]>(
+//       `/project-flats/project-code/code?project_code=${projectDetails?.project_code}`
+//     ),
+//   enabled: !!projectDetails?.project_code,
+// });

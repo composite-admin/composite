@@ -15,11 +15,11 @@ export const columns: ColumnDef<ICommentData>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <div className="flex  flex-col">
-            <span className="w-32 font-semibold text-primaryLight-500 truncate underline">
+          <div className="flex flex-col text-textColor">
+            <span className="w-32 text-textColortext-primaryLight-500 truncate underline">
               {row.original["project_name"]}
             </span>
-            <span className="text-xs font-semibold text-gray-500 uppercase">
+            <span className="text-xs text-textColortext-gray-500 uppercase">
               {row.original["project_code"]}
             </span>
           </div>
@@ -36,7 +36,7 @@ export const columns: ColumnDef<ICommentData>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">
+          <span className="text-textColor">
             {row.original["comment_title"]}
           </span>
         </div>
@@ -52,7 +52,7 @@ export const columns: ColumnDef<ICommentData>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.original["comment"]}</span>
+          <span className="text-textColor">{row.original["comment"]}</span>
         </div>
       );
     },

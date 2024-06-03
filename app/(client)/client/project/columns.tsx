@@ -14,7 +14,7 @@ import { IClientProjectData } from "@/utils/types";
 
 export const columns: ColumnDef<IClientProjectData>[] = [
   {
-    accessorKey: "projectName",
+    accessorKey: "project_name",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Project Name" />;
     },
