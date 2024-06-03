@@ -58,7 +58,6 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
   const { onClose } = useProjectDetailsPageFormModal();
   const { projectDetails } = useGetProjectById(id);
 
-  // const { projectName, projectId, projectCode } = useProjectDetails();
   const { suppliers, supplierList } = useGetAllSuppliers();
   const supplierName = suppliers?.map(
     (supplier: ISupplierData) => supplier.supplier_name

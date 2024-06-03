@@ -60,8 +60,7 @@ export default function Material() {
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
   const { suppliers, supplierList } = useGetAllSuppliers();
-
-  const { formType, setFormType } = useStaffStore();
+  const { setFormType } = useStaffStore();
   const { toast } = useToast();
   const router = useRouter();
   const [matDesc, setMatDesc] = useState<string[]>([]);
@@ -79,13 +78,6 @@ export default function Material() {
     (item: any) => item.supplier_name === watchSupplier
   )?.supplier_code;
 
-  const description = matDesc
-    ?.map((item: any) => item.description)
-    ?.filter((value, index, self) => {
-      return self.indexOf(value) === index;
-    });
-
-
   useEffect(() => {
     if (watchSupplier) {
       const materialDescription = async () => {
@@ -93,8 +85,11 @@ export default function Material() {
           const response = await api.get(
             `/suppliers-materials/supplier/description?supplierCode=${supplierCode}`
           );
-
-          setMatDesc(response.data.data);
+          const descriptions = response.data?.data?.map(
+            (item: any) => item.mat_desc
+          );
+          const uniqueDescriptions = Array.from(new Set(descriptions));
+          setMatDesc(uniqueDescriptions as string[]);
           if (response.status === 201) {
             toast({
               title: "Success",
@@ -203,7 +198,7 @@ export default function Material() {
                 name="supplier_material"
                 control={form.control}
                 labelText="Material Description"
-                items={description || ["Loading Description"]}
+                items={matDesc || ["Loading Description"]}
                 disabled={watchSupplier ? false : true}
               />
             </div>
