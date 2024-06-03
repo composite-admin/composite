@@ -81,29 +81,29 @@ export const columns: ColumnDef<ITenantData>[] = [
       return <div>{formattedDate}</div>;
     },
   },
-  {
-    accessorKey: "status",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title={"Status"} withSort={false} />;
-    },
-    cell: ({ row }) => {
-      const { status } = row.original;
+  // {
+  //   accessorKey: "status",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title={"Status"} withSort={false} />;
+  //   },
+  //   cell: ({ row }) => {
+  //     const { status } = row.original;
 
-      return (
-        <div className="flex gap-2 items-center">
-          <span
-            className={`capitalize p-2 w-max font-semibold rounded-3xl text-xs ${
-              status === "Active"
-                ? "text-green-500 bg-[#E7F6EC]"
-                : "text-[#865503] bg-[#FEF6E7]"
-            }`}
-          >
-            {status}
-          </span>
-        </div>
-      );
-    },
-  },
+  //     return (
+  //       <div className="flex gap-2 items-center">
+  //         <span
+  //           className={`capitalize p-2 w-max font-semibold rounded-3xl text-xs ${
+  //             status === "Active"
+  //               ? "text-green-500 bg-[#E7F6EC]"
+  //               : "text-[#865503] bg-[#FEF6E7]"
+  //           }`}
+  //         >
+  //           {status}
+  //         </span>
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "tenant_id",
     header: ({ column }) => {

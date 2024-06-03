@@ -15,7 +15,7 @@ export default function FacilityPage() {
   const { setTenantData, dueDatesData, currentTable, setCurrentTable } =
     useFacilityStore();
 
-  const { data, error, isPending } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["get all tenants"],
     queryFn: async () => {
       try {
@@ -50,7 +50,7 @@ export default function FacilityPage() {
           icon={<DashboardIcon />}
           onclick={() => setCurrentTable("all_tenants")}
           title="All Tenants"
-          notification={data?.length ?? 0}
+          notification={data?.length || 0}
           className={`${
             currentTable === "all_tenants" ? "bg-primaryLight-100" : ""
           }
@@ -60,7 +60,7 @@ export default function FacilityPage() {
           onclick={() => setCurrentTable("upcoming_due_dates")}
           icon={<DashboardIcon />}
           title="Upcoming Due Dates"
-          notification={dueDatesData?.length ?? 0}
+          notification={dueDatesData?.length || 0}
           className={`${
             currentTable === "upcoming_due_dates" ? "bg-primaryLight-100" : ""
           }`}
@@ -68,7 +68,7 @@ export default function FacilityPage() {
       </div>
 
       {currentTable === "all_tenants" ? (
-        <DataTable columns={columns} isLoading={isPending} data={data ?? []} />
+        <DataTable columns={columns} isLoading={isPending} data={data || []} />
       ) : (
         <UpComingDueDates />
       )}
