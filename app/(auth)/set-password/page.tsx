@@ -10,6 +10,7 @@ import { Form } from "@/components/ui/form";
 import { CustomFormField } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
 import { ForgotPasswordStore } from "@/store/auth/AuthStore";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   password: z.string({ required_error: "Please Enter your new password" }),
@@ -20,6 +21,7 @@ type FormType = z.infer<typeof FormSchema>;
 export default function ForgottenPassword() {
   const { email, setEmail } = ForgotPasswordStore();
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<FormType>({
     resolver: zodResolver(FormSchema),
   });
@@ -34,6 +36,7 @@ export default function ForgottenPassword() {
         });
         if (response.status === 200) {
           setEmail(null);
+          router.push("/login");
         }
         return response.data;
       } catch (error) {
