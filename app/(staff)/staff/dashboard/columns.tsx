@@ -1,7 +1,5 @@
 "use client";
 
-import { ViewUserPageIcon } from "@/components/icons";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { IRequestData } from "@/utils/types";
@@ -21,7 +19,7 @@ export const columns: ColumnDef<IRequestData>[] = [
           href={`/staff/requests/request-details/${id}`}
           className="flex flex-col"
         >
-          <span className="w-40 truncate underline text-primaryLight-500 font-semibold">
+          <span className="w-40 truncate capitalize underline text-primaryLight-500 font-semibold">
             {request_type}
           </span>
           <span className="uppercase text-textColor font-semibold">
