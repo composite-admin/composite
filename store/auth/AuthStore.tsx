@@ -75,7 +75,7 @@ export const userStore = create<IUserStoreType>()(
 
 interface IEmail {
   email: string | null;
-  setEmail: (email: string) => void;
+  setEmail: (email: string | null) => void;
 }
 
 export const ForgotPasswordStore = create<IEmail>()(
@@ -83,7 +83,7 @@ export const ForgotPasswordStore = create<IEmail>()(
     persist(
       (set) => ({
         email: null,
-        setEmail: (email: string) => {
+        setEmail: (email: string | null) => {
           set({
             email,
           });

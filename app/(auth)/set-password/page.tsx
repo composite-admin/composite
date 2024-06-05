@@ -9,15 +9,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { CustomFormField } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
+import { ForgotPasswordStore } from "@/store/auth/AuthStore";
 
 const FormSchema = z.object({
-  // oldPassword: z.string({ required_error: "Please Enter your old password" }),
   newPassword: z.string({ required_error: "Please Enter your new password" }),
 });
 
 type FormType = z.infer<typeof FormSchema>;
 
 export default function ForgottenPassword() {
+  const { email, setEmail } = ForgotPasswordStore();
   const { toast } = useToast();
   const form = useForm<FormType>({
     resolver: zodResolver(FormSchema),
@@ -27,7 +28,13 @@ export default function ForgottenPassword() {
     mutationKey: ["forgot password"],
     mutationFn: async (credentials: FormType) => {
       try {
-        const response = await api.put("/users/change-password", credentials);
+        const response = await api.put("/users/password", {
+          credentials,
+          email,
+        });
+        if (response.status === 200) {
+          setEmail(null);
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
