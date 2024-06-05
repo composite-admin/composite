@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { ForgotPasswordStore } from "@/store/auth/AuthStore";
 
 const FormSchema = z.object({
-  newPassword: z.string({ required_error: "Please Enter your new password" }),
+  password: z.string({ required_error: "Please Enter your new password" }),
 });
 
 type FormType = z.infer<typeof FormSchema>;
@@ -29,7 +29,7 @@ export default function ForgottenPassword() {
     mutationFn: async (credentials: FormType) => {
       try {
         const response = await api.put("/users/password", {
-          credentials,
+          ...credentials,
           email,
         });
         if (response.status === 200) {
@@ -78,14 +78,8 @@ export default function ForgottenPassword() {
           className="flex flex-col gap-3"
         >
           <div className="flex flex-col w-full gap-2">
-            {/* <CustomFormField
-              name="oldPassword"
-              control={form.control}
-              placeholder="Please enter your old password"
-              type="password"
-            /> */}
             <CustomFormField
-              name="newPassword"
+              name="password"
               control={form.control}
               placeholder="Please enter your new password"
               type="password"
