@@ -147,7 +147,9 @@ export default function RequestDetailsPage({
 
                 <div className="flex flex-col gap-10 text-xl font-bold">
                   <span>
-                    {formatCurrency(requestDetails?.total_price ?? 0)}
+                    {data?.request_type === "labour"
+                      ? formatCurrency(requestDetails?.amount || 0)
+                      : formatCurrency(requestDetails?.total_price || 0)}
                   </span>
                   <span>
                     {formatCurrency(requestDetails?.approved_total_amount ?? 0)}

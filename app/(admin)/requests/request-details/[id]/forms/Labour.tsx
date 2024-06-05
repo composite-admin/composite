@@ -10,6 +10,7 @@ import { api } from "@/config/api";
 import {
   useGetAllWorkers,
   useGetStaffDetails,
+  useGetWorkerById,
   useProjectData,
 } from "@/hooks/useSelectOptions";
 import { userStore } from "@/store/auth/AuthStore";
@@ -20,8 +21,8 @@ import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { IWorkerData } from "@/utils/types";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
+import useRefetchQuery from "@/utils/refetchQuery";
 
 export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -42,13 +43,14 @@ type labourFormType = z.infer<typeof LabourSchema>;
 
 export default function Labour() {
   const { formDetails, onClose } = useUpdateRequestStore();
-  const { projectsData } = useProjectData();
+  const { refetchQuery } = useRefetchQuery();
   const { userId, username } = userStore();
-  const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
-  const router = useRouter();
   const { workers } = useGetAllWorkers();
-  const workList = workers?.map((item: IWorkerData) => item.worker_name);
+  const workerId = workers?.find(
+    (worker) => worker.account_name === formDetails?.worker_name
+  )?.id;
+  const { worker } = useGetWorkerById(String(workerId!));
   const form = useForm<labourFormType>({
     resolver: zodResolver(LabourSchema),
     defaultValues: {
@@ -56,7 +58,27 @@ export default function Labour() {
     },
   });
 
-  const projectName = projectsData?.map((item: any) => item.project_name);
+  const createWorkerJob = async (data: labourFormType) => {
+    try {
+      const res = await api.post("/worker-jobs", {
+        ...data,
+        job_code: worker?.worker_code,
+        worker_code: worker?.worker_code,
+        project_code: formDetails?.project_code,
+        comment: data?.supervisor_comment,
+        worker_service: worker?.worker_service,
+        worker_service_charge: Number(formDetails?.amount),
+        amount_paid: Number(data.approved_amount),
+        outstanding_balance: worker?.outstanding_balance ?? 0,
+      });
+      if (res.status === 200 || res.status === 201) {
+        refetchQuery({
+          predicate: (query) => query.queryKey[0] === "get request details",
+        });
+      }
+      return res.data.data;
+    } catch (error) {}
+  };
 
   const handleSubmit = async (data: labourFormType) => {
     try {
@@ -73,8 +95,8 @@ export default function Labour() {
           variant: "success",
         });
         form.reset();
+        createWorkerJob(data);
         onClose();
-        window.location.reload();
       }
     } catch (error) {
       toast({

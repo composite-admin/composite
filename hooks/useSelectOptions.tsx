@@ -294,6 +294,16 @@ export const useGetAllWorkers = () => {
   return { workers: data };
 };
 
+export const useGetWorkerById = (id: string) => {
+  const { data } = useQuery({
+    queryKey: ["get worker", id],
+    queryFn: () => getStuffTyped<IWorkerData>(`/worker/${id}`),
+    enabled: !!id,
+    refetchOnMount: "always",
+  });
+  return { worker: data };
+};
+
 export const useGetCashAdvanceById = (id: string) => {
   const { data } = useQuery({
     queryKey: ["get cash advance details", id],

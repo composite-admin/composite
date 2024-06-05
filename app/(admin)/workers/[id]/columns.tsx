@@ -17,7 +17,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">
+          <span className="font-semibold uppercase">
             {/* {worker_code ? worker_code.toUpperCase() : "N/A"}
              */}
             {row.original?.worker_code}
