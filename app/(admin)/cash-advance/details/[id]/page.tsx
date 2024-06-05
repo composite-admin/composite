@@ -1,5 +1,6 @@
 "use client";
 /* eslint-disable react/no-unescaped-entities */
+import React, { useEffect } from "react";
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,25 +8,55 @@ import {
   useAddAndEditBreakDownModal,
 } from "@/store/modals/useCreateModal";
 import { DataTable } from "@/components/shared/DataTable";
-import { data } from "../../../consultants/data";
 import {
   useGetCashAdvanceBreakdownByCode,
-  useGetCashAdvanceBreakdownById,
   useGetCashAdvanceById,
 } from "@/hooks/useSelectOptions";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { columns } from "./columns";
-import { ICashAdvanceBreakdownData } from "@/utils/types";
 import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
-import { useEffect } from "react";
+import { ICashAdvanceBreakdownData, ICashAdvanceData } from "@/utils/types";
 
 type Params = {
   params: {
     id: string;
   };
 };
-export default function CashAdvanceDetailsPage({ params }: Params) {
+
+interface DetailsField {
+  label: string;
+  value: keyof ICashAdvanceData;
+  format?: (value: any) => string;
+}
+
+const detailsFields: DetailsField[] = [
+  {
+    label: "Request code",
+    value: "request_code",
+    format: (val) => val?.toUpperCase(),
+  },
+  { label: "Staff Name", value: "staff_name" },
+  { label: "Transfer Method", value: "payment_method" },
+  { label: "Bank Name", value: "bank_to" },
+  { label: "Date Updated", value: "updatedAt", format: formatDate },
+  { label: "Project Name", value: "project_name" },
+  {
+    label: "Amount Collected",
+    value: "amount_collected",
+    format: formatCurrency,
+  },
+  {
+    label: "Amount Recorded",
+    value: "amount_recorded",
+    format: formatCurrency,
+  },
+  { label: "Balance", value: "balance", format: formatCurrency },
+];
+
+export default function CashAdvanceDetailsPage({
+  params,
+}: Params): JSX.Element {
   const id = params.id;
   const onOpen = useAddAndEditBreakDownModal((state) => state.onOpen);
   const { details } = useGetCashAdvanceById(id);
@@ -40,15 +71,10 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
   }, [details, setCashAdvanceDetails]);
 
   const setModalType = (args: breakdownModal) => {
-    if (args == "add") {
-      useAddAndEditBreakDownModal.setState({
-        breakdownModalType: "add",
-      });
-    }
-    if (args == "edit") {
-      useAddAndEditBreakDownModal.setState({
-        breakdownModalType: "edit",
-      });
+    if (args === "add") {
+      useAddAndEditBreakDownModal.setState({ breakdownModalType: "add" });
+    } else if (args === "edit") {
+      useAddAndEditBreakDownModal.setState({ breakdownModalType: "edit" });
     }
     onOpen();
   };
@@ -58,7 +84,7 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
       <GoBack />
       <div>
         <div className="flex flex-col">
-          <aside className="bg-white flex flex-col md:grid md:grid-cols-6 border border-borderColor rounded-md shadow-sm w-full p-3 lg:p-8 lg:px-12 ">
+          <aside className="bg-white flex flex-col md:grid md:grid-cols-6 border border-borderColor rounded-md shadow-sm w-full p-3 lg:p-8 lg:px-12">
             <div className="col-span-2 space-y-2 pb-5 md:pb-0">
               <h1 className="font-semibold text-responsive">
                 Cash Advance details
@@ -71,38 +97,42 @@ export default function CashAdvanceDetailsPage({ params }: Params) {
               </Button>
             </div>
             <div className="flex flex-col md:flex-row col-span-4">
-              <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between lg:pr-8 gap-3 ">
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                  <span>Request code:</span>
-                  <span>Staff Name:</span>
-                  <span>Transfer Method:</span>
-                  <span>Bank Name:</span>
-                  <span>Date Updated:</span>
-                </div>
-
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm">
-                  <span className="uppercase">{details?.request_code}</span>
-                  <span>{details?.staff_name}</span>
-                  <span>{details?.payment_method}</span>
-                  <span>{details?.bank_to}</span>
-                  <span>{details && formatDate(details.updatedAt)}</span>
+              <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between lg:pr-8 gap-3">
+                <div className="flex flex-col gap-3.5 w-1/2 flex-1 text-textColor text-sm">
+                  {detailsFields.slice(0, 5).map((field) => (
+                    <>
+                      <span
+                        key={field.label}
+                        className="font-semibold text-black"
+                      >
+                        {field.label}:
+                      </span>
+                      <span key={field.label}>
+                        {field.format
+                          ? field.format(details?.[field.value])
+                          : details?.[field.value]}
+                      </span>
+                    </>
+                  ))}
                 </div>
               </div>
-
-              <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8  ">
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-textColor text-sm">
-                  <span>Project Name:</span>
-                  <span>Amount Collected:</span>
-                  <span>Amount Recorded:</span>
-                  <span>Balance:</span>
-                </div>
-                <div className="flex flex-col gap-10 w-1/2 flex-1 text-sm capitalize">
-                  <span>{details?.project_name}</span>
-                  <span>
-                    {details && formatCurrency(details?.amount_collected)}
-                  </span>
-                  <span>{formatCurrency(details?.amount_recorded)}</span>
-                  <span>{formatCurrency(details?.balance)}</span>
+              <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8">
+                <div className="flex flex-col gap-5 w-1/2 flex-1 text-textColor text-sm">
+                  {detailsFields.slice(5).map((field) => (
+                    <>
+                      <span
+                        className="font-semibold text-black"
+                        key={field.label}
+                      >
+                        {field.label}:
+                      </span>
+                      <span key={field.label}>
+                        {field.format
+                          ? field.format(details?.[field.value])
+                          : details?.[field.value]}
+                      </span>
+                    </>
+                  ))}
                 </div>
               </div>
             </div>

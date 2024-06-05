@@ -28,9 +28,7 @@ const AddOrEditBreakdownSchema = z.object({
   amount: z.string({
     required_error: "Amount is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type AddOrEditBreakdownType = z.infer<typeof AddOrEditBreakdownSchema>;
