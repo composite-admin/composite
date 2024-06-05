@@ -19,7 +19,7 @@ export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
     },
     cell: ({ row }) => {
       return (
-        <span className="font-semibold capitalize">
+        <span className="font-semibold uppercase">
           {row.original["request_code"]}
         </span>
       );

@@ -96,7 +96,7 @@ export const columns: ColumnDef<IRequestData>[] = [
     },
   },
   {
-    accessorKey: "amount",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount" />;
     },

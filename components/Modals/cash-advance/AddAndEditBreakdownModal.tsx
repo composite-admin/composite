@@ -95,18 +95,16 @@ export default function AddAndEditBreakdownModal() {
             <div className="space-y-7">
               <CustomFormField
                 control={form.control}
-                name="description"
-                label="Description"
-                placeholder="eg: For cememt"
-              />
-
-              <CustomFormField
-                control={form.control}
                 name="amount"
                 label="Amount"
                 placeholder="Add Amount"
               />
-
+              <CustomFormField
+                control={form.control}
+                name="description"
+                label="Description"
+                placeholder="eg: For cememt"
+              />
               <CustomFormTextareaField
                 control={form.control}
                 name="comment"

@@ -16,10 +16,10 @@ export default function AddImages() {
   const [isDragOver, setIsDragOver] = useState(false);
   const { onClose } = useClientStoreModal();
   const { projectDetails } = useClientStore();
-  console.log(projectDetails);
   const { userId, id } = userStore();
   const router = useRouter();
   const { toast } = useToast();
+
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragOver(true);
@@ -44,7 +44,9 @@ export default function AddImages() {
     setFiles(newFiles);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     try {
       const formData = new FormData();
       files.forEach((file) => formData.append("images", file));
@@ -52,7 +54,6 @@ export default function AddImages() {
       formData.append("project_code", projectDetails?.project_code);
 
       const uploadUrl = `/client/images`;
-      console.log(files);
 
       const response = await api.post(uploadUrl, formData, {
         headers: {
@@ -61,10 +62,10 @@ export default function AddImages() {
       });
 
       if (response.status === 200) {
-        // setFiles([]);
-        // router.push(`/reports${response.data.data.id}`);
+        setFiles([]);
+        console.log(formData);
         toast({
-          title: "Images uploadedsuccessfully",
+          title: "Images uploaded successfully",
           variant: "success",
         });
         // window.location.reload();
@@ -77,8 +78,7 @@ export default function AddImages() {
   };
 
   return (
-    <div>
-      {" "}
+    <form onSubmit={handleUpload}>
       <div>
         <div className="flex flex-col items-center justify-between">
           <div
@@ -146,11 +146,11 @@ export default function AddImages() {
           Cancel
         </Button>
         {files.length > 0 && (
-          <Button className="w-full" onClick={handleUpload}>
+          <Button className="w-full" type="submit">
             Done
           </Button>
         )}
       </div>
-    </div>
+    </form>
   );
 }

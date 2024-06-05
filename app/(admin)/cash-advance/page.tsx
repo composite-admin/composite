@@ -1,6 +1,5 @@
 "use client";
-
-import { CheckCircleIcon, ClockIcon, Hand, XCircleIcon } from "lucide-react";
+import { CheckCircleIcon, ClockIcon, XCircleIcon } from "lucide-react";
 import PageHeaderComponent from "@/components/shared/PageHeaderComponent";
 import { columns } from "./columns";
 import { DataTable } from "@/components/shared/DataTable";

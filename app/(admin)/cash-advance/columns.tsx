@@ -26,7 +26,7 @@ export const columns: ColumnDef<ICashAdvanceData>[] = [
           <span className="underline text-primaryLight">
             {row.original["cash_advance_type"]}
           </span>
-          <span>{row.original["request_code"]}</span>
+          <span className="uppercase">{row.original["request_code"]}</span>
         </Link>
       );
     },
