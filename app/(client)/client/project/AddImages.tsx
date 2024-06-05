@@ -16,6 +16,7 @@ export default function AddImages() {
   const [isDragOver, setIsDragOver] = useState(false);
   const { onClose } = useClientStoreModal();
   const { projectDetails } = useClientStore();
+  console.log(projectDetails);
   const { userId, id } = userStore();
   const router = useRouter();
   const { toast } = useToast();
@@ -47,24 +48,20 @@ export default function AddImages() {
     try {
       const formData = new FormData();
       files.forEach((file) => formData.append("images", file));
+      formData.append("project_id", projectDetails?.id);
+      formData.append("project_code", projectDetails?.project_code);
+
       const uploadUrl = `/client/images`;
-      const response = await api.put(
-        uploadUrl,
-        {
-          formData,
-          client_id: userId,
-          projec_id: projectDetails?.project_id,
-          project_code: projectDetails?.project_code,
+      console.log(files);
+
+      const response = await api.post(uploadUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      });
 
       if (response.status === 200) {
-        setFiles([]);
+        // setFiles([]);
         // router.push(`/reports${response.data.data.id}`);
         toast({
           title: "Images uploadedsuccessfully",

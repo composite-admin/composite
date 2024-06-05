@@ -78,4 +78,36 @@ export const columns: ColumnDef<PendingProjectDetails>[] = [
       );
     },
   },
+  {
+    accessorKey: "project_code",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Total Cost" />;
+    },
+    cell: ({ row }) => {
+      const {
+        cash_advance_approved_amount,
+        contractor_amount,
+        labour_approved_amount,
+        machinery_approved_amount,
+        material_amount,
+        stakeholder_amount,
+        startup_cost,
+      } = row?.original;
+
+      const totalCost =
+        parseFloat(cash_advance_approved_amount ?? 0) +
+        parseFloat(contractor_amount ?? 0) +
+        parseFloat(labour_approved_amount ?? 0) +
+        parseFloat(machinery_approved_amount ?? 0) +
+        parseFloat(material_amount ?? 0) +
+        parseFloat(stakeholder_amount ?? 0) +
+        parseFloat(startup_cost ?? 0);
+
+      return (
+        <span className="font-semibold text-gray-500 uppercase text-semibold">
+          {formatCurrency(totalCost)}
+        </span>
+      );
+    },
+  },
 ];

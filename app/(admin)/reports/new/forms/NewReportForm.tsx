@@ -7,7 +7,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import StepTopNav from "@/components/forms/MultiStepFoms/StepTopNav";
-import StepBottomNav from "@/components/forms/MultiStepFoms/StepBottomNav";
 import FormContainer from "@/components/shared/FormContainer";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
