@@ -11,6 +11,7 @@ import { z } from "zod";
 import { api } from "@/config/api";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
+import { ForgotPasswordStore } from "@/store/auth/AuthStore";
 
 const FormSchema = z.object({
   email: z.string({ required_error: "Please Enter your email" }),
@@ -20,6 +21,7 @@ type FormType = z.infer<typeof FormSchema>;
 
 export default function ForgottenPassword() {
   const { toast } = useToast();
+  const { setEmail } = ForgotPasswordStore();
   const form = useForm<FormType>({
     resolver: zodResolver(FormSchema),
   });
@@ -32,6 +34,7 @@ export default function ForgottenPassword() {
           ...credentials,
           link: "https://composite-portal-dusky.vercel.app/set-password",
         });
+        setEmail(credentials.email);
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

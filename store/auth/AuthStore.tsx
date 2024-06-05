@@ -72,6 +72,31 @@ export const userStore = create<IUserStoreType>()(
   )
 );
 
+
+interface IEmail {
+  email: string | null;
+  setEmail: (email: string) => void;
+}
+
+export const ForgotPasswordStore = create<IEmail>()(
+  devtools(
+    persist(
+      (set) => ({
+        email: null,
+        setEmail: (email: string) => {
+          set({
+            email,
+          });
+        },
+      }),
+      {
+        name: "email",
+        storage: createJSONStorage(() => localStorage),
+      }
+    )
+  )
+);
+
   
   
 //   (set) => ({
