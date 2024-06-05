@@ -51,6 +51,11 @@ const AddStakeholder = () => {
                 type="text"
                 {...register("stakeholder_name", { required: true })}
               />
+              {errors.stakeholder_name && (
+                <span className="text-red-500 text-xs">
+                  Please enter a name.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -60,6 +65,11 @@ const AddStakeholder = () => {
                 type="text"
                 {...register("stakeholder_address", { required: true })}
               />
+              {errors.stakeholder_address && (
+                <span className="text-red-500 text-xs">
+                  Please enter an Address.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -85,6 +95,11 @@ const AddStakeholder = () => {
                 type="text"
                 {...register("contact_person", { required: true })}
               />
+              {errors.contact_person && (
+                <span className="text-red-500 text-xs">
+                  This is a required field.
+                </span>
+              )}
             </div>
             <div className="flex flex-col">
               <p className="value">Contact Home Phone</p>
@@ -143,6 +158,11 @@ const AddStakeholder = () => {
                 <option value="Town Planning">Town Planning</option>
                 <option value="Others">Others</option>
               </select>
+              {errors.government_agencies && (
+                <span className="text-red-500 text-xs">
+                  Please select an agency.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -162,6 +182,11 @@ const AddStakeholder = () => {
                 <option value="Area Boys">Area Boys</option>
                 <option value="Nigeria Police">Nigeria Police</option>
               </select>
+              {errors.non_government_agencies && (
+                <span className="text-red-500 text-xs">
+                  Please select an agency.
+                </span>
+              )}
             </div>
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>

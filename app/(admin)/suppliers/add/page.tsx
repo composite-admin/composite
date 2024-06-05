@@ -64,6 +64,11 @@ const AddSuppliers = () => {
                 type="text"
                 {...register("supplier_name", { required: true })}
               />
+              {errors.supplier_name && (
+                <span className="text-red-500 text-xs">
+                  This field is required.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -73,6 +78,11 @@ const AddSuppliers = () => {
                 type="text"
                 {...register("supplier_address", { required: true })}
               />
+              {errors.supplier_address && (
+                <span className="text-red-500 text-xs">
+                  This field is required.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -98,6 +108,11 @@ const AddSuppliers = () => {
                 type="text"
                 {...register("contact_person", { required: true })}
               />
+              {errors.contact_person && (
+                <span className="text-red-500 text-xs">
+                  This field is required.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">

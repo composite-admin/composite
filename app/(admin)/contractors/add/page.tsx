@@ -50,6 +50,11 @@ const AddContractor = () => {
                 type="text"
                 {...register("contractor_name", { required: true })}
               />
+              {errors.contractor_name && (
+                <span className="text-red-500 text-xs">
+                  Please enter a full name.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -59,6 +64,11 @@ const AddContractor = () => {
                 type="text"
                 {...register("contractor_address", { required: true })}
               />
+              {errors.contractor_address && (
+                <span className="text-red-500 text-xs">
+                  Please enter an Address.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col col-span-2">
@@ -68,6 +78,11 @@ const AddContractor = () => {
                 type="text"
                 {...register("contractor_service", { required: true })}
               />
+              {errors.contractor_service && (
+                <span className="text-red-500 text-xs">
+                  This field is required.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -131,12 +146,22 @@ const AddContractor = () => {
               <p className="value">Email</p>
 
               <input type="email" {...register("email", { required: true })} />
+              {errors.email && (
+                <span className="text-red-500 text-xs">
+                  This field is required.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
               <p className="value">Website</p>
 
               <input type="text" {...register("website", { required: true })} />
+              {errors.website && (
+                <span className="text-red-500 text-xs">
+                  This field is required.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col col-span-2">
