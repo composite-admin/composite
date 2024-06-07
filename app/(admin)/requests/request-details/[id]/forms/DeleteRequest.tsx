@@ -39,15 +39,18 @@ export default function DeleteRequest() {
 
   const handleSubmit = async (data: DeleteFormType) => {
     try {
-      const res = await api.delete(`/requests/${formDetails?.id}`);
+      const res = await api.put(`/requests/${formDetails?.id}`, {
+        ...data,
+        status: "REJECTED",
+      });
       if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request Approved",
+          title: "Request declined",
           variant: "success",
         });
         form.reset();
         onClose();
-      router.push("/requests");
+        router.push("/requests");
       }
     } catch (error) {
       console.log(error);

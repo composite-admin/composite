@@ -161,6 +161,8 @@ export default function RequestDetailsPage({
                 className={`text-center lg:tracking-widest mb-12 flex justify-between items-center ${
                   requestDetails?.status === "APPROVED"
                     ? "text-green-500 bg-[#E5F8E0] p-3"
+                    : requestDetails?.status === "REJECTED"
+                    ? "text-red-500 bg-[#FEE7E7] p-3"
                     : "bg-[#FEF6e7] p-3 text-[#865503] "
                 }`}
               >
@@ -289,7 +291,7 @@ export default function RequestDetailsPage({
         />
       </div>
 
-      {requestDetails?.status !== "APPROVED" && (
+      {requestDetails?.status === "PENDING" ? (
         <div className="flex flex-col md:flex-row gap-4 py-8">
           <Button
             className="md:w-1/3"
@@ -317,7 +319,7 @@ export default function RequestDetailsPage({
             Approve
           </Button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

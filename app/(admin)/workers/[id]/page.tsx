@@ -68,114 +68,132 @@ const SingleWorker = () => {
       )
     );
 
-  return (
-    <>
-      <div>
-        <div className="flex justify-between">
-          <GoBack />
-          <Button onClick={showBankModal}>{"View Bank Details"}</Button>
-        </div>
+    const filteredByWorkerCode = data?.data?.data.filter(
+      (item) => item.worker_code === worker?.worker_code
+    );
 
-        <div className="bg-white rounded-lg border-[#D0D5DD] py-10 my-10">
-          <div className="grid grid-cols-3 p-5 gap-5">
-            <div className="space-y-4">
-              <AnimatePresence mode="wait">
-                {worker?.createdAt && (
-                  <motion.div {...opacityVariant} className="space-y-4">
-                    <div className="space-y-1">
-                      <h1 className="font-bold text-2xl capitalize">
-                        {worker?.worker_name}
-                      </h1>
-                      <p className="font-light">
-                        Submitted on {formatDate(`${worker?.createdAt}`)}
-                      </p>
-                    </div>
+    return (
+      <>
+        <div>
+          <div className="flex justify-between">
+            <GoBack />
+            <Button onClick={showBankModal}>{"View Bank Details"}</Button>
+          </div>
 
-                    <div className="pt-4">
-                      <Button onClick={editWorker}>Edit Worker</Button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-            <div className="col-span-2 grid grid-cols-2 gap-4">
-              <div className="">
-                <p className="text-[#475367] text-sm">Name:</p>
-                <TextSkeleton text={worker?.worker_name} isLoading={fetching} />
+          <div className="bg-white rounded-lg border-[#D0D5DD] py-10 my-10">
+            <div className="grid grid-cols-3 p-5 gap-5">
+              <div className="space-y-4">
+                <AnimatePresence mode="wait">
+                  {worker?.createdAt && (
+                    <motion.div {...opacityVariant} className="space-y-4">
+                      <div className="space-y-1">
+                        <h1 className="font-bold text-2xl capitalize">
+                          {worker?.worker_name}
+                        </h1>
+                        <p className="font-light">
+                          Submitted on {formatDate(`${worker?.createdAt}`)}
+                        </p>
+                      </div>
+
+                      <div className="pt-4">
+                        <Button onClick={editWorker}>Edit Worker</Button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
+              <div className="col-span-2 grid grid-cols-2 gap-4">
+                <div className="">
+                  <p className="font-semibold">Name:</p>
+                  <TextSkeleton
+                    text={worker?.worker_name}
+                    isLoading={fetching}
+                  />
+                </div>
 
-              <div className="">
-                <p className="text-[#475367] text-sm">Company:</p>
-                <TextSkeleton
-                  text={worker?.worker_company}
-                  isLoading={fetching}
-                />
-              </div>
+                <div className="">
+                  <p className="font-semibold">Company:</p>
+                  <TextSkeleton
+                    text={worker?.worker_company}
+                    isLoading={fetching}
+                  />
+                </div>
 
-              <div className="">
-                <p className="text-[#475367] text-sm">Address:</p>
-                <TextSkeleton
-                  text={worker?.worker_address}
-                  isLoading={fetching}
-                />
-              </div>
+                <div className="">
+                  <p className="font-semibold">Address:</p>
+                  <TextSkeleton
+                    text={worker?.worker_address}
+                    isLoading={fetching}
+                  />
+                </div>
 
-              <div className="">
-                <p className="text-[#475367] text-sm">Phone:</p>
-                <TextSkeleton
-                  text={worker?.worker_ofc_phone}
-                  isLoading={fetching}
-                />
-              </div>
+                <div className="">
+                  <p className="font-semibold">Phone:</p>
+                  <TextSkeleton
+                    text={worker?.worker_ofc_phone}
+                    isLoading={fetching}
+                  />
+                </div>
 
-              <div className="">
-                <p className="text-[#475367] text-sm">Service Type:</p>
-                <TextSkeleton
-                  text={worker?.service_type}
-                  isLoading={fetching}
-                />
-              </div>
+                <div className="">
+                  <p className="font-semibold">Service Type:</p>
+                  <TextSkeleton
+                    text={worker?.service_type}
+                    isLoading={fetching}
+                  />
+                </div>
 
-              <div className="">
-                <p className="text-[#475367] text-sm">Section:</p>
-                <TextSkeleton text={worker?.section} isLoading={fetching} />
-              </div>
+                <div className="">
+                  <p className="font-semibold">Home Phone:</p>
+                  <TextSkeleton
+                    text={worker?.worker_home_phone}
+                    isLoading={fetching}
+                  />
+                </div>
 
-              <div className="">
-                <p className="text-[#475367] text-sm">Service:</p>
-                <TextSkeleton
-                  text={worker?.worker_service}
-                  isLoading={fetching}
-                />
-              </div>
+                <div className="">
+                  <p className="font-semibold">Office Phone:</p>
+                  <TextSkeleton
+                    text={worker?.worker_ofc_phone}
+                    isLoading={fetching}
+                  />
+                </div>
 
-              <div className="">
-                <p className="text-[#475367] text-sm">Email:</p>
-                <TextSkeleton
-                  text={worker?.worker_email}
-                  isLoading={fetching}
-                />
-              </div>
-              <div>
-                <p className="text-[#475367] text-sm">Comment:</p>
-                <TextSkeleton text={worker?.comment} isLoading={fetching} />
+                <div className="">
+                  <p className="font-semibold">Service:</p>
+                  <TextSkeleton
+                    text={worker?.worker_service}
+                    isLoading={fetching}
+                  />
+                </div>
+
+                <div className="">
+                  <p className="font-semibold">Email:</p>
+                  <TextSkeleton
+                    text={worker?.worker_email}
+                    isLoading={fetching}
+                  />
+                </div>
+                <div>
+                  <p className="font-semibold">Comment:</p>
+                  <TextSkeleton text={worker?.comment} isLoading={fetching} />
+                </div>
               </div>
             </div>
           </div>
+          <PageHead
+            headText="Worker's Jobs"
+            subText="View all your worker's jobs here"
+          />
+          <DataTable
+            columns={columns}
+            data={filteredByWorkerCode ?? []}
+            clickAction={() => {}}
+            isLoading={isPending}
+          />
         </div>
-        <PageHead
-          headText="Worker's Jobs"
-          subText="View all your worker's jobs here"
-        />
-        <DataTable
-          columns={columns}
-          data={data?.data.data ?? []}
-          clickAction={() => {}}
-          isLoading={isPending}
-        />
-      </div>
-    </>
-  );
+      </>
+    );
 };
 
 export default SingleWorker;

@@ -19,7 +19,7 @@ const TextSkeleton: FC<Props> = (props) => {
           ></div>
         ) : (
           <div>
-            <p className="text-textColor  font-[600]">{text}</p>
+            <p>{text}</p>
           </div>
         )}
       </AnimatePresence>

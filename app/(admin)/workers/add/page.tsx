@@ -54,6 +54,9 @@ const AddWorker = () => {
                 type="text"
                 {...register("worker_name", { required: true })}
               />
+              {errors.worker_name && (
+                <p className="text-red-500">This field is required</p>
+              )}
             </div>
             <div className="flex flex-col">
               <p className="value">Worker Company</p>
@@ -62,6 +65,9 @@ const AddWorker = () => {
                 type="text"
                 {...register("worker_company", { required: true })}
               />
+              {errors.worker_company && (
+                <p className="text-red-500">This field is required</p>
+              )}
             </div>
             <div className="flex flex-col">
               <p className="value">Worker Address</p>
@@ -70,6 +76,9 @@ const AddWorker = () => {
                 type="text"
                 {...register("worker_address", { required: true })}
               />
+              {errors.worker_address && (
+                <p className="text-red-500">This field is required</p>
+              )}
             </div>
 
             <div className="flex flex-col ">
@@ -108,6 +117,11 @@ const AddWorker = () => {
                 <option value="Tiling">Tiling</option>
                 <option value="Welding">Welding</option>
               </select>
+              {errors.service_type && (
+                <span className="text-red-500 text-xs">
+                  Please select a service type.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -165,6 +179,11 @@ const AddWorker = () => {
                 type="text"
                 {...register("worker_service", { required: true })}
               />
+              {errors.worker_service && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -174,6 +193,11 @@ const AddWorker = () => {
                 type="email"
                 {...register("worker_email", { required: true })}
               />
+              {errors.worker_email && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid email.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -183,6 +207,11 @@ const AddWorker = () => {
                 type="text"
                 {...register("bank_name", { required: true })}
               />
+              {errors.bank_name && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
             <div className="flex flex-col">
               <p className="value">Account Name</p>
@@ -191,6 +220,11 @@ const AddWorker = () => {
                 type="text"
                 {...register("account_name", { required: true })}
               />
+              {errors.account_name && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
             <div className="flex flex-col">
               <p className="value">Account Number</p>
@@ -199,6 +233,11 @@ const AddWorker = () => {
                 type="text"
                 {...register("account_number", { required: true })}
               />
+              {errors.account_number && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col col-span-2">

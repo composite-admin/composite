@@ -36,7 +36,7 @@ const keys: Keys[] = [
   },
   {
     key: "quantity",
-    text: "Remaining uantity",
+    text: "Remaining quantity",
   },
 
   {
