@@ -65,7 +65,7 @@ export default function ToolsAndMachineStore() {
   const form = useForm<ToolsAndMachineStoreType>({
     resolver: zodResolver(ToolsAndMachineStoreSchema),
     defaultValues: {
-      request_type: RequestType.ToolsAndMachineryRent,
+      request_type: RequestType.ToolsAndMachineryStore,
     },
   });
   const { watch } = form;
