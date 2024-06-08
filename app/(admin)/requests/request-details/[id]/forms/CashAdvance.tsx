@@ -12,6 +12,7 @@ import { userStore } from "@/store/auth/AuthStore";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import useRefetchQuery from "@/utils/refetchQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -62,6 +63,14 @@ export default function CashAdvance() {
     },
   });
   const { refetchQuery } = useRefetchQuery();
+
+  useEffect(() => {
+    if (staffDetails) {
+      form.setValue("bank", staffDetails?.bank_name);
+      form.setValue("account_number", staffDetails?.account_number);
+      form.setValue("account_name", staffDetails?.account_name);
+    }
+  }, [form, staffDetails]);
 
   const createCashAdvance = async (data: any) => {
     try {

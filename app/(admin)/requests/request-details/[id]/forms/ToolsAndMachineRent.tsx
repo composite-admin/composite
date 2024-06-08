@@ -15,6 +15,7 @@ import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
+import { useEffect } from "react";
 
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -64,6 +65,14 @@ export default function ToolsAndMachineRent() {
       account_name: staffDetails?.account_name,
     },
   });
+
+  useEffect(() => {
+    if (staffDetails) {
+      form.setValue("bank", staffDetails?.bank_name);
+      form.setValue("account_number", staffDetails?.account_number);
+      form.setValue("account_name", staffDetails?.account_name);
+    }
+  }, [form, staffDetails]);
 
   const handleSubmit = async (data: ToolsAndMachineRentType) => {
     try {

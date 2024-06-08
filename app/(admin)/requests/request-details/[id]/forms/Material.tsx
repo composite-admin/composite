@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
@@ -94,6 +94,14 @@ export default function Material() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (staffDetails) {
+      form.setValue("bank", staffDetails?.bank_name);
+      form.setValue("account_number", staffDetails?.account_number);
+      form.setValue("account_name", staffDetails?.account_name);
+    }
+  }, [form, staffDetails]);
 
   return (
     <Form {...form}>
@@ -189,6 +197,7 @@ export default function Material() {
               control={form.control}
               label="Bank Name"
               placeholder="Enter Bank Name"
+              disabled
             />
             <CustomFormField
               name="account_name"
