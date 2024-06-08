@@ -52,6 +52,7 @@ export default function ToolsAndMachineBuy() {
   const { toast } = useToast();
   const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
   const { username } = userStore();
+
   const form = useForm<ToolsAndMachineBuyType>({
     resolver: zodResolver(ToolsAndMachineBuySchema),
     defaultValues: {
@@ -61,7 +62,6 @@ export default function ToolsAndMachineBuy() {
       account_name: staffDetails?.account_name,
     },
   });
-  // to locale nigerian data string
 
   const handleSubmit = async (data: ToolsAndMachineBuyType) => {
     try {
@@ -82,7 +82,6 @@ export default function ToolsAndMachineBuy() {
         });
         form.reset();
         onClose();
-        window.location.reload();
       }
     } catch (error) {
       toast({

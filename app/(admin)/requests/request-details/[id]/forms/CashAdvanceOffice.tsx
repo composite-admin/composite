@@ -27,9 +27,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   bank: z.string({
     required_error: "Bank name is required",
   }),
-  supervisor_comment: z.string({
-    required_error: "Comment is required",
-  }),
+  supervisor_comment: z.string().optional(),
   account_number: z.string({
     required_error: "Account number is required",
   }),
@@ -51,6 +49,9 @@ export default function CashAdvanceOffice() {
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       request_type: RequestType.CashAdvanceOffice,
+      bank: staffDetails?.bank_name,
+      account_number: staffDetails?.account_number,
+      account_name: staffDetails?.account_name,
     },
   });
 

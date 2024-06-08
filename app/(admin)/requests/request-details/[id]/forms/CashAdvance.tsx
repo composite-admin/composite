@@ -57,6 +57,9 @@ export default function CashAdvance() {
   const { toast } = useToast();
   const form = useForm<CreateCashAdvanceOfficeType>({
     resolver: zodResolver(createCashAdvanceOfficeSchema),
+    defaultValues: {
+      bank: staffDetails?.bank_name,
+    },
   });
   const { refetchQuery } = useRefetchQuery();
 

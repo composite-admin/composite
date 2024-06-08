@@ -29,9 +29,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   description: z.string({
     required_error: "Description is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<

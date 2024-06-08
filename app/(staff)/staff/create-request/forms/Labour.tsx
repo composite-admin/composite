@@ -37,9 +37,7 @@ export const LabourSchema = z.object({
   description: z.string({
     required_error: "Description is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type labourFormType = z.infer<typeof LabourSchema>;
