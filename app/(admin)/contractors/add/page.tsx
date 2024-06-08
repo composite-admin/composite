@@ -94,11 +94,6 @@ const AddContractor = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.contractor_ofc_phone && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
@@ -110,11 +105,6 @@ const AddContractor = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.contact_home_phone && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
@@ -124,6 +114,11 @@ const AddContractor = () => {
                 type="text"
                 {...register("contact_person", { required: true })}
               />
+              {errors.contact_person && (
+                <span className="text-red-500 text-xs">
+                  Please enter a full name.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">

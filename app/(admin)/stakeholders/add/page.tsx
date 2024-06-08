@@ -109,11 +109,6 @@ const AddStakeholder = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.contact_home_phone && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
             <div className="flex flex-col">
               <p className="value">Contact Mobile</p>

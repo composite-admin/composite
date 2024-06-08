@@ -133,11 +133,6 @@ const AddWorker = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.worker_ofc_phone && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
@@ -165,11 +160,6 @@ const AddWorker = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.worker_home_phone && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
@@ -181,7 +171,7 @@ const AddWorker = () => {
               />
               {errors.worker_service && (
                 <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
+                  Please enter a service.
                 </span>
               )}
             </div>
@@ -209,7 +199,7 @@ const AddWorker = () => {
               />
               {errors.bank_name && (
                 <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
+                  Please enter a bank name.
                 </span>
               )}
             </div>
@@ -222,7 +212,7 @@ const AddWorker = () => {
               />
               {errors.account_name && (
                 <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
+                  Please enter an account name.
                 </span>
               )}
             </div>
@@ -235,7 +225,7 @@ const AddWorker = () => {
               />
               {errors.account_number && (
                 <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
+                  Please enter an account number.
                 </span>
               )}
             </div>
