@@ -79,6 +79,8 @@ const EditProjectPage = ({ params: { id } }: Params) => {
       form.setValue("status", projectDetails?.status);
       form.setValue("project_description", projectDetails?.project_description);
       form.setValue("city", projectDetails?.city);
+      form.setValue("start_date", new Date(projectDetails?.start_date));
+      form.setValue("end_date", new Date(projectDetails?.end_date));
       form.setValue("state", projectDetails?.state);
       form.setValue("address", projectDetails?.address);
       form.setValue("lga", projectDetails?.lga);
