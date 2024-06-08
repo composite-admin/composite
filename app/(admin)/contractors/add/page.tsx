@@ -94,6 +94,11 @@ const AddContractor = () => {
                   validate: validatePhoneNumber,
                 })}
               />
+              {errors.contractor_ofc_phone && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -130,11 +135,6 @@ const AddContractor = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.contact_mobile && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">

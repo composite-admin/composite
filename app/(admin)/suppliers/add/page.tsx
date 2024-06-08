@@ -124,7 +124,6 @@ const AddSuppliers = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-
             </div>
 
             <div className="flex flex-col">
@@ -136,11 +135,6 @@ const AddSuppliers = () => {
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.contact_mobile && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col col-span-2">
