@@ -137,11 +137,12 @@ const AddProjectModal = () => {
       ? formValues.end_date.toISOString().slice(0, 19).replace("T", " ")
       : "";
 
-    mutate({
-      ...formValues,
-      start_date: startDateString,
-      end_date: endDateString,
-    });
+    // mutate({
+    //   ...formValues,
+    //   start_date: startDateString,
+    //   end_date: endDateString,
+    // });
+    console.log(formValues);
   }
 
   return (

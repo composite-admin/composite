@@ -6,9 +6,6 @@ export const AddProjectFormSchema = z.object({
     required_error: "Please enter a project description",
   }),
   comment: z.string().optional(),
-  project_location: z.string({
-    required_error: "Please enter a project location",
-  }),
   address: z.string({ required_error: "Please enter an address" }),
   city: z.string({ required_error: "Please enter a city" }),
   state: z.string({ required_error: "Please enter a state" }),

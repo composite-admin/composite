@@ -79,7 +79,7 @@ export const useTenantDetails = (id: number) => {
 export const useStaffRoles = () => {
   const { data } = useQuery({
     queryKey: ["get roles"],
-    queryFn: getRoles,
+    queryFn: () => getStuffTyped<[]>("/staffs/roles/all"),
   });
   return { staffRoles: data };
 };
