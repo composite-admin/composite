@@ -19,8 +19,31 @@ import { useToast } from "@/components/ui/use-toast";
 
 const RefundRequestOrIOUSchema = z.object({
   cash_advance_type: z.string().optional(),
-  description: z.string().optional(),
-  amount_recorded: z.string().optional(),
+  description: z
+    .string({
+      required_error: "Description is required",
+    })
+    .refine(
+      (val) => {
+        return val.length > 0;
+      },
+      {
+        message: "Description is required",
+      }
+    ),
+  amount_recorded: z
+    .string({
+      required_error: "Amount is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number")
+    .refine(
+      (val) => {
+        return val.length > 0;
+      },
+      {
+        message: "Amount is required",
+      }
+    ),
   decision: z.string().optional(),
   decision_reason: z.string().optional(),
   staff_name: z.string().optional(),
@@ -43,7 +66,8 @@ export default function RefundRequestOrIOUForm() {
     resolver: zodResolver(RefundRequestOrIOUSchema),
     values: {
       cash_advance_type: CashAdvanceDetails?.cash_advance_type,
-      amount_recorded: CashAdvanceDetails?.unused_cash,
+      description: CashAdvanceDetails?.description || " ",
+      amount_recorded: CashAdvanceDetails?.unused_cash || " ",
       staff_name: CashAdvanceDetails?.staff_name,
     },
   });
