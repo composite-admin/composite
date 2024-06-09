@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import Link from "next/link";
@@ -31,7 +31,7 @@ type RefundRequestOrIOUFormType = z.infer<typeof RefundRequestOrIOUSchema>;
 export default function RefundRequestOrIOUForm() {
   const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
   const { username } = userStore();
-
+  const query = useQueryClient();
   const amountRequested = () => {
     return (
       Number(CashAdvanceDetails?.amount_collected) -
@@ -97,8 +97,14 @@ export default function RefundRequestOrIOUForm() {
   });
 
   const submit = (data: RefundRequestOrIOUFormType) => {
-    console.log(data);
-    mutate(data);
+    mutate(data, {
+      onSuccess: () => {
+        onClose();
+        query.invalidateQueries({
+          queryKey: ["get cash advance"],
+        });
+      },
+    });
   };
 
   return (

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -66,7 +66,7 @@ type ReturnCashAdvanceFormType = z.infer<typeof ReturnCashAdvanceSchema>;
 export default function ReturnCashAdvance() {
   const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
   const { toast } = useToast();
-
+  const query = useQueryClient();
   const form = useForm<ReturnCashAdvanceFormType>({
     resolver: zodResolver(ReturnCashAdvanceSchema),
     values: {
@@ -121,7 +121,14 @@ export default function ReturnCashAdvance() {
   });
 
   const submit = (data: ReturnCashAdvanceFormType) => {
-    mutate(data);
+    mutate(data, {
+      onSuccess: () => {
+        onClose();
+        query.invalidateQueries({
+          queryKey: ["get cash advance"],
+        });
+      },
+    });
   };
 
   return (

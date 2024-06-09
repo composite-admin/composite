@@ -7,8 +7,9 @@ import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
 import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -54,6 +55,7 @@ type RequestAndIOUFomType = z.infer<typeof RequestAndIOUSchema>;
 
 export default function RequestIOUForm() {
   const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
+  const query = useQueryClient();
   const form = useForm<RequestAndIOUFomType>({
     resolver: zodResolver(RequestAndIOUSchema),
     values: {
@@ -97,7 +99,14 @@ export default function RequestIOUForm() {
 
   const submit = (data: RequestAndIOUFomType) => {
     console.log(data);
-    mutate(data);
+    mutate(data, {
+      onSuccess: () => {
+        onClose();
+        query.invalidateQueries({
+          queryKey: ["get cash advance"],
+        });
+      },
+    });
   };
   return (
     <Form {...form}>
@@ -147,7 +156,7 @@ export default function RequestIOUForm() {
           <Button variant={"secondary"} type="button" onClick={onClose}>
             Cancel
           </Button>
-          <Button>Submit</Button>
+          <Button type="submit">Submit</Button>
         </div>
       </form>
     </Form>
