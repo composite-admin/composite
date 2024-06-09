@@ -73,6 +73,9 @@ const AddWorkerToProject = () => {
           project_code: projectCode,
           worker_code: workerCode,
         });
+        if (response.data) {
+          router.back();
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -104,11 +107,11 @@ const AddWorkerToProject = () => {
       onSuccess: () => {
         form.reset();
         onClose();
+        router.back();
         toast({
           title: "Worker added successfully",
           variant: "success",
         });
-        router.push("/project");
       },
 
       onError: () => {

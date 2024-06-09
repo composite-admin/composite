@@ -30,8 +30,12 @@ import { useRouter } from "next/navigation";
 
 const AddMaterialSchema = z.object({
   supplier_code: z.string().optional(),
-  supplier_name: z.string().optional(),
-  description: z.string().optional(),
+  supplier_name: z.string({
+    required_error: "Supplier Name is required",
+  }),
+  description: z.string({
+    required_error: "Description is required",
+  }),
   project_code: z.string().optional(),
   payment_mode: z.string({
     required_error: "Payment Mode is required",
@@ -106,6 +110,9 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
           quantity: Number(values.quantity),
           unit_price: Number(values.unit_price),
         });
+        if (response.status === 201) {
+          router.push(`/project/${id}`);
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -122,6 +129,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
       onSuccess: () => {
         form.reset();
         onClose();
+        router.back();
         toast({
           title: "Material added successfully",
           variant: "success",
