@@ -58,7 +58,7 @@ export default function AddStartUpForm() {
       startup_desc: startupCostDetails?.startup_desc!,
       startup_type: startupCostDetails?.startup_type!,
       startup_cost: startupCostDetails?.startup_cost!,
-      comment: " ",
+      comment: startupCostDetails?.comment!,
     },
   });
 

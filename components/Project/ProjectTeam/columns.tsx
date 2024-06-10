@@ -56,13 +56,13 @@ export const columns: ColumnDef<IProjectTeamMemberByProjectData>[] = [
     },
   },
 
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Action" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return <DeleteCell row={row} rowId={row.original.id} url="project" />;
-    },
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Action" withSort={false} />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return <DeleteCell row={row} rowId={row.original.id} url="project" />;
+  //   },
+  // },
 ];

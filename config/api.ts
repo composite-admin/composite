@@ -27,10 +27,10 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError<AxiosErrorResponse>) => {
+    let errorMessage = "An unknown error occurred";
     if (error.response) {
       if (error.response.status === 401) {
         deleteCookie("token");
@@ -38,15 +38,14 @@ api.interceptors.response.use(
         deleteCookie("username");
         window.location.href = "/login";
       }
-      console.log(error.response.data.message);
-
-      return Promise.reject(error.message);
+      errorMessage = error.response.data.message;
     } else if (error.request) {
-      return Promise.reject(error.request);
+      errorMessage = "No response received from server";
     } else {
-      return Promise.reject(error);
+      errorMessage = error.message;
     }
+
+    console.log(errorMessage);
+    return Promise.reject(new Error(errorMessage));
   }
 );
-
-

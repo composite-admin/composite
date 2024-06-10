@@ -7,14 +7,22 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import { ApiResponse, ITenantData } from "@/utils/types";
+import GoBack from "@/components/shared/GoBack";
 
-const TenantPage = () => {
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+const TenantPage = ({ params }: Params) => {
+  const code = params.id;
   const { data, error, isPending } = useQuery({
     queryKey: ["get all project tenants"],
     queryFn: async () => {
       try {
         const response = await api.get<ApiResponse<ITenantData[]>>(
-          "/tenants/project/proj-6033"
+          `/tenants/project/${code}`
         );
         return response.data.data;
       } catch (error) {
@@ -29,9 +37,10 @@ const TenantPage = () => {
 
   return (
     <>
+      <GoBack />
       <PageHead
-        headText="Tenant"
-        subText="A request for daily, weekly and monthly activities"
+        headText={`Tenants (${data?.length || 0})`}
+        subText="View tenants for this project here"
       />
       <DataTable columns={columns} data={data || []} isLoading={isPending} />
     </>

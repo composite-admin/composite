@@ -20,11 +20,13 @@ const useLogin = () => {
         const response = await api.post<LoginResponse>("/login", credentials);
         return response.data;
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
+        console.log(error);
+        // if (axios.isAxiosError(error) && error.response) {
+        //   throw new Error(error.response.data.message);
+        // } else {
+        //   throw error;
+        // }
+        throw error;
       }
     },
     onSuccess: (data) => {
@@ -42,8 +44,7 @@ const useLogin = () => {
       router.refresh();
     },
     onError: (error: Error) => {
-      toast({ title: error.message, variant: "destructive" });
-      return error;
+      toast({ title: "Login Failed", description: error.message, variant: "destructive" });
     },
   });
 

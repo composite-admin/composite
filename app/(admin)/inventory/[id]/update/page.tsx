@@ -60,16 +60,17 @@ const UpdateInventory = (props: any) => {
   const { toast } = useToast();
 
   const { userId } = userStore();
-  console.log(userId);
   const ToolDescription = toolData?.map((item: any) => item?.description);
 
   const toolType = inventories?.map((item: any) => item?.type);
   const form = useForm<EditInventoryFormDataType>({
     resolver: zodResolver(EditInventorySchema),
-    defaultValues: {
-      unit_price: inventory?.unit_price,
-      quantity: inventory?.quantity,
-      comment: inventory?.comment,
+    values: {
+      unit_price: inventory?.unit_price || "",
+      quantity: inventory?.quantity || "",
+      comment: inventory?.comment || "",
+      name: inventory?.name || "",
+      type: inventory?.type || "",
     },
   });
   const { watch } = form;

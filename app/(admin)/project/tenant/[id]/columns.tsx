@@ -101,7 +101,8 @@ export const columns: ColumnDef<ITenantData>[] = [
       return (
         <div className="">
           <p className="bg-[#E7F6EC] px-1 text-[12px] w-fit rounded-full text-[#036B26]">
-            {row.original["status"]}
+            {/* {row.original["status"]} */}
+            Active
           </p>
         </div>
       );

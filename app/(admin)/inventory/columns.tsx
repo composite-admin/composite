@@ -52,14 +52,16 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.getValue("total_quantity")}</span>
+          <span className="font-semibold ">
+            {row.getValue("total_quantity")}
+          </span>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "remaining_quantity",
+    accessorKey: "quantity",
     header: ({ column }) => {
       return (
         <ColumnHeader column={column} title="Quantity Left" withSort={false} />
@@ -68,7 +70,9 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <div className="">
-          <span className="font-semibold ">{row.getValue("remaining_quantity") ?? '-'}</span>
+          <span className="font-semibold ">
+            {row.getValue("quantity") ?? "-"}
+          </span>
         </div>
       );
     },
@@ -76,7 +80,9 @@ export const columns: ColumnDef<ReportType>[] = [
   {
     accessorKey: "inventory_code",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Inventory Code" withSort={false} />;
+      return (
+        <ColumnHeader column={column} title="Inventory Code" withSort={false} />
+      );
     },
     cell: ({ row }) => {
       return (

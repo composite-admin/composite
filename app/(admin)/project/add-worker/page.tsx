@@ -41,7 +41,7 @@ const AddWorkerSchema = z.object({
 type AddWorkerSchemaType = z.infer<typeof AddWorkerSchema>;
 
 const AddWorkerToProject = () => {
-  const { projectName, onClose } = useProjectDetailsPageFormModal();
+  const { projectName, onClose, projectId } = useProjectDetailsPageFormModal();
   const { projectCode } = useProjectDetails();
 
   const searchParams = useSearchParams();
@@ -73,9 +73,6 @@ const AddWorkerToProject = () => {
           project_code: projectCode,
           worker_code: workerCode,
         });
-        if (response.data) {
-          router.back();
-        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

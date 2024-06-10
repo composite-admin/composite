@@ -125,20 +125,21 @@ export default function EditReportForm() {
                   />
                 </div>
                 <div className="w-full">
-                  <CustomFormField
-                    label="Report Summary"
-                    placeholder="Add report Summary"
-                    name="report_summary"
+                  <CustomFormSelect
+                    labelText="Project Supervisor"
+                    placeholder=" Select Project Supervisor"
+                    name="project_supervisor"
+                    items={projectSupervisor || ["Loading Staff.... 👷🏾‍♂️"]}
                     control={form.control}
                   />
                 </div>
               </div>
-              <div>
-                <CustomFormSelect
-                  labelText="Project Supervisor"
-                  placeholder=" Select Project Supervisor"
-                  name="project_supervisor"
-                  items={projectSupervisor || ["Loading Staff.... 👷🏾‍♂️"]}
+
+              <div className="w-full">
+                <CustomFormTextareaField
+                  label="Report Summary"
+                  placeholder="Add report Summary"
+                  name="report_summary"
                   control={form.control}
                 />
               </div>

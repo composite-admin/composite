@@ -71,7 +71,7 @@ const SingleProject = () => {
     {
       title: "View Apartment",
       action: onOpenAddStakeHolder,
-      icon: "/./hs.png",
+      icon: "/./mt.svg",
     },
     {
       title: "View Tenant",

@@ -69,7 +69,7 @@ export default function AddConsultantForm() {
         form.reset();
         onClose();
         queryClient.invalidateQueries({
-          queryKey: ["get all consultants by project code", projectCode],
+          queryKey: ["get all consultants by project code"],
         });
         toast({
           title: "Consultant added successfully",

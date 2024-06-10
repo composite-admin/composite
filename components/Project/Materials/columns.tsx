@@ -3,18 +3,12 @@
 import EditCell, {
   DeleteCell,
 } from "@/app/(admin)/facility/all-flats/EditCell";
-import { ViewUserPageIcon } from "@/components/icons";
-import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { useAddWorkerModal } from "@/store/inventory/UseInventoryModal";
 import { ProjectPageFormType } from "@/store/useTableActionStore";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
 import { IMaterialsByProjectData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { DeleteIcon } from "lucide-react";
-import Link from "next/link";
-import { HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
 
 export const columns: ColumnDef<IMaterialsByProjectData>[] = [
   {
@@ -29,7 +23,7 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
             <p className="font-semibold underline text-primaryLight">
               {row.original["description"]}
             </p>
-            <p>{row.original["material_code"]}</p>
+            <p className="uppercase">{row.original["material_code"]}</p>
           </div>
         </div>
       );

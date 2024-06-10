@@ -31,8 +31,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { toast } from "@/components/ui/use-toast";
-import { Matcher } from "react-day-picker";
 
 interface CustomFormFieldProps extends React.HTMLProps<HTMLInputElement> {
   name: string;
@@ -203,8 +201,7 @@ export function CustomDatePicker({
                 onSelect={field.onChange}
                 initialFocus
                 // captionLayout="dropdown-buttons"
-                // fromYear={1960}
-                // toYear={2024}
+                fromYear={1960}
               />
             </PopoverContent>
           </Popover>

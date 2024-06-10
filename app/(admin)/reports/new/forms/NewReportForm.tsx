@@ -107,9 +107,17 @@ export default function NewReportForm() {
         project_name: data.project_name,
       });
       if (response.status === 201) {
-        // Extract ID from the response data
+        setFiles([]);
+        toast({
+          title: "Report created successfully",
+          variant: "success",
+        });
         const { id } = response.data.data;
-        handleUpload(id);
+        router.push(`/reports/${id}`);
+
+        if (files.length > 0) {
+          handleUpload(id);
+        }
       }
       // window.location.reload();
       // router.push("/reports");
@@ -309,44 +317,51 @@ export default function NewReportForm() {
               >
                 <div>
                   <div className="flex flex-col items-center justify-between">
-                    <div
-                      onDragOver={handleDragOver}
-                      onDragLeave={handleDragLeave}
-                      onDrop={handleDrop}
-                      className={`border-2 border-dashed w-full ${
-                        isDragOver ? "border-blue-500" : "border-gray-300"
-                      } p-6 rounded-md w-full`}
-                    >
-                      <input
-                        type="file"
-                        multiple
-                        onChange={handleFileChange}
-                        className="hidden"
-                        id="file-input"
-                      />
-                      <label
-                        htmlFor="file-input"
-                        className="cursor-pointer text-gray-500 text-center"
-                      >
-                        <div className="flex flex-col items-center justify-center bg-gray-100 mx-auto rounded-full w-14 h-14 ">
-                          <UploadCloud />
+                    {files.length <= 0 && (
+                      <>
+                        <div
+                          onDragOver={handleDragOver}
+                          onDragLeave={handleDragLeave}
+                          onDrop={handleDrop}
+                          className={`border-2 border-dashed w-full ${
+                            isDragOver ? "border-blue-500" : "border-gray-300"
+                          } p-6 rounded-md w-full`}
+                        >
+                          <input
+                            type="file"
+                            multiple
+                            onChange={handleFileChange}
+                            className="hidden"
+                            id="file-input"
+                          />
+                          <label
+                            htmlFor="file-input"
+                            className="cursor-pointer text-gray-500 text-center"
+                          >
+                            <div className="flex flex-col items-center justify-center bg-gray-100 mx-auto rounded-full w-14 h-14 ">
+                              <UploadCloud />
+                            </div>
+                            <p className="text-lg font-semibold ">
+                              <span className="text-primaryLight font-semibold">
+                                Click to upload
+                              </span>{" "}
+                              or drag and drop
+                            </p>
+                            <p className="text-sm">
+                              SVG, PNG, JPG or GIF (max. 2MB)
+                            </p>
+
+                            <p className="text-sm">
+                              Maximum {5} files allowed. Supported types:
+                              images.
+                            </p>
+                          </label>
                         </div>
-                        <p className="text-lg font-semibold ">
-                          <span className="text-primaryLight font-semibold">
-                            Click to upload
-                          </span>{" "}
-                          or drag and drop
+                        <p className="text-center font-bold pt-5">
+                          Upload Images or Submit form
                         </p>
-                        <p className="text-sm">
-                          SVG, PNG, JPG or GIF (max. 2MB)
-                        </p>
-
-                        <p className="text-sm">
-                          Maximum {5} files allowed. Supported types: images.
-                        </p>
-                      </label>
-                    </div>
-
+                      </>
+                    )}
                     <div className="my-8">
                       <ul className="list-none space-y-2 flex gap-3">
                         {files.map((file, index) => (
@@ -377,13 +392,12 @@ export default function NewReportForm() {
                     </div>
                   </div>
                 </div>
+
                 <div className="py-5 flex flex-col lg:flex-row gap-6 lg:absolute bottom-0 left-0 right-0 w-full px-6">
                   <Button className="w-full" variant="secondary" onClick={prev}>
                     Go Back
                   </Button>
-                  {files.length > 0 && (
-                    <Button className="w-full">Submit</Button>
-                  )}
+                  <Button className="w-full">Submit</Button>
                 </div>
               </FormContainer>
             </motion.div>

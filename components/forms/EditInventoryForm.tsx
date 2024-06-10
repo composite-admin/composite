@@ -56,6 +56,7 @@ const EditInventoryForm = () => {
   const toolType = inventories?.map((item: any) => item?.type);
   const form = useForm<EditInventoryFormDataType>({
     resolver: zodResolver(EditInventorySchema),
+
   });
   const { watch } = form;
   const watchTools = watch("type");
@@ -105,7 +106,7 @@ const EditInventoryForm = () => {
     },
     onError: (error: Error) => {
       toast({
-        title: "Error creating inventory",
+        title: "Error updating inventory",
         variant: "destructive",
       });
     },
