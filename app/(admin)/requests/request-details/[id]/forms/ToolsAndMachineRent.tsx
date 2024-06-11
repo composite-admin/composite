@@ -16,6 +16,7 @@ import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -35,9 +36,7 @@ export const ToolsAndMachineRentSchema = z.object({
   bank: z.string({
     required_error: "Bank name is required",
   }),
-  supervisor_comment: z.string({
-    required_error: "Comment is required",
-  }),
+  supervisor_comment: z.string().optional(),
   account_number: z
     .string({
       required_error: "Account number is required",
@@ -52,6 +51,7 @@ type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 
 export default function ToolsAndMachineRent() {
   const { formDetails, onClose } = useUpdateRequestStore();
+  const query = useQueryClient();
   const { toast } = useToast();
   const { username } = userStore();
   const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
@@ -83,6 +83,8 @@ export default function ToolsAndMachineRent() {
         approved_on: new Date(),
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
+        approved_amount:
+          Number(data.approved_unit_price) * Number(data.approved_quantity),
         approved_total_amount:
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
@@ -93,7 +95,9 @@ export default function ToolsAndMachineRent() {
         });
         form.reset();
         onClose();
-        window.location.reload();
+        query.invalidateQueries({
+          queryKey: ["get request details", formDetails?.id],
+        });
       }
     } catch (error) {
       toast({

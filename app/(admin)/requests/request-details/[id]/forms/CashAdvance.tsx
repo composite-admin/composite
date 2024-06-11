@@ -36,9 +36,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   bank: z.string({
     required_error: "Bank name is required",
   }),
-  supervisor_comment: z.string({
-    required_error: "Comment is required",
-  }),
+  supervisor_comment: z.string().optional(),
   account_number: z.string({
     required_error: "Account number is required",
   }),
@@ -103,6 +101,7 @@ export default function CashAdvance() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         approved_by: username,
+        approved_total_amount: Number(data.approved_amount),
         approved_on: new Date(),
         status: "APPROVED",
       });

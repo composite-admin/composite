@@ -16,6 +16,7 @@ import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const ToolsAndMachineBuySchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -53,6 +54,7 @@ export default function ToolsAndMachineBuy() {
   const { toast } = useToast();
   const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
   const { username } = userStore();
+  const query = useQueryClient();
 
   const form = useForm<ToolsAndMachineBuyType>({
     resolver: zodResolver(ToolsAndMachineBuySchema),
@@ -73,6 +75,8 @@ export default function ToolsAndMachineBuy() {
         status: "APPROVED",
         approved_unit_price: Number(data.approved_unit_price),
         approved_quantity: Number(data.approved_quantity),
+        approved_amount:
+          Number(data.approved_unit_price) * Number(data.approved_quantity),
         approved_total_amount:
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
@@ -80,6 +84,9 @@ export default function ToolsAndMachineBuy() {
         toast({
           title: "Request Approved",
           variant: "success",
+        });
+        query.invalidateQueries({
+          queryKey: ["get request details", formDetails?.id],
         });
         form.reset();
         onClose();
@@ -161,7 +168,7 @@ export default function ToolsAndMachineBuy() {
             name="payment_method"
             control={form.control}
             labelText="Select Payment Method"
-            items={["Online Transfer", "Paid at the Bank", "Cash", "Cheque"]}
+            items={["Online Transfer", "Pay to the Bank", "Cash", "Cheque"]}
           />
           <CustomFormField
             name="bank"

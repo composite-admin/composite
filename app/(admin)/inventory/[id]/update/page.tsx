@@ -27,22 +27,26 @@ import { useGetEachinventory } from "@/store/inventory/InventoryStore";
 import { userStore } from "@/store/auth/AuthStore";
 
 const EditInventorySchema = z.object({
-  type: z.string({
-    required_error: "Please select a tool type",
-  }),
-  unit_price: z
+  type: z
     .string({
+      required_error: "Please select a tool type",
+    })
+    .min(1, "Please select a tool type"),
+  unit_price: z.coerce
+    .number({
       required_error: "Unit price is required",
     })
-    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
-  name: z.string({
-    required_error: "Please select a tool, then a description",
-  }),
-  quantity: z
+    .min(1, "Unit price is required"),
+  name: z
     .string({
+      required_error: "Please select a tool, then a description",
+    })
+    .min(1, "Please select a tool, then a description"),
+  quantity: z.coerce
+    .number({
       required_error: "Quantity is required",
     })
-    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+    .min(1, "Quantity is required"),
   comment: z.string({
     required_error: "Comment is required",
   }),
@@ -59,19 +63,24 @@ const UpdateInventory = (props: any) => {
   const { inventory } = useGetInventoryData(id);
   const { toast } = useToast();
 
+  let formData;
+  if (inventory) {
+    formData = {
+      unit_price: inventory?.unit_price || 0,
+      quantity: inventory?.quantity || 0,
+      comment: inventory?.comment || "",
+      name: inventory?.name,
+      type: inventory?.type,
+    };
+  }
+
   const { userId } = userStore();
   const ToolDescription = toolData?.map((item: any) => item?.description);
 
   const toolType = inventories?.map((item: any) => item?.type);
   const form = useForm<EditInventoryFormDataType>({
     resolver: zodResolver(EditInventorySchema),
-    values: {
-      unit_price: inventory?.unit_price || "",
-      quantity: inventory?.quantity || "",
-      comment: inventory?.comment || "",
-      name: inventory?.name || "",
-      type: inventory?.type || "",
-    },
+    values: formData,
   });
   const { watch } = form;
   const watchTools = watch("type");
@@ -165,19 +174,18 @@ const UpdateInventory = (props: any) => {
                 control={form.control}
                 items={ToolDescription || ["Loading ..."]}
                 placeholder={inventory?.name && inventory?.name}
-                disabled={!watchTools}
               />
               <CustomFormField
                 name="quantity"
                 label="Quantity"
                 control={form.control}
-                placeholder={inventory?.quantity && inventory?.quantity}
+                placeholder={inventory?.quantity.toString()}
               />
               <CustomFormField
                 name="unit_price"
                 label="Unit Price"
                 control={form.control}
-                placeholder={inventory?.unit_price && inventory?.unit_price}
+                placeholder={inventory?.unit_price.toString()}
               />
             </div>
             <CustomFormTextareaField

@@ -814,8 +814,8 @@ export interface InventoryItemData {
   inventory_code: string;
   name: string;
   type: string;
-  unit_price: string;
-  quantity: string;
+  unit_price: number;
+  quantity: number;
   total_price: number;
   total_quantity: number;
   remaining_quantity: number;

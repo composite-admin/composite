@@ -82,7 +82,7 @@ export default function RequestDetailsPage({
       value: requestDetails?.cash_advance_purpose,
     },
     { label: "Service Rendered", value: requestDetails?.worker_service },
-    { label: "Company Phone", value: requestDetails?.company },
+    { label: "Company Phone", value: requestDetails?.contact_mobile },
     { label: "Contact Person", value: requestDetails?.contact_person },
     { label: "Job Code", value: requestDetails?.job_code?.toUpperCase() },
     { label: "Supplier Name", value: requestDetails?.supplier_name },

@@ -89,6 +89,7 @@ export default function CashAdvanceOffice() {
         approved_by: username,
         approved_on: new Date(),
         approved_amount: Number(data.approved_amount),
+        approved_total_amount: Number(data.approved_amount),
       });
       if (res.status === 200 || res.status === 201) {
         toast({
