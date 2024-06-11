@@ -182,6 +182,7 @@ export const useGetAllSuppliers = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["get all suppliers"],
     queryFn: () => getStuffTyped<ISupplierData[]>("/suppliers"),
+    refetchOnMount: "always",
   });
   const supplierList = data
     ?.map((item: ISupplierData) => item.supplier_name)
