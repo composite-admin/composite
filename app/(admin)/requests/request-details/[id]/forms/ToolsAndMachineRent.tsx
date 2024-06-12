@@ -95,9 +95,10 @@ export default function ToolsAndMachineRent() {
         });
         form.reset();
         onClose();
-        query.invalidateQueries({
-          queryKey: ["get request details", formDetails?.id],
-        });
+        window.location.reload();
+        // query.invalidateQueries({
+        //   queryKey: ["get request details", formDetails?.id],
+        // });
       }
     } catch (error) {
       toast({

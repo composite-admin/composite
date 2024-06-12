@@ -85,9 +85,10 @@ export default function ToolsAndMachineBuy() {
           title: "Request Approved",
           variant: "success",
         });
-        query.invalidateQueries({
-          queryKey: ["get request details", formDetails?.id],
-        });
+        // query.invalidateQueries({
+        //   queryKey: ["get request details", formDetails?.id],
+        // });
+        window.location.reload();
         form.reset();
         onClose();
       }
