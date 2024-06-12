@@ -99,6 +99,7 @@ export default function AddToolAndMachinery() {
         variant: "success",
       });
       hideModal();
+      window.location.reload();
     },
     onError: (error: Error) => {
       toast({

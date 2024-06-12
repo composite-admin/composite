@@ -74,15 +74,15 @@ export const columns: ColumnDef<IWorkerByProjectData>[] = [
     },
   },
 
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Delete" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return <span className="font-semibold text-red-500">Delete</span>;
-    },
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Delete" withSort={false} />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return <span className="font-semibold text-red-500">Delete</span>;
+  //   },
+  // },
 ];
 
 

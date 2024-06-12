@@ -244,10 +244,8 @@ const SingleProject = () => {
               </p>
             </div>{" "}
             <div>
-              <p className=" text-[#101928] text-[16px] font-[600] ">
-                Project Code:
-              </p>
-              <p className=" uppercase">{selectedItem && projectCode}</p>
+              <p className=" text-[#101928] text-[16px] font-[600] ">State:</p>
+              <p className=" uppercase">{selectedItem && selectedItem.state}</p>
             </div>
             <div>
               <p className=" text-[#101928] text-[16px] font-[600] ">
