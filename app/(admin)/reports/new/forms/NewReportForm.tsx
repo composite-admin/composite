@@ -43,7 +43,6 @@ export default function NewReportForm() {
   const { toast } = useToast();
   const router = useRouter();
 
-
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragOver(true);
@@ -103,8 +102,8 @@ export default function NewReportForm() {
         ...data,
         created_for: data.project_supervisor,
         project_code: projectsData?.find(
-          (project: any) => project?.project_name === data?.project_name
-        )?.project_code,
+          (project: any) => project.project_name === data.project_name
+        ).project_code,
         project_name: data.project_name,
       });
       if (response.status === 201) {

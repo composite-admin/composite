@@ -51,24 +51,21 @@ export const useFlats = () => {
 export const useProjectData = () => {
   const { data } = useQuery({
     queryKey: ["get all projects"],
-    queryFn: () => getStuffTyped<IProjectData[]>(`/projects`),
+    queryFn: async () => {
+      try {
+        const response = await api.get("/projects");
+        return response.data.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
   });
-
   return { projectsData: data };
 };
-
-// async () => {
-//   try {
-//     const response = await api.get("/projects");
-//     return response.data.data;
-//   } catch (error) {
-//     if (axios.isAxiosError(error) && error.response) {
-//       throw new Error(error.response.data.message);
-//     } else {
-//       throw error;
-//     }
-//   }
-// },
 
 export const useTenantDetails = (id: number) => {
   const { data } = useQuery({
