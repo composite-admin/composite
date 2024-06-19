@@ -5,7 +5,7 @@ import { IClientDetails, nigerianStates } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import {
   createAddClientSchema,
@@ -22,7 +22,7 @@ import { useEffect } from "react";
 import useManageClientStore from "@/store/manage-client/useManageClientStore";
 
 export default function EditClientForm(data: any) {
-  console.log(data, "data");
+  const query = useQueryClient();
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm<CreateAddClientType>({
@@ -64,8 +64,8 @@ export default function EditClientForm(data: any) {
           title: "Client ediited successfully",
           variant: "success",
         });
-
-        router.push("/manage-client");
+        query.invalidateQueries({ queryKey: ["get client details"] });
+        router.push(`/manage-client/client-details/${data?.data?.userid}`);
       },
       onError: () => {
         toast({
@@ -122,6 +122,7 @@ export default function EditClientForm(data: any) {
               />
               <CustomFormSelect
                 name="State"
+                defaultValue={data?.data?.state}
                 items={nigerianStates}
                 placeholder={data?.data?.state}
                 control={form.control}

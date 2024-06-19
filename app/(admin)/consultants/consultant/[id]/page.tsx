@@ -65,7 +65,13 @@ export default function ConsultantDetailsPage({ params }: Params) {
             <h2 className="border-b p-7 text-lg font-semibold">
               Consultant Details
             </h2>
-            <div className="p-7 flex flex-col justify-between flex-wrap gap-5 md:flex-row pb-28">
+            <div className="p-7 flex flex-col justify-between  gap-5 md:flex-row pb-28 flex-wrap">
+              <div className="flex flex-col gap-1 ">
+                <span className="font-semibold">Name:</span>
+                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
+                  {data?.name}
+                </span>
+              </div>
               <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Type:</span>
                 <span className=" text-[calc(.5rem + 1vw)] md:text-lg">

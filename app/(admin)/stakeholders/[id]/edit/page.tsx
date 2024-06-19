@@ -51,7 +51,7 @@ const EditSingleStakeholder = () => {
     };
 
     fetchStakeholder();
-  }, [params.id]);
+  }, [params.id, reset]);
 
   return (
     <>
@@ -105,15 +105,9 @@ const EditSingleStakeholder = () => {
 
               <input
                 {...register("contact_person", {
-                  required: true,
-                  validate: validatePhoneNumber,
+                  required: false,
                 })}
               />
-              {errors.contact_person && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
@@ -211,7 +205,10 @@ const EditSingleStakeholder = () => {
             >
               Cancel
             </button>
-            <button className="bg-primaryLight text-white  p-3 rounded-md">
+            <button
+              type="submit"
+              className="bg-primaryLight text-white  p-3 rounded-md"
+            >
               Submit
             </button>
           </div>

@@ -69,7 +69,7 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["get all consultants"] });
+      queryClient.invalidateQueries({ queryKey: ["get consultants details"] });
       form.reset();
       toast({
         title: "Consultant updated successfully",

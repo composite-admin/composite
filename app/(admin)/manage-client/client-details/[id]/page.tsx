@@ -74,7 +74,7 @@ export default function ClientDetailsPage({ params }: Params) {
             </div>
             <div className="p-7 grid sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-dense grid-rows-2">
               <div className="flex  flex-col gap-1 ">
-                <span className="font-semibold">Contact Person:</span>
+                <span className="font-semibold">Client Name:</span>
                 <span className=" md:text-lg capitalize">
                   {details?.first_name} {details?.last_name}
                 </span>
@@ -104,7 +104,7 @@ export default function ClientDetailsPage({ params }: Params) {
 
           <div className="bg-white flex-col flex max-w-xs rounded-lg md:col-span-2 auto-rows-min min-h-[20rem] md:max-w-full">
             <h2 className="border-b p-7 text-lg font-semibold">
-              Client Details
+              Quick Actions
             </h2>
 
             <div className="flex flex-col">
