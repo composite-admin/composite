@@ -86,6 +86,7 @@ const UpdateInventory = (props: any) => {
   const watchTools = watch("type");
 
   useEffect(() => {
+    form.setValue("name", inventory?.name!);
     const fetchToolDescription = async () => {
       if (watchTools) {
         try {
@@ -100,7 +101,7 @@ const UpdateInventory = (props: any) => {
     };
 
     fetchToolDescription();
-  }, [setToolData, watchTools]);
+  }, [setToolData, watchTools, inventory?.name, form]);
 
   const { mutate } = useMutation({
     mutationKey: ["edit inventory", id],
@@ -162,6 +163,7 @@ const UpdateInventory = (props: any) => {
           >
             <div className="grid  md:grid-cols-2 gap-5 my-5 edit">
               <CustomFormSelect
+                defaultValue={inventory?.type}
                 name="type"
                 labelText="Tool Type"
                 control={form.control}
@@ -169,6 +171,7 @@ const UpdateInventory = (props: any) => {
                 placeholder={inventory?.type && inventory?.type}
               />
               <CustomFormSelect
+                defaultValue={inventory?.name}
                 name="name"
                 labelText="Description"
                 control={form.control}
