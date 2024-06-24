@@ -98,7 +98,7 @@ export default function CashAdvanceDetailsPage({
             </div>
             <div className="flex flex-col md:flex-row col-span-4">
               <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between lg:pr-8 gap-3">
-                <div className="flex flex-col gap-3.5 w-1/2 flex-1 text-textColor text-sm">
+                <div className="flex flex-col gap-1.5 w-1/2 flex-1 text-textColor text-sm">
                   {detailsFields.slice(0, 5).map((field) => (
                     <>
                       <span
@@ -117,7 +117,7 @@ export default function CashAdvanceDetailsPage({
                 </div>
               </div>
               <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8">
-                <div className="flex flex-col gap-5 w-1/2 flex-1 text-textColor text-sm">
+                <div className="flex flex-col gap-1.5 w-1/2 flex-1 text-textColor text-sm">
                   {detailsFields.slice(5).map((field) => (
                     <>
                       <span
