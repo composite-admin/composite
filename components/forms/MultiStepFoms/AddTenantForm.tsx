@@ -55,7 +55,7 @@ export default function AddTenantForm() {
 
   const projects = projectsData?.map((item: any) => item.project_name);
   const flatList = flats?.map((item) => item.flat_code);
-
+  
   const form = useForm<addTenantType>({
     resolver: zodResolver(FormDataSchema),
     defaultValues: {
@@ -70,6 +70,14 @@ export default function AddTenantForm() {
       reminder: "",
     },
   });
+  const watchProject = form.watch("project_name");
+  console.log(watchProject);
+
+  const flatByProjectName = flats
+    ?.filter((flat: any) => flat.project_name === watchProject)
+    .map((flat: any) => flat.flat_code);
+
+  console.log(flatByProjectName);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -185,8 +193,14 @@ export default function AddTenantForm() {
                   <CustomFormSelect
                     control={form.control}
                     name="flat_code"
-                    items={flatList || []}
+                    placeholder={
+                      flatByProjectName?.length === 0
+                        ? "No flats assigned yet"
+                        : "Select flat"
+                    }
+                    items={flatByProjectName || []}
                     labelText="Select Flat"
+                    disabled={flatByProjectName?.length === 0}
                   />
                   <div></div>
                   <div className="flex gap-5 flex-col lg:flex-row">

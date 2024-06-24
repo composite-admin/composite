@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import useFacilityStore from "@/store/facility/useFacilityStore";
+import { useToast } from "../ui/use-toast";
 
 const FormSchema = z.object({
   project_name: z.string({
@@ -32,6 +33,7 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 
 export const AddAndEditApartmentModal = ({ children }: any) => {
   const { isOpen, onClose } = useAddNewApartmentModal();
+  const { toast } = useToast();
   const { flatFormType } = useFacilityStore();
   const { projectsData } = useProjectData();
   const projectName = projectsData?.map((item: any) => item.project_name);
@@ -49,9 +51,16 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
             (project: any) => project.project_name === data.project_name
           )?.project_code,
           status: "Vacant",
-
         });
 
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Apartment added successfully",
+            variant: "success",
+          });
+          onClose();
+          window.location.reload();
+        }
       } else {
         const response = await api.put(`/project-flats/${flatFormType}`, {
           ...data,
@@ -60,6 +69,14 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
           )?.project_code,
           status: "Vacant",
         });
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Apartment updated successfully",
+            variant: "success",
+          });
+          onClose();
+          window.location.reload();
+        }
         return response.data;
       }
     },

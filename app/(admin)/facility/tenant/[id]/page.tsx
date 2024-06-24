@@ -69,7 +69,7 @@ export default function TenantPage({ params }: { params: { id: string } }) {
               <aside className="bg-white border-borderColor rounded-md shadow-sm col-span-4 p-3 lg:p-8 lg:px-12 ">
                 <div className="flex justify-between items-center py-2 pb-5">
                   <p>Tenant Details</p>
-                  <p
+                  {/* <p
                     className={`${
                       status === "Active"
                         ? "text-green-500 bg-green-100 px-2.5 rounded-xl"
@@ -77,11 +77,11 @@ export default function TenantPage({ params }: { params: { id: string } }) {
                     }`}
                   >
                     Tenant Status:{status}
-                  </p>
+                  </p> */}
                 </div>
                 <div className="flex flex-col md:flex-row">
                   <div className="flex-1 w-full pb-5 md:w-1/2 flex justify-between lg:pr-8 gap-3 ">
-                    <div className="flex flex-col gap-6 w-1/2 flex-1 text-textColor text-sm">
+                    <div className="flex flex-col gap-3 w-1/2 flex-1 text-textColor text-sm">
                       <span className="font-semibold text-black">
                         Tenant code:
                       </span>
@@ -101,11 +101,11 @@ export default function TenantPage({ params }: { params: { id: string } }) {
                       <span>{flat_description}</span>
                     </div>
 
-                    <div className="flex flex-col gap-6 w-1/2 flex-1 text-sm font-semibold"></div>
+                    <div className="flex flex-col gap-3 w-1/2 flex-1 text-sm font-semibold"></div>
                   </div>
 
                   <div className="flex-1 w-full pb-5 md:w-1/2 flex gap-3 justify-between lg:pr-8  ">
-                    <div className="flex flex-col gap-6 w-1/2 flex-1 text-textColor text-sm">
+                    <div className="flex flex-col gap-3 w-1/2 flex-1 text-textColor text-sm">
                       <span className="font-semibold text-black">
                         Date Added:
                       </span>
@@ -150,17 +150,17 @@ interface SideCardProps {
 
 function SideCards({ fees }: SideCardProps) {
   return (
-    <div className="shadow-sm bg-white border border-[#E4E7EC] rounded-2xl w-full max-w-sm p-3.5  ">
+    <div className="shadow-sm bg-white border border-[#E4E7EC] rounded-2xl w-full max-w-sm px-3.5 py-2  ">
       <div className="flex flex-col gap-5">
-        <div className="flex justify-between items-center  pb-3.5">
-          <div className="flex items-center gap-5">
+        <div className="flex justify-between items-center  pb-2.5">
+          <div className="flex items-center">
             <h2 className="text-xs lg:text-sm capitalize font-semibold">
               Fees Breakdown
             </h2>
           </div>
         </div>
 
-        <div className="flex flex-col  py-3">
+        <div className="flex flex-col pb-3">
           {fees?.map((fee: any) => (
             <div key={fee.type}>
               <div className="flex justify-between">
