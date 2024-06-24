@@ -17,12 +17,9 @@ export const columns: ColumnDef<IRequestData>[] = [
       return <ColumnHeader column={column} title="Request Type" />;
     },
     cell: ({ row }) => {
-      const { request_type, request_code } = row.original;
+      const { request_type, request_code, id } = row.original;
       return (
-        <Link
-          href={`requests/request-details/${row.getValue("id")}`}
-          className="flex flex-col"
-        >
+        <Link href={`requests/request-details/${id}`} className="flex flex-col">
           <span className="capitalize underline text-primaryLight-500 font-semibold">
             {request_type}
           </span>
@@ -40,21 +37,30 @@ export const columns: ColumnDef<IRequestData>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "description",
-  //   header: ({ column }) => {
-  //     return (
-  //       <ColumnHeader column={column} title="Description" withSort={false} />
-  //     );
-  //   },
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex  flex-col">
-  //         <span className="w-44 truncate">{row.getValue("description")}</span>
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Status" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      const status = row.getValue("status");
+      return (
+        <div className="flex  flex-col">
+          <span
+            className={`text-center font-semibold rounded-lg p-0.5 ${
+              status === "APPROVED"
+                ? "text-green-500 bg-green-100"
+                : status === "PENDING"
+                ? "text-orange-500  bg-orange-100"
+                : "text-red-500  bg-red-100"
+            }`}
+          >
+            {row.getValue("status")}
+          </span>
+        </div>
+      );
+    },
+  },
 
   {
     accessorKey: "unit_price",

@@ -46,6 +46,20 @@ export const columns: ColumnDef<IContractorProjectData>[] = [
   },
 
   {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <p className="flex flex-col capitalize w-max">
+          {row.original["comment"]}
+        </p>
+      );
+    },
+  },
+
+  {
     accessorKey: "created_by",
     header: ({ column }) => {
       return (
