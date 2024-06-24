@@ -26,9 +26,18 @@ import { useGetAllStaffs, useProjectData } from "@/hooks/useSelectOptions";
 import { api } from "@/config/api";
 import { useRouter } from "next/navigation";
 import { UploadCloud, X } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 type Inputs = z.infer<typeof ProjectReportSchema>;
 export default function NewReportForm() {
+  const form = useForm<ProjectReportFormType>({
+    resolver: zodResolver(ProjectReportSchema),
+    defaultValues: {
+      report_type: "Daily",
+    },
+  });
+
+  const watchproject_name = form.watch("project_name");
   const [files, setFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [previousStep, setPreviousStep] = useState(0);
@@ -37,6 +46,23 @@ export default function NewReportForm() {
   const { projectsData } = useProjectData();
   const { staffs } = useGetAllStaffs();
   const projectName = projectsData?.map((item: any) => item.project_name);
+  const projectCode = projectsData?.find(
+    (item: any) => item.project_name === watchproject_name
+  )?.project_code;
+
+  const { data: project_team_members } = useQuery({
+    queryKey: ["team members", projectCode],
+    queryFn: () =>
+      api.get(`/project-teams/${projectCode}`).then((res) => res.data.data),
+    enabled: !!projectCode,
+  });
+
+  const team_member_per_project: string[] = Array.from(
+    new Set(project_team_members?.map((item: any) => item.staff_name))
+  );
+
+  // team_member_per_project now contains unique staff names.
+
   const projectSupervisor = staffs?.map(
     (item: any) => item.firstname + " " + item.middlename + " " + item.lastname
   );
@@ -66,13 +92,6 @@ export default function NewReportForm() {
     const newFiles = [...files, ...selectedFiles].slice(0, 5);
     setFiles(newFiles);
   };
-
-  const form = useForm<ProjectReportFormType>({
-    resolver: zodResolver(ProjectReportSchema),
-    defaultValues: {
-      report_type: "Daily",
-    },
-  });
 
   type FieldName = keyof Inputs;
   const next = async () => {
@@ -205,7 +224,10 @@ export default function NewReportForm() {
                       labelText="Project Supervisor"
                       placeholder=" Select Project Supervisor"
                       name="project_supervisor"
-                      items={projectSupervisor || ["Loading Staff.... 👷🏾‍♂️"]}
+                      disabled={team_member_per_project?.length < 1}
+                      items={
+                        team_member_per_project || ["Loading Staff.... 👷🏾‍♂️"]
+                      }
                       control={form.control}
                     />
                   </div>

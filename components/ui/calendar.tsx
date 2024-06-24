@@ -27,8 +27,8 @@ function Calendar({
   const [selectedYear, setSelectedYear] = React.useState(currentYear);
   const [selectedMonth, setSelectedMonth] = React.useState(currentMonth);
 
-  const pastYears = 1;
-  const futureYears = 50;
+  const pastYears = 60;
+  const futureYears = 100;
   const yearOptions = Array.from(
     { length: pastYears + futureYears + 1 },
     (_, index) => currentYear - pastYears + index

@@ -29,6 +29,7 @@ import {
 import { IRequestCommentData } from "@/app/(admin)/requests/request-details/[id]/columns";
 import { ICommentData } from "@/app/(admin)/manage-client/client-details/[id]/commentCol";
 import { IProjectFlatData } from "@/app/(admin)/project/apartment/[id]/page";
+import { ContractorType } from "@/app/(admin)/contractors/columns";
 
 export const useTenants = () => {
   const { isPending, isSuccess, isError, error, data } = useQuery({
@@ -373,6 +374,15 @@ export const useGetAllPendingProjects = () => {
       getStuffTyped<PendingProjectDetails[]>("/dashboard/pending-project"),
   });
   return { pendingProjects: data };
+};
+
+export const useGetAllContractors = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get all contractors"],
+    queryFn: () => getStuffTyped<ContractorType[]>(`/contractors`),
+    refetchOnMount: "always",
+  });
+  return { contractor: data, isLoading };
 };
 // project-teams
 export const useGetAllProjectTeamMeambers = () => {

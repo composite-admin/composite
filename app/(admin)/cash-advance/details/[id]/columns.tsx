@@ -30,6 +30,12 @@ export const columns: ColumnDef<ICashAdvanceBreakdownData>[] = [
     },
   },
   {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" />;
+    },
+  },
+  {
     accessorKey: "added_by",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Staff Name" />;
@@ -52,8 +58,8 @@ export const columns: ColumnDef<ICashAdvanceBreakdownData>[] = [
     },
     cell: ({ row }) => {
       const { createdAt } = row.original;
-      const fromatted = formatDate(createdAt);
-      return <span>{fromatted}</span>;
+      const formatted = formatDate(createdAt);
+      return <span>{formatted}</span>;
     },
   },
 

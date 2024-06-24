@@ -4,8 +4,8 @@ import { DataTable } from "@/components/shared/DataTable";
 import PageHead from "@/components/ui/pageHead";
 import { columns } from "./columns";
 import { useRouter } from "next/navigation";
-import useContractorsActionsStore from "@/store/actions/contractorsActions"
-import { data } from "../cash-advance/data";
+import useContractorsActionsStore from "@/store/actions/contractorsActions";
+import { useGetAllContractors } from "@/hooks/useSelectOptions";
 
 export default function ContractorsPage() {
   const router = useRouter();
@@ -20,6 +20,7 @@ export default function ContractorsPage() {
   useEffect(() => {
     getAllContractors();
   }, [getAllContractors]);
+  const { contractor, isLoading } = useGetAllContractors();
 
   return (
     <>
@@ -33,8 +34,8 @@ export default function ContractorsPage() {
       />
       <DataTable
         columns={columns}
-        data={contractors.data ? contractors.data : []}
-        isLoading={!contractors.data ? true : false}
+        data={contractor || []}
+        isLoading={isLoading}
       />
     </>
   );

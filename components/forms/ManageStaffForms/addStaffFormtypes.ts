@@ -82,10 +82,10 @@ export const AddStaffFormSchema = z.object({
   relationship: z.enum(["Father", "Mother", "Brother", "Sister", "Relative"]),
   userName: z.string().min(5, "User name is required"),
   role: z.string().min(2, "Role is required"),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
+  password: z.string().min(9, "Password must be at least 8 characters long"),
   confirmPassword: z
     .string()
-    .min(8, "Confirm password must be at least 8 characters long"),
+    .min(9, "Confirm password must be at least 8 characters long"),
   bankName: z.string().min(3, "Bank name is required"),
   accountName: z.string().min(3, "Account name is required"),
   accountNumber: z
