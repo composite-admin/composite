@@ -8,6 +8,8 @@ import { data } from "./data";
 import { useQuery } from "@tanstack/react-query";
 import { getStuffTyped } from "@/hooks/useSelectOptions";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import { useAddNewApartmentModal } from "@/store/modals/useCreateModal";
+import useFacilityStore from "@/store/facility/useFacilityStore";
 
 export interface IProjectFlatData {
   flat_id: number;
@@ -21,6 +23,12 @@ interface IProps {
 
 const ApartmentPage = ({ params }: IProps) => {
   const code = params.id;
+  const { setFlatData, setFlatFormType } = useFacilityStore();
+  const { onOpen } = useAddNewApartmentModal();
+  const AddAppartment = () => {
+    setFlatFormType("add");
+    onOpen();
+  };
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get all materials by project code", code],
@@ -32,10 +40,12 @@ const ApartmentPage = ({ params }: IProps) => {
   });
   return (
     <>
-      {/* <GoBack /> */}
+      <GoBack />
       <PageHead
-        headText="View Apartment"
+        headText={`View Apartment (${data?.length || 0})`}
         subText="See all apartment details here"
+        buttonText="Add Apartment"
+        buttonAction={AddAppartment}
       />
       <DataTable columns={columns} data={data ?? []} isLoading={isPending} />
     </>

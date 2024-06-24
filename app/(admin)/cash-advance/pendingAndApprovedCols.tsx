@@ -13,22 +13,19 @@ import EditCell, { ViewCell } from "../facility/all-flats/EditCell";
 
 export const pendingAndApprovedColumns: ColumnDef<ICashAdvanceData>[] = [
   {
-    accessorKey: "request_code",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Request Code" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <span className="font-semibold uppercase">
-          {row.original["request_code"]}
-        </span>
-      );
-    },
-  },
-  {
     accessorKey: "cash_advance_type",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Request Type" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="flex  gap-0.5 flex-col">
+          <span className="font-semibold">
+            {row.original["cash_advance_type"]}
+          </span>
+          <span className="uppercase">{row.original["request_code"]}</span>
+        </div>
+      );
     },
   },
 

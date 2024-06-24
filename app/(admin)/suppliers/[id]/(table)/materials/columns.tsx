@@ -67,9 +67,11 @@ export const materialsColumns: ColumnDef<Material>[] = [
       return <ColumnHeader column={column} title="Total Cost" />;
     },
     cell: ({ row }) => {
-      const { total_price } = row.original;
+      const { unit_price, quantity } = row.original;
 
-      return <p className="font-semibold">{formatToNaira(total_price)}</p>;
+      return (
+        <p className="font-semibold">{formatToNaira(unit_price * quantity)}</p>
+      );
     },
   },
   {
@@ -89,6 +91,20 @@ export const materialsColumns: ColumnDef<Material>[] = [
       return (
         <div>
           <p>{formatDate(createdAt as string)}</p>
+        </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "mat_id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Action" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div>
+          <EditPartMaterial {...row} />
         </div>
       );
     },

@@ -5,12 +5,16 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import useSupplierMaterialsStore from "@/store/actions/materials-and-tools/materialsActions";
 import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import { api } from "@/config/api";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = Row<Material>;
 
 const EditMaterialModal: React.FC<Props> = (row) => {
   const { hideModal } = useModal();
-
+  const { toast } = useToast();
   const { mat_desc, unit_price, quantity, mat_id } = row.original;
 
   const {
@@ -18,18 +22,39 @@ const EditMaterialModal: React.FC<Props> = (row) => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<UpdateMaterialData>({ defaultValues: { unit_price, quantity, mat_desc } });
+  } = useForm<UpdateMaterialData>({
+    defaultValues: { unit_price, quantity, mat_desc },
+  });
 
   const store = useSupplierMaterialsStore();
 
+  const { mutate } = useMutation({
+    mutationKey: ["update-material", mat_id],
+    mutationFn: async (data: UpdateMaterialData) => {
+      try {
+        const response = await api.put(`/suppliers-materials/${mat_id}`, data);
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
+  });
+
   const onSubmit: SubmitHandler<UpdateMaterialData> = (data) => {
-    store.updateMaterial(mat_id, {
-      ...data,
-      unit_price: parseFloat(`${data.unit_price}`),
-      quantity: parseFloat(`${data.quantity}`),
+    mutate(data, {
+      onSuccess: () => {
+        hideModal();
+        toast({
+          title: "Supplier material updated successfully",
+          variant: "success",
+        });
+        window.location.reload();
+      },
     });
-    reset();
-    hideModal();
   };
 
   return (
@@ -45,7 +70,11 @@ const EditMaterialModal: React.FC<Props> = (row) => {
           </div>
         </div>
         <div className="space-y-4">
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            className="space-y-4"
+          >
             <div className="space-y-1">
               <label className="font-semibold">Material Description</label>
               <input

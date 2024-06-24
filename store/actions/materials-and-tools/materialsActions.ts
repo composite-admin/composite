@@ -105,7 +105,6 @@ const useSupplierMaterialsStore = create<SupplierMaterialsStore>((set) => ({
         }));
       toast({ title: "Material Updated Successfully.", variant: "success" });
     } catch (err) {
-      // do something with error
       console.log("error", err);
       toast({ title: "An error occurred", variant: "destructive" });
     } finally {

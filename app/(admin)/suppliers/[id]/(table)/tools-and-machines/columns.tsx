@@ -81,4 +81,18 @@ export const materialsColumns: ColumnDef<IToolAndMachineryData>[] = [
       );
     },
   },
+
+  {
+    accessorKey: "tool_id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Action" />;
+    },
+    cell: ({ row }) => {
+      return (
+        <div>
+          <EditColumn row={row} />
+        </div>
+      );
+    },
+  },
 ];

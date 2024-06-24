@@ -67,6 +67,8 @@ export default function AddAndEditBreakdownModal() {
       }
     },
     onSuccess: () => {
+      onClose();
+      window.location.reload();
       toast({
         title: "Breakdown added successfully",
         variant: "success",
