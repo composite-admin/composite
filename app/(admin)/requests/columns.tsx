@@ -40,21 +40,21 @@ export const columns: ColumnDef<IRequestData>[] = [
     },
   },
 
-  {
-    accessorKey: "description",
-    header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Description" withSort={false} />
-      );
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="flex  flex-col">
-          <span className="w-44 truncate">{row.getValue("description")}</span>
-        </div>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "description",
+  //   header: ({ column }) => {
+  //     return (
+  //       <ColumnHeader column={column} title="Description" withSort={false} />
+  //     );
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="flex  flex-col">
+  //         <span className="w-44 truncate">{row.getValue("description")}</span>
+  //       </div>
+  //     );
+  //   },
+  // },
 
   {
     accessorKey: "unit_price",
@@ -108,7 +108,7 @@ export const columns: ColumnDef<IRequestData>[] = [
   {
     accessorKey: "staff_name",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Staff Name" />;
+      return <ColumnHeader column={column} title="Created By" />;
     },
     cell: ({ row }) => {
       return (
@@ -121,7 +121,7 @@ export const columns: ColumnDef<IRequestData>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Created At" />;
+      return <ColumnHeader column={column} title="Created On" />;
     },
     cell: ({ row }) => {
       const { createdAt } = row.original;
@@ -129,21 +129,21 @@ export const columns: ColumnDef<IRequestData>[] = [
       return <span className="">{formatted}</span>;
     },
   },
-  {
-    accessorKey: "id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <Link
-          href={`requests/request-details/${row.getValue("id")}`}
-          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
-        >
-          <ViewUserPageIcon />
-          View
-        </Link>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Actions" withSort={false} />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Link
+  //         href={`requests/request-details/${row.getValue("id")}`}
+  //         className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
+  //       >
+  //         <ViewUserPageIcon />
+  //         View
+  //       </Link>
+  //     );
+  //   },
+  // },
 ];

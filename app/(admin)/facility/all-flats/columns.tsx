@@ -52,7 +52,7 @@ export const columns: ColumnDef<IFlatData>[] = [
     accessorKey: "createdAt",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Created At" withSort={false} />
+        <ColumnHeader column={column} title="Created On" withSort={false} />
       );
     },
     cell: ({ row }) => {

@@ -19,7 +19,7 @@ export const RequestColumns: ColumnDef<IRequestCommentData>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Created At" />;
+      return <ColumnHeader column={column} title="Created On" />;
     },
     cell: ({ row }) => {
       const { createdAt } = row.original;
