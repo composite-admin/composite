@@ -32,12 +32,13 @@ export const columns: ColumnDef<ReportType>[] = [
       return <ColumnHeader column={column} title="Name" />;
     },
     cell: ({ row }) => {
-      // const onOpen = useInventoryDetails((state) => state.onOpen);
+      const { inventory_code } = row.original;
       return (
-        <div className="flex  flex-col cursor-pointer">
+        <div className="flex gap-2 flex-col cursor-pointer">
           <span className="w-32 font-semibold  truncate ">
             {row.getValue("name")}
           </span>
+          <span className="w-32 font-semibold uppercase">{inventory_code}</span>
         </div>
       );
     },
@@ -77,23 +78,7 @@ export const columns: ColumnDef<ReportType>[] = [
       );
     },
   },
-  {
-    accessorKey: "inventory_code",
-    header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Inventory Code" withSort={false} />
-      );
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold uppercase">
-            {row.getValue("inventory_code")}
-          </span>
-        </div>
-      );
-    },
-  },
+
   {
     accessorKey: "type",
     header: ({ column }) => {
