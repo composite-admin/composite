@@ -95,7 +95,7 @@ export const columns: ColumnDef<ReportType>[] = [
   {
     accessorKey: "createdbyname",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Added By" />;
+      return <ColumnHeader column={column} title="Created By" />;
     },
     cell: ({ row }) => {
       return (
@@ -109,7 +109,7 @@ export const columns: ColumnDef<ReportType>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Added On" />;
+      return <ColumnHeader column={column} title="Created On" />;
     },
     cell: ({ row }) => {
       return (

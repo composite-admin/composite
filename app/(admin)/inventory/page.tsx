@@ -39,8 +39,10 @@ export default function InventoryPage() {
     }
   };
   const getCountByType = (type: string) => {
+    if (!originalData) return 0;
     return originalData.filter((item) => item.type === type).length;
   };
+  
   return (
     <>
       <PageHead
