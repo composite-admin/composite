@@ -54,6 +54,7 @@ const EditProjectSchema = z.object({
   lga: z.string({
     required_error: "LGA is required",
   }),
+  comment: z.string().optional(),
 });
 
 type EditProjectFormType = z.infer<typeof EditProjectSchema>;
@@ -84,6 +85,7 @@ const EditProjectPage = ({ params: { id } }: Params) => {
       form.setValue("state", projectDetails?.state);
       form.setValue("address", projectDetails?.address);
       form.setValue("lga", projectDetails?.lga);
+      form.setValue("comment", projectDetails?.comment);
     }
   }, [form, projectDetails]);
 
@@ -227,6 +229,14 @@ const EditProjectPage = ({ params: { id } }: Params) => {
               name="project_description"
               control={form.control}
               placeholder={projectDetails?.project_description}
+            />
+          </div>
+          <div>
+            <CustomFormTextareaField
+              label="Comment"
+              name="comment"
+              control={form.control}
+              placeholder={projectDetails?.comment}
             />
           </div>
           <div className="my-5 flex gap-6 justify-center items-center">
