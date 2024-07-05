@@ -237,6 +237,17 @@ export const useGetContractorProject = (id: string) => {
   return { projectDetails: data };
 };
 
+export const useGetStakeholderById = (id: number) => {
+  const { data } = useQuery({
+    queryKey: ["get stakeholder", id],
+    queryFn: () => getStuff(`/stakeholder/${id}`),
+    enabled: !!id,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
+  });
+  return { stakeholder: data };
+};
+
 export const useGetStakeholderProject = (id: string) => {
   const { data } = useQuery({
     queryKey: ["get stakeholder project", id],

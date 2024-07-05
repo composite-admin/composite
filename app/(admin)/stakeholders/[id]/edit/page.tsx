@@ -8,26 +8,41 @@ import { getStakeholderById } from "@/api/stakeholdersRequests";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
+import { useGetStakeholderById } from "@/hooks/useSelectOptions";
+import axios from "axios";
+import { api } from "@/config/api";
 
 const EditSingleStakeholder = () => {
   const router = useRouter();
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
-
-  const updateStakeholder = useStakeholderActionsStore<any>(
-    (state) => state.updateStakeholder
-  );
+  const { stakeholder } = useGetStakeholderById(Number(params.id));
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    values: {
+      ...stakeholder,
+    },
+  });
 
   const { mutate } = useMutation({
     mutationKey: ["update stakeholder", params.id],
-    mutationFn: updateStakeholder(Number(params.id)),
+    mutationFn: async (data: any) => {
+      try {
+        const response = await api.put(`/stakeholder/${params.id}`, data);
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw error;
+        }
+      }
+    },
     onSuccess: () => {
       toast({
         title: "Stakeholder updated successfully",
@@ -40,18 +55,18 @@ const EditSingleStakeholder = () => {
     mutate(data);
   };
 
-  useEffect(() => {
-    const fetchStakeholder = async () => {
-      try {
-        const response = await getStakeholderById(Number(params.id));
-        reset(response.data);
-      } catch (error) {
-        console.error("Error fetching stakeholder data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchStakeholder = async () => {
+  //     try {
+  //       const response = await getStakeholderById(Number(params.id));
+  //       reset(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching stakeholder data:", error);
+  //     }
+  //   };
 
-    fetchStakeholder();
-  }, [params.id, reset]);
+  //   fetchStakeholder();
+  // }, [params.id, reset]);
 
   return (
     <>
@@ -71,6 +86,7 @@ const EditSingleStakeholder = () => {
 
               <input
                 type="text"
+                defaultValue={stakeholder?.stakeholder_name}
                 {...register("stakeholder_name", { required: true })}
               />
             </div>
@@ -88,7 +104,7 @@ const EditSingleStakeholder = () => {
               <p className="value">Stakeholder Phone</p>
 
               <input
-                {...register("stakeholder_phone", {
+                {...register("stakeholder_ofc_phone", {
                   required: true,
                   validate: validatePhoneNumber,
                 })}
@@ -115,15 +131,11 @@ const EditSingleStakeholder = () => {
 
               <input
                 {...register("contact_home_phone", {
-                  required: true,
-                  validate: validatePhoneNumber,
+                  required: false,
+                  validate: (value: any) =>
+                    value ? validatePhoneNumber(value) : true,
                 })}
               />
-              {errors.contact_home_phone && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
@@ -132,7 +144,8 @@ const EditSingleStakeholder = () => {
               <input
                 {...register("contact_mobile", {
                   required: true,
-                  validate: validatePhoneNumber,
+                  validate: (value: any) =>
+                    value ? validatePhoneNumber(value) : true,
                 })}
               />
               {errors.contact_mobile && (
