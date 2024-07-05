@@ -102,7 +102,7 @@ const SingleWorker = () => {
                   )}
                 </AnimatePresence>
               </div>
-              <div className="col-span-2 grid grid-cols-2 gap-4">
+              <div className="col-span-2 grid grid-cols-3 gap-4">
                 <div className="">
                   <p className="font-semibold">Name:</p>
                   <TextSkeleton
@@ -174,7 +174,7 @@ const SingleWorker = () => {
                     isLoading={fetching}
                   />
                 </div>
-                <div>
+                <div className="col-span-3">
                   <p className="font-semibold">Comment:</p>
                   <TextSkeleton text={worker?.comment} isLoading={fetching} />
                 </div>
