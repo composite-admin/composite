@@ -374,6 +374,8 @@ export const useGetProjectById = (id: string) => {
     queryKey: ["get project details", id],
     queryFn: () => getStuffTyped<IProjectData>(`/projects/${id}`),
     enabled: !!id,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
   });
   return { projectDetails: data, isLoading };
 };

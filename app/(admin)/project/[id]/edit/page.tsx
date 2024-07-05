@@ -99,7 +99,7 @@ const EditProjectPage = ({ params: { id } }: Params) => {
           ...data,
         });
         if (response.data) {
-          router.push("/project");
+          router.push(`/project/${id}`);
         }
         return response.data;
       } catch (error) {
@@ -115,7 +115,7 @@ const EditProjectPage = ({ params: { id } }: Params) => {
         title: "Project updated successfully",
         variant: "success",
       });
-      router.push("/project");
+      router.back();
       router.refresh();
     },
     onError: (error: Error) => {
