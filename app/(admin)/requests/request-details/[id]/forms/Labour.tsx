@@ -46,7 +46,7 @@ export default function Labour() {
   const { toast } = useToast();
   const { workers } = useGetAllWorkers();
   const workerId = workers?.find(
-    (worker) => worker.account_name === formDetails?.worker_name
+    (worker) => worker.worker_name === formDetails?.worker_name
   )?.id;
   const { worker } = useGetWorkerById(String(workerId!));
   const form = useForm<labourFormType>({
