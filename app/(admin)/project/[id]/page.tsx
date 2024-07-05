@@ -69,7 +69,7 @@ const SingleProject = () => {
       icon: "/./mt.svg",
     },
     {
-      title: "View Apartment",
+      title: "Add Apartment",
       action: onOpenAddStakeHolder,
       icon: "/./mt.svg",
     },
@@ -192,7 +192,7 @@ const SingleProject = () => {
             </h1>
           </div>
 
-          <div className="grid grid-cols-5 p-5 gap-5">
+          <div className="grid grid-cols-4 p-5 gap-5">
             <div>
               <p className=" text-[#101928] text-[16px] font-[600] ">
                 Start Date:
@@ -216,18 +216,6 @@ const SingleProject = () => {
               </p>
             </div>
             <div>
-              <p className=" text-[#101928] text-[16px] font-[600] ">City:</p>
-              <p className="text-[#475367] text-sm h-16 overflow-auto">
-                {selectedItem && selectedItem.city}
-              </p>
-            </div>
-            <div>
-              <p className=" text-[#101928] text-[16px] font-[600] ">LGA:</p>
-              <p className="text-[#475367] text-sm h-16 overflow-auto">
-                {selectedItem && selectedItem.lga}
-              </p>
-            </div>
-            <div>
               <p className=" text-[#101928] text-[16px] font-[600] ">
                 Project Duration:
               </p>
@@ -242,28 +230,41 @@ const SingleProject = () => {
               <p className="text-[#475367] text-sm">
                 {selectedItem && selectedItem.project_supervisor}
               </p>
-            </div>{" "}
+            </div>
+            <div>
+              <p className=" text-[#101928] text-[16px] font-[600] ">City:</p>
+              <p className="text-[#475367] text-sm h-16 overflow-auto">
+                {selectedItem && selectedItem.city}
+              </p>
+            </div>
+            <div>
+              <p className=" text-[#101928] text-[16px] font-[600] ">LGA:</p>
+              <p className="text-[#475367] text-sm h-16 overflow-auto">
+                {selectedItem && selectedItem.lga}
+              </p>
+            </div>
+
             <div>
               <p className=" text-[#101928] text-[16px] font-[600] ">State:</p>
               <p className=" uppercase">{selectedItem && selectedItem.state}</p>
             </div>
-            <div>
-              <p className=" text-[#101928] text-[16px] font-[600] ">
-                Project Description:
-              </p>
-              <p className="text-[#475367] text-sm">
-                {selectedItem && selectedItem.project_description}
-              </p>
-            </div>
           </div>
 
-          <div className="">
-            <div className="px-5">
+          <div className="grid grid-cols-4 p-5 gap-5">
+            <div className="col-span-2">
               <p className=" text-[#101928] text-[16px] font-[600] ">
                 Address:
               </p>
               <p className=" h-16 overflow-auto">
                 {selectedItem && selectedItem.address}
+              </p>
+            </div>
+            <div className="col-span-2">
+              <p className=" text-[#101928] text-[16px] font-[600] ">
+                Project Description:
+              </p>
+              <p className="text-[#475367] text-sm">
+                {selectedItem && selectedItem.project_description}
               </p>
             </div>
           </div>

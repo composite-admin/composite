@@ -21,11 +21,6 @@ const useLogin = () => {
         return response.data;
       } catch (error) {
         console.log(error);
-        // if (axios.isAxiosError(error) && error.response) {
-        //   throw new Error(error.response.data.message);
-        // } else {
-        //   throw error;
-        // }
         throw error;
       }
     },
