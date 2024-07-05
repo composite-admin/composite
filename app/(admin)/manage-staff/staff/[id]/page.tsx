@@ -14,7 +14,6 @@ import { useState } from "react";
 interface IProps {
   params: { id: string };
 }
-
 const staffDetailsKeys = [
   "Staff Code",
   "Employee Status",
@@ -23,21 +22,24 @@ const staffDetailsKeys = [
   "Gender",
   "Address",
   "State of Origin",
-  "Next of Kin",
-  "Address (Next of Kin)",
-  "Phone Number (Next of Kin)",
   "Grade",
   "Date employed",
   "Type",
   "Mobile",
   "Date of birth",
   "Marital status",
-  "Marital Status of Next of Kin",
   "LGA",
-  "Relationship",
-  "Email of Next of Kin",
   "Department",
   "Branch",
+];
+
+const nextOfKinKeys = [
+  "Next of Kin",
+  "Address (Next of Kin)",
+  "Phone Number (Next of Kin)",
+  "Marital Status of Next of Kin",
+  "Relationship",
+  "Email of Next of Kin",
 ];
 
 const staffDetailsValues = [
@@ -48,21 +50,24 @@ const staffDetailsValues = [
   "sex",
   "address",
   "stateOfOrigin",
-  "nextOfKin",
-  "addressOfNOK",
-  "phoneOfNOK",
   "gradeid",
   "date_employed",
   "staff_type",
   "home_phone",
   "dob",
   "marital_status",
-  "marital_status",
   "lga",
-  "relationship",
-  "emailOfNOK",
   "deptid",
   "branchcode",
+];
+
+const nextOfKinValues = [
+  "nextOfKin",
+  "addressOfNOK",
+  "phoneOfNOK",
+  "marital_status",
+  "relationship",
+  "emailOfNOK",
 ];
 
 const bankDetailsKeys = ["Bank name", "Account name", "Account number"];
@@ -95,7 +100,7 @@ export default function ManageStaffPage({ params }: IProps) {
   return (
     <>
       <GoBack />
-      <div className="bg-white border-borderColor rounded-lg max-w-4xl mx-auto p-6">
+      <div className="bg-white border-borderColor rounded-lg max-w-4xl mx-auto p-6 pb-16">
         <div className="p-5">
           <div className="flex justify-between items-center">
             <aside className="flex items-center gap-2">
@@ -117,7 +122,7 @@ export default function ManageStaffPage({ params }: IProps) {
               </Button>
             </aside>
           </div>
-          <div className="mt-10">
+          <div className="mt-10 border-b pb-8">
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 ">
               {staffDetailsKeys.map((key, index) => (
                 <div
@@ -133,6 +138,30 @@ export default function ManageStaffPage({ params }: IProps) {
                     {
                       staffDetails?.[
                         staffDetailsValues[index] as keyof IManageStaffData
+                      ]
+                    }
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-5 border-b pb-10">
+            <p className="py-5 font-semibold text-lg">Next of Kin Details</p>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 ">
+              {nextOfKinKeys.map((key, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between  flex-col gap-2"
+                >
+                  <span className="font-semibold">{key}:</span>
+                  <span
+                    className={`text-textColor ${
+                      nextOfKinValues[index] === "userid" ? "uppercase" : ""
+                    }`}
+                  >
+                    {
+                      staffDetails?.[
+                        nextOfKinValues[index] as keyof IManageStaffData
                       ]
                     }
                   </span>
