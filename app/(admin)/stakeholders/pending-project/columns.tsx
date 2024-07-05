@@ -48,20 +48,6 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
   },
 
   {
-    accessorKey: "comment",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Comment" withSort={false} />;
-    },
-    cell: ({ row }) => {
-      return (
-        <p className="flex flex-col capitalize w-max">
-          {row.original["comment"]}
-        </p>
-      );
-    },
-  },
-
-  {
     accessorKey: "stakeholder_amount",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Amount" withSort={false} />;
@@ -107,6 +93,20 @@ export const columns: ColumnDef<IStakeholderProjectData>[] = [
             {formattedDate}
           </span>
         </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      return (
+        <p className="flex flex-col capitalize w-max">
+          {row.original["comment"]}
+        </p>
       );
     },
   },

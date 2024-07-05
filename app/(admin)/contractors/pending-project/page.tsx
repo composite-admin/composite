@@ -23,8 +23,10 @@ const PendingProject = () => {
   return (
     <>
       <PageHead
-        headText="Pending Contractor Project"
-        subText="View all your contractors here"
+        headText={`Pending Contractor Project (${
+          pendingContractors?.length ?? 0
+        })`}
+        subText="View all your pending projects here"
       />
       <DataTable
         columns={columns}
