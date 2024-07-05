@@ -29,9 +29,7 @@ const AddStakeHolderSchema = z.object({
     required_error: "Add a stakeholder amount",
   }),
 
-  other_amount: z.string({
-    required_error: "This field is required",
-  }),
+  other_amount: z.string().optional(),
   comment: z.string().optional(),
 });
 
