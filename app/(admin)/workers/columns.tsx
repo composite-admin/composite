@@ -74,6 +74,22 @@ export const columns: ColumnDef<ReportType | any>[] = [
   },
 
   {
+    accessorKey: "service_type",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader column={column} title="Service Type" withSort={false} />
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="">
+          <span className="font-semibold ">{row.original["service_type"]}</span>
+        </div>
+      );
+    },
+  },
+
+  {
     accessorKey: "worker_email",
     header: ({ column }) => {
       return (
