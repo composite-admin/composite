@@ -112,7 +112,7 @@ const SingleProject = () => {
       case "Add Worker":
         router.push(`/project/add-worker?name=${projectName}`);
         break;
-      case "View Apartment":
+      case "Add Apartment":
         router.push(`/project/apartment/${projectCode}`);
         break;
       case "View Tenant":
