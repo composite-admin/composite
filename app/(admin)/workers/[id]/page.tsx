@@ -112,17 +112,23 @@ const SingleWorker = () => {
                 </div>
 
                 <div className="">
-                  <p className="font-semibold">Company:</p>
+                  <p className="font-semibold">Service Type:</p>
                   <TextSkeleton
-                    text={worker?.worker_company}
+                    text={worker?.service_type}
                     isLoading={fetching}
                   />
                 </div>
-
                 <div className="">
-                  <p className="font-semibold">Address:</p>
+                  <p className="font-semibold">Email:</p>
                   <TextSkeleton
-                    text={worker?.worker_address}
+                    text={worker?.worker_email}
+                    isLoading={fetching}
+                  />
+                </div>
+                <div className="">
+                  <p className="font-semibold">Service:</p>
+                  <TextSkeleton
+                    text={worker?.worker_service}
                     isLoading={fetching}
                   />
                 </div>
@@ -134,11 +140,10 @@ const SingleWorker = () => {
                     isLoading={fetching}
                   />
                 </div>
-
                 <div className="">
-                  <p className="font-semibold">Service Type:</p>
+                  <p className="font-semibold">Company:</p>
                   <TextSkeleton
-                    text={worker?.service_type}
+                    text={worker?.worker_company}
                     isLoading={fetching}
                   />
                 </div>
@@ -160,20 +165,13 @@ const SingleWorker = () => {
                 </div>
 
                 <div className="">
-                  <p className="font-semibold">Service:</p>
+                  <p className="font-semibold">Address:</p>
                   <TextSkeleton
-                    text={worker?.worker_service}
+                    text={worker?.worker_address}
                     isLoading={fetching}
                   />
                 </div>
 
-                <div className="">
-                  <p className="font-semibold">Email:</p>
-                  <TextSkeleton
-                    text={worker?.worker_email}
-                    isLoading={fetching}
-                  />
-                </div>
                 <div className="col-span-3">
                   <p className="font-semibold">Comment:</p>
                   <TextSkeleton text={worker?.comment} isLoading={fetching} />
