@@ -49,17 +49,25 @@ export default function AddImages() {
 
     try {
       const formData = new FormData();
-      files.forEach((file) => formData.append("images", file));
+      const images = files.forEach((file) => formData.append("images", file));
       formData.append("project_id", projectDetails?.id);
       formData.append("project_code", projectDetails?.project_code);
 
       const uploadUrl = `/client/images`;
 
-      const response = await api.post(uploadUrl, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const response = await api.post(
+        uploadUrl,
+        {
+          image: images,
+          project_id: projectDetails?.id,
+          project_code: projectDetails?.project_code,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.status === 200) {
         setFiles([]);
@@ -68,7 +76,6 @@ export default function AddImages() {
           title: "Images uploaded successfully",
           variant: "success",
         });
-        // window.location.reload();
       } else {
         console.error("Failed to upload files");
       }

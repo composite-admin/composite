@@ -20,6 +20,7 @@ export default function QueryProvider({
           queries: {
             staleTime: 1000 * 60 * 2,
             retry: false,
+            refetchOnMount: "always",
           },
         },
       })
