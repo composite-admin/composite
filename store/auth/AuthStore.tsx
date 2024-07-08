@@ -7,6 +7,7 @@ import useClientStore from "../client/useClientStore";
 interface AuthStore {
   user: UserData | null;
   token: string | null;
+  pwd_status: number | null;
   setUser: (user: UserData, token: string) => void;
   clearUser: () => void;
 }
@@ -14,6 +15,7 @@ interface AuthStore {
 const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   token: null,
+  pwd_status: null,
   setUser: (user, token) => set({ user, token }),
   clearUser: () => set({ user: null, token: null }),
 }));
@@ -25,6 +27,7 @@ interface IUserStoreType {
   userId: string | null;
   username: string | null;
   id: number | null;
+
   logOut: () => void;
   setUserStorage: (
     userType: string | undefined,
@@ -61,6 +64,7 @@ export const userStore = create<IUserStoreType>()(
           deleteCookie("token");
           deleteCookie("user_type");
           deleteCookie("username");
+          deleteCookie("pwd_status");
           useClientStore.getState().setTabType("Project Details");
         },
       }),

@@ -40,8 +40,10 @@ const useAddAndEditBreakDownModal = createModalStore();
 const useSuccessModal = createModalStore()
 const useAddToProjectModal = createModalStore();
 const useIdModal = createModalStore();
+const useChangePasswordModal = createModalStore();
 
 export {
+  useChangePasswordModal,
   useIdModal,
   useAddCommentModal,
   useUpdateRequestModal,

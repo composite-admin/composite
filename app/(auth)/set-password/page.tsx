@@ -9,8 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { CustomFormField } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
-import { ForgotPasswordStore } from "@/store/auth/AuthStore";
+import { ForgotPasswordStore, userStore } from "@/store/auth/AuthStore";
 import { useRouter } from "next/navigation";
+import { ChangePasswordSchema, ChangePasswordSchemaType } from "@/components/forms/ChangePasswordForm";
 
 const FormSchema = z.object({
   password: z.string({ required_error: "Please Enter your new password" }),
@@ -19,84 +20,102 @@ const FormSchema = z.object({
 type FormType = z.infer<typeof FormSchema>;
 
 export default function ForgottenPassword() {
-  const { email, setEmail } = ForgotPasswordStore();
   const { toast } = useToast();
   const router = useRouter();
-  const form = useForm<FormType>({
-    resolver: zodResolver(FormSchema),
+  const { logOut } = userStore();
+  const form = useForm<ChangePasswordSchemaType>({
+    resolver: zodResolver(ChangePasswordSchema),
   });
 
-  const { mutate } = useMutation({
-    mutationKey: ["forgot password"],
-    mutationFn: async (credentials: FormType) => {
+  const { mutate, isSuccess } = useMutation({
+    mutationKey: ["changePassword"],
+    mutationFn: async (data: ChangePasswordSchemaType) => {
       try {
-        const response = await api.put("/users/password", {
-          ...credentials,
-          email,
-        });
-        if (response.status === 200) {
-          setEmail(null);
-          router.push("/login");
+        if (data.new_password === data.confirm_new_password) {
+          const response = await api.put("/users/change-password", {
+            oldPassword: data.current_password,
+            newPassword: data.new_password,
+          });
+          return response.data;
         }
-        return response.data;
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          variant: "destructive",
+        });
       }
     },
     onSuccess: () => {
       toast({
-        title: "Submission Successfully",
-        description: "You can now login with your new password",
+        title: "Password changed successfully, please login again",
         variant: "success",
       });
+      logOut();
+      router.push("/login");
     },
     onError: () => {
       toast({
-        title: "Submission Error",
-        description: "Please check the password input and try again",
+        title: "Error",
+        description: "Something went wrong",
         variant: "destructive",
       });
     },
   });
 
-  function onSubmit(values: FormType) {
-    console.log(values);
-    mutate(values);
-  }
+  const submit = (data: ChangePasswordSchemaType) => {
+    mutate(data);
+  };
+
   return (
     <div className="loginScreen flex flex-col text-start w-full lg:w-4/5 m-auto gap-10">
       <div>
         <h1 className="text-[#101928] text-[36px] font-[600] ">
           Set A New Password
         </h1>
-        <p className="text-[#645D5D] ">Enter your new password</p>
+        <p className="text-[#645D5D] ">
+        Please enter a new password before you can proceed
+        </p>
       </div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-3"
-        >
-          <div className="flex flex-col w-full gap-2">
-            <CustomFormField
-              name="password"
-              control={form.control}
-              placeholder="Please enter your new password"
-              type="password"
-            />
-          </div>
+          <Form {...form}>
+   <form onSubmit={form.handleSubmit(submit)}>
+         <div className="flex flex-col w-full gap-5 pt-10 lg:pt-0 lg:pr-10">
+           <CustomFormField
+            type="password"
+            name="current_password"
+            control={form.control}
+            placeholder="Enter current password"
+          />
 
-          <Button type="submit" className=" p-3 py-6 rounded-l">
-            Proceed
-          </Button>
-        </form>
-      </Form>
+          <CustomFormField
+            type="password"
+            name="new_password"
+            control={form.control}
+            placeholder="Enter new Password"
+          />
+
+          <CustomFormField
+            type="password"
+            name="confirm_new_password"
+            control={form.control}
+            placeholder="Enter new password again"
+          />
+
+          <div >
+            <Button className="w-full">Proceed</Button>
+          </div>
+        </div>
+      </form>
+    </Form>
       {/* <p>
         Remember Password? <Link href={"/login"}>Login</Link>
       </p> */}
     </div>
   );
 }
+
+
+//   return (
+
+//   );
+// }

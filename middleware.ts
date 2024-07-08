@@ -4,10 +4,15 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value || null;
+  const passwordStatus = request.cookies.get("pwd_status")?.value || null;
   const userType = request.cookies.get("user_type")?.value || null;
   const currentURL = request.nextUrl.pathname;
   // Public routes
-  const publicRoutes = ["/login", "/forgot-password"];
+  const publicRoutes = ["/login", "/forgot-password", "/set-password"];
+
+  if (token && passwordStatus === "0" && currentURL !== "/set-password") {
+    return NextResponse.redirect(new URL("/set-password", request.url));
+  }
 
   // Handle public routes
   if (publicRoutes.includes(currentURL)) {

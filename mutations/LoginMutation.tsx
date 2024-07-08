@@ -29,6 +29,7 @@ const useLogin = () => {
       setCookie("user_type", data.data.user_type?.toLowerCase());
       setCookie("token", data.token);
       setCookie("username", data.data?.username);
+      setCookie("pwd_status", data.data?.pwd_status);
       setUserStorage(
         data.data.user_type?.toLowerCase(),
         data.data.userid,

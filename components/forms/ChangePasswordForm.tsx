@@ -11,7 +11,7 @@ import { api } from "@/config/api";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 
-const ChangePasswordSchema = z
+export const ChangePasswordSchema = z
   .object({
     current_password: z.string({
       required_error: "Please enter your current password",
@@ -28,7 +28,7 @@ const ChangePasswordSchema = z
     path: ["confirm_new_password"],
   });
 
-type ChangePasswordSchemaType = z.infer<typeof ChangePasswordSchema>;
+export type ChangePasswordSchemaType = z.infer<typeof ChangePasswordSchema>;
 export default function ChangePasswordForm() {
   const { toast } = useToast();
   const router = useRouter();
