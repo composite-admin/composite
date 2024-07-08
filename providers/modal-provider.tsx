@@ -103,7 +103,6 @@ export const ModalProvider = () => {
       <RequestApprovalModal />
       <TableActionModal />
       <AdvancesModals />
-      <ChangePasswordModal />
     </>
   );
 };
