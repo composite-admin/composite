@@ -276,7 +276,7 @@ export default function EditStaffForm({ data }: props) {
                 label="Address of next of kin"
               />
               <CustomFormField
-                name="cell_phone"
+                name="phoneOfNOK"
                 control={form.control}
                 placeholder="Enter cell phone number"
                 label="Cell phone of next of kin"
