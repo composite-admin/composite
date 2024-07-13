@@ -22,11 +22,14 @@ import { useToast } from "../ui/use-toast";
 import { IStakeholderProjectData } from "@/utils/types";
 
 const EditStakeholderSchema = z.object({
+  added_comment: z.string().optional(),
   approved_amount: z.string({
     required_error: "Add an approved amount",
   }),
   comment: z.string().optional(),
-  status: z.string().optional(),
+  status: z.string({
+    required_error: "Please select a status",
+  }),
 });
 
 type IEditStakeholderForm = z.infer<typeof EditStakeholderSchema>;
@@ -102,6 +105,15 @@ export default function ApproveStakeholderForm({ id }: { id: string }) {
               disabled
               className="placeholder:uppercase"
               label="Stakeholder Name/Code"
+            />
+
+            <CustomFormTextareaField
+              className="disabled:cursor-not-allowed disabled:bg-gray-200 placeholder:uppercase placeholder:text-gray-500 placeholder:font-semibold"
+              name="added_comment"
+              control={form.control}
+              placeholder={projectDetails?.comment}
+              label="Added Comment"
+              disabled
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

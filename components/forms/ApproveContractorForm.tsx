@@ -21,9 +21,14 @@ import axios from "axios";
 import { useToast } from "../ui/use-toast";
 
 const EditContractorSchema = z.object({
-  approved_amount: z.string().optional(),
+  added_comment: z.string().optional(),
+  approved_amount: z.string({
+    required_error: "Add an approved amount",
+  }),
   comment: z.string().optional(),
-  status: z.string().optional(),
+  status: z.string({
+    required_error: "Please select a status",
+  }),
 });
 
 type IEditContractorForm = z.infer<typeof EditContractorSchema>;
@@ -39,9 +44,6 @@ export default function ApproveContractorForm({ id }: { id: string }) {
   )?.id;
   const form = useForm<IEditContractorForm>({
     resolver: zodResolver(EditContractorSchema),
-    defaultValues: {
-      status: "pending",
-    },
   });
 
   const { mutate, error } = useMutation({
@@ -96,7 +98,15 @@ export default function ApproveContractorForm({ id }: { id: string }) {
               placeholder={projectDetails?.contractor_name}
               disabled
               className="placeholder:uppercase"
-              label="Contractor Name/Code"
+              label="Contractor Name"
+            />
+            <CustomFormTextareaField
+              className="disabled:cursor-not-allowed disabled:bg-gray-200 placeholder:uppercase placeholder:text-gray-500 placeholder:font-semibold"
+              name="added_comment"
+              control={form.control}
+              placeholder={projectDetails?.comment}
+              label="Added Comment"
+              disabled
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -117,14 +127,15 @@ export default function ApproveContractorForm({ id }: { id: string }) {
             <CustomFormSelect
               name="status"
               control={form.control}
-              items={["Pending", "Approved", "Declined"]}
+              items={["Pending", "Approved", "Declined"] as const}
               placeholder="Status"
               labelText="Status"
             />
+
             <CustomFormTextareaField
               name="comment"
               control={form.control}
-              placeholder="Enter comment"
+              placeholder={"Add a comment"}
               label="Comment"
             />
 
