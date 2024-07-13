@@ -68,33 +68,23 @@ export default function ConsultantDetailsPage({ params }: Params) {
             <div className="p-7 flex flex-col justify-between  gap-5 md:flex-row pb-28 flex-wrap">
               <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Name:</span>
-                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
-                  {data?.name}
-                </span>
+                <span className="md:text-[1rem]">{data?.name}</span>
               </div>
               <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Type:</span>
-                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
-                  {data?.type}
-                </span>
+                <span className="md:text-[1rem]">{data?.type}</span>
               </div>
               <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Contact Mobile:</span>
-                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
-                  {data?.contact}
-                </span>
+                <span className="md:text-[1rem]">{data?.contact}</span>
               </div>
               <div className="flex flex-col gap-1">
                 <span className="font-semibold">Email:</span>
-                <p className=" text-[calc(.5rem + 1vw)] md:text-lg">
-                  {data?.email}
-                </p>
+                <p className="md:text-[1rem]">{data?.email}</p>
               </div>
               <div className="flex flex-col gap-1">
                 <span className="font-semibold">Website:</span>
-                <span className=" text-[calc(.5rem + 1vw)] md:text-lg">
-                  {data?.website}
-                </span>
+                <span className="md:text-[1rem]">{data?.website}</span>
               </div>
             </div>
           </div>

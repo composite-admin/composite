@@ -21,6 +21,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 const EditConsultantSchema = z
   .object({
+    type: z.string({
+      required_error: "Please select a type",
+    }),
     name: z.string({
       required_error: "Please enter a name",
     }),
