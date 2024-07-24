@@ -4,6 +4,7 @@ import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
 import { api } from "@/config/api";
 import useManageStaffStore from "@/store/manage-staff/useManageStaffStore";
+import { useAddPrivilegeModal } from "@/store/modals/useCreateModal";
 import { formatDate } from "@/utils/formatDate";
 import { ApiResponse, IManageStaffData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
@@ -75,6 +76,7 @@ const bankDetailsValues = ["bank_name", "account_name", "account_number"];
 
 export default function ManageStaffPage({ params }: IProps) {
   const { setStaffDetails, staffDetails } = useManageStaffStore();
+  const { onOpen } = useAddPrivilegeModal();
   const [toggle, setToggle] = useState(false);
   const showBankDetails = () => setToggle(!toggle);
   const { data, error, isPending } = useQuery({
@@ -116,7 +118,10 @@ export default function ManageStaffPage({ params }: IProps) {
                 </span>
               </div>
             </aside>
-            <aside>
+            <aside className="space-x-3">
+              <Button variant={"outline"} onClick={onOpen}>
+                <p className="font-semibold">Grant Privileges</p>
+              </Button>
               <Button>
                 <Link href={`/manage-staff/edit/${params.id}`}>Edit</Link>
               </Button>

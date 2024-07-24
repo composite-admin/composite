@@ -15,6 +15,8 @@ interface ModalStoreState {
   addToProjectFormType?: addToProjectFormType;
   setAddToProjectFormType: (type: addToProjectFormType) => void;
   action: string;
+  setStaffID: (staffID: string) => void;
+  staffID: string;
   setAction: (action: string) => void;
   setBreakdownModalType: (type: "add" | "edit" | null) => void;
 }
@@ -23,6 +25,8 @@ export const createModalStore = () =>
   create<ModalStoreState>((set) => ({
     isOpen: false,
     breakdownModalType: null,
+    staffID: "",
+    setStaffID: (staffID) => set({ staffID }),
     action: "",
     setAddToProjectFormType: (type) => set({ addToProjectFormType: type }),
     addToProjectFormType: null,
@@ -37,14 +41,16 @@ const useUpdateRequestModal = createModalStore();
 const useAddNewApartmentModal = createModalStore();
 const useEditFlatModal = createModalStore();
 const useAddAndEditBreakDownModal = createModalStore();
-const useSuccessModal = createModalStore()
+const useSuccessModal = createModalStore();
 const useAddToProjectModal = createModalStore();
 const useIdModal = createModalStore();
 const useChangePasswordModal = createModalStore();
+const useAddPrivilegeModal = createModalStore();
 
 export {
   useChangePasswordModal,
   useIdModal,
+  useAddPrivilegeModal,
   useAddCommentModal,
   useUpdateRequestModal,
   useAddNewApartmentModal,

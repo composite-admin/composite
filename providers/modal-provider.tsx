@@ -3,6 +3,7 @@ import React, { lazy, Suspense, useState, useEffect } from "react";
 import { AddAndEditApartmentModal } from "@/components/Modals/AddAndEditApartmentModal";
 import { DetailsModal } from "@/components/Modals/inventory/DetailsModal";
 import ChangePasswordModal from "@/components/Modals/ChangePasswordModal";
+import AddPrivilegeModal from "@/components/Modals/AddPrivilegeModal";
 
 // Lazy-loaded components
 const SuccesModal = lazy(() => import("@/components/Modals/SuccesModal"));
@@ -81,6 +82,7 @@ export const ModalProvider = () => {
 
   return (
     <>
+      <AddPrivilegeModal />
       <IDModal />
       <AddAndEditApartmentModal />
       <ClientModal />
