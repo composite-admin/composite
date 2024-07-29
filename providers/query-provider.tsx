@@ -26,12 +26,6 @@ export default function QueryProvider({
       })
   );
 
-  // const AppLoader = () => {
-  //   const isFetching = useIsFetching();
-
-  //   return isFetching ? isFetching : null;
-  // };
-
   return (
     <>
       <Toaster />

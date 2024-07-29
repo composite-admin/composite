@@ -1,73 +1,29 @@
 "use client";
-import React, { lazy, Suspense, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AddAndEditApartmentModal } from "@/components/Modals/AddAndEditApartmentModal";
 import { DetailsModal } from "@/components/Modals/inventory/DetailsModal";
 import ChangePasswordModal from "@/components/Modals/ChangePasswordModal";
 import AddPrivilegeModal from "@/components/Modals/AddPrivilegeModal";
-
-// Lazy-loaded components
-const SuccesModal = lazy(() => import("@/components/Modals/SuccesModal"));
-const AddAndEditBreakdownModal = lazy(
-  () => import("@/components/Modals/cash-advance/AddAndEditBreakdownModal")
-);
-const ProjectSuccessModal = lazy(
-  () => import("@/components/Modals/projects/ProjectSuccessModal")
-);
-const AddCommentModal = lazy(
-  () => import("@/components/Modals/requests/AddCommentModal")
-);
-const UpdateRequestModal = lazy(
-  () => import("@/components/Modals/requests/UpdateRequestModal")
-);
-const AddProjectModal = lazy(
-  () => import("@/components/Modals/projects/AddProjectModal")
-);
-const AddContractorModal = lazy(
-  () => import("@/components/Modals/projects/AddContractorModal")
-);
-const AddMaterial = lazy(
-  () => import("@/components/Modals/projects/AddMaterialModel")
-);
-const AddStakeHolderModal = lazy(
-  () => import("@/components/Modals/projects/AddStakeholderModel")
-);
-const AddStartUp = lazy(
-  () => import("@/components/Modals/projects/AddStartUpModal")
-);
-const UpdateProjectModal = lazy(
-  () => import("@/components/Modals/projects/UpdateProject")
-);
-const AddWorkerModal = lazy(
-  () => import("@/components/Modals/projects/AddWorkerModal")
-);
-const EditFlatModal = lazy(
-  () => import("@/components/Modals/faclility/EditFlatModal")
-);
-const ProjectDetailsPageFormModal = lazy(
-  () => import("@/components/Project/ProjectDetailsPageFormModal")
-);
-const AddToProjectModal = lazy(
-  () => import("@/components/Modals/AddToProjectModal")
-);
-const RequestApprovalModal = lazy(
-  () =>
-    import(
-      "@/app/(admin)/requests/request-details/[id]/forms/RequestApprovalModal"
-    )
-);
-const AdvancesModals = lazy(
-  () =>
-    import(
-      "@/app/(admin)/cash-advance/details/(forms_and_modals)/AdvancesModals"
-    )
-);
-const ClientModal = lazy(
-  () => import("@/app/(client)/client/project/ClientModal")
-);
-const TableActionModal = lazy(
-  () => import("@/components/Modals/TableActionModal")
-);
-const IDModal = lazy(() => import("@/components/Modals/IdModal"));
+import SuccesModal from "@/components/Modals/SuccesModal";
+import AddAndEditBreakdownModal from "@/components/Modals/cash-advance/AddAndEditBreakdownModal";
+import ProjectSuccessModal from "@/components/Modals/projects/ProjectSuccessModal";
+import AddCommentModal from "@/components/Modals/requests/AddCommentModal";
+import UpdateRequestModal from "@/components/Modals/requests/UpdateRequestModal";
+import AddProjectModal from "@/components/Modals/projects/AddProjectModal";
+import AddContractorModal from "@/components/Modals/projects/AddContractorModal";
+import AddMaterial from "@/components/Modals/projects/AddMaterialModel";
+import AddStakeHolderModal from "@/components/Modals/projects/AddStakeholderModel";
+import AddStartUp from "@/components/Modals/projects/AddStartUpModal";
+import AddWorkerModal from "@/components/Modals/projects/AddWorkerModal";
+import EditFlatModal from "@/components/Modals/faclility/EditFlatModal";
+import ProjectDetailsPageFormModal from "@/components/Project/ProjectDetailsPageFormModal";
+import AddToProjectModal from "@/components/Modals/AddToProjectModal";
+import RequestApprovalModal from "@/app/(admin)/requests/request-details/[id]/forms/RequestApprovalModal";
+import IDModal from "@/components/Modals/IdModal";
+import ClientModal from "@/app/(client)/client/project/ClientModal";
+import UpdateProjectModal from "@/components/Modals/projects/UpdateProject";
+import TableActionModal from "@/components/Modals/TableActionModal";
+import AdvancesModals from "@/app/(admin)/cash-advance/details/(forms_and_modals)/AdvancesModals";
 
 export const ModalProvider = () => {
   const [ismounted, setIsMounted] = useState(false);

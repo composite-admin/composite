@@ -458,3 +458,12 @@ export const useGetClientFlats = (code:string | number) => {
 //     ),
 //   enabled: !!projectDetails?.project_code,
 // });
+
+export const useGetStaffPrivileges = (id: string) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get staff privileges", id],
+    queryFn: () => getStuff(`/staffs/privileges/${id}`),
+    refetchOnMount: "always",
+  });
+  return { staffPrivileges: data, isLoading };
+};

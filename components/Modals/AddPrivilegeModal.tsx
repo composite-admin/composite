@@ -21,20 +21,25 @@ interface PrivilegeData {
   selected: boolean;
   actions: Action;
 }
+// use these for the privileges....
+// consultant
+// project
+// inventory
+// contractor
+// staff
+// supplier
+// client
 
 const privileges = [
-  "Report",
   "Inventory",
   "Project",
   "Suppliers",
-  "Contractors",
-  "Stakeholders",
-  "Workers",
-  "Facility",
-  "Consultants",
+  "Contractor",
+  "Consultant",
   "Staff",
   "Client",
-];
+]
+
 
 const actions = ["can_view", "can_edit", "can_create", "can_delete"];
 
@@ -98,7 +103,7 @@ export default function AddPrivilegeModal() {
       .filter(([_, value]) => value.selected)
       .map(([type, { actions }]) => ({
         staff_id: staffDetails?.userid,
-        type,
+        type: type.toLowerCase(),
         ...Object.fromEntries(
           Object.entries(actions).map(([action, value]) => [
             action,

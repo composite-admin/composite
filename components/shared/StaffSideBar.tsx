@@ -5,8 +5,15 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { NavLinkType } from "@/utils/types";
-import { DashboardIcon, HashIcon, ReportsIcon, SettingsIcon } from "../icons";
-
+import {
+  DashboardIcon,
+  HashIcon,
+  InventoryNewIcon,
+  ReportsIcon,
+  SettingsIcon,
+} from "../icons";
+import { userStore } from "@/store/auth/AuthStore";
+import { useGetStaffPrivileges } from "@/hooks/useSelectOptions";
 
 export const StaffSidebarLinks: NavLinkType[] = [
   {
@@ -30,10 +37,39 @@ export const StaffSidebarLinks: NavLinkType[] = [
     label: "Change Password",
     icon: <SettingsIcon />,
   },
+
+  {
+    href: "/staff/reports",
+    label: "Profile",
+    icon: <ReportsIcon />,
+  },
+
+  {
+    href: "/staff/inventory",
+    label: "Inventory",
+    icon: <InventoryNewIcon />,
+  },
+
+  { href: "/staff/project", label: "Project", icon: <SettingsIcon /> },
+
+  { href: "/staff/suppliers", label: "Suppliers", icon: <SettingsIcon /> },
+
+  { href: "/staff/contractors", label: "Contractors", icon: <SettingsIcon /> },
+
+  { href: "/staff/stakeholders", label: "Staff", icon: <SettingsIcon /> },
+
+  { href: "/staff/workers", label: "Client", icon: <SettingsIcon /> },
+
+  { href: "/staff/facility", label: "Settings", icon: <SettingsIcon /> },
+
+  { href: "/staff/consultants", label: "Consultants", icon: <SettingsIcon /> },
 ];
 
 const StaffSidebar = () => {
   const pathname = usePathname();
+  const { userId } = userStore();
+  const { isLoading, staffPrivileges } = useGetStaffPrivileges(userId!);
+  console.log(staffPrivileges);
   return (
     <aside className="py-4 px-8 bg-primaryDark h-full flex flex-col">
       <div className="flex gap-2 items-center justify-center pb-5">
