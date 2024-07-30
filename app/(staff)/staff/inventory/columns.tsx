@@ -127,7 +127,7 @@ export const columns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       return (
         <Link
-          href={`/inventory/${row.getValue("inventory_id")}`}
+          href={`/staff/inventory/${row.getValue("inventory_id")}`}
           className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
         >
           View

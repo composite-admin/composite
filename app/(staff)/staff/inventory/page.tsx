@@ -9,10 +9,17 @@ import useFetchInventoryData from "@/mutations/InventoryMutation";
 import useGetAllInventory from "@/store/inventory/InventoryStore";
 import { useEffect, useState } from "react";
 import { HiHome, HiOutlineClock, HiPlus } from "react-icons/hi2";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 export default function InventoryPage() {
   const onOpen = useInventoryDetails((state) => state.onOpen);
   const router = useRouter();
+
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "inventory"
+  )?.can_create;
 
   const { action, isError, isSuccess, error } = useFetchInventoryData();
 
@@ -42,16 +49,16 @@ export default function InventoryPage() {
     if (!originalData) return 0;
     return originalData.filter((item) => item.type === type).length;
   };
-  
+
   return (
     <>
       <PageHead
         headText={`Inventories (${data?.length || 0})`}
         subText="View all your inventories here"
         buttonText="Add Inventory"
-        buttonAction={() => router.push("/inventory/new")}
+        disabled={!CAN_CREATE}
+        buttonAction={() => router.push("/staff/inventory/new")}
       />
-      {/* <DataTable columns={columns} data={data} clickAction={()=> onOpen()}/> */}
 
       <div className="flex gap-3 my-5">
         <div

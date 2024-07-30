@@ -6,16 +6,21 @@ import React, { useEffect, useState } from 'react'
 import keys from '../keys';
 import useFetchEachInventoryData from '@/mutations/EachInventoryMutation';
 import { useGetEachinventory } from "@/store/inventory/InventoryStore";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
-const Page = (props:any) => {
+const Page = (props: any) => {
   const router = useRouter();
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "inventory"
+  )?.can_edit;
 
   let id: any = props.params.id;
-  
+
   const { action } = useFetchEachInventoryData();
 
   const { singleInventoryData } = useGetEachinventory();
-
 
   useEffect(() => {
     action(id);
@@ -27,21 +32,22 @@ const Page = (props:any) => {
     setData(singleInventoryData);
   }, [singleInventoryData]);
 
-  
-
   return (
     <>
       <GoBack />
 
       <ViewDetails
         title="Inventory Details"
+        can_edit={CAN_EDIT}
         dateSubmitted="6th July, 2023"
-        editAction={() => { router.push(`/inventory/${id}/update`);}}
+        editAction={() => {
+          router.push(`/inventory/${id}/update`);
+        }}
         keys={keys}
-        data = {data}
+        data={data}
       />
     </>
-  )
-}
+  );
+};
 
 export default Page
