@@ -78,7 +78,7 @@ export const StaffSidebarLinks: NavLinkType[] = [
   },
 
   {
-    href: "/staff/workers",
+    href: "/staff/manage-client",
     label: "Client",
     icon: <HashIcon />,
     isAllowed: false,
