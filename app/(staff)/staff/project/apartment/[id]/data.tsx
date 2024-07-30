@@ -1,0 +1,38 @@
+export const data = [
+  {
+    id: "string",
+    fiatCode: "string",
+    projectName: "string",
+    fiatDescription: "string",
+    dateAdded: "string",
+    status: "string",
+    actions: "string",
+  },
+  {
+    id: "string",
+    fiatCode: "string",
+    projectName: "string",
+    fiatDescription: "string",
+    dateAdded: "string",
+    status: "string",
+    actions: "string",
+  },
+  {
+    id: "string",
+    fiatCode: "string",
+    projectName: "string",
+    fiatDescription: "string",
+    dateAdded: "string",
+    status: "string",
+    actions: "string",
+  },
+  {
+    id: "string",
+    fiatCode: "string",
+    projectName: "string",
+    fiatDescription: "string",
+    dateAdded: "string",
+    status: "string",
+    actions: "string",
+  },
+];
