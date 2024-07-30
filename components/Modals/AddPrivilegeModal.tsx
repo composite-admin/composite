@@ -36,9 +36,12 @@ const privileges = [
   "Suppliers",
   "Contractor",
   "Consultant",
+  "Stakeholder",
   "Staff",
   "Client",
   "Worker",
+  "Reports",
+  "Facility",
 ];
 
 const actions = ["can_view", "can_edit", "can_create", "can_delete"];

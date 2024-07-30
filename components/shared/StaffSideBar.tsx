@@ -20,6 +20,7 @@ import { userStore } from "@/store/auth/AuthStore";
 import { useGetStaffPrivileges } from "@/hooks/useSelectOptions";
 import { useEffect, useMemo } from "react";
 import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
+import { CalendarSearchIcon, HomeIcon } from "lucide-react";
 
 export const StaffSidebarLinks: NavLinkType[] = [
   {
@@ -38,8 +39,21 @@ export const StaffSidebarLinks: NavLinkType[] = [
   {
     href: "/staff/cash-advance",
     label: "Cash Advance",
-    icon: <ReportsIcon />,
+    icon: <CalendarSearchIcon />,
     isAllowed: true,
+  },
+
+  {
+    href: "/staff/reports",
+    label: "Reports",
+    icon: <ReportsIcon />,
+    isAllowed: false,
+  },
+  {
+    href: "/staff/facility",
+    label: "Facility",
+    icon: <HomeIcon />,
+    isAllowed: false,
   },
 
   {
@@ -60,6 +74,13 @@ export const StaffSidebarLinks: NavLinkType[] = [
     href: "/staff/suppliers",
     label: "Supplier",
     icon: <SuppliersNewIcon />,
+    isAllowed: false,
+  },
+
+  {
+    href: "/staff/stakeholders",
+    label: "Stakeholder",
+    icon: <StakeholderIcon />,
     isAllowed: false,
   },
 
