@@ -91,6 +91,12 @@ export const StaffSidebarLinks: NavLinkType[] = [
     isAllowed: false,
   },
   {
+    href: "/staff/workers",
+    label: "Worker",
+    icon: <HashIcon />,
+    isAllowed: false,
+  },
+  {
     href: "/staff/change-password",
     label: "Change Password",
     icon: <SettingsIcon />,

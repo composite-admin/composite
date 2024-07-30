@@ -38,6 +38,7 @@ const privileges = [
   "Consultant",
   "Staff",
   "Client",
+  "Worker",
 ];
 
 const actions = ["can_view", "can_edit", "can_create", "can_delete"];
