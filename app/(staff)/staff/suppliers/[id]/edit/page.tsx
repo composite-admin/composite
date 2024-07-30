@@ -8,6 +8,7 @@ import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import { getSupplierById } from "@/api/suppliers-and-tools/suppliersRequests";
 import { useToast } from "@/components/ui/use-toast";
 import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
+import { BlockEdiComponent } from "@/components/shared/BlockEdit";
 
 const EditSupplier = () => {
   const router = useRouter();
@@ -151,13 +152,3 @@ const EditSupplier = () => {
 
 export default EditSupplier;
 
-export function BlockEdiComponent() {
-  return (
-    <>
-      <GoBack />
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-2xl font-bold">You do not have permission to edit</p>
-      </div>
-    </>
-  );
-}

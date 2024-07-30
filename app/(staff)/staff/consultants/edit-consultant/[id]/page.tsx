@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import EditConsultantForm from "./EditConsultantForm";
 import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
-import { BlockEdiComponent } from "../../../suppliers/[id]/edit/page";
+import { BlockEdiComponent } from "@/components/shared/BlockEdit";
 
 type Params = {
   params: {
