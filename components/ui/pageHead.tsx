@@ -20,23 +20,6 @@ const PageHead = React.forwardRef<any, PageHeadProps>(
           <p className="text-[#475367] text-[16px]">{subText}</p>
 
           <div>{leftChild}</div>
-
-          {/* <div className="flex gap-3 my-5 text-[#667185] text-sm">
-                        <div className='flex items-center gap-1'>
-                            <HiSearch />
-                            <p>Search</p>
-                        </div>
-
-                        <div className='flex items-center gap-1'>
-                            <HiFilter />
-                            <p>Filter</p>
-                        </div>
-
-                        <div className='flex items-center gap-1'>
-                            <HiSortAscending />
-                            <p>Sort</p>
-                        </div>
-                    </div> */}
         </div>
 
         {buttonText && (
