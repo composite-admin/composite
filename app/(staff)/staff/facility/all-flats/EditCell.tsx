@@ -7,7 +7,6 @@ import {
   ProjectPageFormType,
   useTableActionStore,
 } from "@/store/useTableActionStore";
-import TableAction from "../../cash-advance/details/(forms_and_modals)/TableAction";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   href?: string;
