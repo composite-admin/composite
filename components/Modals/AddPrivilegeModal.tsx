@@ -33,13 +33,12 @@ interface PrivilegeData {
 const privileges = [
   "Inventory",
   "Project",
-  "Suppliers",
+  "Supplier",
   "Contractor",
   "Consultant",
   "Staff",
   "Client",
-]
-
+];
 
 const actions = ["can_view", "can_edit", "can_create", "can_delete"];
 
@@ -170,14 +169,21 @@ export default function AddPrivilegeModal() {
                               id={`${privilege}-${action}`}
                               checked={field.value[privilege].actions[action]}
                               onCheckedChange={(checked) => {
+                                const updatedActions = {
+                                  ...field.value[privilege].actions,
+                                  [action]: checked,
+                                };
+
+                                // Check if any action is selected
+                                const anyActionSelected = Object.values(
+                                  updatedActions
+                                ).some((value) => value);
+
                                 const updatedPrivileges = {
                                   ...field.value,
                                   [privilege]: {
-                                    ...field.value[privilege],
-                                    actions: {
-                                      ...field.value[privilege].actions,
-                                      [action]: checked,
-                                    },
+                                    selected: anyActionSelected, // Update selected based on actions
+                                    actions: updatedActions,
                                   },
                                 };
                                 field.onChange(updatedPrivileges);

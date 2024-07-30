@@ -21,12 +21,14 @@ interface KeysInterface {
   overideHeader?: boolean;
   headerChildren?: any;
   data?: any;
+  can_edit?: boolean;
 }
 
 const ViewDetails = React.forwardRef<any, KeysInterface>(
   ({
     title,
     dateSubmitted,
+    can_edit = false,
     editAction,
     keys,
     children,
@@ -49,12 +51,14 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
                 <p className="text-sm text-textColor">
                   Submitted on {formatDateToString(data?.createdAt)}
                 </p>
-                <button
-                  className="bg-primaryLight text-sm text-white rounded-md py-2 px-5 w-fit"
-                  onClick={editAction}
-                >
-                  Edit {title}
-                </button>
+                {can_edit ? (
+                  <button
+                    className="bg-primaryLight text-sm text-white rounded-md py-2 px-5 w-fit"
+                    onClick={editAction}
+                  >
+                    Edit {title}
+                  </button>
+                ) : null}
               </div>
             )}
           </div>

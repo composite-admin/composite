@@ -106,7 +106,6 @@ export default function AddStaffForm() {
       : "";
 
     if (password !== confirmPassword) {
-      console.log("passwords do not match");
       return;
     }
     mutate({

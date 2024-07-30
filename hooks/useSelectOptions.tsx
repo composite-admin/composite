@@ -97,7 +97,7 @@ export const getRoles = async () => {
   }
 };
 
-const getStuff = async (args: string) => {
+export const getStuff = async (args: string) => {
   try {
     const response = await api.get(`${args}`);
     return response.data.data;
@@ -435,13 +435,13 @@ export const useGetAllClientComments = () => {
   return { clientComments: data, isLoading };
 };
 
-export const useGetClientFlats = (code:string | number) => {
+export const useGetClientFlats = (code: string | number) => {
   const { data, isLoading } = useQuery({
     queryKey: ["get client flat", code],
-  queryFn: () =>
-    getStuffTyped<IProjectFlatData[]>(
-      `/project-flats/project-code/code?project_code=${code}`
-    ),
+    queryFn: () =>
+      getStuffTyped<IProjectFlatData[]>(
+        `/project-flats/project-code/code?project_code=${code}`
+      ),
     refetchOnMount: "always",
   });
   return { clientFlats: data, isLoading };
@@ -463,7 +463,9 @@ export const useGetStaffPrivileges = (id: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ["get staff privileges", id],
     queryFn: () => getStuff(`/staffs/privileges/${id}`),
+    refetchInterval: 30 * 60 * 1000,
     refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
   });
   return { staffPrivileges: data, isLoading };
 };

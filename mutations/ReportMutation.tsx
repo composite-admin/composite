@@ -22,7 +22,6 @@ const useFetchReportData = () => {
       }
     },
     onSuccess: (data) => {
-      console.log(data);
       setData(data);
     },
     onError: (error: Error) => {

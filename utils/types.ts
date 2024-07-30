@@ -84,6 +84,7 @@ export type NavLinkType = {
   childLabel?: string;
   childTitle?: string;
   childHref?: string;
+  isAllowed?: boolean;
 };
 
 export type LoginForm = {

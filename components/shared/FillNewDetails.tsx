@@ -42,7 +42,6 @@ const FillNewDetails = (props: any) => {
 
     useEffect(() => {
         setNewReport(formData);
-        console.log(newReport)
     }, [formData])
 
     return (

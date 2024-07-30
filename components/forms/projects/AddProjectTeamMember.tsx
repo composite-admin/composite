@@ -126,7 +126,6 @@ export default function AddProjectTeamMember() {
 
   const onSubmit = async (data: AddProjectTeamMemberType) => {
     mutate(data);
-    console.log(data, projectCode);
   };
   return (
     <Form {...form}>

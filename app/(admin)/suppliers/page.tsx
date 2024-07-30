@@ -5,6 +5,7 @@ import { columns } from "./columns";
 import { useRouter } from "next/navigation";
 import { useGetAllSuppliers } from "@/hooks/useSelectOptions";
 
+
 export default function SuppliersPage() {
   const router = useRouter();
   const { suppliers, isLoading } = useGetAllSuppliers();

@@ -32,8 +32,7 @@ export const DetailsModal = () => {
   const [data, setData] = useState<any>({});
 
   useEffect(()=> {
-    setData(singleinventoryData)
-    console.log(singleinventoryData)
+    setData(singleinventoryData);
   }, [singleinventoryData])
 
   return (

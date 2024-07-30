@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
 export type FormType =
   | "Cash Advance Project"
@@ -19,3 +20,23 @@ const useStaffStore = create<StaffStore>((set) => ({
 }));
 
 export default useStaffStore;
+
+interface PrivilegeStore {
+  data: any;
+  setData: (data: any) => void;
+}
+
+export const useStaffPrivilegeStore = create<PrivilegeStore>()(
+  devtools(
+    persist(
+      (set) => ({
+        data: null,
+        setData: (data: any) => set({ data }),
+      }),
+      {
+        name: "useStaffPrivilegeStore",
+        storage: createJSONStorage(() => localStorage),
+      }
+    )
+  )
+);

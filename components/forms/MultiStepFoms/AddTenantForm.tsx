@@ -71,13 +71,10 @@ export default function AddTenantForm() {
     },
   });
   const watchProject = form.watch("project_name");
-  console.log(watchProject);
 
   const flatByProjectName = flats
     ?.filter((flat: any) => flat.project_name === watchProject)
     .map((flat: any) => flat.flat_code);
-
-  console.log(flatByProjectName);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -276,16 +273,14 @@ export default function AddTenantForm() {
                     name="rent_payment"
                     placeholder="Select rent payment"
                     labelText="Select rent payment"
-                    items={["Monthly", "Quarterly", "Yearly"] || []}
+                    items={["Monthly", "Quarterly", "Yearly"]}
                   />
                   <CustomFormSelect
                     control={form.control}
                     name="reminder"
                     placeholder="Select reminder"
                     labelText="Select reminder"
-                    items={
-                      ["Monthly", "3 Months", "6 Months", "12 Months"] || []
-                    }
+                    items={["Monthly", "3 Months", "6 Months", "12 Months"]}
                   />
 
                   <div className="flex gap-5 flex-col lg:flex-row">
@@ -293,7 +288,7 @@ export default function AddTenantForm() {
                       <CustomFormSelect
                         control={form.control}
                         name="facility_management"
-                        items={["Facility Management"] || []}
+                        items={["Facility Management"]}
                         labelText="Fee type"
                       />
                     </div>
@@ -311,7 +306,7 @@ export default function AddTenantForm() {
                       <CustomFormSelect
                         control={form.control}
                         name="diesel"
-                        items={["Diesel"] || []}
+                        items={["Diesel"]}
                         labelText="Fee type"
                       />
                     </div>
@@ -329,7 +324,7 @@ export default function AddTenantForm() {
                       <CustomFormSelect
                         control={form.control}
                         name="electricity"
-                        items={["Electricity"] || []}
+                        items={["Electricity"]}
                         labelText="Fee type"
                       />
                     </div>

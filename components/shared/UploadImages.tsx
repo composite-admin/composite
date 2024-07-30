@@ -17,7 +17,6 @@ const UploadImages = (props: any) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (file: any) => {
-    console.log(file)
     setFile(file);
   };
 
@@ -25,17 +24,16 @@ const UploadImages = (props: any) => {
     let result = new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
-        if (typeof reader.result === 'string') {
-          resolve(reader.result.split(',')[1]);
+        if (typeof reader.result === "string") {
+          resolve(reader.result.split(",")[1]);
         } else {
-          reject(new Error('Failed to read file as data URL'));
+          reject(new Error("Failed to read file as data URL"));
         }
       };
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
       reader.readAsDataURL(file);
     });
-    // console.log(result);
-    return result
+    return result;
   }
 
 

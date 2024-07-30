@@ -17,9 +17,7 @@ const useAddReportMutation = () => {
         }
       }
     },
-    onSuccess: (data) => {
-      console.log(data);
-    },
+    onSuccess: (data) => {},
     onError: (error: Error) => {
       return error;
     },
@@ -45,9 +43,7 @@ const useEditReportMutation = () => {
         }
       }
     },
-    onSuccess: (data) => {
-      console.log(data);
-    },
+    onSuccess: (data) => {},
     onError: (error: Error) => {
       return error;
     },
