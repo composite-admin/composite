@@ -26,6 +26,7 @@ export default function SuppliersPage() {
         subText="View all your suppliers here"
         buttonText="Add Supplier"
         can_create={CAN_CREATE}
+        disabled={!CAN_CREATE}
         buttonAction={() => router.push("/staff/suppliers/add")}
       />
       <DataTable

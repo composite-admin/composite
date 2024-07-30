@@ -9,10 +9,19 @@ interface PageHeadProps {
   subText: string;
   can_create?: boolean;
   leftChild?: any;
+  disabled?: boolean;
 }
 
 const PageHead = React.forwardRef<any, PageHeadProps>(
-  ({ headText, buttonText, buttonAction, subText, leftChild, can_create }) => {
+  ({
+    headText,
+    buttonText,
+    buttonAction,
+    disabled,
+    subText,
+    leftChild,
+    can_create,
+  }) => {
     return (
       <div className="flex justify-between my-10">
         <div>
@@ -24,8 +33,8 @@ const PageHead = React.forwardRef<any, PageHeadProps>(
 
         {buttonText && (
           <Button
-            disabled={!can_create}
             onClick={() => buttonAction()}
+            disabled={disabled}
             className="disabled:cursor-not-allowed"
           >
             {buttonText}

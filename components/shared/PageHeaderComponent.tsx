@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 
-export interface PageHeaderComponentProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageHeaderComponentProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   subTitle: string;
   onclick?: () => void;
   buttonText?: string;
   href?: string;
+  disabled?: boolean;
 }
 
 export default function PageHeaderComponent({
@@ -17,10 +19,14 @@ export default function PageHeaderComponent({
   buttonText,
   onclick,
   href,
+  disabled,
   ...props
 }: PageHeaderComponentProps) {
   return (
-    <div {...props} className={`pb-5 flex justify-between items-center ${props.className}`}>
+    <div
+      {...props}
+      className={`pb-5 flex justify-between items-center ${props.className}`}
+    >
       <div>
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-[#475367] text-[1rem]">{subTitle}</p>
@@ -28,7 +34,13 @@ export default function PageHeaderComponent({
       <div>
         {buttonText ? (
           <Link href={href || " "}>
-            <Button onClick={onclick}>{buttonText ? buttonText : "Create"}</Button>
+            <Button
+              onClick={onclick}
+              disabled={disabled}
+              className="disabled:cursor-not-allowed"
+            >
+              {buttonText ? buttonText : "Create"}
+            </Button>
           </Link>
         ) : null}
       </div>

@@ -18,13 +18,14 @@ export default function ConsultantsPage() {
 
   const CAN_VIEW = staffPrivilege?.find(
     (item: any) => item.type === "consultant"
-  )?.can_view;
+  )?.can_create;
   return (
     <div className="space-y-8">
       <div>
         <PageHeaderComponent
           title={`Consultants (${data?.length || 0})`}
           subTitle="View all consultants here"
+          disabled={CAN_VIEW}
           buttonText="Add consultant"
           href="/staff/consultants/add-consultant"
         />
