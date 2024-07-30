@@ -71,7 +71,7 @@ export const StaffSidebarLinks: NavLinkType[] = [
   },
 
   {
-    href: "/staff/stakeholders",
+    href: "/staff/manage-staff",
     label: "Staff",
     icon: <StakeholderIcon />,
     isAllowed: false,
