@@ -98,6 +98,19 @@ const SingleSupplier = () => {
               />
             </div>
             <div>
+              <p className="text-[#101928] font-semibold col-span-2">Email:</p>
+              <TextSkeleton text={supplier?.email} isLoading={requestLoading} />
+            </div>
+            <div>
+              <p className="text-[#101928] font-semibold col-span-2">
+                Website:
+              </p>
+              <TextSkeleton
+                text={supplier?.website}
+                isLoading={requestLoading}
+              />
+            </div>
+            <div>
               <p className="text-[#101928] font-semibold col-span-2">
                 Address:
               </p>

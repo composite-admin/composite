@@ -406,6 +406,8 @@ export type ISupplierData = {
   comment: string;
   createdAt: string;
   updatedAt: string;
+  email?: string;
+  website?: string;
 };
 
 export type ISupplierMaterialTypesData = {
