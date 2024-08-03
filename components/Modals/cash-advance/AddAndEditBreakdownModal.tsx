@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
+import { useGetCashAdvanceBreakdownByCode } from "@/hooks/useSelectOptions";
 import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 import { useAddAndEditBreakDownModal } from "@/store/modals/useCreateModal";
 import { ApiResponse, ICashAdvanceBreakdownData } from "@/utils/types";
@@ -34,51 +35,121 @@ const AddOrEditBreakdownSchema = z.object({
 type AddOrEditBreakdownType = z.infer<typeof AddOrEditBreakdownSchema>;
 
 export default function AddAndEditBreakdownModal() {
-  const { isOpen, onClose, breakdownModalType } = useAddAndEditBreakDownModal();
+  const { isOpen, onClose, breakdownModalType, action } =
+    useAddAndEditBreakDownModal();
+
   const { CashAdvanceDetails } = useCashAdvanceStore();
   const { toast } = useToast();
 
   const form = useForm<AddOrEditBreakdownType>({
     resolver: zodResolver(AddOrEditBreakdownSchema),
   });
+  const { cashAdvanceBreakdown, isBreakDownLoading } =
+    useGetCashAdvanceBreakdownByCode(CashAdvanceDetails?.request_code!);
 
-  const { mutate } = useMutation({
-    mutationKey: ["add-or-edit-breakdown", CashAdvanceDetails?.cash_id],
+  const rowInfo = cashAdvanceBreakdown?.find(
+    (row) => row.id === Number(action)
+  );
 
-    mutationFn: async (data: AddOrEditBreakdownType) => {
+  // const { mutate } = useMutation({
+  //   mutationKey: ["add-or-edit-breakdown", CashAdvanceDetails?.cash_id],
+
+  //   mutationFn: async (data: AddOrEditBreakdownType) => {
+  //     console.log(breakdownModalType);
+  //     try {
+  //       const response =
+  //         breakdownModalType === "edit"
+  //           ? await api.put<ApiResponse<ICashAdvanceBreakdownData>>(
+  //               `/cash-advance-breakdowns/${rowInfo?.id}`,
+  //               data
+  //             )
+  //           : await api.post<ApiResponse<ICashAdvanceBreakdownData>>(
+  //               "/cash-advance-breakdowns",
+  //               {
+  //                 ...data,
+  //                 cash_id: CashAdvanceDetails?.cash_id,
+  //                 request_code: CashAdvanceDetails?.request_code,
+  //                 added_by: CashAdvanceDetails?.action_by,
+  //                 amount: Number(data.amount),
+  //               }
+  //             );
+  //       return response.data;
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error) && error.response) {
+  //         throw new Error(error.response.data.message);
+  //       } else {
+  //         throw error;
+  //       }
+  //     }
+  //   },
+  //   onSuccess: () => {
+  //     // onClose();
+  //     // window.location.reload();
+  //     toast({
+  //       title: "Breakdown added successfully",
+  //       variant: "success",
+  //     });
+  //   },
+  // });
+
+  // const onSubmit = (data: AddOrEditBreakdownType) => {
+  //   mutate(data);
+  //   onClose();
+  // };
+
+  const onSubmit = async (data: AddOrEditBreakdownType) => {
+    if (breakdownModalType === "edit") {
       try {
-        const response = await api.post<ApiResponse<ICashAdvanceBreakdownData>>(
+        const res = await api.put<ApiResponse<ICashAdvanceBreakdownData>>(
+          `/cash-advance-breakdowns/${rowInfo?.id}`,
+          {
+            ...data,
+            request_code: CashAdvanceDetails?.request_code,
+            added_by: CashAdvanceDetails?.staff_name,
+            amount: Number(data.amount),
+          }
+        );
+        if (res.status === 200) {
+          toast({
+            title: "Breakdown updated successfully",
+            variant: "success",
+          });
+          window.location.reload();
+          onClose();
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+        }
+      }
+    }
+
+    if (breakdownModalType === "add") {
+      try {
+        const res = await api.post<ApiResponse<ICashAdvanceBreakdownData>>(
           "/cash-advance-breakdowns",
           {
             ...data,
             cash_id: CashAdvanceDetails?.cash_id,
             request_code: CashAdvanceDetails?.request_code,
-            added_by: CashAdvanceDetails?.action_by,
+            added_by: CashAdvanceDetails?.staff_name,
             amount: Number(data.amount),
           }
         );
-        return response.data;
+        if (res.status === 201) {
+          toast({
+            title: "Breakdown added successfully",
+            variant: "success",
+          });
+          onClose();
+          window.location.reload();
+        }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           throw new Error(error.response.data.message);
-        } else {
-          throw error;
         }
       }
-    },
-    onSuccess: () => {
-      onClose();
-      window.location.reload();
-      toast({
-        title: "Breakdown added successfully",
-        variant: "success",
-      });
-    },
-  });
-
-  const onSubmit = (data: AddOrEditBreakdownType) => {
-    mutate(data);
-    onClose();
+    }
   };
 
   if (breakdownModalType === "add") {
@@ -135,57 +206,52 @@ export default function AddAndEditBreakdownModal() {
   if (breakdownModalType === "edit") {
     return (
       <Modal
-        title="Add Comment"
+        title="Edit Breakdown"
         isOpen={isOpen}
         onClose={onClose}
         classname="max-w-xl"
       >
-        <form className="space-y-5">
-          <div className="space-y-7">
-            <div className="space-y-2">
-              <Label htmlFor="amount">Request Code</Label>
-              <Input
-                placeholder="CPD141906"
-                name="Request Code"
-                value="CPD141906"
-                disabled
-                className="disabled:bg-gray-300"
+        <Form {...form}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-7">
+              <CustomFormField
+                control={form.control}
+                name="amount"
+                label="Amount"
+                placeholder="Add Amount"
+                defaultValue={rowInfo?.amount}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="amount">Description</Label>
-              <Input placeholder="eg: For cememtEnter " name="description" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="amount">Amount</Label>
-              <Input placeholder="Enter amount" name="amount" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="commet">Comment</Label>
-              <Textarea
-                placeholder="Lorem ipsum dolor sit amet consectetur. 
-                Ac id vulputate accumsan arcu venenatis t
-                ellus nulla eu
-                Placeholder"
+              <CustomFormField
+                control={form.control}
                 name="description"
+                label="Description"
+                placeholder="eg: For cememt"
+                defaultValue={rowInfo?.description}
               />
-            </div>
+              <CustomFormTextareaField
+                control={form.control}
+                name="comment"
+                label="Comment"
+                placeholder="Enter A Comment"
+                defaultValue={rowInfo?.comment}
+              />
 
-            <div className="flex flex-col lg:flex-row gap-8">
-              <Button
-                variant={"secondary"}
-                className="w-full"
-                type="button"
-                onClick={onClose}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" className="w-full">
-                Submit
-              </Button>
+              <div className="flex flex-col lg:flex-row gap-8">
+                <Button
+                  variant={"secondary"}
+                  className="w-full"
+                  type="button"
+                  onClick={onClose}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" className="w-full">
+                  Submit
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </Form>
       </Modal>
     );
   }

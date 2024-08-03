@@ -1,5 +1,6 @@
 "use client";
 
+import EditCell from "@/app/(admin)/facility/all-flats/EditCell";
 import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
 import { formatCurrency } from "@/utils/formatCurrency";
@@ -7,6 +8,8 @@ import { formatDate } from "@/utils/formatDate";
 import { ICashAdvanceBreakdownData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import { editType } from "../../../../../store/client/useClientStore";
+import EditBreakdown from "./EditBreakdown";
 
 export const columns: ColumnDef<ICashAdvanceBreakdownData>[] = [
   {
@@ -63,21 +66,25 @@ export const columns: ColumnDef<ICashAdvanceBreakdownData>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "id",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Actions" />;
-  //   },
-  //   cell: ({ row }) => {
-  //     const { id } = row.original;
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Actions" />;
+    },
+    cell: ({ row }) => {
+      const { id } = row.original;
 
-  //     return (
-  //       <div className="flex gap-2 items-center w-32">
-  //         <Link href="#" className="w-32 font-semibold text-primaryLight">
-  //           {id}
-  //         </Link>
-  //       </div>
-  //     );
-  //   },
-  // },
+      return (
+        <div className="">
+          <EditBreakdown
+            row={row}
+            rowId={id}
+            className="flex  gap-2 font-semibold text-primaryLight cursor-pointer "
+          >
+            {id}
+          </EditBreakdown>
+        </div>
+      );
+    },
+  },
 ];

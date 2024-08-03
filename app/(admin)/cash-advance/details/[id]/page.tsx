@@ -92,7 +92,11 @@ export default function CashAdvanceDetailsPage({
               <p className="text-textColor">
                 Submitted on {details && formatDate(details.createdAt)}
               </p>
-              <Button className="w-max" onClick={() => setModalType("add")}>
+              <Button
+                className="w-max disabled:cursor-not-allowed disabled:bg-gray-400"
+                onClick={() => setModalType("add")}
+                // disabled={details?.action_type === "cash retirement complete"}
+              >
                 Add Breakdown
               </Button>
             </div>
