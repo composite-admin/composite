@@ -9,6 +9,7 @@ import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
 import {
   useGetAllInventoryTypes,
+  useGetAllSuppliers,
   useGetStaffDetails,
   useProjectData,
 } from "@/hooks/useSelectOptions";
@@ -21,9 +22,13 @@ import { RequestType } from "./CashAdvance";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 // use teh names in the form
 export const ToolsAndMachineRentSchema = z.object({
   request_type: z.nativeEnum(RequestType),
+  supplier_name: z.string({
+    required_error: "Supplier name is required",
+  }),
   project_name: z.string({
     required_error: "Project name is required",
   }),
@@ -36,19 +41,11 @@ export const ToolsAndMachineRentSchema = z.object({
   company_address: z.string({
     required_error: "Company address is required",
   }),
-  contact_mobile: z
-    .string({
-      required_error: "Contact number is required",
-    })
-    .regex(/^\d*$/, "Please enter a valid phone number"),
-  ofc_phone: z
-    .string({
-      required_error: "Office phone is required",
-    })
-    .regex(/^\d*$/, "Please enter a valid phone number"),
-  contact_person: z.string({
-    required_error: "Contact person is required",
+  contact_mobile: z.string().optional(),
+  ofc_phone: z.string({
+    required_error: "Office phone is required",
   }),
+  contact_person: z.string().optional(),
   tool_machinery_type: z.string({
     required_error: "Item description is required",
   }),
@@ -72,6 +69,7 @@ type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 
 export default function ToolsAndMachineRent() {
   const { projectsData } = useProjectData();
+  const { suppliers, supplierList } = useGetAllSuppliers();
   const projectName = projectsData?.map((item: any) => item.project_name);
   const { userId } = userStore();
   const router = useRouter();
@@ -86,6 +84,24 @@ export default function ToolsAndMachineRent() {
       request_type: RequestType.ToolsAndMachineryRent,
     },
   });
+  const watchSupplier = form.watch("supplier_name");
+
+  useEffect(() => {
+    const supplierFormDetails = suppliers?.find(
+      (item: any) => item.supplier_name === watchSupplier
+    );
+
+    if (supplierFormDetails) {
+      form.setValue("company", supplierFormDetails.supplier_name || "");
+      form.setValue(
+        "company_address",
+        supplierFormDetails.supplier_address || ""
+      );
+      form.setValue("ofc_phone", supplierFormDetails.supplier_ofc_phone || "");
+      form.setValue("contact_mobile", supplierFormDetails.contact_mobile || "");
+      form.setValue("contact_person", supplierFormDetails.contact_person || "");
+    }
+  }, [watchSupplier, suppliers, form]);
 
   const handleSubmit = async (data: ToolsAndMachineRentType) => {
     try {
@@ -155,6 +171,14 @@ export default function ToolsAndMachineRent() {
             </option>
           </select>
           <div className="py-4 w-full">
+            <div className="w-full">
+              <CustomFormSelect
+                name="supplier_name"
+                control={form.control}
+                labelText="Supplier"
+                items={supplierList || ["Loading Suppliers"]}
+              />
+            </div>
             <div className="flex flex-col lg:flex-row gap-4 items-center py-3">
               <div className="w-full flex flex-col gap-5">
                 <CustomFormSelect
@@ -167,18 +191,21 @@ export default function ToolsAndMachineRent() {
                   name="company"
                   control={form.control}
                   label="Company"
+                  disabled
                   placeholder="Enter Company"
                 />
                 <CustomFormField
                   name="ofc_phone"
                   control={form.control}
                   label="Company Phone"
+                  disabled
                   placeholder="Enter number"
                 />
                 <CustomFormField
                   name="contact_mobile"
                   control={form.control}
                   label="Contact Number"
+                  disabled
                   placeholder="Enter number"
                 />
                 <CustomFormField
@@ -202,12 +229,14 @@ export default function ToolsAndMachineRent() {
                   control={form.control}
                   label="Company Address"
                   placeholder="Enter Company Address"
+                  disabled
                 />
                 <CustomFormField
                   name="contact_person"
                   control={form.control}
                   label="Contact Person"
                   placeholder="Enter full name"
+                  disabled
                 />
                 <CustomFormField
                   name="tool_machinery_type"
