@@ -105,7 +105,6 @@ const SingleWorker = () => {
 
               <input
                 {...register("worker_ofc_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -136,7 +135,6 @@ const SingleWorker = () => {
 
               <input
                 {...register("worker_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -198,7 +196,7 @@ const SingleWorker = () => {
 
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
-              onClick={() => router.push("/contractors")}
+              onClick={() => router.back()}
               type="button"
             >
               Cancel

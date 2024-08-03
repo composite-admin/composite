@@ -133,6 +133,11 @@ const AddWorker = () => {
                   validate: validatePhoneNumber,
                 })}
               />
+              {errors.worker_ofc_phone && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -160,6 +165,11 @@ const AddWorker = () => {
                   validate: validatePhoneNumber,
                 })}
               />
+              {errors.worker_home_phone && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">

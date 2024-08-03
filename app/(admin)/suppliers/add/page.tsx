@@ -124,16 +124,23 @@ const AddSuppliers = () => {
                   validate: validatePhoneNumber,
                 })}
               />
+              {errors.contact_home_phone && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
-              <p className="value">Contact Person</p>
+              <p className="value">Contact Mobile</p>
 
               <input
                 type="text"
-                {...register("contact_person", { required: true })}
+                {...register("contact_mobile", {
+                  validate: validatePhoneNumber,
+                })}
               />
-              {errors.contact_person && (
+              {errors.contact_mobile && (
                 <span className="text-red-500 text-xs">
                   This field is required.
                 </span>

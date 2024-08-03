@@ -1,5 +1,5 @@
-export const validatePhoneNumber = (value: string) => {
-  const cleanedValue = value.replace(/[^+\d]/g, "");
-  const phoneNumberPattern = /^[\+\d()\-\s]+$/;
-  return phoneNumberPattern.test(cleanedValue);
+export const validatePhoneNumber = (value: string): boolean => {
+  if (value === "") return true;
+  const phoneNumberPattern = /^\+?\d+$/;
+  return phoneNumberPattern.test(value);
 };
