@@ -116,6 +116,18 @@ const EditSupplier = () => {
               />
             </div>
 
+            <div className="flex flex-col">
+              <p className="value">Email</p>
+
+              <input {...register("email")} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="value">Website</p>
+
+              <input {...register("website")} />
+            </div>
+
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 

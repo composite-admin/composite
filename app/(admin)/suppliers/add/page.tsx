@@ -127,14 +127,29 @@ const AddSuppliers = () => {
             </div>
 
             <div className="flex flex-col">
-              <p className="value">Contact Mobile</p>
+              <p className="value">Contact Person</p>
 
               <input
-                {...register("contact_mobile", {
-                  required: true,
-                  validate: validatePhoneNumber,
-                })}
+                type="text"
+                {...register("contact_person", { required: true })}
               />
+              {errors.contact_person && (
+                <span className="text-red-500 text-xs">
+                  This field is required.
+                </span>
+              )}
+            </div>
+
+            <div className="flex flex-col">
+              <p className="value">Email</p>
+
+              <input {...register("email")} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="value">Website</p>
+
+              <input {...register("website")} />
             </div>
 
             <div className="flex flex-col col-span-2">

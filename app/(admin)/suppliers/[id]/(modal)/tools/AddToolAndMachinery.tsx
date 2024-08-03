@@ -129,13 +129,11 @@ export default function AddToolAndMachinery() {
             items={toolType || ["Loading ..."]}
             placeholder="Select Tool Type"
           />
-          <CustomFormSelect
+          <CustomFormField
             name="description"
-            labelText="Description"
+            label="Description"
             control={form.control}
-            items={ToolDescription || ["Loading ..."]}
             placeholder="Choose description"
-            disabled={!watchTools}
           />
           <CustomFormSelect
             name="procurement_type"
