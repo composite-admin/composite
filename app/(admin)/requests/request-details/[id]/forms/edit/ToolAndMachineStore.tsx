@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
 import {
+  useGetAllInventoryItems,
   useGetAllInventoryTypes,
   useGetStaffDetails,
   useProjectData,
@@ -20,7 +21,7 @@ import { union, z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useInventoryStore } from "@/store/project/useProjectStore";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
@@ -56,6 +57,7 @@ type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 
 export default function ToolsAndMachineStore() {
   const { projectsData } = useProjectData();
+  const { inventory } = useGetAllInventoryItems();
   const { formDetails, onClose } = useUpdateRequestStore();
   const { setFormType } = useStaffStore();
   const { userId } = userStore();
@@ -66,7 +68,7 @@ export default function ToolsAndMachineStore() {
   const toolType = inventories?.map((item: any) => item?.type);
   const { setToolData, toolData } = useInventoryStore();
   const { toast } = useToast();
-  const ToolDescription = toolData?.map((item: any) => item?.description);
+  const [ToolDescription, setToolDescription] = useState<any>([]);
   const form = useForm<ToolsAndMachineStoreType>({
     resolver: zodResolver(ToolsAndMachineStoreSchema),
     defaultValues: {
@@ -84,21 +86,19 @@ export default function ToolsAndMachineStore() {
   const watchTools = watch("tool_name");
 
   useEffect(() => {
-    const fetchToolDescription = async () => {
+    const fetchToolDescription = () => {
       if (watchTools) {
-        try {
-          const res = await api.get(`/inventory/type/all?type=${watchTools}`);
-          if (res) {
-            setToolData(res.data.data);
-          }
-        } catch (error) {
-          console.log(error);
-        }
+        const filteredData = inventory
+          ?.filter((item: any) => item.type === watchTools)
+          .map((item: any) => item.name);
+        const duplicatedArray = new Set(filteredData);
+        const removeDuplicateArray = Array.from(duplicatedArray);
+        setToolDescription(removeDuplicateArray);
       }
     };
 
     fetchToolDescription();
-  }, [setToolData, watchTools]);
+  }, [inventory, watchTools]);
 
   const handleSubmit = async (data: ToolsAndMachineStoreType) => {
     try {
