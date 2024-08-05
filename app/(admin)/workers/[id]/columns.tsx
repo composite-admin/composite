@@ -7,6 +7,7 @@ import { IWorkerData, IWorkerJobData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import EditCell from "../../facility/all-flats/EditCell";
 
 export const columns: ColumnDef<IWorkerData>[] = [
   {
@@ -76,21 +77,21 @@ export const columns: ColumnDef<IWorkerData>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "outstanding_balance",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Balance" withSort={false} />;
-  //   },
-  //   cell: ({ row }) => {
-  //     const outstanding_balance = row.original?.outstanding_balance;
-  //     const formatted = formatCurrency(outstanding_balance);
-  //     return (
-  //       <div className="">
-  //         <span className="font-semibold ">{formatted ?? "N/A"}</span>
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "outstanding_balance",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Balance" withSort={false} />;
+    },
+    cell: ({ row }) => {
+      const outstanding_balance = row.original?.outstanding_balance;
+      const formatted = formatCurrency(outstanding_balance);
+      return (
+        <div className="">
+          <span className="font-semibold ">{formatted ?? "N/A"}</span>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "comment",
     header: ({ column }) => {
@@ -123,23 +124,14 @@ export const columns: ColumnDef<IWorkerData>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "id",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Action" />;
-  //   },
-  //   cell: ({ row }) => {
-  //     const id = row.original?.id;
-  //     return (
-  //       <div className="">
-  //         <Link href="#">
-  //           <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-  //             <HiPencilAlt />
-  //             Edit{" "}
-  //           </span>
-  //         </Link>
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Action" />;
+    },
+    cell: ({ row }) => {
+      const id = row.original?.id;
+      return <EditCell action={"worker-job-edit"} rowId={id} row={row} />;
+    },
+  },
 ];

@@ -25,6 +25,7 @@ import {
   ISupplierData,
   IWorkerData,
   PendingProjectDetails,
+  WorkerJob,
 } from "@/utils/types";
 import { IRequestCommentData } from "@/app/(admin)/requests/request-details/[id]/columns";
 import { ICommentData } from "@/app/(admin)/manage-client/client-details/[id]/commentCol";
@@ -468,4 +469,15 @@ export const useGetStaffPrivileges = (id: string) => {
     refetchOnWindowFocus: "always",
   });
   return { staffPrivileges: data, isLoading };
+};
+
+export const useGetWorkerJobById = (id: number) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["get worker job", id],
+    queryFn: () => getStuffTyped<WorkerJob>(`/worker-jobs/${id}`),
+    enabled: !!id,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
+  });
+  return { workerJob: data, isLoading };
 };

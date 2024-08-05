@@ -1,6 +1,10 @@
 import { create } from "zustand";
 
-export type ProjectPageFormType = "start-up-cost-edit" | "material-edit" | null;
+export type ProjectPageFormType =
+  | "start-up-cost-edit"
+  | "material-edit"
+  | "worker-job-edit"
+  | null;
 
 interface TableAction {
   isOpen: boolean;

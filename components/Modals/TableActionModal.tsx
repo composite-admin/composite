@@ -5,6 +5,7 @@ import AddMaterialForm from "../forms/projects/AddMaterialForm";
 import { Button } from "../ui/button";
 import { api } from "@/config/api";
 import { useQueryClient } from "@tanstack/react-query";
+import WorkerJobModalForm from "./WorkerJobModalForm";
 
 export default function TableActionModal() {
   const {
@@ -69,6 +70,8 @@ export default function TableActionModal() {
         </p>
       ) : tableActions === "start-up-cost-edit" ? (
         <AddStartUpForm />
+      ) : tableActions === "worker-job-edit" ? (
+        <WorkerJobModalForm />
       ) : null}
     </Modal>
   );

@@ -950,3 +950,18 @@ export interface IProjectTeamMember {
   status: string;
   image: string | null;
 }
+
+
+export interface WorkerJob {
+  id: number;
+  job_code: string;
+  worker_code: string;
+  project_code: string;
+  worker_service: string;
+  worker_service_charge: string;
+  amount_paid: string;
+  outstanding_balance: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}

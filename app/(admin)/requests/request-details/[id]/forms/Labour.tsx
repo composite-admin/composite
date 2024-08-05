@@ -7,20 +7,13 @@ import FormContainer from "@/components/shared/FormContainer";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
-import {
-  useGetAllWorkers,
-  useGetStaffDetails,
-  useGetWorkerById,
-  useProjectData,
-} from "@/hooks/useSelectOptions";
+import { useGetAllWorkers, useGetWorkerById } from "@/hooks/useSelectOptions";
 import { userStore } from "@/store/auth/AuthStore";
-import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import useRefetchQuery from "@/utils/refetchQuery";
 
@@ -65,14 +58,20 @@ export default function Labour() {
         project_code: formDetails?.project_code,
         comment: data?.supervisor_comment,
         worker_service: worker?.worker_service,
-        worker_service_charge: Number(formDetails?.amount),
-        amount_paid: Number(data.approved_amount),
+        worker_service_charge: Number(data?.approved_amount),
+        amount_paid: 0,
         outstanding_balance: worker?.outstanding_balance ?? 0,
       });
       if (res.status === 200 || res.status === 201) {
         refetchQuery({
           predicate: (query) => query.queryKey[0] === "get request details",
         });
+        toast({
+          title: "Request Approved",
+          variant: "success",
+        });
+        form.reset();
+        onClose();
       }
       return res.data.data;
     } catch (error) {}
@@ -88,13 +87,7 @@ export default function Labour() {
         approved_by: username,
       });
       if (res.status === 200 || res.status === 201) {
-        toast({
-          title: "Request Approved",
-          variant: "success",
-        });
-        form.reset();
         createWorkerJob(data);
-        onClose();
       }
     } catch (error) {
       toast({
