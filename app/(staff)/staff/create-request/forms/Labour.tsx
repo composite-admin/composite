@@ -28,6 +28,9 @@ export const LabourSchema = z.object({
   project_name: z.string({
     required_error: "Project Name is required",
   }),
+  service_rendered: z.string({
+    required_error: "Service rendered is required",
+  }),
   amount: z.string({
     required_error: "Amount is required",
   }),
@@ -59,6 +62,16 @@ export default function Labour() {
   });
 
   const projectName = projectsData?.map((item: any) => item.project_name);
+  const selectedWorker = form.watch("worker_name");
+  const workerService1 = workers?.find(
+    (item: any) => item.worker_name === selectedWorker
+  )?.service_type;
+
+  const workerService2 = workers?.find(
+    (item: any) => item.worker_name === selectedWorker
+  )?.worker_service;
+
+  const serviceRendered = [workerService1, workerService2];
 
   const handleSubmit = async (data: labourFormType) => {
     try {
@@ -148,6 +161,16 @@ export default function Labour() {
                   items={workList || ["Loading..."]}
                 />
               </div>
+            </div>
+            <div className="pt-4">
+              <CustomFormSelect
+                name="service_rendered"
+                labelText="Service Rendered"
+                control={form.control}
+                disabled={!selectedWorker}
+                placeholder="Select A service"
+                items={(serviceRendered as string[]) || ["Loading..."]}
+              />
             </div>
             <div className="flex flex-col py-3 gap-4 w-full">
               <CustomFormField
