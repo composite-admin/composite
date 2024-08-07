@@ -28,7 +28,7 @@ export const columns: ColumnDef<IWorkerData>[] = [
     },
   },
   {
-    accessorKey: "service_type",
+    accessorKey: "worker_service",
     header: ({ column }) => {
       return <ColumnHeader column={column} title="Service" withSort={false} />;
     },

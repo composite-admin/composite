@@ -244,9 +244,7 @@ export default function RequestDetailsPage({
         <div className="py-8">
           <div className="flex justify-between items-center">
             <span>Comments</span>
-            {requestDetails?.status !== "APPROVED" && (
-              <Button onClick={onAddComment}>Add Comment</Button>
-            )}
+            <Button onClick={onAddComment}>Add Comment</Button>
           </div>
           <DataTable
             data={comments || []}

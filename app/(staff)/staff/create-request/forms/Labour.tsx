@@ -78,6 +78,7 @@ export default function Labour() {
       const res = await api.post("/requests", {
         ...data,
         status: "PENDING",
+        worker_service: data.service_rendered,
         amount: Number(data.amount),
         staff_id: staffDetails?.userid,
         staff_name: staffDetails?.firstname + " " + staffDetails?.lastname,
