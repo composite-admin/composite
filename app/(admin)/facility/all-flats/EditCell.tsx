@@ -8,6 +8,8 @@ import {
   useTableActionStore,
 } from "@/store/useTableActionStore";
 import TableAction from "../../cash-advance/details/(forms_and_modals)/TableAction";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
+import { userStore } from "@/store/auth/AuthStore";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   href?: string;
@@ -26,6 +28,13 @@ export default function EditCell({
   rowId,
   ...props
 }: IProps) {
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const { userType } = userStore();
+
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_edit;
   const { onOpen, setTableActions, setEditOrDelete, setRowID, rowID } =
     useTableActionStore();
 
@@ -38,6 +47,10 @@ export default function EditCell({
     }
     return;
   };
+
+  if (!CAN_EDIT && userType !== "admin") {
+    return <p>-</p>;
+  }
 
   return (
     <div
@@ -100,6 +113,11 @@ export function DeleteCell({
 }: IProps) {
   const { onOpen, setTableActions, setEditOrDelete, setRowID, setDeleteUrl } =
     useTableActionStore();
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+  const { userType } = userStore();
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_edit;
 
   const setAction = () => {
     setTableActions(null);
@@ -109,6 +127,11 @@ export function DeleteCell({
     useTableActionStore.setState({ query: query || "" });
     onOpen();
   };
+
+  if (!CAN_EDIT && userType !== "admin") {
+    return <p>-</p>;
+  }
+
   return (
     <div
       className="flex gap-2 items-center"
