@@ -9,6 +9,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { api } from "@/config/api";
 import { useToast } from "../ui/use-toast";
+import { useGetStaffPrivileges } from "@/hooks/useSelectOptions";
+import { useEffect } from "react";
 
 interface Action {
   can_view: boolean;
@@ -21,14 +23,18 @@ interface PrivilegeData {
   selected: boolean;
   actions: Action;
 }
-// use these for the privileges....
-// consultant
-// project
-// inventory
-// contractor
-// staff
-// supplier
-// client
+
+interface StaffPrivilege {
+  id: number;
+  staff_id: string;
+  type: string;
+  can_view: number;
+  can_edit: number;
+  can_delete: number;
+  can_create: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const privileges = [
   "Inventory",
@@ -44,40 +50,71 @@ const privileges = [
   "Facility",
 ];
 
-const actions = ["can_view", "can_edit", "can_create", "can_delete"];
+const actions: (keyof Action)[] = [
+  "can_view",
+  "can_edit",
+  "can_create",
+  "can_delete",
+];
 
 export default function AddPrivilegeModal() {
   const { isOpen, onClose } = useAddPrivilegeModal();
   const { toast } = useToast();
   const { staffDetails } = useManageStaffStore();
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      privileges: privileges.reduce(
-        (acc: { [key: string]: any }, privilege) => {
-          acc[privilege] = {
-            selected: false,
-            actions: actions.reduce(
-              (actionAcc: { [key: string]: any }, action) => {
-                actionAcc[action] = false;
-                return actionAcc;
-              },
-              {}
-            ),
-          };
-          return acc;
-        },
-        {}
-      ),
-    },
-  });
+  const { staffPrivileges } = useGetStaffPrivileges(staffDetails?.userid!);
 
-  const formatActionLabel = (action: string) => {
-    return action.replace("can_", "Can ").replace("_", " ");
+  const shouldBeChecked = (type: string): boolean => {
+    const privilege = staffPrivileges?.find(
+      (p: any) => p.type.toLowerCase() === type.toLowerCase()
+    );
+    return privilege
+      ? privilege.can_view === 1 ||
+          privilege.can_edit === 1 ||
+          privilege.can_create === 1 ||
+          privilege.can_delete === 1
+      : false;
   };
 
-  interface FormData {
+  const getInitialActions = (type: string): Action => {
+    const privilege = staffPrivileges?.find(
+      (p: any) => p.type.toLowerCase() === type.toLowerCase()
+    );
+    if (privilege) {
+      return {
+        can_view: privilege.can_view === 1,
+        can_edit: privilege.can_edit === 1,
+        can_create: privilege.can_create === 1,
+        can_delete: privilege.can_delete === 1,
+      };
+    }
+    return {
+      can_view: false,
+      can_edit: false,
+      can_create: false,
+      can_delete: false,
+    };
+  };
+  const { control, handleSubmit, reset } = useForm<{
     privileges: Record<string, PrivilegeData>;
-  }
+  }>();
+
+  useEffect(() => {
+    if (staffPrivileges) {
+      const defaultValues = privileges.reduce((acc, privilege) => {
+        acc[privilege] = {
+          selected: shouldBeChecked(privilege),
+          actions: getInitialActions(privilege),
+        };
+        return acc;
+      }, {} as Record<string, PrivilegeData>);
+
+      reset({ privileges: defaultValues });
+    }
+  }, [staffPrivileges, reset]);
+
+  const formatActionLabel = (action: string): string => {
+    return action.replace("can_", "Can ").replace("_", " ");
+  };
 
   const { mutate } = useMutation({
     mutationFn: async (data: any) => {
@@ -101,7 +138,7 @@ export default function AddPrivilegeModal() {
     },
   });
 
-  const submit = (data: FormData) => {
+  const submit = (data: { privileges: Record<string, PrivilegeData> }) => {
     const formattedData = Object.entries(data.privileges)
       .filter(([_, value]) => value.selected)
       .map(([type, { actions }]) => ({
@@ -149,7 +186,7 @@ export default function AddPrivilegeModal() {
                             ...field.value,
                             [privilege]: {
                               ...field.value[privilege],
-                              selected: checked,
+                              selected: checked as boolean,
                             },
                           };
                           field.onChange(updatedPrivileges);
@@ -179,7 +216,7 @@ export default function AddPrivilegeModal() {
                                     ...field.value[privilege],
                                     actions: {
                                       ...field.value[privilege].actions,
-                                      [action]: checked,
+                                      [action]: checked as boolean,
                                     },
                                   },
                                 };
