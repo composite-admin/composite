@@ -10,6 +10,7 @@ import { getStuffTyped } from "@/hooks/useSelectOptions";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 import { useAddNewApartmentModal } from "@/store/modals/useCreateModal";
 import useFacilityStore from "@/store/facility/useFacilityStore";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 export interface IProjectFlatData {
   flat_id: number;
@@ -21,7 +22,7 @@ interface IProps {
   params: { id: string };
 }
 
-const ApartmentPage = ({ params }: IProps) => {
+const StaffApartmentPage = ({ params }: IProps) => {
   const code = params.id;
   const { setFlatData, setFlatFormType } = useFacilityStore();
   const { onOpen } = useAddNewApartmentModal();
@@ -29,6 +30,12 @@ const ApartmentPage = ({ params }: IProps) => {
     setFlatFormType("add");
     onOpen();
   };
+
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_create;
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get all materials by project code", code],
@@ -45,6 +52,7 @@ const ApartmentPage = ({ params }: IProps) => {
         headText={`View Apartment (${data?.length || 0})`}
         subText="See all apartment details here"
         buttonText="Add Apartment"
+        disabled={!CAN_CREATE}
         buttonAction={AddAppartment}
       />
       <DataTable columns={columns} data={data ?? []} isLoading={isPending} />
@@ -52,4 +60,4 @@ const ApartmentPage = ({ params }: IProps) => {
   );
 };
 
-export default ApartmentPage;
+export default StaffApartmentPage;

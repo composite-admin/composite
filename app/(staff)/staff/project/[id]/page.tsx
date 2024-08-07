@@ -116,13 +116,13 @@ const SingleProject = () => {
         setCurrentModal("add_management_member");
         break;
       case "Add Worker":
-        router.push(`/project/add-worker?name=${projectName}`);
+        router.push(`/staff/project/add-worker?name=${projectName}`);
         break;
       case "Add Apartment":
-        router.push(`/project/apartment/${projectCode}`);
+        router.push(`/staff/project/apartment/${projectCode}`);
         break;
       case "View Tenant":
-        router.push(`/project/tenant/${projectCode}`);
+        router.push(`/staff/project/tenant/${projectCode}`);
         break;
       default:
         break;
