@@ -11,7 +11,7 @@ import axios from "axios";
 
 export default function ManageStaffPage() {
   const { setStaffData } = useManageStaffStore();
-  const { data, error, isPending } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["get all staff"],
     queryFn: async () => {
       try {

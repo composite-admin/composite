@@ -57,7 +57,7 @@ export default function Labour() {
         worker_code: worker?.worker_code,
         project_code: formDetails?.project_code,
         comment: data?.supervisor_comment,
-        worker_service: worker?.worker_service,
+        worker_service: formDetails?.worker_service,
         worker_service_charge: Number(data?.approved_amount),
         amount_paid: 0,
         outstanding_balance: worker?.outstanding_balance ?? 0,
@@ -96,6 +96,7 @@ export default function Labour() {
       });
     }
   };
+
 
   return (
     <Form {...form}>

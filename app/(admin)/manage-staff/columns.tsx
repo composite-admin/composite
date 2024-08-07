@@ -74,18 +74,5 @@ export const columns: ColumnDef<IManageStaffData>[] = [
       );
     },
   },
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title={"View"} withSort={false} />;
-    },
-    cell: ({ row }) => {
-      let { userid } = row.original;
-      return (
-        <>
-          <ViewCell href={`manage-staff/staff/${userid}`} isLink={true} />
-        </>
-      );
-    },
-  },
+
 ];

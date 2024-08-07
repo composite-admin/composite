@@ -186,12 +186,12 @@ export default function ManageStaffPage({ params }: IProps) {
               <h2>Bank Details</h2>
             </div>
             <div className="flex justify-between items-center w-full">
-              <div className="flex flex-col gap-10 text-sm ">
+              <div className="flex flex-col gap-5 text-sm ">
                 {bankDetailsKeys.map((key, index) => (
                   <span key={index}>{key}:</span>
                 ))}
               </div>
-              <div className="flex flex-col text-sm font-semibold gap-10 ">
+              <div className="flex flex-col text-sm font-semibold gap-5 ">
                 {bankDetailsValues.map((value, index) => (
                   <span key={index}>
                     {staffDetails?.[value as keyof IManageStaffData]}
