@@ -15,9 +15,7 @@ export default function SuppliersPage() {
     (item: any) => item.type === "supplier"
   )?.can_create;
 
-  const CAN_VIEW = staffPrivilege?.find(
-    (item: any) => item.type === "supplier"
-  )?.can_view;
+
 
   return (
     <>

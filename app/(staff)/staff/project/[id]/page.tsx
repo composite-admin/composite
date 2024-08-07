@@ -28,12 +28,18 @@ import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Consultant from "@/components/Project/Consultants";
 import { formatDate } from "@/utils/formatDate";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 const SingleProject = () => {
   const onOpenAddStakeHolder = useAddStakeHolderModal((state) => state.onOpen);
   const onOpenAddContractor = useAddContractorModal((state) => state.onOpen);
   const onOpenStartupModal = useAddStartupModal((state) => state.onOpen);
   const onOpenAddMaterialMOdal = useAddMaterial((state) => state.onOpen);
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_edit;
   const { setCurrentModal } = useProjectDetailsPageFormModal();
   const { setProjectName, projectCode, projectName } = useProjectDetails();
 
@@ -132,7 +138,6 @@ const SingleProject = () => {
   const getProjectById = useProjectActionsStore<any>(
     (state) => state.getProjectById
   );
-  const projects = useProjectActionsStore<any>((state: any) => state.items);
   const getAllProjects = useProjectActionsStore<any>(
     (state: any) => state.getAllProjects
   );
@@ -178,7 +183,9 @@ const SingleProject = () => {
         <div className="flex gap-3 items-center">
           <div>
             <Link href={`/staff/project/${selectedItem?.id}/edit`}>
-              <Button className="w-max py-2">Edit Project</Button>
+              <Button className="w-max py-2" disabled={!CAN_EDIT}>
+                Edit Project
+              </Button>
             </Link>
           </div>
         </div>
@@ -284,7 +291,11 @@ const SingleProject = () => {
               <div
                 key={i}
                 className="flex items-center justify-center flex-col cursor-pointer"
-                onClick={() => showFormModal(item.title)}
+                onClick={
+                  !CAN_EDIT
+                    ? () => router.push("/staff/project/not-allowed")
+                    : () => showFormModal(item.title)
+                }
               >
                 <Image alt="" src={String(item.icon)} width={30} height={30} />
                 <p className="text-center text-[10.37px] text-[#6E6E6E]">
