@@ -119,6 +119,10 @@ export function DeleteCell({
     (item: any) => item.type === "project"
   )?.can_edit;
 
+  const CAN_DELETE = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_delete;
+
   const setAction = () => {
     setTableActions(null);
     setRowID(Number(rowId));
@@ -128,7 +132,7 @@ export function DeleteCell({
     onOpen();
   };
 
-  if (!CAN_EDIT && userType !== "admin") {
+  if (!CAN_DELETE && userType !== "admin") {
     return <p>-</p>;
   }
 
