@@ -8,12 +8,18 @@ import Image from 'next/image'
 import useFetchReportData from '@/mutations/ReportMutation'
 import useFetchEachReportData from '@/mutations/EachReportMutation'
 import { useGetEachReport } from '@/store/report/ReportStore'
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 const SingleReport = (props: any) => {
   const router = useRouter();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "reports"
+  )?.can_edit;
 
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
@@ -46,9 +52,10 @@ const SingleReport = (props: any) => {
       {data && (
         <ViewDetails
           keys={keys}
+          can_edit={CAN_EDIT}
           title="Report Details"
           dateSubmitted="6th July, 2023"
-          editAction={() => router.push(`/reports/${id}/edit`)}
+          editAction={() => router.push(`staff/reports/${id}/edit`)}
           data={data}
         >
           <div className="grid grid-cols-[1fr_3fr] my-10">
@@ -101,6 +108,6 @@ const SingleReport = (props: any) => {
       )}
     </>
   );
-}
+};
 
 export default SingleReport

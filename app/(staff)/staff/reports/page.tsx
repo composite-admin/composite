@@ -11,10 +11,17 @@ import { columns } from "./columns";
 import PageHead from "@/components/ui/pageHead";
 import { HiHome, HiOutlineClock, HiPlus } from "react-icons/hi2";
 import useGetAllReport from "@/store/report/ReportStore";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 export default function ReportPage() {
   const router = useRouter();
   const { reportData, setData } = useGetAllReport();
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "reports"
+  )?.can_create;
+
   const { data, error, isPending } = useQuery({
     queryKey: ["get all project report"],
     queryFn: async () => {
@@ -54,7 +61,8 @@ export default function ReportPage() {
         headText={`Reports (${data?.length || 0})`}
         subText="A report of daily, weekly and monthly activities"
         buttonText="Add Report"
-        buttonAction={() => router.push("/reports/new")}
+        disabled={!CAN_CREATE}
+        buttonAction={() => router.push("/staff/reports/new")}
       />
 
       <div className="flex gap-3 my-5">
