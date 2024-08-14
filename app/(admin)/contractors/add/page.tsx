@@ -106,7 +106,6 @@ const AddContractor = () => {
 
               <input
                 {...register("contact_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -119,11 +118,6 @@ const AddContractor = () => {
                 type="text"
                 {...register("contact_person", { required: true })}
               />
-              {errors.contact_person && (
-                <span className="text-red-500 text-xs">
-                  Please enter a full name.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
@@ -131,7 +125,6 @@ const AddContractor = () => {
 
               <input
                 {...register("contact_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -140,29 +133,19 @@ const AddContractor = () => {
             <div className="flex flex-col">
               <p className="value">Email</p>
 
-              <input type="email" {...register("email", { required: true })} />
-              {errors.email && (
-                <span className="text-red-500 text-xs">
-                  This field is required.
-                </span>
-              )}
+              <input type="email" {...register("email")} />
             </div>
 
             <div className="flex flex-col">
               <p className="value">Website</p>
 
-              <input type="text" {...register("website", { required: true })} />
-              {errors.website && (
-                <span className="text-red-500 text-xs">
-                  This field is required.
-                </span>
-              )}
+              <input type="text" {...register("website")} />
             </div>
 
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button

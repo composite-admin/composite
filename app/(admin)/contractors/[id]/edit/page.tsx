@@ -112,7 +112,6 @@ const SingleContractorEdit = () => {
 
               <input
                 {...register("contact_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -126,10 +125,7 @@ const SingleContractorEdit = () => {
             <div className="flex flex-col">
               <p className="value">Contact Person</p>
 
-              <input
-                type="text"
-                {...register("contact_person", { required: true })}
-              />
+              <input type="text" {...register("contact_person")} />
             </div>
 
             <div className="flex flex-col">
@@ -137,33 +133,27 @@ const SingleContractorEdit = () => {
 
               <input
                 {...register("contact_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
-              {errors.contact_mobile && (
-                <span className="text-red-500 text-xs">
-                  Please enter a valid phone number.
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col">
               <p className="value">Email</p>
 
-              <input type="email" {...register("email", { required: true })} />
+              <input type="email" {...register("email")} />
             </div>
 
             <div className="flex flex-col">
               <p className="value">Website</p>
 
-              <input type="text" {...register("website", { required: true })} />
+              <input type="text" {...register("website")} />
             </div>
 
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
