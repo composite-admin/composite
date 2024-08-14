@@ -195,7 +195,9 @@ export default function CashAdvanceOffice() {
           >
             Cancel
           </Button>
-          <Button className="w-full">Approve Request</Button>
+          <Button className="w-full" disabled={form.formState.isSubmitting}>
+            Approve Request
+          </Button>
         </div>
       </form>
     </Form>

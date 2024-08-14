@@ -15,7 +15,7 @@ import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const ToolsAndMachineBuySchema = z.object({
@@ -52,6 +52,7 @@ type ToolsAndMachineBuyType = z.infer<typeof ToolsAndMachineBuySchema>;
 export default function ToolsAndMachineBuy() {
   const { formDetails, onClose } = useUpdateRequestStore();
   const { toast } = useToast();
+  const [isloading, setIsLoading] = useState(false);
   const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
   const { username } = userStore();
   const query = useQueryClient();
@@ -68,6 +69,7 @@ export default function ToolsAndMachineBuy() {
 
   const handleSubmit = async (data: ToolsAndMachineBuyType) => {
     try {
+      setIsLoading(true);
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         approved_by: username,
@@ -81,6 +83,7 @@ export default function ToolsAndMachineBuy() {
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
       if (res.status === 200 || res.status === 201) {
+        setIsLoading(false);
         toast({
           title: "Request Approved",
           variant: "success",
@@ -93,6 +96,7 @@ export default function ToolsAndMachineBuy() {
         onClose();
       }
     } catch (error) {
+      setIsLoading(false);
       toast({
         title: "Request creation failed",
         variant: "destructive",
@@ -211,7 +215,9 @@ export default function ToolsAndMachineBuy() {
           >
             Cancel
           </Button>
-          <Button className="w-full">Approve request</Button>
+          <Button type="submit" className="w-full" disabled={isloading}>
+            Approve request
+          </Button>
         </div>
       </form>
     </Form>

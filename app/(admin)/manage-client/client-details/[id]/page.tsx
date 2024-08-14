@@ -75,35 +75,35 @@ export default function ClientDetailsPage({ params }: Params) {
             <div className="p-7 grid sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-dense grid-rows-2">
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">Client Name:</span>
-                <span className=" md:text-lg capitalize">
+                <span className=" md:text-base capitalize">
                   {details?.first_name} {details?.last_name}
                 </span>
               </div>
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">Contact Mobile:</span>
-                <span className=" md:text-lg">{details?.mobile_number}</span>
+                <span className=" md:text-base">{details?.mobile_number}</span>
               </div>
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">Office Phone:</span>
-                <span className=" md:text-lg">{details?.phone_number}</span>
+                <span className=" md:text-base">{details?.phone_number}</span>
               </div>
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">Email:</span>
-                <span className=" md:text-lg">{details?.email}</span>
+                <span className=" md:text-base">{details?.email}</span>
               </div>
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">State:</span>
-                <span className=" md:text-lg">{details?.state}</span>
+                <span className=" md:text-base">{details?.state}</span>
               </div>{" "}
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">Address:</span>
-                <span className=" md:text-lg">{details?.address}</span>
+                <span className=" md:text-base">{details?.address}</span>
               </div>
             </div>
           </div>
 
           <div className="bg-white flex-col flex max-w-xs rounded-lg md:col-span-2 auto-rows-min min-h-[20rem] md:max-w-full">
-            <h2 className="border-b p-7 text-lg font-semibold">
+            <h2 className="border-b p-7 text-base font-semibold">
               Quick Actions
             </h2>
 

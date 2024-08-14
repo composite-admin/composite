@@ -16,6 +16,8 @@ import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import useRefetchQuery from "@/utils/refetchQuery";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 
 export const LabourSchema = z.object({
   request_type: z.nativeEnum(RequestType),
@@ -33,6 +35,7 @@ export const LabourSchema = z.object({
 type labourFormType = z.infer<typeof LabourSchema>;
 
 export default function Labour() {
+  const [isLoading, setIsLoading] = useState(false);
   const { formDetails, onClose } = useUpdateRequestStore();
   const { refetchQuery } = useRefetchQuery();
   const { userId, username } = userStore();
@@ -51,6 +54,7 @@ export default function Labour() {
 
   const createWorkerJob = async (data: labourFormType) => {
     try {
+      setIsLoading(true);
       const res = await api.post("/worker-jobs", {
         ...data,
         job_code: worker?.worker_code,
@@ -63,6 +67,7 @@ export default function Labour() {
         outstanding_balance: worker?.outstanding_balance ?? 0,
       });
       if (res.status === 200 || res.status === 201) {
+        setIsLoading(false);
         refetchQuery({
           predicate: (query) => query.queryKey[0] === "get request details",
         });
@@ -74,7 +79,13 @@ export default function Labour() {
         onClose();
       }
       return res.data.data;
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        title: "Request creation failed",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleSubmit = async (data: labourFormType) => {
@@ -96,7 +107,6 @@ export default function Labour() {
       });
     }
   };
-
 
   return (
     <Form {...form}>
@@ -162,7 +172,9 @@ export default function Labour() {
           >
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button className="w-full" type="submit" disabled={isLoading}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>

@@ -15,7 +15,7 @@ import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const ToolsAndMachineRentSchema = z.object({
@@ -51,6 +51,7 @@ type ToolsAndMachineRentType = z.infer<typeof ToolsAndMachineRentSchema>;
 
 export default function ToolsAndMachineRent() {
   const { formDetails, onClose } = useUpdateRequestStore();
+  const [isLoading, setIsLoading] = useState(false);
   const query = useQueryClient();
   const { toast } = useToast();
   const { username } = userStore();
@@ -76,6 +77,7 @@ export default function ToolsAndMachineRent() {
 
   const handleSubmit = async (data: ToolsAndMachineRentType) => {
     try {
+      setIsLoading(true);
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "APPROVED",
@@ -89,6 +91,7 @@ export default function ToolsAndMachineRent() {
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
       if (res.status === 200 || res.status === 201) {
+        setIsLoading(false);
         toast({
           title: "Request Approved",
           variant: "success",
@@ -101,6 +104,7 @@ export default function ToolsAndMachineRent() {
         // });
       }
     } catch (error) {
+      setIsLoading(false);
       toast({
         title: "Request creation failed",
         variant: "destructive",
@@ -211,7 +215,9 @@ export default function ToolsAndMachineRent() {
           >
             Cancel
           </Button>
-          <Button className="w-full">Approve request</Button>
+          <Button className="w-full" type="submit" disabled={isLoading}>
+            Approve request
+          </Button>
         </div>
       </form>
     </Form>

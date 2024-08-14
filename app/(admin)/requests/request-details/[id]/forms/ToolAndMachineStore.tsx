@@ -21,7 +21,7 @@ import { z } from "zod";
 import { RequestType } from "./CashAdvance";
 import { useInventoryStore } from "@/store/project/useProjectStore";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -33,19 +33,19 @@ export const ToolsAndMachineStoreSchema = z.object({
       required_error: "Quantity is required",
     })
     .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
-  supervisor_comment: z.string({
-    required_error: "Comment is required",
-  }),
+  supervisor_comment: z.string().optional(),
 });
 
 type ToolsAndMachineStoreType = z.infer<typeof ToolsAndMachineStoreSchema>;
 
 export default function ToolsAndMachineStore() {
   const { formDetails, onClose } = useUpdateRequestStore();
+  const [isLoading, setIsLoading] = useState(false);
   const { inventory } = useGetAllInventoryItems();
   const inventoryItemID = inventory?.find(
     (item) => item.name === formDetails?.tool_machinery_type
   )?.inventory_id;
+
   const { userId, username } = userStore();
   const { staffDetails } = useGetStaffDetails(userId);
   const { toast } = useToast();
@@ -57,7 +57,9 @@ export default function ToolsAndMachineStore() {
   });
 
   const handleSubmit = async (data: ToolsAndMachineStoreType) => {
+    console.log(inventoryItemID);
     try {
+      setIsLoading(true);
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         approved_by: username,
@@ -67,6 +69,7 @@ export default function ToolsAndMachineStore() {
       });
       if (res.status === 201 || res.status === 200) {
         try {
+          setIsLoading(false);
           await api.put(`/inventory/${inventoryItemID}`, {
             quantity:
               Number(
@@ -89,6 +92,7 @@ export default function ToolsAndMachineStore() {
         }
       }
     } catch (error) {
+      console.log(error);
       toast({
         title: "Request creation failed",
         variant: "destructive",
@@ -158,7 +162,7 @@ export default function ToolsAndMachineStore() {
           >
             Cancel
           </Button>
-          <Button className="w-full" disabled={inventory?.length === 0}>
+          <Button className="w-full" disabled={isLoading} type="submit">
             Approve Request
           </Button>
         </div>

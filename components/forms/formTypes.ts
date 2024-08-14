@@ -30,12 +30,7 @@ export const createAddClientSchema = z.object({
     .email({ message: "Email is invalid" })
     .trim(),
 
-  "Phone number": z
-    .string()
-    .min(1, { message: "Phone number is required" })
-    .min(11, { message: "Phone number is invalid" })
-    .max(11, { message: "Phone number is invalid" })
-    .trim(),
+  "Phone number": z.string().optional(),
 
   "Mobile number": z
     .string()

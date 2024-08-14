@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomFormSelect } from "../shared/FormComponent";
 import { useFlats, useProjectData } from "../../hooks/useSelectOptions";
 import { IProjectData } from "@/utils/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
@@ -48,7 +48,7 @@ export default function AddClientToProject({
   const router = useRouter();
   const watchProjectName = form.watch("project_name");
   const { clientDetailsData } = useManageClientStore();
-
+  const query = useQueryClient();
   const { projectsData } = useProjectData();
   const { flats } = useFlats();
   const flatList = flats?.map((item) => item?.flat_code);
@@ -72,6 +72,9 @@ export default function AddClientToProject({
           project_id: projectId,
           project_code: projectCode,
           client_id: clientDetailsData?.userid,
+        });
+        query.invalidateQueries({
+          queryKey: ["get client project"],
         });
         return response.data;
       } catch (error) {

@@ -12,7 +12,7 @@ import { userStore } from "@/store/auth/AuthStore";
 import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 import useRefetchQuery from "@/utils/refetchQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -52,6 +52,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function CashAdvance() {
   const { formDetails, onClose } = useUpdateRequestStore();
   const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
+  const [isloading, setIsLoading] = useState(false);
   const { userId, username } = userStore();
   const { toast } = useToast();
   const form = useForm<CreateCashAdvanceOfficeType>({
@@ -201,7 +202,9 @@ export default function CashAdvance() {
           >
             Cancel
           </Button>
-          <Button className="w-full">Approve Request</Button>
+          <Button className="w-full" disabled={form.formState.isSubmitting}>
+            Approve Request
+          </Button>
         </div>
       </form>
     </Form>

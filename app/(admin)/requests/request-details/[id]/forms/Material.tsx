@@ -37,9 +37,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   bank: z.string({
     required_error: "Bank name is required",
   }),
-  supervisor_comment: z.string({
-    required_error: "Comment is required",
-  }),
+  supervisor_comment: z.string().optional(),
   account_number: z.string({
     required_error: "Account number is required",
   }),
@@ -55,7 +53,7 @@ type CreateCashAdvanceOfficeType = z.infer<
 export default function Material() {
   const { formDetails, onClose } = useUpdateRequestStore();
   const { staffDetails } = useGetStaffDetails(formDetails?.staff_id!);
-  const { formType, setFormType } = useStaffStore();
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
   const [matDesc, setMatDesc] = useState<string[]>([]);
@@ -71,6 +69,7 @@ export default function Material() {
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
+      setIsLoading(true);
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "APPROVED",
@@ -82,6 +81,7 @@ export default function Material() {
           Number(data.approved_unit_price) * Number(data.approved_quantity),
       });
       if (res.status === 200 || res.status === 201) {
+        setIsLoading(false);
         toast({
           title: "Request Approved",
           variant: "success",
@@ -91,6 +91,7 @@ export default function Material() {
         window.location.reload();
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -230,7 +231,9 @@ export default function Material() {
           >
             Cancel
           </Button>
-          <Button className="w-full">Approve Request</Button>
+          <Button className="w-full" type="submit" disabled={isLoading}>
+            Approve Request
+          </Button>
         </div>
       </form>
     </Form>
