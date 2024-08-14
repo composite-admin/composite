@@ -28,7 +28,7 @@ const ViewDetails = React.forwardRef<any, KeysInterface>(
   ({
     title,
     dateSubmitted,
-    can_edit = false,
+    can_edit = true,
     editAction,
     keys,
     children,
