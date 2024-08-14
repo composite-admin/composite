@@ -36,7 +36,6 @@ const AddWorker = () => {
   return (
     <>
       <GoBack />
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-[80%] mx-auto my-10 rounded-lg border border-outline bg-white p-[29px]">
           <div className="flex gap-2 flex-col border-b border-b-gray-200 py-3">
@@ -161,7 +160,6 @@ const AddWorker = () => {
 
               <input
                 {...register("worker_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />

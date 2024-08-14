@@ -156,7 +156,6 @@ const AddWorker = () => {
 
               <input
                 {...register("worker_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
