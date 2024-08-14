@@ -59,10 +59,12 @@ const EditMaterialModal: React.FC<Props> = (row) => {
 
   return (
     <FramerModal isOpen={true} isAutomatic={false} onClose={hideModal}>
-      <div className="lg:min-w-[70rem] md:min-w-[40rem] w-full bg-white rounded-lg p-10 sm:grid space-y-6 sm:space-y-0 grid-cols-[1.5fr_4fr]">
+      <div className="lg:min-w-[30rem] md:min-w-[30rem] w-full bg-white rounded-lg p-10 sm:grid space-y-6 sm:space-y-0 grid-cols-[1.5fr_4fr]">
         <div className="space-y-2">
-          <p className="text-3xl font-bold">Edit Material</p>
-          <p className="text-zinc-500">Make changes to supplier material</p>
+          <p className="text-xl font-bold">Edit Material</p>
+          <p className="text-zinc-500">
+            Make changes to supplier <br /> material
+          </p>
           <div className="pt-4">
             <Button title="Submit Changes" onClick={handleSubmit(onSubmit)}>
               Submit Changes
@@ -73,7 +75,7 @@ const EditMaterialModal: React.FC<Props> = (row) => {
           <form
             onSubmit={handleSubmit(onSubmit)}
             noValidate
-            className="space-y-4"
+            className="space-y-4 px-3"
           >
             <div className="space-y-1">
               <label className="font-semibold">Material Description</label>
