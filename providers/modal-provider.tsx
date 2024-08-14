@@ -42,7 +42,7 @@ export const ModalProvider = () => {
       <IDModal />
       <AddAndEditApartmentModal />
       <ClientModal />
-      <EditFlatModal />
+      {/* <EditFlatModal /> */}
       <AddCommentModal />
       <UpdateRequestModal />
       <DetailsModal />

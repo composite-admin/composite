@@ -26,10 +26,13 @@ const FormSchema = z.object({
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 export default function EditFlatModal() {
-  const { isOpen, onClose, action } = useEditFlatModal();
+  const { isOpen, onClose, action, projectCode } = useEditFlatModal();
+  console.log(projectCode);
   const { projectsData } = useProjectData();
   const { flatData } = useFacilityStore();
-  const flatItem = flatData?.find((item: any) => item.project_name === action);
+  const flatItem = flatData?.find(
+    (item: any) => item.project_name === projectCode
+  );
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
   });
@@ -50,45 +53,36 @@ export default function EditFlatModal() {
   };
 
   return (
-    <Modal
-      title="Edit Flat"
-      description="Make changes to this flat"
-      isOpen={isOpen}
-      onClose={onClose}
-      classname="max-w-xl"
-    >
-      {" "}
-      <Form {...form}>
-        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-          <CustomFormField
-            control={form.control}
-            name="project_name"
-            placeholder={flatItem?.project_name}
-            label="Project Name"
-            disabled
-          />
-          <CustomFormField
-            control={form.control}
-            name="flat_desc"
-            label="Flat Description"
-            placeholder={flatItem?.flat_desc}
-          />
-          <CustomFormTextareaField
-            control={form.control}
-            name="comment"
-            label="Comment"
-            placeholder={flatItem?.comment}
-          />
+    <Form {...form}>
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <CustomFormField
+          control={form.control}
+          name="project_name"
+          placeholder={flatItem?.project_name}
+          label="Project Name"
+          disabled
+        />
+        <CustomFormField
+          control={form.control}
+          name="flat_desc"
+          label="Flat Description"
+          placeholder={flatItem?.flat_desc}
+        />
+        <CustomFormTextareaField
+          control={form.control}
+          name="comment"
+          label="Comment"
+          placeholder={flatItem?.comment}
+        />
 
-          <div className="grid grid-cols-2 gap-5 pt-4">
-            <Button variant="secondary" onClick={onClose} type="button">
-              Cancel
-            </Button>
-            <Button type="submit">Submit</Button>
-          </div>
-        </form>
-      </Form>
-    </Modal>
+        <div className="grid grid-cols-2 gap-5 pt-4">
+          <Button variant="secondary" onClick={onClose} type="button">
+            Cancel
+          </Button>
+          <Button type="submit">Submit</Button>
+        </div>
+      </form>
+    </Form>
   );
 }
 

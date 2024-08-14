@@ -76,7 +76,7 @@ const AddStakeholder = () => {
               <p className="value">Stakeholder Phone</p>
 
               <input
-                {...register("stakeholder_phone", {
+                {...register("stakeholder_ofc_phone", {
                   required: true,
                   validate: validatePhoneNumber,
                 })}
@@ -105,7 +105,6 @@ const AddStakeholder = () => {
               <p className="value">Contact Home Phone</p>
               <input
                 {...register("contact_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -115,7 +114,6 @@ const AddStakeholder = () => {
 
               <input
                 {...register("contact_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -180,7 +178,7 @@ const AddStakeholder = () => {
             </div>
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"

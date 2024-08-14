@@ -317,7 +317,7 @@ export default function EditTenantForm({ id }: { id: string }) {
                       Back
                     </Button>
                     <Button className="w-full" onClick={next}>
-                      Next
+                      {currentStep === 1 ? "Submit" : "Next"}
                     </Button>
                   </div>
                 </div>

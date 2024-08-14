@@ -10,9 +10,11 @@ import {
 import TableAction from "../../cash-advance/details/(forms_and_modals)/TableAction";
 import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 import { userStore } from "@/store/auth/AuthStore";
+import { useEditFlatModal } from "@/store/modals/useCreateModal";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   href?: string;
+  projectCode?: string;
   isLink?: boolean;
   action?: string | ProjectPageFormType;
   row?: Row<any>;
@@ -23,6 +25,7 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 export default function EditCell({
   href,
   isLink,
+  projectCode,
   action,
   row,
   rowId,
@@ -31,6 +34,7 @@ export default function EditCell({
   const { data: staffPrivilege } = useStaffPrivilegeStore();
 
   const { userType } = userStore();
+  const { setProjectCode } = useEditFlatModal();
 
   const CAN_EDIT = staffPrivilege?.find(
     (item: any) => item.type === "project"
@@ -44,6 +48,9 @@ export default function EditCell({
       setRowID(Number(rowId));
       setEditOrDelete("edit");
       onOpen();
+    }
+    if (projectCode) {
+      setProjectCode(projectCode);
     }
     return;
   };
@@ -151,19 +158,3 @@ export function DeleteCell({
     </div>
   );
 }
-
-// type Props = Row<Material>;
-
-// const EditPartMaterial: React.FC<Props> = (props) => {
-//   const { showModal } = useModal();
-
-//   const showEditMaterialModal = () => showModal(<EditMaterialModal {...props} />);
-
-//   return (
-//     <div className="" onClick={showEditMaterialModal}>
-//       <span className="font-semibold cursor-pointer hover:underline text-primaryLight-500 flex items-center">
-//         <HiPencilAlt className="text-xl" /> <span>Edit</span>
-//       </span>
-//     </div>
-//   );
-// };

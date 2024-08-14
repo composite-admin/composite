@@ -9,6 +9,7 @@ export type ProjectPageFormType =
 interface TableAction {
   isOpen: boolean;
   tableActions: ProjectPageFormType;
+  isEditFlat?: "edit" | "delete" | null;
   isEditOrDelete: "edit" | "delete" | false;
   rowID: number | null;
   deleteUrl: string | null;

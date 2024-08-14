@@ -10,6 +10,8 @@ export type EditModalAction = {
 interface ModalStoreState {
   isOpen: boolean;
   onOpen: () => void;
+  setProjectCode: (projectCode: string) => void;
+  projectCode: string;
   onClose: () => void;
   breakdownModalType?: breakdownModal;
   addToProjectFormType?: addToProjectFormType;
@@ -23,6 +25,8 @@ interface ModalStoreState {
 
 export const createModalStore = () =>
   create<ModalStoreState>((set) => ({
+    projectCode: "",
+    setProjectCode: (projectCode) => set({ projectCode }),
     isOpen: false,
     breakdownModalType: null,
     staffID: "",

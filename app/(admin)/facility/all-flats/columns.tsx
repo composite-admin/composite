@@ -33,6 +33,7 @@ export const columns: ColumnDef<IFlatData>[] = [
       );
     },
   },
+
   {
     accessorKey: "flat_desc",
     header: ({ column }) => {
@@ -59,6 +60,12 @@ export const columns: ColumnDef<IFlatData>[] = [
       const { createdAt } = row.original;
       const formattedDate = formatDate(createdAt);
       return <span>{formattedDate}</span>;
+    },
+  },
+  {
+    accessorKey: "comment",
+    header: ({ column }) => {
+      return <ColumnHeader column={column} title="Comments" withSort={false} />;
     },
   },
   {
@@ -92,7 +99,12 @@ export const columns: ColumnDef<IFlatData>[] = [
       let { project_name } = row.original;
       return (
         <>
-          <EditCellWithModal isLink={false} action={String(project_name)} />
+          <EditCell
+            isLink={false}
+            projectCode={String(project_name)}
+            row={row}
+            action={"edit_flat"}
+          />
         </>
       );
     },
@@ -109,12 +121,11 @@ const withEditFlatModal = <P extends EditCellProps>(
   Component: React.ComponentType<P>
 ) => {
   const WrappedComponent = (props: P) => {
-    const { onOpen, setAction, action } = useEditFlatModal();
+    const { onOpen, setProjectCode } = useEditFlatModal();
 
     const handleEditClick = () => {
       onOpen();
-      setAction(props.action);
-      console.log(action);
+      setProjectCode(props.action);
     };
 
     return (

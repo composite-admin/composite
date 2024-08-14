@@ -61,23 +61,6 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "officePhone",
-    header: ({ column }) => {
-      return (
-        <ColumnHeader column={column} title="Office Phone" withSort={false} />
-      );
-    },
-    cell: ({ row }) => {
-      return (
-        <div className="">
-          <span className="font-semibold ">
-            {row.original["stakeholder_ofc_phone"]}
-          </span>
-        </div>
-      );
-    },
-  },
-  {
     accessorKey: "contactPerson",
     header: ({ column }) => {
       return (
@@ -98,13 +81,13 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "contactPhone",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Contact Phone" />;
+      return <ColumnHeader column={column} title="Stakeholder Phone" />;
     },
     cell: ({ row }) => {
       return (
         <div className="">
           <span className="font-semibold text-primaryLight-500 text-center">
-            {row.original["contact_mobile"]}
+            {row.original["stakeholder_ofc_phone"]}
           </span>
         </div>
       );

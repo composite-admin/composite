@@ -55,19 +55,6 @@ const EditSingleStakeholder = () => {
     mutate(data);
   };
 
-  // useEffect(() => {
-  //   const fetchStakeholder = async () => {
-  //     try {
-  //       const response = await getStakeholderById(Number(params.id));
-  //       reset(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching stakeholder data:", error);
-  //     }
-  //   };
-
-  //   fetchStakeholder();
-  // }, [params.id, reset]);
-
   return (
     <>
       <GoBack />
@@ -143,7 +130,6 @@ const EditSingleStakeholder = () => {
 
               <input
                 {...register("contact_mobile", {
-                  required: true,
                   validate: (value: any) =>
                     value ? validatePhoneNumber(value) : true,
                 })}
@@ -206,7 +192,7 @@ const EditSingleStakeholder = () => {
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
