@@ -241,7 +241,7 @@ const AddWorker = () => {
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
