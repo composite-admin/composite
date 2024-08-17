@@ -26,6 +26,8 @@ import { z } from "zod";
 import { IWorkerData, selectOtionsForWorkerServiceType } from "@/utils/types";
 import { getStuffTyped, useGetAllProjectData } from "@/hooks/useSelectOptions";
 import Link from "next/link";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
+import { BlockEdiComponent } from "@/components/shared/BlockEdit";
 
 const AddWorkerSchema = z.object({
   project_name: z.string({
@@ -99,6 +101,12 @@ const AddWorkerToProject = () => {
     );
     filteredWorkerNames = workers?.map((item) => item.worker_name);
   }
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_create;
+
   const handleSubmit = (data: AddWorkerSchemaType) => {
     mutate(data, {
       onSuccess: () => {
@@ -119,6 +127,10 @@ const AddWorkerToProject = () => {
       },
     });
   };
+
+  if (!CAN_CREATE) {
+    return <BlockEdiComponent />;
+  }
   return (
     <>
       <div className="flex items-center justify-between">
@@ -141,8 +153,7 @@ const AddWorkerToProject = () => {
 
           <form
             className="flex flex-col gap-5 py-8"
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
+            onSubmit={form.handleSubmit(handleSubmit)}>
             <CustomFormField
               control={form.control}
               name="project_name"
@@ -171,8 +182,7 @@ const AddWorkerToProject = () => {
                 variant={"secondary"}
                 className="w-full"
                 onClick={() => router.back()}
-                type="button"
-              >
+                type="button">
                 Cancel
               </Button>
               <Button className="w-full">Add</Button>

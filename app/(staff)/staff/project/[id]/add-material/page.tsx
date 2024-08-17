@@ -27,6 +27,8 @@ import { useEffect, useState } from "react";
 import { Params } from "../edit/page";
 import GoBack from "@/components/shared/GoBack";
 import { useRouter } from "next/navigation";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
+import { BlockEdiComponent } from "@/components/shared/BlockEdit";
 
 const AddMaterialSchema = z.object({
   supplier_code: z.string().optional(),
@@ -69,6 +71,12 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
     (supplier: ISupplierData) => supplier.supplier_name
   );
   const watchSupplier = form.watch("supplier_name");
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_create;
+  console.log(CAN_CREATE);
 
   useEffect(() => {
     if (watchSupplier) {
@@ -144,6 +152,11 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
     });
     console.log(data);
   };
+
+  if (!CAN_CREATE) {
+    return <BlockEdiComponent />;
+  }
+
   return (
     <>
       <GoBack />
@@ -154,8 +167,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
         <Form {...form}>
           <form
             className="flex flex-col gap-5"
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
+            onSubmit={form.handleSubmit(handleSubmit)}>
             <CustomFormField
               control={form.control}
               name="project_name"
@@ -221,8 +233,7 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
                 variant={"secondary"}
                 className="w-full"
                 onClick={() => router.back()}
-                type="button"
-              >
+                type="button">
                 Cancel
               </Button>
               <Button className="w-full">Add</Button>
