@@ -100,7 +100,7 @@ export default function AddPrivilegeModal() {
 
       reset({ privileges: defaultValues });
     }
-  }, [staffPrivileges, reset]);
+  }, [staffPrivileges, reset, isLoadingPrivileges]);
 
   // useEffect(() => {
   //   const defaultValues = privileges.reduce((acc, privilege) => {
@@ -175,52 +175,62 @@ export default function AddPrivilegeModal() {
             control={control}
             render={({ field }) => (
               <div className="gap-2 grid lg:grid-cols-2 ">
-                {privileges.map((privilege) => (
-                  <div
-                    key={privilege}
-                    className="mb-4">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`${privilege}-selected`}
-                        checked={true}
-                        disabled={true}
-                      />
-                      <label
-                        htmlFor={`${privilege}-selected`}
-                        className="font-bold">
-                        {privilege}
-                      </label>
-                    </div>
-                    <div className="ml-6 mt-2 flex flex-wrap gap-2">
-                      {actions.map((action) => (
-                        <div
-                          key={action}
-                          className="flex items-center space-x-2">
-                          <Checkbox
-                            id={`${privilege}-${action}`}
-                            checked={field.value[privilege].actions[action]}
-                            onCheckedChange={(checked) => {
-                              const updatedPrivileges = {
-                                ...field.value,
-                                [privilege]: {
-                                  ...field.value[privilege],
-                                  actions: {
-                                    ...field.value[privilege].actions,
-                                    [action]: checked as boolean,
-                                  },
-                                },
-                              };
-                              field.onChange(updatedPrivileges);
-                            }}
-                          />
-                          <label htmlFor={`${privilege}-${action}`}>
-                            {formatActionLabel(action)}
+                {!isLoadingPrivileges &&
+                  privileges.map((privilege) => (
+                    <div
+                      key={privilege}
+                      className="mb-4">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`${privilege}-selected`}
+                          checked={true}
+                          disabled={true}
+                          aria-hidden
+                          sr-only
+                          className="hidden"
+                        />
+                        <div className="w-full flex gap-1.5 items-center">
+                          <span className="bg-black size-2 rounded-full"></span>
+                          <label
+                            htmlFor={`${privilege}-selected`}
+                            className="font-bold">
+                            {privilege}
                           </label>
                         </div>
-                      ))}
+                      </div>
+                      <div className="ml-6 mt-2 flex flex-wrap gap-2">
+                        {actions.map((action) => (
+                          <div
+                            key={action}
+                            className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`${privilege}-${action}`}
+                              checked={
+                                !isLoadingPrivileges &&
+                                field?.value[privilege]?.actions[action]
+                              }
+                              onCheckedChange={(checked) => {
+                                const updatedPrivileges = {
+                                  ...field.value,
+                                  [privilege]: {
+                                    ...field.value[privilege],
+                                    actions: {
+                                      ...field.value[privilege].actions,
+                                      [action]: checked as boolean,
+                                    },
+                                  },
+                                };
+                                field.onChange(updatedPrivileges);
+                              }}
+                            />
+                            <label htmlFor={`${privilege}-${action}`}>
+                              {formatActionLabel(action)}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             )}
           />

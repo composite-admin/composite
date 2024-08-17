@@ -467,6 +467,7 @@ export const useGetStaffPrivileges = (id: string) => {
     refetchInterval: 30 * 60 * 1000,
     refetchOnMount: "always",
     refetchOnWindowFocus: "always",
+    enabled: !!id,
   });
   return { staffPrivileges: data, isLoading };
 };

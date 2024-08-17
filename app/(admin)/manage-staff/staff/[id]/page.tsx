@@ -3,6 +3,7 @@ import { AvatarComponent } from "@/components/shared/AvatarComponent";
 import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
 import { api } from "@/config/api";
+import { useGetStaffPrivileges } from "@/hooks/useSelectOptions";
 import useManageStaffStore from "@/store/manage-staff/useManageStaffStore";
 import { useAddPrivilegeModal } from "@/store/modals/useCreateModal";
 import { formatDate } from "@/utils/formatDate";
@@ -76,6 +77,8 @@ const bankDetailsValues = ["bank_name", "account_name", "account_number"];
 
 export default function ManageStaffPage({ params }: IProps) {
   const { setStaffDetails, staffDetails } = useManageStaffStore();
+  const { isLoading: isLoadingPrivileges, staffPrivileges } =
+    useGetStaffPrivileges(staffDetails?.userid!);
   const { onOpen } = useAddPrivilegeModal();
   const [toggle, setToggle] = useState(false);
   const showBankDetails = () => setToggle(!toggle);
@@ -119,7 +122,10 @@ export default function ManageStaffPage({ params }: IProps) {
               </div>
             </aside>
             <aside className="space-x-3">
-              <Button variant={"outline"} onClick={onOpen}>
+              <Button
+                variant={"outline"}
+                onClick={onOpen}
+                disabled={!staffDetails || isLoadingPrivileges}>
                 <p className="font-semibold">Grant Privileges</p>
               </Button>
               <Button>
@@ -132,14 +138,12 @@ export default function ManageStaffPage({ params }: IProps) {
               {staffDetailsKeys.map((key, index) => (
                 <div
                   key={index}
-                  className="flex justify-between  flex-col gap-2"
-                >
+                  className="flex justify-between  flex-col gap-2">
                   <span className="font-semibold">{key}:</span>
                   <span
                     className={`text-textColor ${
                       staffDetailsValues[index] === "userid" ? "uppercase" : ""
-                    }`}
-                  >
+                    }`}>
                     {
                       staffDetails?.[
                         staffDetailsValues[index] as keyof IManageStaffData
@@ -156,14 +160,12 @@ export default function ManageStaffPage({ params }: IProps) {
               {nextOfKinKeys.map((key, index) => (
                 <div
                   key={index}
-                  className="flex justify-between  flex-col gap-2"
-                >
+                  className="flex justify-between  flex-col gap-2">
                   <span className="font-semibold">{key}:</span>
                   <span
                     className={`text-textColor ${
                       nextOfKinValues[index] === "userid" ? "uppercase" : ""
-                    }`}
-                  >
+                    }`}>
                     {
                       staffDetails?.[
                         nextOfKinValues[index] as keyof IManageStaffData
