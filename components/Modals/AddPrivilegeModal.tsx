@@ -24,22 +24,10 @@ interface PrivilegeData {
   actions: Action;
 }
 
-interface StaffPrivilege {
-  id: number;
-  staff_id: string;
-  type: string;
-  can_view: number;
-  can_edit: number;
-  can_delete: number;
-  can_create: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
 const privileges = [
   "Inventory",
   "Project",
-  "Suppliers",
+  "Supplier",
   "Contractor",
   "Consultant",
   "Stakeholder",
@@ -61,7 +49,8 @@ export default function AddPrivilegeModal() {
   const { isOpen, onClose } = useAddPrivilegeModal();
   const { toast } = useToast();
   const { staffDetails } = useManageStaffStore();
-  const { staffPrivileges } = useGetStaffPrivileges(staffDetails?.userid!);
+  const { staffPrivileges, isLoading: isLoadingPrivileges } =
+    useGetStaffPrivileges(staffDetails?.userid!);
 
   const shouldBeChecked = (type: string): boolean => {
     const privilege = staffPrivileges?.find(
@@ -94,12 +83,13 @@ export default function AddPrivilegeModal() {
       can_delete: false,
     };
   };
+
   const { control, handleSubmit, reset } = useForm<{
     privileges: Record<string, PrivilegeData>;
   }>();
 
   useEffect(() => {
-    if (staffPrivileges) {
+    if (staffPrivileges && !isLoadingPrivileges) {
       const defaultValues = privileges.reduce((acc, privilege) => {
         acc[privilege] = {
           selected: shouldBeChecked(privilege),
@@ -111,6 +101,23 @@ export default function AddPrivilegeModal() {
       reset({ privileges: defaultValues });
     }
   }, [staffPrivileges, reset]);
+
+  // useEffect(() => {
+  //   const defaultValues = privileges.reduce((acc, privilege) => {
+  //     acc[privilege] = {
+  //       selected: true,
+  //       actions: {
+  //         can_view: false,
+  //         can_edit: false,
+  //         can_create: false,
+  //         can_delete: false,
+  //       },
+  //     };
+  //     return acc;
+  //   }, {} as Record<string, PrivilegeData>);
+
+  //   reset({ privileges: defaultValues });
+  // }, [reset]);
 
   const formatActionLabel = (action: string): string => {
     return action.replace("can_", "Can ").replace("_", " ");
@@ -139,9 +146,8 @@ export default function AddPrivilegeModal() {
   });
 
   const submit = (data: { privileges: Record<string, PrivilegeData> }) => {
-    const formattedData = Object.entries(data.privileges)
-      .filter(([_, value]) => value.selected)
-      .map(([type, { actions }]) => ({
+    const formattedData = Object.entries(data.privileges).map(
+      ([type, { actions }]) => ({
         staff_id: staffDetails?.userid,
         type: type.toLowerCase(),
         ...Object.fromEntries(
@@ -150,13 +156,8 @@ export default function AddPrivilegeModal() {
             value ? 1 : 0,
           ])
         ),
-      }));
-
-    if (formattedData.length === 0) {
-      console.error("No privileges selected");
-      toast({ title: "No privileges selected", variant: "destructive" });
-      return;
-    }
+      })
+    );
 
     mutate(formattedData);
   };
@@ -166,8 +167,7 @@ export default function AddPrivilegeModal() {
       title="Grant Privilege(s)"
       isOpen={isOpen}
       onClose={onClose}
-      classname="max-w-2xl"
-    >
+      classname="max-w-2xl">
       <form onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col w-full gap-5">
           <Controller
@@ -176,60 +176,49 @@ export default function AddPrivilegeModal() {
             render={({ field }) => (
               <div className="gap-2 grid lg:grid-cols-2 ">
                 {privileges.map((privilege) => (
-                  <div key={privilege} className="mb-4">
+                  <div
+                    key={privilege}
+                    className="mb-4">
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id={`${privilege}-selected`}
-                        checked={field.value[privilege].selected}
-                        onCheckedChange={(checked) => {
-                          const updatedPrivileges = {
-                            ...field.value,
-                            [privilege]: {
-                              ...field.value[privilege],
-                              selected: checked as boolean,
-                            },
-                          };
-                          field.onChange(updatedPrivileges);
-                        }}
+                        checked={true}
+                        disabled={true}
                       />
                       <label
                         htmlFor={`${privilege}-selected`}
-                        className="font-bold"
-                      >
+                        className="font-bold">
                         {privilege}
                       </label>
                     </div>
-                    {field.value[privilege].selected && (
-                      <div className="ml-6 mt-2 flex flex-wrap gap-2">
-                        {actions.map((action) => (
-                          <div
-                            key={action}
-                            className="flex items-center space-x-2"
-                          >
-                            <Checkbox
-                              id={`${privilege}-${action}`}
-                              checked={field.value[privilege].actions[action]}
-                              onCheckedChange={(checked) => {
-                                const updatedPrivileges = {
-                                  ...field.value,
-                                  [privilege]: {
-                                    ...field.value[privilege],
-                                    actions: {
-                                      ...field.value[privilege].actions,
-                                      [action]: checked as boolean,
-                                    },
+                    <div className="ml-6 mt-2 flex flex-wrap gap-2">
+                      {actions.map((action) => (
+                        <div
+                          key={action}
+                          className="flex items-center space-x-2">
+                          <Checkbox
+                            id={`${privilege}-${action}`}
+                            checked={field.value[privilege].actions[action]}
+                            onCheckedChange={(checked) => {
+                              const updatedPrivileges = {
+                                ...field.value,
+                                [privilege]: {
+                                  ...field.value[privilege],
+                                  actions: {
+                                    ...field.value[privilege].actions,
+                                    [action]: checked as boolean,
                                   },
-                                };
-                                field.onChange(updatedPrivileges);
-                              }}
-                            />
-                            <label htmlFor={`${privilege}-${action}`}>
-                              {formatActionLabel(action)}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                                },
+                              };
+                              field.onChange(updatedPrivileges);
+                            }}
+                          />
+                          <label htmlFor={`${privilege}-${action}`}>
+                            {formatActionLabel(action)}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -240,11 +229,12 @@ export default function AddPrivilegeModal() {
               variant={"secondary"}
               className="w-full"
               type="button"
-              onClick={onClose}
-            >
+              onClick={onClose}>
               Cancel
             </Button>
-            <Button className="w-full" type="submit">
+            <Button
+              className="w-full"
+              type="submit">
               Submit
             </Button>
           </div>
