@@ -76,7 +76,6 @@ export default function AddMaterialFormPage({ params: { id } }: Params) {
   const CAN_CREATE = staffPrivilege?.find(
     (item: any) => item.type === "project"
   )?.can_create;
-  console.log(CAN_CREATE);
 
   useEffect(() => {
     if (watchSupplier) {
