@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import { useEffect } from "react";
 import { commentColumns } from "./commentCol";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 type Params = {
   params: {
@@ -26,6 +27,13 @@ type Params = {
 };
 
 export default function ClientDetailsPage({ params }: Params) {
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "client"
+  )?.can_create;
+
+
   const { setClientDetailsData } = useManageClientStore();
   const { onOpen: onOpenIdImage } = useIdModal();
 
@@ -50,6 +58,8 @@ export default function ClientDetailsPage({ params }: Params) {
     (comment) =>
       comment.sender_name === details?.first_name + " " + details?.last_name
   );
+
+
 
   return (
     <>
@@ -119,11 +129,15 @@ export default function ClientDetailsPage({ params }: Params) {
                 </div>
               </div>
               <div className="flex gap-5 items-center p-8">
-                <div className="text-primaryLight-500 font-semibold">
+              {
+                CAN_CREATE ? ( 
+                  <div className="text-primaryLight-500 font-semibold">
                   <span className="text-sm cursor-pointer " onClick={showModal}>
                     Add to Project
                   </span>
                 </div>
+                ) : null
+              }
               </div>
             </div>
           </div>
