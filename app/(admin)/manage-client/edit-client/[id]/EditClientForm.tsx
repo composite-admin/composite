@@ -17,9 +17,7 @@ import {
   CustomFormField,
   CustomFormSelect,
 } from "@/components/shared/FormComponent";
-import { useGetClientDetails } from "@/hooks/useSelectOptions";
 import { useEffect } from "react";
-import useManageClientStore from "@/store/manage-client/useManageClientStore";
 
 export default function EditClientForm(data: any) {
   const query = useQueryClient();
@@ -67,10 +65,11 @@ export default function EditClientForm(data: any) {
         query.invalidateQueries({ queryKey: ["get client details"] });
         router.push(`/manage-client/client-details/${data?.data?.userid}`);
       },
-      onError: () => {
+      onError: (error: Error) => {
         toast({
           title: "Something went wrong",
           variant: "destructive",
+          description: error.message,
         });
       },
     });

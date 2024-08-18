@@ -30,7 +30,12 @@ export const createAddClientSchema = z.object({
     .email({ message: "Email is invalid" })
     .trim(),
 
-  "Phone number": z.string().optional(),
+  "Phone number": z
+    .string({
+      required_error: "Phone number is required",
+    })
+    .regex(/^\d*\.?\d*$/, "Please enter a valid number")
+    .trim(),
 
   "Mobile number": z
     .string()
