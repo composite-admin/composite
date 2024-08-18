@@ -12,7 +12,7 @@ import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
   const { toast } = useToast();
@@ -52,27 +52,25 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
         }
         return response.data;
       } catch (error) {
-        axios.isAxiosError(error) && error.response;
+        const axiosError = error as AxiosError;
         toast({
           variant: "destructive",
           title: "Error",
-          description: "Something went wrong. Please try again.",
+          description: axiosError.message || "An error occurred",
         });
       }
     },
   });
+
   function onSubmit(values: CreateAddClientType) {
     mutate(values);
-
-    // form.reset();
   }
   return (
     <FormContainer
       title="Add new client"
       description="Add new client here"
       isColumn
-      className="w-full lg:max-w-4xl"
-    >
+      className="w-full lg:max-w-4xl">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className=" mb-5 flex gap-5 flex-col justify-center lg:items-center lg:flex-row">
@@ -129,8 +127,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
               variant={"secondary"}
               className="w-full"
               onClick={() => router.push("/manage-client")}
-              type="button"
-            >
+              type="button">
               Cancel
             </Button>
             <Button className="w-full">Submit</Button>
