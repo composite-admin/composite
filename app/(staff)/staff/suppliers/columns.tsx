@@ -9,25 +9,15 @@ import Link from "next/link";
 import { HiPencilAlt } from "react-icons/hi";
 
 export const columns: ColumnDef<ISupplierData>[] = [
-  // {
-  //   accessorKey: "id",
-  //   header: ({ column }) => {
-  //     return (
-  //       <ColumnHeader column={column} title="ID" />
-  //     );
-  //   },
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="">
-  //         <span className="font-semibold ">{row.original["id"]}</span>
-  //       </div>
-  //     );
-  //   },
-  // },
   {
     accessorKey: "supplier_name",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Supplier" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Supplier"
+        />
+      );
     },
     cell: ({ row }) => {
       const { id, supplier_name, supplier_code } = row.original;
@@ -51,7 +41,13 @@ export const columns: ColumnDef<ISupplierData>[] = [
   {
     accessorKey: "supplier_address",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Address" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Address"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -68,7 +64,11 @@ export const columns: ColumnDef<ISupplierData>[] = [
     accessorKey: "supplier_ofc_phone",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Office Phone" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Office Phone"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -85,7 +85,11 @@ export const columns: ColumnDef<ISupplierData>[] = [
     accessorKey: "contact_person",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Contact Person" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Contact Person"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -102,7 +106,12 @@ export const columns: ColumnDef<ISupplierData>[] = [
   {
     accessorKey: "contact_mobile",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Contact Phone" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Contact Phone"
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -117,7 +126,12 @@ export const columns: ColumnDef<ISupplierData>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Added On" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Added On"
+        />
+      );
     },
     cell: ({ row }) => {
       const { createdAt } = row.original;
@@ -132,7 +146,12 @@ export const columns: ColumnDef<ISupplierData>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Action" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Action"
+        />
+      );
     },
     cell: ({ row }) => {
       return (
