@@ -52,10 +52,6 @@ const ContractorDetails = ({ selectedItem }: any) => {
     },
   ];
 
-  if (!CAN_EDIT) {
-    return <BlockEdiComponent />;
-  }
-
   return (
     <div className="gap-5 my-10">
       <div className="col-span-2 bg-white rounded-lg border-[#D0D5DD] ">
@@ -64,11 +60,11 @@ const ContractorDetails = ({ selectedItem }: any) => {
             Contractor Details
           </h1>
           <Button
+            disabled={!CAN_EDIT}
             onClick={() => {
               selectedItem &&
-                router.push(`/contractors/${selectedItem.id}/edit`);
-            }}
-          >
+                router.push(`/staff/contractors/${selectedItem.id}/edit`);
+            }}>
             Edit Contractor
           </Button>
         </div>
@@ -77,9 +73,11 @@ const ContractorDetails = ({ selectedItem }: any) => {
           {detailItems.map(({ label, value, colSpan = 1 }, index) => (
             <div
               key={index}
-              className={colSpan > 1 ? `col-span-${colSpan}` : ""}
-            >
-              <DetailItem label={label} value={value} />
+              className={colSpan > 1 ? `col-span-${colSpan}` : ""}>
+              <DetailItem
+                label={label}
+                value={value}
+              />
             </div>
           ))}
         </div>
@@ -132,10 +130,6 @@ const SingleContractor = () => {
       ),
     refetchOnMount: "always",
   });
-
-  if (!CAN_EDIT) {
-    return <BlockEdiComponent />;
-  }
 
   return (
     <>

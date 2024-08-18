@@ -8,11 +8,18 @@ import useContractorsActionsStore from "@/store/actions/contractorsActions"
 import { getContractorById} from '@/api/contractorsRequests';
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 import { useToast } from "@/components/ui/use-toast";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
+import { BlockEdiComponent } from "@/components/shared/BlockEdit";
 
 const SingleContractorEdit = () => {
   const { toast } = useToast();
   const router = useRouter();
   const params = useParams<{ id: string }>();
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "contractor"
+  )?.can_edit;
 
   const updateContractor = useContractorsActionsStore<any>(
     (state) => state.updateContractor
@@ -49,6 +56,10 @@ const SingleContractorEdit = () => {
 
     fetchContractor();
   }, [params.id, reset]);
+
+  if (!CAN_EDIT) {
+    return <BlockEdiComponent />;
+  }
 
   return (
     <>
@@ -125,7 +136,10 @@ const SingleContractorEdit = () => {
             <div className="flex flex-col">
               <p className="value">Contact Person</p>
 
-              <input type="text" {...register("contact_person")} />
+              <input
+                type="text"
+                {...register("contact_person")}
+              />
             </div>
 
             <div className="flex flex-col">
@@ -141,13 +155,19 @@ const SingleContractorEdit = () => {
             <div className="flex flex-col">
               <p className="value">Email</p>
 
-              <input type="email" {...register("email")} />
+              <input
+                type="email"
+                {...register("email")}
+              />
             </div>
 
             <div className="flex flex-col">
               <p className="value">Website</p>
 
-              <input type="text" {...register("website")} />
+              <input
+                type="text"
+                {...register("website")}
+              />
             </div>
 
             <div className="flex flex-col col-span-2">
@@ -159,14 +179,12 @@ const SingleContractorEdit = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>
