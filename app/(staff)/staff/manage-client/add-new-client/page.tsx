@@ -1,6 +1,7 @@
+"use client";
+
 import AddNewClientForm from "@/components/forms/AddNewClientForm";
 import { BlockEdiComponent } from "@/components/shared/BlockEdit";
-import FormContainer from "@/components/shared/FormContainer";
 import GoBack from "@/components/shared/GoBack";
 import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 

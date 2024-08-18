@@ -82,8 +82,7 @@ export default function EditClientForm(data: any) {
       title="Edit client"
       description="Edit an existing client here"
       isColumn
-      className="w-full lg:max-w-4xl"
-    >
+      className="w-full lg:max-w-4xl">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className=" mb-5 flex gap-5 flex-col justify-center lg:items-center lg:flex-row">
@@ -141,8 +140,7 @@ export default function EditClientForm(data: any) {
               variant={"secondary"}
               className="w-full"
               type="button"
-              onClick={() => router.push(`/manage-client`)}
-            >
+              onClick={() => router.back()}>
               Cancel
             </Button>
             <Button className="w-full">Submit</Button>

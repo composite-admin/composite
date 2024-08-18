@@ -14,7 +14,7 @@ export default function EditClientPage({ params }: Params) {
   const { data: staffPrivilege } = useStaffPrivilegeStore();
 
   const CAN_EDIT = staffPrivilege?.find(
-    (item: any) => item.type === "contractor"
+    (item: any) => item.type === "client"
   )?.can_edit;
   const { clientDetailsData } = useManageClientStore();
 
