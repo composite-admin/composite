@@ -16,7 +16,7 @@ export default function ConsultantsPage() {
   });
   const { data: staffPrivilege } = useStaffPrivilegeStore();
 
-  const CAN_VIEW = staffPrivilege?.find(
+  const CAN_CREATE = staffPrivilege?.find(
     (item: any) => item.type === "consultant"
   )?.can_create;
   return (
@@ -25,12 +25,16 @@ export default function ConsultantsPage() {
         <PageHeaderComponent
           title={`Consultants (${data?.length || 0})`}
           subTitle="View all consultants here"
-          disabled={CAN_VIEW}
+          disabled={!CAN_CREATE}
           buttonText="Add consultant"
           href="/staff/consultants/add-consultant"
         />
       </div>
-      <DataTable columns={columns} isLoading={isPending} data={data ?? []} />
+      <DataTable
+        columns={columns}
+        isLoading={isPending}
+        data={data ?? []}
+      />
     </div>
   );
 }

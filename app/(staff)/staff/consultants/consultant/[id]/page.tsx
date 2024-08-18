@@ -14,6 +14,7 @@ import Link from "next/link";
 import { columns } from "./columns";
 import useConsultantStore from "@/store/consultants/useConsultantStore";
 import { useAddToProjectModal } from "@/store/modals/useCreateModal";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 type Params = {
   params: {
@@ -22,7 +23,12 @@ type Params = {
 };
 
 export default function ConsultantDetailsPage({ params }: Params) {
-  // const { projectDetails } = useGetConsultantProject("82753");
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "consultant"
+  )?.can_create;
+
   const { projects } = useGetAllConsultantProjects();
   const { onOpen, setAddToProjectFormType } = useAddToProjectModal();
   const showModal = () => {
@@ -96,23 +102,26 @@ export default function ConsultantDetailsPage({ params }: Params) {
               <div className="flex gap-5 items-center border-b p-8">
                 <Link
                   href={`/staff/consultants/edit-consultant/ ${data?.id}`}
-                  className="text-primaryLight-500 font-semibold"
-                >
+                  className="text-primaryLight-500 font-semibold">
                   <span className="text-sm">Edit Consultant Information</span>
                 </Link>
               </div>
               <div className="flex gap-5 items-center p-8">
-                <div
-                  className="text-primaryLight-500 font-semibold  cursor-pointer"
-                  onClick={showModal}
-                >
-                  <span className="text-sm">Add to Project</span>
-                </div>
+                {CAN_CREATE ? (
+                  <div
+                    className="text-primaryLight-500 font-semibold  cursor-pointer"
+                    onClick={showModal}>
+                    <span className="text-sm">Add to Project</span>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
-        <DataTable columns={columns} data={projectDetails || []} />
+        <DataTable
+          columns={columns}
+          data={projectDetails || []}
+        />
       </div>
     </>
   );

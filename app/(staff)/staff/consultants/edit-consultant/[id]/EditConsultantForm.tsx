@@ -79,7 +79,7 @@ export default function EditConsultantForm({ data }: IConsultantDetailsData) {
         variant: "success",
       });
 
-      router.push(`/consultants/consultant/${data.id}`);
+      router.push(`/staff/consultants/consultant/${data.id}`);
     },
     onError: () => {
       toast({
