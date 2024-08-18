@@ -11,12 +11,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { useGetStakeholderById } from "@/hooks/useSelectOptions";
 import axios from "axios";
 import { api } from "@/config/api";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 const EditSingleStakeholder = () => {
   const router = useRouter();
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
   const { stakeholder } = useGetStakeholderById(Number(params.id));
+  const { data } = useStaffPrivilegeStore();
 
   const {
     register,
@@ -173,8 +175,7 @@ const EditSingleStakeholder = () => {
             <div className="flex flex-col">
               <p className="value">Non Government Agency</p>
               <select
-                {...register("non_government_agencies", { required: true })}
-              >
+                {...register("non_government_agencies", { required: true })}>
                 <option value=""> Select Non Government Agency</option>
                 <option value="Omo-onile">Omo-onile</option>
                 <option value="Community Development Association">
@@ -200,14 +201,12 @@ const EditSingleStakeholder = () => {
               type="button"
               onClick={() => {
                 router.back();
-              }}
-            >
+              }}>
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-primaryLight text-white  p-3 rounded-md"
-            >
+              className="bg-primaryLight text-white  p-3 rounded-md">
               Submit
             </button>
           </div>

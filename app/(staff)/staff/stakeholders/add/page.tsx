@@ -27,7 +27,7 @@ const AddStakeholder = () => {
       variant: "success",
     });
     createStakeholder(data);
-    router.push("/stakeholders");
+    router.back();
     reset();
     return;
   };

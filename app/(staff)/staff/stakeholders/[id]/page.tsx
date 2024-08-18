@@ -11,6 +11,7 @@ import { IStakeholderProjectData } from "@/utils/types";
 import { getStuffTyped } from "@/hooks/useSelectOptions";
 import { Button } from "@/components/ui/button";
 import Stakeholder from "@/components/Project/Stakeholder";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 const DetailItem = ({ label, value }: any) => (
   <div>
@@ -20,6 +21,11 @@ const DetailItem = ({ label, value }: any) => (
 );
 
 const StakeholderDetails = ({ selectedItem }: any) => {
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "stakeholder"
+  )?.can_edit;
   const router = useRouter();
   if (!selectedItem) {
     return null;
@@ -51,11 +57,11 @@ const StakeholderDetails = ({ selectedItem }: any) => {
             Stakeholder Details
           </h1>
           <Button
+            disabled={!CAN_EDIT}
             onClick={() => {
               selectedItem &&
-                router.push(`/stakeholders/${selectedItem.id}/edit`);
-            }}
-          >
+                router.push(`/staff/stakeholders/${selectedItem.id}/edit`);
+            }}>
             Edit Stakeholder
           </Button>
         </div>
@@ -64,9 +70,11 @@ const StakeholderDetails = ({ selectedItem }: any) => {
           {detailItems.map(({ label, value, colSpan = 1 }, index) => (
             <div
               key={index}
-              className={colSpan > 1 ? `col-span-${colSpan}` : ""}
-            >
-              <DetailItem label={label} value={value} />
+              className={colSpan > 1 ? `col-span-${colSpan}` : ""}>
+              <DetailItem
+                label={label}
+                value={value}
+              />
             </div>
           ))}
         </div>
