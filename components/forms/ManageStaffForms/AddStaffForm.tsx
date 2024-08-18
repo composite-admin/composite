@@ -22,7 +22,7 @@ import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/utils/formatDate";
@@ -73,11 +73,12 @@ export default function AddStaffForm() {
         });
         return response.data;
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
       }
     },
     onSuccess: () => {
@@ -146,18 +147,18 @@ export default function AddStaffForm() {
       />
 
       <Form {...form}>
-        <form className="py-2" onSubmit={form.handleSubmit(processForm)}>
+        <form
+          className="py-2"
+          onSubmit={form.handleSubmit(processForm)}>
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Add staff"
                 isColumn={false}
-                description="Create a new staff profile here"
-              >
+                description="Create a new staff profile here">
                 <div className="flex flex-col lg:flex-row justify-between gap-5">
                   <div className="flex flex-col gap-5 w-full lg:w-1/2 ">
                     <CustomFormField
@@ -260,8 +261,7 @@ export default function AddStaffForm() {
                   <Button
                     type="button"
                     variant={"secondary"}
-                    onClick={() => router.back()}
-                  >
+                    onClick={() => router.back()}>
                     Cancel
                   </Button>
                   <Button onClick={next}>Next</Button>
@@ -273,13 +273,11 @@ export default function AddStaffForm() {
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Add staff"
                 isColumn={false}
-                description="Create a new staff profile here"
-              >
+                description="Create a new staff profile here">
                 <div className="flex flex-col lg:flex-row justify-between gap-5">
                   <div className="flex flex-col gap-5 w-full lg:w-1/2 ">
                     <CustomFormField
@@ -330,7 +328,10 @@ export default function AddStaffForm() {
                   </div>
                 </div>
                 <div className="grid pt-4 md:grid-cols-2 gap-5 ">
-                  <Button type="button" variant={"secondary"} onClick={prev}>
+                  <Button
+                    type="button"
+                    variant={"secondary"}
+                    onClick={prev}>
                     Back
                   </Button>
                   <Button onClick={next}>Next</Button>
@@ -342,13 +343,11 @@ export default function AddStaffForm() {
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Add staff"
                 isColumn={false}
-                description="Create a new staff profile here"
-              >
+                description="Create a new staff profile here">
                 <div className="flex flex-col  justify-between gap-5">
                   <div className="flex flex-col md:flex-row gap-5 w-full">
                     <div className="w-full">
@@ -399,7 +398,10 @@ export default function AddStaffForm() {
                   </div>
                 </div>
                 <div className="grid pt-4 md:grid-cols-2 gap-5 ">
-                  <Button type="button" variant={"secondary"} onClick={prev}>
+                  <Button
+                    type="button"
+                    variant={"secondary"}
+                    onClick={prev}>
                     Back
                   </Button>
                   <Button onClick={next}>Next</Button>
@@ -411,13 +413,11 @@ export default function AddStaffForm() {
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Add staff"
                 isColumn={false}
-                description="Create a new staff profile here"
-              >
+                description="Create a new staff profile here">
                 <div className="flex flex-col lg:flex-row justify-between gap-5">
                   <div className="flex flex-col gap-5 w-full ">
                     <CustomFormField
@@ -441,7 +441,10 @@ export default function AddStaffForm() {
                   </div>
                 </div>
                 <div className="gap-5 grid md:grid-cols-2 mt-5">
-                  <Button type="button" variant={"secondary"} onClick={prev}>
+                  <Button
+                    type="button"
+                    variant={"secondary"}
+                    onClick={prev}>
                     Back
                   </Button>
                   <Button type="submit">

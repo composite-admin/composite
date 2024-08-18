@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/config/api";
 import useManageStaffStore from "@/store/manage-staff/useManageStaffStore";
 import { useAddPrivilegeModal } from "@/store/modals/useCreateModal";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 import { formatDate } from "@/utils/formatDate";
 import { ApiResponse, IManageStaffData } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
@@ -98,7 +99,11 @@ export default function ManageStaffPage({ params }: IProps) {
     },
     refetchOnMount: "always",
   });
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
 
+  const CAN_EDIT = staffPrivilege?.find(
+    (item: any) => item.type === "staff"
+  )?.can_edit;
   return (
     <>
       <GoBack />
@@ -119,11 +124,14 @@ export default function ManageStaffPage({ params }: IProps) {
               </div>
             </aside>
             <aside className="space-x-3">
-              <Button variant={"outline"} onClick={onOpen}>
-                <p className="font-semibold">Grant Privileges</p>
-              </Button>
-              <Button>
-                <Link href={`/manage-staff/edit/${params.id}`}>Edit</Link>
+              <Button disabled={!CAN_EDIT}>
+                <Link
+                  className={!CAN_EDIT ? "cursor-not-allowed" : ""}
+                  href={
+                    !CAN_EDIT ? "#" : `/staff/manage-staff/edit/${params.id}`
+                  }>
+                  Edit
+                </Link>
               </Button>
             </aside>
           </div>
@@ -132,14 +140,12 @@ export default function ManageStaffPage({ params }: IProps) {
               {staffDetailsKeys.map((key, index) => (
                 <div
                   key={index}
-                  className="flex justify-between  flex-col gap-2"
-                >
+                  className="flex justify-between  flex-col gap-2">
                   <span className="font-semibold">{key}:</span>
                   <span
                     className={`text-textColor ${
                       staffDetailsValues[index] === "userid" ? "uppercase" : ""
-                    }`}
-                  >
+                    }`}>
                     {
                       staffDetails?.[
                         staffDetailsValues[index] as keyof IManageStaffData
@@ -156,14 +162,12 @@ export default function ManageStaffPage({ params }: IProps) {
               {nextOfKinKeys.map((key, index) => (
                 <div
                   key={index}
-                  className="flex justify-between  flex-col gap-2"
-                >
+                  className="flex justify-between  flex-col gap-2">
                   <span className="font-semibold">{key}:</span>
                   <span
                     className={`text-textColor ${
                       nextOfKinValues[index] === "userid" ? "uppercase" : ""
-                    }`}
-                  >
+                    }`}>
                     {
                       staffDetails?.[
                         nextOfKinValues[index] as keyof IManageStaffData
@@ -175,11 +179,7 @@ export default function ManageStaffPage({ params }: IProps) {
             </div>
           </div>
         </div>
-        <div className=" flex justify-end mt-5">
-          <Button onClick={showBankDetails}>
-            {toggle ? "Hide" : "View"} Bank Details
-          </Button>
-        </div>
+
         {toggle && (
           <div>
             <div className="py-3">
