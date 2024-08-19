@@ -7,12 +7,19 @@ import { IWorkerData, IWorkerJobData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
+import EditCell from "../../facility/all-flats/EditCell";
 
 export const columns: ColumnDef<IWorkerData>[] = [
   {
     accessorKey: "worker_code",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Job Code" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Job Code"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -29,7 +36,13 @@ export const columns: ColumnDef<IWorkerData>[] = [
   {
     accessorKey: "service_type",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Service" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Service"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       const service_type = row.original?.worker_service;
@@ -44,7 +57,11 @@ export const columns: ColumnDef<IWorkerData>[] = [
     accessorKey: "worker_service_charge",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Service Charge" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Service Charge"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -62,7 +79,11 @@ export const columns: ColumnDef<IWorkerData>[] = [
     accessorKey: "amount_paid",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Amount Paid" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Amount Paid"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -94,7 +115,13 @@ export const columns: ColumnDef<IWorkerData>[] = [
   {
     accessorKey: "comment",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Comment"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       const comment = row.original?.comment;
@@ -109,7 +136,11 @@ export const columns: ColumnDef<IWorkerData>[] = [
     accessorKey: "createdAt",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Date Added" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Date Added"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -123,23 +154,25 @@ export const columns: ColumnDef<IWorkerData>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "id",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Action" />;
-  //   },
-  //   cell: ({ row }) => {
-  //     const id = row.original?.id;
-  //     return (
-  //       <div className="">
-  //         <Link href="#">
-  //           <span className="hover:underline font-semibold text-primaryLight-500 flex items-center">
-  //             <HiPencilAlt />
-  //             Edit{" "}
-  //           </span>
-  //         </Link>
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader
+          column={column}
+          title="Action"
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const id = row.original?.id;
+      return (
+        <EditCell
+          action={"worker-job-edit"}
+          rowId={id}
+          row={row}
+        />
+      );
+    },
+  },
 ];
