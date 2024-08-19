@@ -8,7 +8,7 @@ export default function AddConsultantPage() {
   const { data: staffPrivilege } = useStaffPrivilegeStore();
 
   const CAN_CREATE = staffPrivilege?.find(
-    (item: any) => item.type === "contractor"
+    (item: any) => item.type === "consultant"
   )?.can_create;
 
   if (!CAN_CREATE) {
