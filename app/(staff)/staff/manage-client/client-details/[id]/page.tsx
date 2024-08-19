@@ -82,7 +82,7 @@ export default function ClientDetailsPage({ params }: Params) {
                 </div>
               </div>
             </div>
-            <div className="p-7 grid sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-dense grid-rows-2">
+            <div className="p-7 grid break-words sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-dense grid-rows-2">
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">Client Name:</span>
                 <span className=" md:text-lg capitalize">
@@ -105,7 +105,7 @@ export default function ClientDetailsPage({ params }: Params) {
                 <span className="font-semibold">State:</span>
                 <span className=" md:text-lg">{details?.state}</span>
               </div>{" "}
-              <div className="flex  flex-col gap-1 ">
+              <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Address:</span>
                 <span className=" md:text-lg">{details?.address}</span>
               </div>
@@ -122,22 +122,21 @@ export default function ClientDetailsPage({ params }: Params) {
                 <div className="text-primaryLight-500 font-semibold">
                   <Link
                     href={`/staff/manage-client/edit-client/ ${details?.userid}`}
-                    className="text-primaryLight-500 font-semibold"
-                  >
+                    className="text-primaryLight-500 font-semibold">
                     <span className="text-sm">Edit Client Information</span>
                   </Link>
                 </div>
               </div>
               <div className="flex gap-5 items-center p-8">
-              {
-                CAN_CREATE ? ( 
+                {CAN_CREATE ? (
                   <div className="text-primaryLight-500 font-semibold">
-                  <span className="text-sm cursor-pointer " onClick={showModal}>
-                    Add to Project
-                  </span>
-                </div>
-                ) : null
-              }
+                    <span
+                      className="text-sm cursor-pointer "
+                      onClick={showModal}>
+                      Add to Project
+                    </span>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

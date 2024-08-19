@@ -1,4 +1,5 @@
 "use client";
+import GoBack from "@/components/shared/GoBack";
 import EditClientForm from "./EditClientForm";
 import useManageClientStore from "@/store/manage-client/useManageClientStore";
 
@@ -11,5 +12,10 @@ type Params = {
 export default function EditClientPage({ params }: Params) {
   const { clientDetailsData } = useManageClientStore();
 
-  return <EditClientForm data={clientDetailsData} />;
+  return (
+    <>
+      <GoBack />
+      <EditClientForm data={clientDetailsData} />
+    </>
+  );
 }

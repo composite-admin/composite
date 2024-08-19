@@ -3,6 +3,7 @@ import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 import EditClientForm from "./EditClientForm";
 import useManageClientStore from "@/store/manage-client/useManageClientStore";
 import { BlockEdiComponent } from "@/components/shared/BlockEdit";
+import GoBack from "@/components/shared/GoBack";
 
 type Params = {
   params: {
@@ -22,5 +23,10 @@ export default function EditClientPage({ params }: Params) {
     return <BlockEdiComponent />;
   }
 
-  return <EditClientForm data={clientDetailsData} />;
+  return (
+    <>
+      <GoBack />
+      <EditClientForm data={clientDetailsData} />
+    </>
+  );
 }

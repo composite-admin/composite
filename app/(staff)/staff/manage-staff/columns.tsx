@@ -68,7 +68,12 @@ export const columns: ColumnDef<IManageStaffData>[] = [
       const { userid } = row.original;
       return (
         <>
-          <EditCell href={`manage-staff/edit/${userid}`} isLink />
+          <Link
+            className="text-primaryLight-500 font-semibold underline"
+            href={`manage-staff/edit/${userid}`}>
+            {" "}
+            Edit{" "}
+          </Link>
         </>
       );
     },
