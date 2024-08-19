@@ -41,7 +41,7 @@ const Page = (props: any) => {
         can_edit={CAN_EDIT}
         dateSubmitted="6th July, 2023"
         editAction={() => {
-          router.push(`/inventory/${id}/update`);
+          router.push(`/staff/inventory/${id}/update`);
         }}
         keys={keys}
         data={data}
