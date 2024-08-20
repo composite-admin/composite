@@ -97,7 +97,7 @@ export default function ClientDetailsPage({ params }: Params) {
                 <span className="font-semibold">Office Phone:</span>
                 <span className=" md:text-lg">{details?.phone_number}</span>
               </div>
-              <div className="flex  flex-col gap-1 ">
+              <div className="flex flex-col gap-1 col-span-3">
                 <span className="font-semibold">Email:</span>
                 <span className=" md:text-lg">{details?.email}</span>
               </div>
