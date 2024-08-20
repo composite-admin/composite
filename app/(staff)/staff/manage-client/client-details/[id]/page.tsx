@@ -83,7 +83,7 @@ export default function ClientDetailsPage({ params }: Params) {
               </div>
             </div>
             <div className="p-7 grid break-words sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-dense grid-rows-2">
-              <div className="flex  flex-col gap-1 ">
+              <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Client Name:</span>
                 <span className=" md:text-lg capitalize">
                   {details?.first_name} {details?.last_name}
@@ -97,7 +97,7 @@ export default function ClientDetailsPage({ params }: Params) {
                 <span className="font-semibold">Office Phone:</span>
                 <span className=" md:text-lg">{details?.phone_number}</span>
               </div>
-              <div className="flex flex-col gap-1 col-span-3">
+              <div className="flex flex-col gap-1 lg:col-span-3">
                 <span className="font-semibold">Email:</span>
                 <span className=" md:text-lg">{details?.email}</span>
               </div>

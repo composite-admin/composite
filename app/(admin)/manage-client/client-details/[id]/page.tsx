@@ -97,7 +97,7 @@ export default function ClientDetailsPage({ params }: Params) {
                 <span className="font-semibold">State:</span>
                 <span className=" md:text-base">{details?.state}</span>
               </div>{" "}
-              <div className="flex flex-col gap-1 col-span-3">
+              <div className="flex flex-col gap-1 lg:col-span-3">
                 <span className="font-semibold">Address:</span>
                 <span className=" md:text-base">{details?.address}</span>
               </div>
