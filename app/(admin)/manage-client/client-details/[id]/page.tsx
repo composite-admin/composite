@@ -79,7 +79,7 @@ export default function ClientDetailsPage({ params }: Params) {
                   {details?.first_name} {details?.last_name}
                 </span>
               </div>
-              <div className="flex  flex-col gap-1 ">
+              <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Contact Mobile:</span>
                 <span className=" md:text-base">{details?.mobile_number}</span>
               </div>
@@ -89,13 +89,15 @@ export default function ClientDetailsPage({ params }: Params) {
               </div>
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">Email:</span>
-                <span className=" md:text-base">{details?.email}</span>
+                <span className=" md:text-base break-words">
+                  {details?.email}
+                </span>
               </div>
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">State:</span>
                 <span className=" md:text-base">{details?.state}</span>
               </div>{" "}
-              <div className="flex  flex-col gap-1 ">
+              <div className="flex flex-col gap-1 ">
                 <span className="font-semibold">Address:</span>
                 <span className=" md:text-base">{details?.address}</span>
               </div>
@@ -112,15 +114,16 @@ export default function ClientDetailsPage({ params }: Params) {
                 <div className="text-primaryLight-500 font-semibold">
                   <Link
                     href={`/manage-client/edit-client/ ${details?.userid}`}
-                    className="text-primaryLight-500 font-semibold"
-                  >
+                    className="text-primaryLight-500 font-semibold">
                     <span className="text-sm">Edit Client Information</span>
                   </Link>
                 </div>
               </div>
               <div className="flex gap-5 items-center p-8">
                 <div className="text-primaryLight-500 font-semibold">
-                  <span className="text-sm cursor-pointer " onClick={showModal}>
+                  <span
+                    className="text-sm cursor-pointer "
+                    onClick={showModal}>
                     Add to Project
                   </span>
                 </div>

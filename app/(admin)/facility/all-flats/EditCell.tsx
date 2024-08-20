@@ -37,7 +37,7 @@ export default function EditCell({
   const { setProjectCode } = useEditFlatModal();
 
   const CAN_EDIT = staffPrivilege?.find(
-    (item: any) => item.type === "project"
+    (item: any) => item.type === "project" || item.type === "worker"
   )?.can_edit;
   const { onOpen, setTableActions, setEditOrDelete, setRowID, rowID } =
     useTableActionStore();

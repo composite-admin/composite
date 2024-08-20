@@ -1,13 +1,11 @@
 "use client";
 
+import EditCell from "@/app/(admin)/facility/all-flats/EditCell";
 import { ColumnHeader } from "@/components/shared/ColumnHeader";
-import { formatCurrency, formatToNaira } from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/formatDate";
-import { IWorkerData, IWorkerJobData } from "@/utils/types";
+import { IWorkerData } from "@/utils/types";
 import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
-import { HiEye, HiOutlineCog, HiPencilAlt, HiUserAdd } from "react-icons/hi";
-import EditCell from "../../facility/all-flats/EditCell";
 
 export const columns: ColumnDef<IWorkerData>[] = [
   {
