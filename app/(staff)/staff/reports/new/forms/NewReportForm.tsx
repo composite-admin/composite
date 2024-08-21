@@ -132,7 +132,7 @@ export default function NewReportForm() {
           variant: "success",
         });
         const { id } = response.data.data;
-        router.push(`/reports/${id}`);
+        router.push(`/staff/reports/${id}`);
 
         if (files.length > 0) {
           handleUpload(id);
