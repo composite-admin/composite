@@ -131,7 +131,6 @@ const SingleWorker = () => {
               <p className="value">Worker Mobile</p>
               <input
                 {...register("worker_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -147,7 +146,6 @@ const SingleWorker = () => {
 
               <input
                 {...register("worker_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -172,7 +170,7 @@ const SingleWorker = () => {
 
               <input
                 type="email"
-                {...register("worker_email", { required: true })}
+                {...register("worker_email")}
               />
             </div>
 
@@ -204,20 +202,18 @@ const SingleWorker = () => {
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.push("/contractors")}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>

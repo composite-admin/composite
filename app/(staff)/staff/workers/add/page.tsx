@@ -140,7 +140,6 @@ const AddWorker = () => {
 
               <input
                 {...register("worker_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -180,7 +179,7 @@ const AddWorker = () => {
 
               <input
                 type="email"
-                {...register("worker_email", { required: true })}
+                {...register("worker_email")}
               />
               {errors.worker_email && (
                 <span className="text-red-500 text-xs">
@@ -232,20 +231,18 @@ const AddWorker = () => {
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>
