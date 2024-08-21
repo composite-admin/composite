@@ -23,7 +23,7 @@ const AddContractor = () => {
 
   const onSubmit = (data: any) => {
     createContractor(data);
-    router.push("/contractors");
+    router.push("/staff/contractors");
     toast({ title: "Contractor created successfully", variant: "success" });
     reset();
     return;

@@ -18,7 +18,6 @@ const EditSingleStakeholder = () => {
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
   const { stakeholder } = useGetStakeholderById(Number(params.id));
-  const { data } = useStaffPrivilegeStore();
 
   const {
     register,

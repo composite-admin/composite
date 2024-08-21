@@ -154,7 +154,6 @@ const EditSingleStakeholder = () => {
 
               <input
                 {...register("contact_mobile", {
-                  required: true,
                   validate: (value: any) =>
                     value ? validatePhoneNumber(value) : true,
                 })}
@@ -198,8 +197,7 @@ const EditSingleStakeholder = () => {
             <div className="flex flex-col">
               <p className="value">Non Government Agency</p>
               <select
-                {...register("non_government_agencies", { required: true })}
-              >
+                {...register("non_government_agencies", { required: true })}>
                 <option value=""> Select Non Government Agency</option>
                 <option value="Omo-onile">Omo-onile</option>
                 <option value="Community Development Association">
@@ -217,7 +215,7 @@ const EditSingleStakeholder = () => {
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
@@ -225,14 +223,12 @@ const EditSingleStakeholder = () => {
               type="button"
               onClick={() => {
                 router.back();
-              }}
-            >
+              }}>
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-primaryLight text-white  p-3 rounded-md"
-            >
+              className="bg-primaryLight text-white  p-3 rounded-md">
               Submit
             </button>
           </div>

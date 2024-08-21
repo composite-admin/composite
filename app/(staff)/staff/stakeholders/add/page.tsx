@@ -76,7 +76,7 @@ const AddStakeholder = () => {
               <p className="value">Stakeholder Phone</p>
 
               <input
-                {...register("stakeholder_phone", {
+                {...register("stakeholder_ofc_phone", {
                   required: true,
                   validate: validatePhoneNumber,
                 })}
@@ -105,7 +105,6 @@ const AddStakeholder = () => {
               <p className="value">Contact Home Phone</p>
               <input
                 {...register("contact_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -115,7 +114,6 @@ const AddStakeholder = () => {
 
               <input
                 {...register("contact_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -158,8 +156,7 @@ const AddStakeholder = () => {
             <div className="flex flex-col">
               <p className="value">Non Government Agency</p>
               <select
-                {...register("non_government_agencies", { required: true })}
-              >
+                {...register("non_government_agencies", { required: true })}>
                 <option value=""> Select Non Government Agency</option>
                 <option value="Omo-onile">Omo-onile</option>
                 <option value="Community Development Association">
@@ -180,19 +177,17 @@ const AddStakeholder = () => {
             </div>
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>
