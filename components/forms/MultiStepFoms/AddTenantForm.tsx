@@ -122,7 +122,7 @@ export default function AddTenantForm() {
           description: "Tenant added successfully",
           variant: "success",
         });
-        router.push("/facility");
+        router.back();
       }
     } catch (error) {
       toast({
@@ -168,18 +168,18 @@ export default function AddTenantForm() {
       />
       {/* Form */}
       <Form {...form}>
-        <form className="mt-2 py-2" onSubmit={form.handleSubmit(processForm)}>
+        <form
+          className="mt-2 py-2"
+          onSubmit={form.handleSubmit(processForm)}>
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Add tenant"
                 isColumn={false}
-                description="Create a new tenant profile here"
-              >
+                description="Create a new tenant profile here">
                 <div className="flex flex-col gap-5">
                   <CustomFormSelect
                     control={form.control}
@@ -238,11 +238,12 @@ export default function AddTenantForm() {
                     className="w-full disabled:"
                     variant={"secondary"}
                     disabled={currentStep === 0}
-                    onClick={prev}
-                  >
+                    onClick={prev}>
                     Back
                   </Button>
-                  <Button className="w-full" onClick={next}>
+                  <Button
+                    className="w-full"
+                    onClick={next}>
                     Next
                   </Button>
                 </div>
@@ -254,13 +255,11 @@ export default function AddTenantForm() {
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Add tenant"
                 isColumn={false}
-                description="Create a new tenant profile here"
-              >
+                description="Create a new tenant profile here">
                 <div className="flex flex-col gap-5">
                   <CustomFormField
                     control={form.control}
@@ -340,7 +339,9 @@ export default function AddTenantForm() {
 
                   <div className=" relative">
                     {fields.map((field, index) => (
-                      <div key={field.id} className=" mb-2 relative">
+                      <div
+                        key={field.id}
+                        className=" mb-2 relative">
                         <div className="grid grid-cols-2  gap-4">
                           <CustomFormField
                             control={form.control}
@@ -357,8 +358,7 @@ export default function AddTenantForm() {
                         </div>
                         <div
                           onClick={() => remove(index)}
-                          className="absolute top-11 right-1 text-red-500 cursor-pointer"
-                        >
+                          className="absolute top-11 right-1 text-red-500 cursor-pointer">
                           <Trash2 className="size-5" />
                         </div>
                       </div>
@@ -366,8 +366,7 @@ export default function AddTenantForm() {
                     <div className="ml-auto w-max">
                       <div
                         onClick={() => append({ type: "", value: "" })}
-                        className="text-xs text-primaryLight flex gap-1 font-semibold cursor-pointer"
-                      >
+                        className="text-xs text-primaryLight flex gap-1 font-semibold cursor-pointer">
                         <PlusCircle className="size-4" />
                         <p>Add Other Fees</p>
                       </div>
@@ -377,12 +376,13 @@ export default function AddTenantForm() {
                     <Button
                       className="w-full"
                       variant={"secondary"}
-                      onClick={prev}
-                    >
+                      onClick={prev}>
                       Back
                     </Button>
-                    <Button className="w-full" onClick={next}>
-                      Next
+                    <Button
+                      className="w-full"
+                      onClick={next}>
+                      {currentStep === steps.length - 1 ? "Submit" : "Next"}
                     </Button>
                   </div>
                 </div>

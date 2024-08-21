@@ -114,7 +114,7 @@ export default function EditTenantForm({ id }: { id: string }) {
           description: "Tenant Updated Successfully",
           variant: "success",
         });
-        router.push("/facility");
+        router.back();
       }
     } catch (error) {
       console.log("something went wrong", error);
