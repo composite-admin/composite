@@ -48,7 +48,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
             title: "Client created successfully",
             variant: "success",
           });
-          router.push("/manage-client");
+          router.push("/staff/manage-client");
         }
         return response.data;
       } catch (error) {
@@ -126,7 +126,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
             <Button
               variant={"secondary"}
               className="w-full"
-              onClick={() => router.push("/manage-client")}
+              onClick={() => router.push("/staff/manage-client")}
               type="button">
               Cancel
             </Button>

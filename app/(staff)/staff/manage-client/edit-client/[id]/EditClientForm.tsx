@@ -65,7 +65,9 @@ export default function EditClientForm(data: any) {
           variant: "success",
         });
         query.invalidateQueries({ queryKey: ["get client details"] });
-        router.push(`/manage-client/client-details/${data?.data?.userid}`);
+        router.push(
+          `/staff/manage-client/client-details/${data?.data?.userid}`
+        );
       },
       onError: () => {
         toast({
