@@ -105,7 +105,7 @@ export default function AddAndEditBreakdownModal() {
           {
             ...data,
             request_code: CashAdvanceDetails?.request_code,
-            added_by: CashAdvanceDetails?.staff_name,
+            // added_by: CashAdvanceDetails?.staff_name,
             amount: Number(data.amount),
           }
         );
@@ -114,7 +114,6 @@ export default function AddAndEditBreakdownModal() {
             title: "Breakdown updated successfully",
             variant: "success",
           });
-          window.location.reload();
           onClose();
         }
       } catch (error) {
@@ -142,7 +141,6 @@ export default function AddAndEditBreakdownModal() {
             variant: "success",
           });
           onClose();
-          window.location.reload();
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

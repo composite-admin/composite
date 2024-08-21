@@ -114,7 +114,7 @@ const EditSupplier = () => {
 
               <input
                 type="tel"
-                {...register("contact_home_phone", { required: true })}
+                {...register("contact_home_phone")}
               />
             </div>
 
@@ -123,21 +123,20 @@ const EditSupplier = () => {
 
               <input
                 type="tel"
-                {...register("contact_mobile", { required: true })}
+                {...register("contact_mobile")}
               />
             </div>
 
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button className="bg-primaryLight text-white  p-5 rounded-md">
