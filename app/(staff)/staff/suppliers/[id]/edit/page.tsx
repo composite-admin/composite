@@ -16,7 +16,7 @@ const EditSupplier = () => {
   const { data: staffPrivilege } = useStaffPrivilegeStore();
 
   const CAN_EDIT = staffPrivilege?.find(
-    (item: any) => item.type === "inventory"
+    (item: any) => item.type === "supplier"
   )?.can_edit;
 
   const params = useParams<{ id: string }>();
