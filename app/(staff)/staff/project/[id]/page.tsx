@@ -40,6 +40,9 @@ const SingleProject = () => {
   const CAN_EDIT = staffPrivilege?.find(
     (item: any) => item.type === "project"
   )?.can_edit;
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "project"
+  )?.can_create;
   const { setCurrentModal } = useProjectDetailsPageFormModal();
   const { setProjectName, projectCode, projectName } = useProjectDetails();
 
@@ -183,7 +186,9 @@ const SingleProject = () => {
         <div className="flex gap-3 items-center">
           <div>
             <Link href={`/staff/project/${selectedItem?.id}/edit`}>
-              <Button className="w-max py-2" disabled={!CAN_EDIT}>
+              <Button
+                className="w-max py-2"
+                disabled={!CAN_EDIT}>
                 Edit Project
               </Button>
             </Link>
@@ -292,12 +297,16 @@ const SingleProject = () => {
                 key={i}
                 className="flex items-center justify-center flex-col cursor-pointer"
                 onClick={
-                  !CAN_EDIT
+                  !CAN_CREATE
                     ? () => router.push("/staff/project/not-allowed")
                     : () => showFormModal(item.title)
-                }
-              >
-                <Image alt="" src={String(item.icon)} width={30} height={30} />
+                }>
+                <Image
+                  alt=""
+                  src={String(item.icon)}
+                  width={30}
+                  height={30}
+                />
                 <p className="text-center text-[10.37px] text-[#6E6E6E]">
                   {item.title}
                 </p>
