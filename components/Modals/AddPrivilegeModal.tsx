@@ -34,7 +34,7 @@ const privileges = [
   "Staff",
   "Client",
   "Worker",
-  "Reports",
+  "Report",
   "Facility",
 ];
 

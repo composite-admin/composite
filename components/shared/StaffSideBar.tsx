@@ -45,7 +45,7 @@ export const StaffSidebarLinks: NavLinkType[] = [
 
   {
     href: "/staff/reports",
-    label: "Reports",
+    label: "Report",
     icon: <ReportsIcon />,
     isAllowed: false,
   },

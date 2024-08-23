@@ -18,7 +18,7 @@ const SingleReport = (props: any) => {
   const { data: staffPrivilege } = useStaffPrivilegeStore();
 
   const CAN_EDIT = staffPrivilege?.find(
-    (item: any) => item.type === "reports"
+    (item: any) => item.type === "report"
   )?.can_edit;
 
   const handleImageClick = (index: number) => {
