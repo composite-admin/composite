@@ -61,7 +61,7 @@ export default function EditReportForm() {
     mutationFn: async (data: ProjectReportFormType) => {
       const res = await api.put(`/project_report/${singleReportData.id}`, data);
       if(res.status === 200) {
-          router.push(`/reports/${singleReportData.id}`);
+          router.push(`/staff/reports/${singleReportData.id}`);
       }
       return res.data.data;
     },
