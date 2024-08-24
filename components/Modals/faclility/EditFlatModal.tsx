@@ -13,6 +13,8 @@ import {
   CustomFormTextareaField,
 } from "@/components/shared/FormComponent";
 import { Form } from "@/components/ui/form";
+import { useTableActionStore } from "@/store/useTableActionStore";
+import { useToast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
   flat_desc: z.string({
@@ -26,8 +28,9 @@ const FormSchema = z.object({
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 export default function EditFlatModal() {
-  const { isOpen, onClose, action, projectCode } = useEditFlatModal();
-  console.log(projectCode);
+  const { action, projectCode } = useEditFlatModal();
+  const { onClose } = useTableActionStore();
+  const { toast } = useToast();
   const { projectsData } = useProjectData();
   const { flatData } = useFacilityStore();
   const flatItem = flatData?.find(
@@ -35,6 +38,10 @@ export default function EditFlatModal() {
   );
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
+    values: {
+      flat_desc: flatItem?.flat_desc || "",
+      comment: flatItem?.comment || "",
+    },
   });
 
   const { mutate } = useMutation({
@@ -48,13 +55,22 @@ export default function EditFlatModal() {
   });
 
   const onSubmit = (data: FormSchemaType) => {
-    mutate(data);
-    onClose();
+    mutate(data, {
+      onSuccess: () => {
+        onClose();
+        toast({
+          title: "Flat updated successfully",
+          variant: "success",
+        });
+      },
+    });
   };
 
   return (
     <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="space-y-4"
+        onSubmit={form.handleSubmit(onSubmit)}>
         <CustomFormField
           control={form.control}
           name="project_name"
@@ -76,7 +92,10 @@ export default function EditFlatModal() {
         />
 
         <div className="grid grid-cols-2 gap-5 pt-4">
-          <Button variant="secondary" onClick={onClose} type="button">
+          <Button
+            variant="secondary"
+            onClick={onClose}
+            type="button">
             Cancel
           </Button>
           <Button type="submit">Submit</Button>

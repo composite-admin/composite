@@ -182,21 +182,23 @@ export default function NewReportForm() {
       />
 
       <Form {...form}>
-        <form className="py-2" onSubmit={form.handleSubmit(processForm)}>
+        <form
+          className="py-2"
+          onSubmit={form.handleSubmit(processForm)}>
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="New Report"
                 isColumn={true}
-                description="Create a new report here."
-              >
+                description="Create a new report here.">
                 <div className="flex gap-5 ">
                   {["Daily", "Weekly", "Monthly"].map((option) => (
-                    <span className="flex gap-2 items-center" key={option}>
+                    <span
+                      className="flex gap-2 items-center"
+                      key={option}>
                       <Input
                         key={option}
                         className="size-4"
@@ -313,11 +315,12 @@ export default function NewReportForm() {
                     className="w-full disabled:"
                     variant={"secondary"}
                     disabled={currentStep === 0}
-                    onClick={prev}
-                  >
+                    onClick={prev}>
                     Back
                   </Button>
-                  <Button className="w-full" onClick={next}>
+                  <Button
+                    className="w-full"
+                    onClick={next}>
                     Next
                   </Button>
                 </div>
@@ -329,14 +332,12 @@ export default function NewReportForm() {
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="New Report"
                 isColumn={true}
                 description="Create a new report here."
-                className="relative"
-              >
+                className="relative">
                 <div>
                   <div className="flex flex-col items-center justify-between">
                     {files.length <= 0 && (
@@ -347,8 +348,7 @@ export default function NewReportForm() {
                           onDrop={handleDrop}
                           className={`border-2 border-dashed w-full ${
                             isDragOver ? "border-blue-500" : "border-gray-300"
-                          } p-6 rounded-md w-full`}
-                        >
+                          } p-6 rounded-md w-full`}>
                           <input
                             type="file"
                             multiple
@@ -358,8 +358,7 @@ export default function NewReportForm() {
                           />
                           <label
                             htmlFor="file-input"
-                            className="cursor-pointer text-gray-500 text-center"
-                          >
+                            className="cursor-pointer text-gray-500 text-center">
                             <div className="flex flex-col items-center justify-center bg-gray-100 mx-auto rounded-full w-14 h-14 ">
                               <UploadCloud />
                             </div>
@@ -389,8 +388,7 @@ export default function NewReportForm() {
                         {files.map((file, index) => (
                           <li
                             key={index}
-                            className="flex items-center justify-between text-sm text-gray-500 relative"
-                          >
+                            className="flex items-center justify-between text-sm text-gray-500 relative">
                             <img
                               src={URL.createObjectURL(file)}
                               alt=""
@@ -401,8 +399,7 @@ export default function NewReportForm() {
                               className="text-red-500 hover:text-red-700 absolute -top-1 -right-1"
                               onClick={() =>
                                 setFiles(files.filter((_, i) => i !== index))
-                              }
-                            >
+                              }>
                               <X
                                 color="white"
                                 className="bg-red-500 rounded-full p-1"
@@ -416,10 +413,17 @@ export default function NewReportForm() {
                 </div>
 
                 <div className="py-5 flex flex-col lg:flex-row gap-6 lg:absolute bottom-0 left-0 right-0 w-full px-6">
-                  <Button className="w-full" variant="secondary" onClick={prev}>
+                  <Button
+                    className="w-full"
+                    variant="secondary"
+                    onClick={prev}>
                     Go Back
                   </Button>
-                  <Button className="w-full">Submit</Button>
+                  <Button
+                    className="w-full"
+                    disabled={form.formState.isSubmitting}>
+                    Submit
+                  </Button>
                 </div>
               </FormContainer>
             </motion.div>

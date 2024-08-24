@@ -97,7 +97,7 @@ const EditInventoryForm = () => {
     },
     onSuccess: () => {
       toast({
-        title: "Inventory created successfully",
+        title: "Inventory updated successfully",
         variant: "success",
       });
 

@@ -168,11 +168,13 @@ export default function Labour() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full" type="submit" disabled={isLoading}>
+          <Button
+            className="w-full"
+            type="submit"
+            disabled={form.formState.isSubmitting}>
             Submit
           </Button>
         </div>

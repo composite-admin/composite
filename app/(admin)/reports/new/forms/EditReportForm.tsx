@@ -55,12 +55,12 @@ export default function EditReportForm() {
   });
 
 
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["editReport"],
     mutationFn: async (data: ProjectReportFormType) => {
       const res = await api.put(`/project_report/${singleReportData.id}`, data);
-      if(res.status === 200) {
-          router.push(`/reports/${singleReportData.id}`);
+      if (res.status === 200) {
+        router.push(`/reports/${singleReportData.id}`);
       }
       return res.data.data;
     },

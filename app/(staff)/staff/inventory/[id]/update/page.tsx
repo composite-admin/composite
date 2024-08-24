@@ -23,7 +23,6 @@ import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { HiBellAlert } from "react-icons/hi2";
-import { useGetEachinventory } from "@/store/inventory/InventoryStore";
 import { userStore } from "@/store/auth/AuthStore";
 
 const EditInventorySchema = z.object({
@@ -56,23 +55,11 @@ type EditInventoryFormDataType = z.infer<typeof EditInventorySchema>;
 
 const UpdateInventory = (props: any) => {
   let id: any = props.params.id;
-  const onOpen = useSuccessModal((state) => state.onOpen);
   const router = useRouter();
   const { inventories } = useGetAllInventoryTypes();
   const { setToolData, toolData } = useInventoryStore();
   const { inventory } = useGetInventoryData(id);
   const { toast } = useToast();
-
-  let formData;
-  if (inventory) {
-    formData = {
-      unit_price: inventory?.unit_price || 0,
-      quantity: inventory?.quantity || 0,
-      comment: inventory?.comment || "",
-      name: inventory?.name,
-      type: inventory?.type,
-    };
-  }
 
   const { userId } = userStore();
   const ToolDescription = toolData?.map((item: any) => item?.description);
@@ -80,7 +67,13 @@ const UpdateInventory = (props: any) => {
   const toolType = inventories?.map((item: any) => item?.type);
   const form = useForm<EditInventoryFormDataType>({
     resolver: zodResolver(EditInventorySchema),
-    values: formData,
+    values: {
+      unit_price: inventory?.unit_price || 0,
+      quantity: inventory?.quantity || 0,
+      comment: inventory?.comment || "",
+      name: inventory?.name!,
+      type: inventory?.type!,
+    },
   });
   const { watch } = form;
   const watchTools = watch("type");
@@ -115,7 +108,7 @@ const UpdateInventory = (props: any) => {
           created_by: userId,
         });
         if (response.status === 200) {
-          router.push(`/inventory/${response.data.data.inventory_id}`);
+          router.push(`/staff/inventory/${response.data.data.inventory_id}`);
           console.log(response.data.data.inventory_id);
         }
         return response.data;
@@ -202,8 +195,7 @@ const UpdateInventory = (props: any) => {
                 onClick={() => router.push(`/inventory/${id} `)}
                 variant={"secondary"}
                 type="button"
-                className="w-full"
-              >
+                className="w-full">
                 Cancel
               </Button>
               <Button className="w-full">Submit</Button>
