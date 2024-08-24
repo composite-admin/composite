@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import useContractorsActionsStore from "@/store/actions/contractorsActions";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 import { useToast } from "@/components/ui/use-toast";
+import { AxiosError } from "axios";
+import { api } from "@/config/api";
+import { useMutation } from "@tanstack/react-query";
 
 const AddContractor = () => {
   const { toast } = useToast();
@@ -21,10 +24,39 @@ const AddContractor = () => {
     (state) => state.createContractor
   );
 
+  const { mutate } = useMutation({
+    mutationKey: ["create Contractors"],
+    mutationFn: async (data: any) => {
+      try {
+        const response = await api.post("/contractors", data);
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Contractor created successfully",
+            variant: "success",
+          });
+          router.back();
+        }
+        return response.data;
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
+      }
+    },
+
+    onError: (error: Error) => {
+      toast({
+        title: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
   const onSubmit = (data: any) => {
-    createContractor(data);
-    router.push("/contractors");
-    toast({ title: "Contractor created successfully", variant: "success" });
+    mutate(data);
     reset();
     return;
   };
@@ -116,7 +148,7 @@ const AddContractor = () => {
 
               <input
                 type="text"
-                {...register("contact_person", { required: true })}
+                {...register("contact_person")}
               />
             </div>
 
@@ -133,13 +165,19 @@ const AddContractor = () => {
             <div className="flex flex-col">
               <p className="value">Email</p>
 
-              <input type="email" {...register("email")} />
+              <input
+                type="email"
+                {...register("email")}
+              />
             </div>
 
             <div className="flex flex-col">
               <p className="value">Website</p>
 
-              <input type="text" {...register("website")} />
+              <input
+                type="text"
+                {...register("website")}
+              />
             </div>
 
             <div className="flex flex-col col-span-2">
@@ -151,14 +189,12 @@ const AddContractor = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>
