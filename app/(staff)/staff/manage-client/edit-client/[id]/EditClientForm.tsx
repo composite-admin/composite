@@ -27,6 +27,9 @@ export default function EditClientForm(data: any) {
   const router = useRouter();
   const form = useForm<CreateAddClientType>({
     resolver: zodResolver(createAddClientSchema),
+    defaultValues: {
+      State: data?.data?.state,
+    },
   });
 
   useEffect(() => {

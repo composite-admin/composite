@@ -10,7 +10,6 @@ import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useGetAllInventoryTypes } from "@/hooks/useSelectOptions";
-import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
 import { useInventoryStore } from "@/store/project/useProjectStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
