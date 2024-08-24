@@ -71,6 +71,13 @@ export default function AddStaffForm() {
           account_name: data.accountName,
           account_number: data.accountNumber,
         });
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Staff created successfully",
+            variant: "success",
+          });
+          router.back();
+        }
         return response.data;
       } catch (error) {
         const axiosError = error as AxiosError;
@@ -81,14 +88,7 @@ export default function AddStaffForm() {
         });
       }
     },
-    onSuccess: () => {
-      toast({
-        title: "Staff added successfully",
-        variant: "success",
-      });
-      form.reset();
-      router.push("/manage-staff");
-    },
+
     onError: (error: Error) => {
       toast({
         title: error.message,

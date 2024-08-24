@@ -14,7 +14,12 @@ export const columns: ColumnDef<IManageStaffData>[] = [
       return `${row.firstname} ${row.middlename} ${row.lastname}`;
     },
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Full Name" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Full Name"
+        />
+      );
     },
     cell: ({ row }) => {
       const { firstname, lastname, middlename, userid } = row.original;
@@ -23,7 +28,7 @@ export const columns: ColumnDef<IManageStaffData>[] = [
           <div className="flex gap-2.5 items-center">
             <AvatarComponent />
             <div className="flex flex-col">
-              <span className="capitalize font-semibold underline text-primaryLight font-semibold">
+              <span className="capitalize font-semibold underline text-primaryLight">
                 {firstname} {middlename} {lastname}
               </span>
               <p className="uppercase text-textColor">{userid}</p>
@@ -37,42 +42,70 @@ export const columns: ColumnDef<IManageStaffData>[] = [
   {
     accessorKey: "sex",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Gender" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Gender"
+        />
+      );
     },
   },
 
   {
     accessorKey: "role",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Role" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Role"
+        />
+      );
     },
   },
 
   {
     accessorKey: "email",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Email Address" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Email Address"
+        />
+      );
     },
   },
   {
     accessorKey: "cell_phone",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Contact Phone" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Contact Phone"
+        />
+      );
     },
   },
   {
-    accessorKey: "userid",
+    accessorKey: "createdAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title={"Edit"} withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title={"Edit"}
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       const { userid } = row.original;
       return (
         <>
-          <EditCell href={`manage-staff/edit/${userid}`} isLink />
+          <EditCell
+            href={`manage-staff/edit/${userid}`}
+            isLink
+          />
         </>
       );
     },
   },
-
 ];
