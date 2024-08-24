@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { validatePhoneNumber } from "../../../../utils/validatePhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
+import { api } from "@/config/api";
+import { AxiosError } from "axios";
 
 const AddSuppliers = () => {
   const router = useRouter();
@@ -26,15 +28,32 @@ const AddSuppliers = () => {
 
   const { mutate } = useMutation({
     mutationKey: ["createSupplier"],
-    mutationFn: (data: any) => {
-      return createSupplier(data);
+    mutationFn: async (data: any) => {
+      try {
+        const response = await api.post("/suppliers", data);
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Supplier created successfully",
+            variant: "success",
+          });
+          router.back();
+        }
+        return response.data;
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
+      }
     },
-    onSuccess: () => {
+
+    onError: (error: Error) => {
       toast({
-        title: "Supplier created successfully",
-        variant: "success",
+        title: error.message,
+        variant: "destructive",
       });
-      router.push("/suppliers");
     },
   });
 
@@ -106,7 +125,7 @@ const AddSuppliers = () => {
 
               <input
                 type="text"
-                {...register("contact_person", { required: true })}
+                {...register("contact_person")}
               />
               {errors.contact_person && (
                 <span className="text-red-500 text-xs">
@@ -136,7 +155,6 @@ const AddSuppliers = () => {
               <input
                 type="text"
                 {...register("contact_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -168,14 +186,12 @@ const AddSuppliers = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>
