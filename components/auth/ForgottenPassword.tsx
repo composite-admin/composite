@@ -32,7 +32,7 @@ export default function ForgottenPassword() {
       try {
         const response = await api.post("/forgot-password", {
           ...credentials,
-          link: "https://composite-portal-dusky.vercel.app/set-password",
+          link: "https://composite-portal-dusky.vercel.app/set-password/redirect",
         });
         setEmail(credentials.email);
         return response.data;

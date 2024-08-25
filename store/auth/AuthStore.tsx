@@ -66,6 +66,7 @@ export const userStore = create<IUserStoreType>()(
           deleteCookie("username");
           deleteCookie("pwd_status");
           useClientStore.getState().setTabType("Project Details");
+          localStorage.clear();
         },
       }),
       {
