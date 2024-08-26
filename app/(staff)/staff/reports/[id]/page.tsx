@@ -75,7 +75,7 @@ const SingleReport = (props: any) => {
                   key={index}
                   onClick={() => handleImageClick(index)}>
                   <Image
-                    unoptimized
+                    priority
                     width={0}
                     height={0}
                     src={image}

@@ -49,8 +49,7 @@ const SingleReport = (props: any) => {
           title="Report Details"
           dateSubmitted="6th July, 2023"
           editAction={() => router.push(`/reports/${id}/edit`)}
-          data={data}
-        >
+          data={data}>
           <div className="grid grid-cols-[1fr_3fr] my-10">
             <div className="flex gap-3 flex-col">
               <div className="">
@@ -65,7 +64,9 @@ const SingleReport = (props: any) => {
 
             <div className="flex gap-2">
               {data?.photograph_id?.map((image: any, index: number) => (
-                <div key={index} onClick={() => handleImageClick(index)}>
+                <div
+                  key={index}
+                  onClick={() => handleImageClick(index)}>
                   <Image
                     unoptimized
                     width={0}
@@ -81,13 +82,13 @@ const SingleReport = (props: any) => {
                 <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-75 z-50 p-5">
                   <button
                     onClick={handleCloseModal}
-                    className=" text-white text-4xl focus:outline-none top-5 right-5 absolute"
-                  >
+                    className=" text-white text-4xl focus:outline-none top-5 right-5 absolute">
                     &times;
                   </button>
                   <div className="relative  max-w-3xl w-full min-h-[30rem] aspect-square  ">
                     <Image
                       fill
+                      priority
                       src={data?.photograph_id[selectedImageIndex]}
                       alt=""
                       className="max-w-full max-h-full object-contain rounded-lg aspect-square"
