@@ -73,7 +73,7 @@ export default function Material() {
       project_name: formDetails?.project_name,
       supplier_name: formDetails?.supplier_name,
       supplier_material: formDetails?.supplier_material,
-      quantity: formDetails?.quantity as unknown as string,
+      quantity: String(formDetails?.quantity) as unknown as string,
       unit_price: formDetails?.unit_price as unknown as string,
       description: formDetails?.description,
       comment: formDetails?.comment,
@@ -196,6 +196,7 @@ export default function Material() {
                   placeholder="Enter Quantity"
                   control={form.control}
                   label="Quantity"
+                  defaultValue={String(formDetails?.quantity)}
                 />
               </div>
               <div className="w-full">

@@ -13,7 +13,6 @@ import {
   useProjectData,
 } from "@/hooks/useSelectOptions";
 import useAuthStore, { userStore } from "@/store/auth/AuthStore";
-import useStaffStore from "@/store/staff/useStaffStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -102,12 +101,13 @@ export default function ToolsAndMachineBuy() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "PENDING",
+        total_price: Number(data.unit_price) * Number(data.quantity),
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
       });
       if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request Approved",
+          title: "Request Edited",
           variant: "success",
         });
         form.reset();
@@ -145,16 +145,19 @@ export default function ToolsAndMachineBuy() {
                 name="company"
                 control={form.control}
                 label="Company"
+                disabled
                 placeholder="Enter Company"
               />
               <CustomFormField
                 name="ofc_phone"
+                disabled
                 control={form.control}
                 label="Company Phone"
                 placeholder="Enter number"
               />
               <CustomFormField
                 name="contact_mobile"
+                disabled
                 control={form.control}
                 label="Contact Number"
                 placeholder="Enter number"
@@ -178,6 +181,7 @@ export default function ToolsAndMachineBuy() {
               <CustomFormField
                 name="company_address"
                 control={form.control}
+                disabled
                 label="Company Address"
                 placeholder="Enter Company Address"
               />
@@ -185,6 +189,7 @@ export default function ToolsAndMachineBuy() {
                 name="contact_person"
                 control={form.control}
                 label="Contact Person"
+                disabled
                 placeholder="Enter full name"
               />
               <CustomFormField
@@ -222,8 +227,7 @@ export default function ToolsAndMachineBuy() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
           <Button className="w-full">Submit</Button>
