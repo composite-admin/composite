@@ -230,7 +230,11 @@ export default function ToolsAndMachineBuy() {
             onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button
+            className="w-full"
+            disabled={form.formState.isSubmitting}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>

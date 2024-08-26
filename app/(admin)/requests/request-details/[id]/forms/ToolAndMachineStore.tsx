@@ -125,7 +125,7 @@ export default function ToolsAndMachineStore() {
           control={form.control}
           label="Tool Name"
           disabled
-          placeholder={formDetails?.tool_name ?? "N/A"}
+          placeholder={formDetails?.tool_machinery_type ?? "N/A"}
         />
         <div className="py-4 w-full">
           <div className="grid md:grid-cols-2 gap-4 py-3">
@@ -158,11 +158,13 @@ export default function ToolsAndMachineStore() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full" disabled={isLoading} type="submit">
+          <Button
+            className="w-full"
+            disabled={isLoading}
+            type="submit">
             Approve Request
           </Button>
         </div>

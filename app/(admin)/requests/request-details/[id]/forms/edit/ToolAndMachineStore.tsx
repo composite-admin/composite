@@ -36,11 +36,7 @@ export const ToolsAndMachineStoreSchema = z.object({
       required_error: "Quantity is required",
     })
     .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
-  unit_price: z
-    .string({
-      required_error: "Unit price is required",
-    })
-    .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
+
   tool_machinery_type: z.string({
     required_error: "Tool description is required",
   }),
@@ -59,7 +55,6 @@ export default function ToolsAndMachineStore() {
   const { projectsData } = useProjectData();
   const { inventory } = useGetAllInventoryItems();
   const { formDetails, onClose } = useUpdateRequestStore();
-  const { userId } = userStore();
   const projectName = projectsData?.map((item: any) => item.project_name);
   const router = useRouter();
   const { inventories } = useGetAllInventoryTypes();
@@ -71,8 +66,7 @@ export default function ToolsAndMachineStore() {
     defaultValues: {
       request_type: RequestType.ToolsAndMachineryStore,
       project_name: formDetails?.project_name,
-      quantity: formDetails?.quantity as unknown as string,
-      unit_price: formDetails?.unit_price as unknown as string,
+      quantity: String(formDetails?.quantity) as unknown as string,
       tool_machinery_type: formDetails?.tool_machinery_type,
       description: formDetails?.description,
       tool_name: formDetails?.tool_name,
@@ -103,11 +97,10 @@ export default function ToolsAndMachineStore() {
         ...data,
         status: "PENDING",
         quantity: Number(data.quantity),
-        unit_price: Number(data.unit_price),
       });
       if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request Approved",
+          title: "Request Edited",
           variant: "success",
         });
         form.reset();
@@ -154,18 +147,12 @@ export default function ToolsAndMachineStore() {
             control={form.control}
             items={ToolDescription || [" "]}
           />
-          <div className="grid md:grid-cols-2 gap-4 py-3">
+          <div className="grid  gap-4 py-3">
             <CustomFormField
               name="quantity"
               control={form.control}
               label="Quantity"
               placeholder="Enter Quantity"
-            />
-            <CustomFormField
-              name="unit_price"
-              control={form.control}
-              label="Unit Price"
-              placeholder="Enter Unit Price"
             />
           </div>
 
@@ -189,11 +176,14 @@ export default function ToolsAndMachineStore() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button
+            className="w-full"
+            disabled={form.formState.isSubmitting}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>
