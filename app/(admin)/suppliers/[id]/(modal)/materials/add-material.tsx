@@ -4,10 +4,12 @@ import { useModal } from "@/utils/modalContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useSupplierMaterialsStore from "@/store/actions/materials-and-tools/materialsActions";
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
+import { useToast } from "@/components/ui/use-toast";
 
 const AddMaterialModal = () => {
   const { hideModal } = useModal();
   const { selectedItem: supplier } = useSuppliersActionsStore();
+  const { toast } = useToast();
   const {
     reset,
     handleSubmit,
@@ -17,6 +19,14 @@ const AddMaterialModal = () => {
   const store = useSupplierMaterialsStore();
 
   const onSubmit: SubmitHandler<AddMaterialData> = (data) => {
+    if (isNaN(data.unit_price) || isNaN(data.quantity)) {
+      toast({
+        title: "Error",
+        description: "Unit price and quantity must be numbers",
+        variant: "destructive",
+      });
+      return;
+    }
     store.createMaterial({
       ...data,
       supplier_code: supplier?.supplier_code!,
@@ -29,7 +39,10 @@ const AddMaterialModal = () => {
   };
 
   return (
-    <FramerModal isOpen={true} isAutomatic={false} onClose={hideModal}>
+    <FramerModal
+      isOpen={true}
+      isAutomatic={false}
+      onClose={hideModal}>
       <div className="md:min-w-[40rem] w-[98%] bg-white rounded-lg p-10">
         <div className="space-y-4">
           <p className="text-3xl font-bold">Add Material</p>
@@ -37,8 +50,7 @@ const AddMaterialModal = () => {
           <form
             onSubmit={handleSubmit(onSubmit)}
             noValidate
-            className="space-y-4"
-          >
+            className="space-y-4">
             <div className="space-y-1">
               <label className="font-semibold">Material Description</label>
               <input
@@ -77,8 +89,7 @@ const AddMaterialModal = () => {
               <button
                 role="button"
                 className="w-full py-4 font-semibold rounded-lg bg-zinc-300"
-                onClick={hideModal}
-              >
+                onClick={hideModal}>
                 Cancel
               </button>
               <input

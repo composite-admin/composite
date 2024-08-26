@@ -14,20 +14,23 @@ const AddStakeholder = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
   } = useForm();
+
+  if (isSubmitSuccessful) {
+    toast({
+      title: "Stakeholder created successfully",
+      variant: "success",
+    });
+    router.back();
+  }
 
   const createStakeholder = useStakeholdersActionsStore<any>(
     (state) => state.createStakeholder
   );
 
   const onSubmit = (data: any) => {
-    toast({
-      title: "Stakeholder created successfully",
-      variant: "success",
-    });
     createStakeholder(data);
-    router.back();
     reset();
     return;
   };

@@ -6,10 +6,12 @@ import useSupplierMaterialsStore from "@/store/actions/materials-and-tools/mater
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 import { BlockEdiComponent } from "@/components/shared/BlockEdit";
+import { useToast } from "@/components/ui/use-toast";
 
 const AddMaterialModal = () => {
   const { hideModal } = useModal();
   const { selectedItem: supplier } = useSuppliersActionsStore();
+  const { toast } = useToast();
   const {
     reset,
     handleSubmit,
@@ -24,6 +26,15 @@ const AddMaterialModal = () => {
   )?.can_create;
 
   const onSubmit: SubmitHandler<AddMaterialData> = (data) => {
+    if (isNaN(data.unit_price) || isNaN(data.quantity)) {
+      toast({
+        title: "Error",
+        description: "Unit price and quantity must be numbers",
+        variant: "destructive",
+      });
+      return;
+    }
+
     store.createMaterial({
       ...data,
       supplier_code: supplier?.supplier_code!,
