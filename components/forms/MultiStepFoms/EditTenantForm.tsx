@@ -156,18 +156,18 @@ export default function EditTenantForm({ id }: { id: string }) {
       />
       {/* Form */}
       <Form {...form}>
-        <form className="mt-2 py-2" onSubmit={form.handleSubmit(processForm)}>
+        <form
+          className="mt-2 py-2"
+          onSubmit={form.handleSubmit(processForm)}>
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Edit tenant"
                 isColumn={false}
-                description="Edit an existing staff profile here"
-              >
+                description="Edit an existing tenant profile here">
                 <div className="flex flex-col gap-5">
                   <CustomFormSelect
                     control={form.control}
@@ -179,7 +179,9 @@ export default function EditTenantForm({ id }: { id: string }) {
                   <CustomFormSelect
                     control={form.control}
                     name="flat_code"
+                    defaultValue={details?.flat_code}
                     items={flatList || []}
+                    placeholder={`${details?.flat_code} ${details?.flat_description}`}
                     labelText="Select Flat"
                   />
                   <div></div>
@@ -221,11 +223,12 @@ export default function EditTenantForm({ id }: { id: string }) {
                     className="w-full disabled:"
                     variant={"secondary"}
                     disabled={currentStep === 0}
-                    onClick={prev}
-                  >
+                    onClick={prev}>
                     Back
                   </Button>
-                  <Button className="w-full" onClick={next}>
+                  <Button
+                    className="w-full"
+                    onClick={next}>
                     Next
                   </Button>
                 </div>
@@ -237,13 +240,11 @@ export default function EditTenantForm({ id }: { id: string }) {
             <motion.div
               initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
+              transition={{ duration: 0.3, ease: "easeInOut" }}>
               <FormContainer
                 title="Edit tenant"
                 isColumn={false}
-                description="Edit an exisiting staff profile here"
-              >
+                description="Edit an exisiting staff profile here">
                 <div className="flex flex-col gap-5">
                   <CustomFormField
                     control={form.control}
@@ -272,14 +273,15 @@ export default function EditTenantForm({ id }: { id: string }) {
                     <div className="ml-auto w-max">
                       <div
                         onClick={() => append({ type: "", value: "" })}
-                        className="text-xs text-primaryLight flex gap-1 font-semibold cursor-pointer"
-                      >
+                        className="text-xs text-primaryLight flex gap-1 font-semibold cursor-pointer">
                         <PlusCircle className="size-4" />
                         <p>Add Other Fees</p>
                       </div>
                     </div>
                     {fields.map((field, index) => (
-                      <div key={field.id} className=" mb-2 relative">
+                      <div
+                        key={field.id}
+                        className=" mb-2 relative">
                         <div className="grid grid-cols-2  gap-4">
                           <CustomFormField
                             control={form.control}
@@ -301,8 +303,7 @@ export default function EditTenantForm({ id }: { id: string }) {
                         </div>
                         <div
                           onClick={() => remove(index)}
-                          className="absolute top-11 right-1 text-red-500 cursor-pointer"
-                        >
+                          className="absolute top-11 right-1 text-red-500 cursor-pointer">
                           <Trash2 className="size-5" />
                         </div>
                       </div>
@@ -312,11 +313,12 @@ export default function EditTenantForm({ id }: { id: string }) {
                     <Button
                       className="w-full"
                       variant={"secondary"}
-                      onClick={prev}
-                    >
+                      onClick={prev}>
                       Back
                     </Button>
-                    <Button className="w-full" onClick={next}>
+                    <Button
+                      className="w-full"
+                      onClick={next}>
                       {currentStep === 1 ? "Submit" : "Next"}
                     </Button>
                   </div>
