@@ -70,7 +70,7 @@ export default function Labour() {
       });
       if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request Approved",
+          title: "Request Edited",
           variant: "success",
         });
         form.reset();
@@ -79,7 +79,7 @@ export default function Labour() {
       }
     } catch (error) {
       toast({
-        title: "Request creation failed",
+        title: "Editing failed",
         variant: "destructive",
       });
     }
@@ -136,11 +136,14 @@ export default function Labour() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button
+            className="w-full"
+            disabled={form.formState.isSubmitting}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>
