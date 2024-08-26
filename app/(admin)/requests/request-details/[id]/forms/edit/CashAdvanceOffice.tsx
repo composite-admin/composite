@@ -20,9 +20,7 @@ import { useUpdateRequestStore } from "@/store/requests/RequestStore";
 
 export const createCashAdvanceOfficeSchema = z.object({
   request_type: z.nativeEnum(RequestType),
-  project_name: z.string({
-    required_error: "Project Name is required",
-  }),
+
   amount: z.string({
     required_error: "Amount is required",
   }),
@@ -32,9 +30,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   description: z.string({
     required_error: "Description is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<
@@ -54,7 +50,6 @@ export default function CashAdvanceOffice() {
     resolver: zodResolver(createCashAdvanceOfficeSchema),
     defaultValues: {
       request_type: RequestType.CashAdvanceOffice,
-      project_name: formDetails?.project_name,
       amount: formDetails?.amount as unknown as string,
       cash_advance_purpose:
         formDetails?.cash_advance_purpose as unknown as string,
@@ -71,7 +66,7 @@ export default function CashAdvanceOffice() {
       });
       if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request Approved",
+          title: "Request Edited",
           variant: "success",
         });
         form.reset();
@@ -98,15 +93,6 @@ export default function CashAdvanceOffice() {
         />
         <div className="py-4 w-full">
           <div className="flex flex-col lg:flex-row gap-4 w-full">
-            <div className="w-full">
-              <CustomFormSelect
-                name="project_name"
-                labelText="Project Name"
-                control={form.control}
-                placeholder="Select Project"
-                items={projectName || []}
-              />
-            </div>
             <div className="w-full">
               <CustomFormField
                 name="amount"
@@ -142,11 +128,14 @@ export default function CashAdvanceOffice() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button
+            className="w-full"
+            disabled={form.formState.isSubmitting}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>

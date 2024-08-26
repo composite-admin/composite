@@ -41,9 +41,7 @@ export const createCashAdvanceOfficeSchema = z.object({
   description: z.string({
     required_error: "Description is required",
   }),
-  comment: z.string({
-    required_error: "Comment is required",
-  }),
+  comment: z.string().optional(),
 });
 
 type CreateCashAdvanceOfficeType = z.infer<
@@ -79,7 +77,7 @@ export default function CashAdvance() {
       });
       if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request Approved",
+          title: "Request Edited",
           variant: "success",
         });
         form.reset();
@@ -147,11 +145,14 @@ export default function CashAdvance() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button
+            className="w-full"
+            disabled={form.formState.isSubmitting}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>

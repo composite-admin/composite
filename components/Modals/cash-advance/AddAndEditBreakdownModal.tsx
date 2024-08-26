@@ -37,19 +37,22 @@ type AddOrEditBreakdownType = z.infer<typeof AddOrEditBreakdownSchema>;
 export default function AddAndEditBreakdownModal() {
   const { isOpen, onClose, breakdownModalType, action } =
     useAddAndEditBreakDownModal();
-
   const { CashAdvanceDetails } = useCashAdvanceStore();
   const { toast } = useToast();
-
-  const form = useForm<AddOrEditBreakdownType>({
-    resolver: zodResolver(AddOrEditBreakdownSchema),
-  });
   const { cashAdvanceBreakdown, isBreakDownLoading } =
     useGetCashAdvanceBreakdownByCode(CashAdvanceDetails?.request_code!);
-
   const rowInfo = cashAdvanceBreakdown?.find(
     (row) => row.id === Number(action)
   );
+
+  const form = useForm<AddOrEditBreakdownType>({
+    resolver: zodResolver(AddOrEditBreakdownSchema),
+    values: {
+      description: rowInfo?.description!,
+      amount: rowInfo?.amount!,
+      comment: rowInfo?.comment || "",
+    },
+  });
 
   // const { mutate } = useMutation({
   //   mutationKey: ["add-or-edit-breakdown", CashAdvanceDetails?.cash_id],
@@ -115,6 +118,7 @@ export default function AddAndEditBreakdownModal() {
             variant: "success",
           });
           onClose();
+          window.location.reload();
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -141,6 +145,7 @@ export default function AddAndEditBreakdownModal() {
             variant: "success",
           });
           onClose();
+          window.location.reload();
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -157,10 +162,11 @@ export default function AddAndEditBreakdownModal() {
         description="Add to the cash advance breakdown here."
         isOpen={isOpen}
         onClose={onClose}
-        classname="max-w-xl"
-      >
+        classname="max-w-xl">
         <Form {...form}>
-          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="space-y-5"
+            onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-7">
               <CustomFormField
                 control={form.control}
@@ -186,11 +192,12 @@ export default function AddAndEditBreakdownModal() {
                   variant={"secondary"}
                   className="w-full"
                   type="button"
-                  onClick={onClose}
-                >
+                  onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" className="w-full">
+                <Button
+                  type="submit"
+                  className="w-full">
                   Submit
                 </Button>
               </div>
@@ -207,10 +214,11 @@ export default function AddAndEditBreakdownModal() {
         title="Edit Breakdown"
         isOpen={isOpen}
         onClose={onClose}
-        classname="max-w-xl"
-      >
+        classname="max-w-xl">
         <Form {...form}>
-          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="space-y-5"
+            onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-7">
               <CustomFormField
                 control={form.control}
@@ -239,11 +247,13 @@ export default function AddAndEditBreakdownModal() {
                   variant={"secondary"}
                   className="w-full"
                   type="button"
-                  onClick={onClose}
-                >
+                  onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" className="w-full">
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={form.formState.isSubmitting}>
                   Submit
                 </Button>
               </div>
