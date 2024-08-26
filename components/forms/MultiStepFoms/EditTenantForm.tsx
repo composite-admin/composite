@@ -174,7 +174,6 @@ export default function EditTenantForm({ id }: { id: string }) {
                     name="project_name"
                     items={projects || []}
                     labelText="Select Project"
-                    // placeholder={details?.project_name}
                   />
                   <CustomFormSelect
                     control={form.control}
