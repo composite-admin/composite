@@ -31,7 +31,9 @@ const AddStartUpCostSchema = z.object({
     .string({ required_error: "Startup cost is required" })
     .regex(/^\d*\.?\d*$/, "Please enter a valid number")
     .min(1),
-  comment: z.string().optional(),
+  comment: z.string({
+    required_error: "Comment is required",
+  }),
 });
 
 type AddStartUpCostType = z.infer<typeof AddStartUpCostSchema>;

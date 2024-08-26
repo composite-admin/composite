@@ -27,7 +27,7 @@ export default function ProjectPage() {
             ? projects?.length || 0
             : filterProjectBySupervisor?.length || 0
         })`}
-        subText="View all your Items here"
+        subText="View all projects here"
         buttonText="Add Project"
         buttonAction={onOpen}
       />

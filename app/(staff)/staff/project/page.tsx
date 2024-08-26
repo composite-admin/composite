@@ -24,7 +24,7 @@ export default function ProjectPage() {
     <>
       <PageHead
         headText={`Projects (${projects?.length || 0})`}
-        subText="View all your Items here"
+        subText="View all projects here"
         disabled={!CAN_CREATE}
         buttonText="Add Project"
         buttonAction={onOpen}
