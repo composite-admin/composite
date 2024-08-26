@@ -65,7 +65,8 @@ export default function ApproveContractorForm({ id }: { id: string }) {
         title: "Contractor approved successfully",
         variant: "success",
       });
-      router.push(`/project/${projectId}`);
+      router.push("/contractors/pending-project");
+
     },
     onError: (error: Error) => {
       toast({

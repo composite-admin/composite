@@ -31,6 +31,13 @@ const EditMaterialModal: React.FC<Props> = (row) => {
   const { mutate } = useMutation({
     mutationKey: ["update-material", mat_id],
     mutationFn: async (data: UpdateMaterialData) => {
+      if (isNaN(data.quantity) || isNaN(data.unit_price)) {
+        toast({
+          title: "Quantity and unit price must be numbers",
+          variant: "destructive",
+        });
+      }
+
       try {
         const response = await api.put(`/suppliers-materials/${mat_id}`, data);
         return response.data;
