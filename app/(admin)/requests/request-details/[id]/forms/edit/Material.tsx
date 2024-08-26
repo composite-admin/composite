@@ -61,7 +61,6 @@ export default function Material() {
   const { formDetails, onClose } = useUpdateRequestStore();
   const projectName = projectsData?.map((item: any) => item.project_name);
   const { suppliers, supplierList } = useGetAllSuppliers();
-  const { formType, setFormType } = useStaffStore();
   const { toast } = useToast();
   const router = useRouter();
   const [matDesc, setMatDesc] = useState<string[]>([]);
@@ -98,8 +97,20 @@ export default function Material() {
           const response = await api.get(
             `/suppliers-materials/supplier/description?supplierCode=${supplierCode}`
           );
-
-          setMatDesc(response.data.data);
+          const descriptions = response.data?.data?.map(
+            (item: any) => item.mat_desc
+          );
+          const uniqueDescriptions = Array.from(new Set(descriptions));
+          setMatDesc(uniqueDescriptions as string[]);
+          if (response.status === 201) {
+            toast({
+              title: "Success",
+              description: "Material request edited",
+            });
+            // form.reset();
+            // onClose();
+            // window.location.reload();
+          }
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message);
@@ -111,7 +122,7 @@ export default function Material() {
 
       materialDescription();
     }
-  }, [supplierCode, watchSupplier]);
+  }, [form, router, supplierCode, toast, watchSupplier]);
 
   const handleSubmit = async (data: CreateCashAdvanceOfficeType) => {
     try {
@@ -126,7 +137,7 @@ export default function Material() {
       });
       if (res.status === 200 || res.status === 201) {
         toast({
-          title: "Request Approved",
+          title: "Request Edited",
           variant: "success",
         });
         form.reset();
@@ -172,7 +183,7 @@ export default function Material() {
               name="supplier_material"
               control={form.control}
               labelText="Material Description"
-              items={description || ["Loading Description"]}
+              items={matDesc || ["Loading Description"]}
               disabled={watchSupplier ? false : true}
             />
           </div>

@@ -151,15 +151,17 @@ export default function Material() {
   };
 
   return (
-    <FormContainer title="New Request" description="" isColumn={true}>
+    <FormContainer
+      title="New Request"
+      description=""
+      isColumn={true}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <select
             id="request_type"
             {...form.register("request_type")}
             defaultValue="Material"
-            onChange={(e: any) => setFormType(e.target.value)}
-          >
+            onChange={(e: any) => setFormType(e.target.value)}>
             <option value="Material">Material</option>
             <option value="labour">Labour</option>
             <option value="Cash Advance Project">Cash Advance - Project</option>
@@ -198,7 +200,7 @@ export default function Material() {
                 name="supplier_material"
                 control={form.control}
                 labelText="Material Description"
-                items={matDesc || ["Loading Description"]}
+                items={matDesc || []}
                 disabled={watchSupplier ? false : true}
               />
             </div>
@@ -237,7 +239,10 @@ export default function Material() {
             </div>
           </div>
           <div className="flex flex-col lg:flex-row gap-5">
-            <Button variant="secondary" className="w-full" type="button">
+            <Button
+              variant="secondary"
+              className="w-full"
+              type="button">
               Cancel
             </Button>
             <Button className="w-full">Submit</Button>
