@@ -74,7 +74,7 @@ const UpdateInventory = (props: any) => {
     };
   }
 
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const ToolDescription = toolData?.map((item: any) => item?.description);
 
   const toolType = inventories?.map((item: any) => item?.type);
@@ -111,8 +111,7 @@ const UpdateInventory = (props: any) => {
           ...data,
           total_price: Number(data.unit_price) * Number(data.quantity),
           total_quantity: Number(data.quantity),
-          updated_by: userId,
-          created_by: userId,
+          updated_by: username || userId,
         });
         if (response.status === 200) {
           router.push(`/inventory/${response.data.data.inventory_id}`);

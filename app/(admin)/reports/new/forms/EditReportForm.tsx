@@ -89,8 +89,7 @@ export default function EditReportForm() {
 
           <button
             className="bg-primaryLight text-sm text-white rounded-md py-2 px-5 w-fit"
-            onSubmit={form.handleSubmit((data) => handleSubmit(data))}
-          >
+            onSubmit={form.handleSubmit((data) => handleSubmit(data))}>
             Submit Changes
           </button>
         </div>
@@ -99,7 +98,9 @@ export default function EditReportForm() {
             <form onSubmit={form.handleSubmit((data) => handleSubmit(data))}>
               <div className="flex gap-5 ">
                 {["Daily", "Weekly", "Monthly"].map((option) => (
-                  <span className="flex gap-2 items-center" key={option}>
+                  <span
+                    className="flex gap-2 items-center"
+                    key={option}>
                     <Input
                       key={option}
                       className="size-4"
@@ -128,8 +129,9 @@ export default function EditReportForm() {
                     labelText="Project Supervisor"
                     placeholder=" Select Project Supervisor"
                     name="project_supervisor"
-                    items={projectSupervisor || ["Loading Staff.... 👷🏾‍♂️"]}
+                    items={projectSupervisor || []}
                     control={form.control}
+                    defaultValue={projectSupervisor}
                   />
                 </div>
               </div>
@@ -207,8 +209,7 @@ export default function EditReportForm() {
                   className="w-full"
                   variant="secondary"
                   type="button"
-                  onClick={() => router.back()}
-                >
+                  onClick={() => router.back()}>
                   Cancel
                 </Button>
                 <Button className="w-full">Done</Button>
