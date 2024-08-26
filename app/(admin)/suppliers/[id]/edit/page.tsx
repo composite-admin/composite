@@ -18,7 +18,7 @@ const EditSupplier = () => {
     (state) => state.updateSupplier
   );
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
 
   const onSubmit = (data: any) => {
     delete data.id;
@@ -27,7 +27,9 @@ const EditSupplier = () => {
       variant: "success",
     });
     updateSupplier(Number(params.id), data);
-    router.back();
+    if (formState.isSubmitted) {
+      router.back();
+    }
     return;
   };
 
@@ -131,14 +133,13 @@ const EditSupplier = () => {
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button className="bg-primaryLight text-white  p-5 rounded-md">
