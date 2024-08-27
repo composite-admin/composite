@@ -20,7 +20,7 @@ const TopNav = () => {
   return (
     <div className="bg-white py-3 px-8 flex items-center justify-end border-b border-borderColor">
       <div className="flex items-center justify-end gap-2">
-        <div className="relative">
+        <div className="relative bg-black">
           <div className="flex items-center gap-4 py-1 px-3 duration-300 rounded-xl">
             <div className="size-[40px] rounded-full overflow-hidden flex-shrink-0">
               <Image
@@ -32,13 +32,15 @@ const TopNav = () => {
               />
             </div>
 
-            <div className="text-sm">
+            <div className="text-sm border">
               <p className="text-[#344054] capitalize font-semibold">
                 {username}
               </p>
               <p className="text-[#667185] capitalize">{userType}</p>
             </div>
-            <Button onClick={logoutAndRedirectToLogin} className="w-full">
+            <Button
+              onClick={logoutAndRedirectToLogin}
+              className="w-full">
               Logout
             </Button>
           </div>

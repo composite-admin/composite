@@ -80,7 +80,7 @@ export const AddStaffFormSchema = z.object({
   nextOfKinFullName: z.string().min(2, "Full name is required"),
   emailnextOfKin: z.string().min(5, "Email is required").email(),
   relationship: z.enum(["Father", "Mother", "Brother", "Sister", "Relative"]),
-  userName: z.string().min(5, "User name is required"),
+  username: z.string().min(5, "User name is required"),
   role: z.string().min(2, "Role is required"),
   password: z.string().min(9, "Password must be at least 8 characters long"),
   confirmPassword: z

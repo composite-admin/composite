@@ -352,7 +352,7 @@ export default function AddStaffForm() {
                   <div className="flex flex-col md:flex-row gap-5 w-full">
                     <div className="w-full">
                       <CustomFormField
-                        name="userName"
+                        name="username"
                         control={form.control}
                         placeholder="Enter username"
                         label="Username"
@@ -381,6 +381,7 @@ export default function AddStaffForm() {
                   <div className="flex flex-col md:flex-row gap-5 w-full">
                     <div className="w-full">
                       <CustomFormField
+                        type="password"
                         name="password"
                         control={form.control}
                         placeholder="Enter password"
@@ -389,6 +390,7 @@ export default function AddStaffForm() {
                     </div>
                     <div className="w-full">
                       <CustomFormField
+                        type="password"
                         name="confirmPassword"
                         control={form.control}
                         placeholder="Enter confirm password"
