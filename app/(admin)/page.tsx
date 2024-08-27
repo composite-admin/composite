@@ -22,9 +22,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect } from "react";
 import useGetAllReport from "@/store/report/ReportStore";
 import { HiHome, HiOutlineClock, HiPlus } from "react-icons/hi";
+import { userStore } from "@/store/auth/AuthStore";
 
 export default function DashboardPage() {
   const { reportData, setData } = useGetAllReport();
+  const { username } = userStore();
 
   const {
     data,
@@ -101,7 +103,7 @@ export default function DashboardPage() {
   return (
     <div>
       <PageHeaderComponent
-        title="Welcome, David"
+        title={`Welcome ${username ?? "User"}`}
         subTitle="This is your dashboard, an overview of everything going on."
       />
 
@@ -142,13 +144,11 @@ export default function DashboardPage() {
                 <SideCards
                   title="Pending Requests"
                   href="/requests"
-                  description={pendingRequests?.length ?? 0}
-                >
+                  description={pendingRequests?.length ?? 0}>
                   {trimmedPendingRequests?.map((request) => (
                     <div
                       className="flex justify-between items-center border-b py-3"
-                      key={request.id}
-                    >
+                      key={request.id}>
                       <div className="flex gap-2 items-center">
                         <div className="text-xs flex flex-col">
                           <span className="text-sm font-semibold">
@@ -161,8 +161,7 @@ export default function DashboardPage() {
                       </div>
                       <Link
                         href={`/requests/request-details/${request.id}`}
-                        className="text-primaryLight-500 font-semibold"
-                      >
+                        className="text-primaryLight-500 font-semibold">
                         View
                       </Link>
                     </div>
@@ -176,13 +175,11 @@ export default function DashboardPage() {
                 <SideCards
                   title="Pending Reports"
                   description={pendingReports?.length ?? 0}
-                  href="/reports"
-                >
+                  href="/reports">
                   {trimmedPendingReports?.map((report) => (
                     <div
                       className="flex justify-between items-center border-b py-3"
-                      key={report.id}
-                    >
+                      key={report.id}>
                       <div className="flex gap-2 items-center">
                         <AvatarComponent />
                         <div className="text-xs flex flex-col">
@@ -196,8 +193,7 @@ export default function DashboardPage() {
                       </div>
                       <Link
                         href={`/reports/${report.id}`}
-                        className="text-primaryLight-500 font-semibold"
-                      >
+                        className="text-primaryLight-500 font-semibold">
                         View
                       </Link>
                     </div>
@@ -211,16 +207,14 @@ export default function DashboardPage() {
           <div className="flex gap-3 my-5">
             <div
               className="bg-[#007BFF08] text-sm rounded-md flex items-center p-3 gap-1 cursor-pointer"
-              onClick={() => filter("All")}
-            >
+              onClick={() => filter("All")}>
               <HiPlus className="text-primaryLight" />
               <p>All Report</p>
             </div>
 
             <div
               className="bg-[#E7F6EC] text-sm rounded-md flex items-center p-3 gap-1 cursor-pointer"
-              onClick={() => filter("Daily")}
-            >
+              onClick={() => filter("Daily")}>
               <HiOutlineClock className="text-[#036B26]" />
               <p className="text-[#036B26]">
                 Daily Report (
@@ -230,8 +224,7 @@ export default function DashboardPage() {
 
             <div
               className="bg-[#FEF6E7] text-sm rounded-md flex items-center p-3 gap-1 cursor-pointer"
-              onClick={() => filter("Weekly")}
-            >
+              onClick={() => filter("Weekly")}>
               <HiHome className="text-[#865503]" />
               <p className="text-[#865503]">
                 Weekly Report (
@@ -241,8 +234,7 @@ export default function DashboardPage() {
 
             <div
               className="bg-[#FFECE5] text-sm rounded-md flex items-center p-3 gap-1 cursor-pointer"
-              onClick={() => filter("Monthly")}
-            >
+              onClick={() => filter("Monthly")}>
               <HiHome className="text-[#8A0000]" />
               <p className="text-[#8A0000]">
                 Monthly Report (
