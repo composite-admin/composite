@@ -46,7 +46,7 @@ export default function ConsultantForm({ isEdit }: { isEdit?: boolean }) {
             title: "Consultant created successfully",
             variant: "success",
           });
-          router.push("/consultants");
+          router.back();
         }
         return response.data;
       } catch (error) {
