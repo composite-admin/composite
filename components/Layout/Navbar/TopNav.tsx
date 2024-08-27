@@ -20,7 +20,7 @@ const TopNav = () => {
   return (
     <div className="bg-white py-3 px-8 flex items-center justify-end border-b border-borderColor">
       <div className="flex items-center justify-end gap-2">
-        <div className="relative bg-black">
+        <div className="relative">
           <div className="flex items-center gap-4 py-1 px-3 duration-300 rounded-xl">
             <div className="size-[40px] rounded-full overflow-hidden flex-shrink-0">
               <Image
@@ -32,7 +32,7 @@ const TopNav = () => {
               />
             </div>
 
-            <div className="text-sm border">
+            <div className="text-sm">
               <p className="text-[#344054] capitalize font-semibold">
                 {username}
               </p>
