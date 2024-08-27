@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { Form } from "@/components/ui/form";
 import { useEditReportMutation } from "@/mutations/AddReportMutation";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "@/config/api";
 
 export default function EditReportForm() {
@@ -28,7 +28,6 @@ export default function EditReportForm() {
 
   const { projectsData } = useProjectData();
   const { staffs } = useGetAllStaffs();
-  const projectName = projectsData?.map((item: any) => item.project_name);
   const projectSupervisor = staffs?.map(
     (item: any) => item.firstname + " " + item.middlename + " " + item.lastname
   );
@@ -55,13 +54,30 @@ export default function EditReportForm() {
     },
   });
 
+  const watchproject_name = form.watch("project_name");
+
+  const projectName = projectsData?.map((item: any) => item.project_name);
+  const projectCode = projectsData?.find(
+    (item: any) => item.project_name === watchproject_name
+  )?.project_code;
+
+  const { data: project_team_members } = useQuery({
+    queryKey: ["team members", projectCode],
+    queryFn: () =>
+      api.get(`/project-teams/${projectCode}`).then((res) => res.data.data),
+    enabled: !!projectCode,
+  });
+
+  const team_member_per_project: string[] = Array.from(
+    new Set(project_team_members?.map((item: any) => item.staff_name))
+  );
 
   const { mutate, isPending, isSuccess, isError, error } = useMutation({
     mutationKey: ["editReport"],
     mutationFn: async (data: ProjectReportFormType) => {
       const res = await api.put(`/project_report/${singleReportData.id}`, data);
-      if(res.status === 200) {
-          router.push(`/staff/reports/${singleReportData.id}`);
+      if (res.status === 200) {
+        router.push(`/staff/reports/${singleReportData.id}`);
       }
       return res.data.data;
     },
@@ -121,7 +137,7 @@ export default function EditReportForm() {
                     labelText="Project Name"
                     placeholder="Select Project Name"
                     name="project_name"
-                    items={projectName || ["Loading Projects.... 🏠"]}
+                    items={projectName || []}
                     control={form.control}
                   />
                 </div>
@@ -130,9 +146,9 @@ export default function EditReportForm() {
                     labelText="Project Supervisor"
                     placeholder=" Select Project Supervisor"
                     name="project_supervisor"
-                    items={projectSupervisor || []}
+                    disabled={team_member_per_project?.length < 1}
+                    items={team_member_per_project || []}
                     control={form.control}
-                    defaultValue={projectSupervisor}
                   />
                 </div>
               </div>

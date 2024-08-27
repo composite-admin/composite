@@ -61,8 +61,6 @@ export default function NewReportForm() {
     new Set(project_team_members?.map((item: any) => item.staff_name))
   );
 
-  // team_member_per_project now contains unique staff names.
-
   const projectSupervisor = staffs?.map(
     (item: any) => item.firstname + " " + item.middlename + " " + item.lastname
   );
