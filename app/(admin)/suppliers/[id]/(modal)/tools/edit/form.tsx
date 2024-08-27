@@ -118,7 +118,7 @@ const EditToolsFormContent: React.FC<Props> = ({ row, finish }) => {
         variant: "success",
       });
       hideModal();
-      window.location.reload();
+      // window.location.reload();
     },
     onError: (error: Error) => {
       toast({

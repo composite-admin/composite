@@ -47,6 +47,7 @@ export default function AddToolAndMachinery() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       supplier_name: selectedItem?.supplier_name,
+      comment: "",
     },
   });
   const { watch } = form;
@@ -129,13 +130,11 @@ export default function AddToolAndMachinery() {
             items={toolType || ["Loading ..."]}
             placeholder="Select Tool Type"
           />
-          <CustomFormSelect
+          <CustomFormField
             name="description"
-            labelText="Description"
+            label="Description"
             control={form.control}
-            items={ToolDescription || ["Loading ..."]}
             placeholder="Choose description"
-            disabled={!watchTools}
           />
           <CustomFormSelect
             name="procurement_type"
@@ -150,9 +149,13 @@ export default function AddToolAndMachinery() {
             label="Comment"
             control={form.control}
             placeholder="Enter Comment"
+            defaultValue={""}
           />
           <div className="grid  gap-5  md:grid-cols-2 mt-5">
-            <Button type="button" variant={"secondary"} onClick={hideModal}>
+            <Button
+              type="button"
+              variant={"secondary"}
+              onClick={hideModal}>
               Cancel
             </Button>
             <Button className="w-full">Add tools & Machinery</Button>

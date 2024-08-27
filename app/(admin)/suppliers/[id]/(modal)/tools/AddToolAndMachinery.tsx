@@ -4,24 +4,21 @@ import {
   CustomFormSelect,
   CustomFormTextareaField,
 } from "@/components/shared/FormComponent";
-import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/config/api";
 import { useGetAllInventoryTypes } from "@/hooks/useSelectOptions";
-import { useSuccessModal } from "@/store/inventory/UseInventoryModal";
 import { useInventoryStore } from "@/store/project/useProjectStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { HiBellAlert } from "react-icons/hi2";
 import z from "zod";
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import { useModal } from "@/utils/modalContext";
+import { comment } from "postcss";
 
 const FormSchema = z.object({
   supplier_name: z.string({
@@ -47,6 +44,7 @@ export default function AddToolAndMachinery() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       supplier_name: selectedItem?.supplier_name,
+      comment: "",
     },
   });
   const { watch } = form;
@@ -150,7 +148,10 @@ export default function AddToolAndMachinery() {
             placeholder="Enter Comment"
           />
           <div className="grid  gap-5  md:grid-cols-2 mt-5">
-            <Button type="button" variant={"secondary"} onClick={hideModal}>
+            <Button
+              type="button"
+              variant={"secondary"}
+              onClick={hideModal}>
               Cancel
             </Button>
             <Button className="w-full">Add tools & Machinery</Button>

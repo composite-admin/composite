@@ -82,7 +82,6 @@ const AddToolsModal = () => {
 
   const onSubmit: SubmitHandler<IAddToolsAndMachineryData> = (data) => {
     if (!selectedMaterialType || !selectedMaterialSubType) {
-      // toast({ title: "Incomplete Data", variant: "destructive" });
       return;
     }
 
@@ -90,6 +89,7 @@ const AddToolsModal = () => {
       ...data,
       tool_type: `${selectedMaterialType}`,
       procurement_type: `${selectedMaterialSubType}`,
+      comment: "",
     };
 
     createTool(mainData);

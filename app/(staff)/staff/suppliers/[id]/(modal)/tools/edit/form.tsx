@@ -139,13 +139,17 @@ const EditToolsFormContent: React.FC<Props> = ({ row, finish }) => {
           Edit Tools and Machinery
         </p>
         <p className="text-zinc-500">Make changes to tools and machinery</p>
-        <Button title="Submit Changes" onClick={form.handleSubmit(submit)}>
+        <Button
+          title="Submit Changes"
+          onClick={form.handleSubmit(submit)}>
           Submit Changes
         </Button>
       </div>
       <div>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(submit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(submit)}
+            className="space-y-4">
             <CustomFormField
               name="supplier_name"
               label="Supplier Name"
@@ -159,13 +163,11 @@ const EditToolsFormContent: React.FC<Props> = ({ row, finish }) => {
               items={toolType || ["Loading ..."]}
               placeholder="Select Tool Type"
             />
-            <CustomFormSelect
+            <CustomFormField
               name="description"
-              labelText="Description"
+              label="Description"
               control={form.control}
-              items={ToolDescription || ["Loading ..."]}
               placeholder="Choose description"
-              disabled={!watchTools}
             />
             <CustomFormSelect
               name="procurement_type"
@@ -182,7 +184,10 @@ const EditToolsFormContent: React.FC<Props> = ({ row, finish }) => {
               placeholder="Enter Comment"
             />
             <div className="grid  gap-5  md:grid-cols-2 mt-5">
-              <Button type="button" variant={"secondary"} onClick={hideModal}>
+              <Button
+                type="button"
+                variant={"secondary"}
+                onClick={hideModal}>
                 Cancel
               </Button>
               <Button className="w-full">Edit tools & Machinery</Button>
