@@ -16,13 +16,8 @@ export const columns: ColumnDef<IConsultantProjectData>[] = [
     cell: ({ row }) => {
       const { name, id } = row.original;
       return (
-        <div className="flex flex-col text-primaryLight gap-1 font-semibold">
-          <Link
-            href={`/consultants/consultant/${id}`}
-            className="block cursor-pointer"
-          >
-            {name}
-          </Link>
+        <div className="flex flex-col gap-1 font-semibold">
+          <span className="block cursor-pointer">{name}</span>
         </div>
       );
     },
