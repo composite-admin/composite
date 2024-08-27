@@ -20,13 +20,6 @@ const AddStakeholder = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  if (isSubmitSuccessful) {
-    toast({
-      title: "Stakeholder created successfully",
-      variant: "success",
-    });
-    router.back();
-  }
 
   const { mutate } = useMutation({
     mutationKey: ["create stakeholder"],
