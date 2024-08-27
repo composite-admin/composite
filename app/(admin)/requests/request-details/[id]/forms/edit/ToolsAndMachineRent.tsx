@@ -101,6 +101,7 @@ export default function ToolsAndMachineRent() {
       const res = await api.put(`/requests/${formDetails?.id}`, {
         ...data,
         status: "PENDING",
+        total_price: Number(data.unit_price) * Number(data.quantity),
         quantity: Number(data.quantity),
         unit_price: Number(data.unit_price),
       });
@@ -221,11 +222,14 @@ export default function ToolsAndMachineRent() {
             variant="secondary"
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
-          <Button className="w-full">Submit</Button>
+          <Button
+            className="w-full"
+            disabled={form.formState.isSubmitting}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>

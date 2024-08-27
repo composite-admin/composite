@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import useStakeholdersActionsStore from "@/store/actions/stakeholdersActions";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { api } from "@/config/api";
+import { AxiosError } from "axios";
 
 const AddStakeholder = () => {
   const router = useRouter();
@@ -17,24 +20,43 @@ const AddStakeholder = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  const createStakeholder = useStakeholdersActionsStore<any>(
-    (state) => state.createStakeholder
-  );
+  const { mutate } = useMutation({
+    mutationKey: ["create stakeholder"],
+    mutationFn: async (data: any) => {
+      try {
+        const response = await api.post("/stakeholder", data);
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Stakeholder created successfully",
+            variant: "success",
+          });
+          router.back();
+        }
+        return response.data;
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
+      }
+    },
 
-  if (isSubmitSuccessful) {
-    toast({
-      title: "Stakeholder created successfully",
-      variant: "success",
-    });
-    router.push("/stakeholders");
-  }
+    onError: (error: Error) => {
+      toast({
+        title: error.message,
+        variant: "destructive",
+      });
+    },
+  });
 
   const onSubmit = (data: any) => {
-    createStakeholder(data);
+    mutate(data);
     reset();
     return;
   };
-  
+
   return (
     <>
       <GoBack />
@@ -160,8 +182,7 @@ const AddStakeholder = () => {
             <div className="flex flex-col">
               <p className="value">Non Government Agency</p>
               <select
-                {...register("non_government_agencies", { required: true })}
-              >
+                {...register("non_government_agencies", { required: true })}>
                 <option value=""> Select Non Government Agency</option>
                 <option value="Omo-onile">Omo-onile</option>
                 <option value="Community Development Association">
@@ -187,14 +208,12 @@ const AddStakeholder = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>

@@ -125,7 +125,7 @@ const AddSuppliers = () => {
 
               <input
                 type="text"
-                {...register("contact_person", { required: true })}
+                {...register("contact_person")}
               />
               {errors.contact_person && (
                 <span className="text-red-500 text-xs">
@@ -139,10 +139,14 @@ const AddSuppliers = () => {
 
               <input
                 {...register("contact_home_phone", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
+              {errors.contact_home_phone && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -150,16 +154,20 @@ const AddSuppliers = () => {
 
               <input
                 {...register("contact_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
+              {errors.contact_mobile && (
+                <span className="text-red-500 text-xs">
+                  Please enter a valid phone number.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col col-span-2">
               <div className="value">Comment</div>
 
-              <textarea {...register("comment", { required: true })} />
+              <textarea {...register("comment")} />
             </div>
 
             <button

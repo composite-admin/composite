@@ -46,20 +46,25 @@ export default function AddClientToProject({
   const { onClose } = useAddToProjectModal();
 
   const router = useRouter();
-  const watchProjectName = form.watch("project_name");
   const { clientDetailsData } = useManageClientStore();
   const query = useQueryClient();
   const { projectsData } = useProjectData();
   const { flats } = useFlats();
   const flatList = flats?.map((item) => item?.flat_code);
+  const watchProject = form.watch("project_name");
+
+  const flatByProjectName = flats
+    ?.filter((flat: any) => flat.project_name === watchProject)
+    .map((flat: any) => flat.flat_code);
+
   const projectList = projectsData?.map((project: IProjectData) => {
     return project.project_name;
   });
   const projectId = projectsData?.find(
-    (project: IProjectData) => project.project_name === watchProjectName
+    (project: IProjectData) => project.project_name === watchProject
   )?.id;
   const projectCode = projectsData?.find(
-    (project: IProjectData) => project.project_name === watchProjectName
+    (project: IProjectData) => project.project_name === watchProject
   )?.project_code;
 
   const { mutate, isPending } = useMutation({
@@ -104,7 +109,10 @@ export default function AddClientToProject({
     <div className="relative py-4">
       <div>
         <div className="flex items-center gap-2 absolute -top-10">
-          <AvatarComponent height="h-14" width="w-14" />
+          <AvatarComponent
+            height="h-14"
+            width="w-14"
+          />
           <div className="flex flex-col">
             <span>
               {clientDetailsData?.first_name} {clientDetailsData?.last_name}
@@ -118,27 +126,39 @@ export default function AddClientToProject({
         </div>
       </div>
       <Form {...form}>
-        <form className="pt-5 space-y-4" onSubmit={form.handleSubmit(submit)}>
+        <form
+          className="pt-5 space-y-4"
+          onSubmit={form.handleSubmit(submit)}>
           <CustomFormSelect
             name="project_name"
             control={form.control}
-            items={projectList ?? ["Loading Projects... 🏗🏗"]}
+            items={projectList || []}
             labelText="Project Name"
             placeholder="Select Project Name"
           />
 
           <CustomFormSelect
-            name="flat"
             control={form.control}
-            items={flatList ?? ["Loading Flats... 🏗🏗"]}
-            labelText="Flat"
-            placeholder="Select Flat"
+            name="flat_code"
+            placeholder={
+              flatByProjectName?.length === 0
+                ? "No flats assigned yet"
+                : "Select flat"
+            }
+            items={flatByProjectName || []}
+            labelText="Select Flat"
+            disabled={flatByProjectName?.length === 0}
           />
           <div className="grid md:grid-cols-2 gap-4 pt-9">
-            <Button variant={"secondary"} onClick={onClose} type="button">
+            <Button
+              variant={"secondary"}
+              onClick={onClose}
+              type="button">
               Cancel
             </Button>
-            <Button type="submit" disabled={isPending}>
+            <Button
+              type="submit"
+              disabled={isPending}>
               Add
             </Button>
           </div>

@@ -100,7 +100,7 @@ const NewInventory = () => {
         variant: "success",
       });
 
-      router.push("/inventory");
+      router.back();
     },
     onError: (error: Error) => {
       toast({

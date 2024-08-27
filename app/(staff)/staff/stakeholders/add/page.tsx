@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import useStakeholdersActionsStore from "@/store/actions/stakeholdersActions";
 import { validatePhoneNumber } from "@/utils/validatePhoneNumberInput";
 import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { api } from "@/config/api";
 
 const AddStakeholder = () => {
   const router = useRouter();
@@ -25,12 +28,39 @@ const AddStakeholder = () => {
     router.back();
   }
 
-  const createStakeholder = useStakeholdersActionsStore<any>(
-    (state) => state.createStakeholder
-  );
+  const { mutate } = useMutation({
+    mutationKey: ["create stakeholder"],
+    mutationFn: async (data: any) => {
+      try {
+        const response = await api.post("/stakeholder", data);
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Stakeholder created successfully",
+            variant: "success",
+          });
+          router.back();
+        }
+        return response.data;
+      } catch (error) {
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
+      }
+    },
+
+    onError: (error: Error) => {
+      toast({
+        title: error.message,
+        variant: "destructive",
+      });
+    },
+  });
 
   const onSubmit = (data: any) => {
-    createStakeholder(data);
+    mutate(data);
     reset();
     return;
   };

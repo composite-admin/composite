@@ -55,7 +55,7 @@ const EditSingleStakeholder = () => {
         title: "Stakeholder updated successfully",
         variant: "success",
       });
-      router.push("/stakeholders");
+      router.back();
     },
   });
   const onSubmit = (data: any) => {

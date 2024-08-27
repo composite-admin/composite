@@ -17,8 +17,7 @@ import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 import { useAddAndEditBreakDownModal } from "@/store/modals/useCreateModal";
 import { ApiResponse, ICashAdvanceBreakdownData } from "@/utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -121,9 +120,12 @@ export default function AddAndEditBreakdownModal() {
           window.location.reload();
         }
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        }
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
       }
     }
 
@@ -148,9 +150,12 @@ export default function AddAndEditBreakdownModal() {
           window.location.reload();
         }
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        }
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
       }
     }
   };
@@ -197,7 +202,8 @@ export default function AddAndEditBreakdownModal() {
                 </Button>
                 <Button
                   type="submit"
-                  className="w-full">
+                  className="w-full"
+                  disabled={form.formState.isSubmitting}>
                   Submit
                 </Button>
               </div>
