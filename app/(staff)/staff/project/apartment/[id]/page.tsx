@@ -38,7 +38,7 @@ const StaffApartmentPage = ({ params }: IProps) => {
   )?.can_create;
 
   const { data, error, isPending } = useQuery({
-    queryKey: ["get all materials by project code", code],
+    queryKey: ["get all apartments by project code", code],
     queryFn: async () =>
       getStuffTyped<IProjectFlatData[]>(
         `/project-flats/project-code/code?project_code=${code}`

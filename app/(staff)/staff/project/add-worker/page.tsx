@@ -135,10 +135,6 @@ const AddWorkerToProject = () => {
     <>
       <div className="flex items-center justify-between">
         <GoBack />
-
-        <Button>
-          <Link href="/workers/add">Create New Worker</Link>
-        </Button>
       </div>
       <div className="max-w-3xl mx-auto w-full border border-borderColor bg-white rounded-lg p-7 my-16">
         <Form {...form}>

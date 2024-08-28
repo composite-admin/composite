@@ -25,7 +25,12 @@ export const columns: ColumnDef<ITenantData>[] = [
   {
     accessorKey: "tenant_code",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Tenant Code" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Tenant Code"
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -41,7 +46,13 @@ export const columns: ColumnDef<ITenantData>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Title" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Title"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -56,7 +67,11 @@ export const columns: ColumnDef<ITenantData>[] = [
     accessorKey: "full_name",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Full Name" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Full Name"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -71,7 +86,11 @@ export const columns: ColumnDef<ITenantData>[] = [
     accessorKey: "phone_number",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Phone Number " withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Phone Number "
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -84,7 +103,11 @@ export const columns: ColumnDef<ITenantData>[] = [
     accessorKey: "email",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Email Address " withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Email Address "
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -95,7 +118,13 @@ export const columns: ColumnDef<ITenantData>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Status" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Status"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -108,34 +137,38 @@ export const columns: ColumnDef<ITenantData>[] = [
       );
     },
   },
+  // {
+  //   accessorKey: "tenant_id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Actions" />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Link
+  //         href={"/"}
+  //         className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
+  //       >
+  //         <HiPencilAlt />
+  //         Edit
+  //       </Link>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "tenant_id",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" />;
-    },
-    cell: ({ row }) => {
       return (
-        <Link
-          href={"/"}
-          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
-        >
-          <HiPencilAlt />
-          Edit
-        </Link>
+        <ColumnHeader
+          column={column}
+          title="Actions"
+        />
       );
     },
-  },
-  {
-    accessorKey: "tenant_id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" />;
-    },
     cell: ({ row }) => {
       return (
         <Link
-          href={`/facility/tenant/${row.original["tenant_id"]}`}
-          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
-        >
+          href={`/staff/project/tenant/${row.original["tenant_id"]}/tenant-details`}
+          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium">
           <ViewUserPageIcon />
           View
         </Link>
