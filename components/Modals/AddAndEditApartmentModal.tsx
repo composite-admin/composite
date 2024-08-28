@@ -12,17 +12,16 @@ import {
 } from "../shared/FormComponent";
 import { Button } from "../ui/button";
 import { useProjectData } from "@/hooks/useSelectOptions";
-import { z } from "zod";
+import { optional, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import useFacilityStore from "@/store/facility/useFacilityStore";
 import { useToast } from "../ui/use-toast";
+import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
 
 const FormSchema = z.object({
-  project_name: z.string({
-    required_error: "Project Name is required",
-  }),
+  project_name: z.string().optional(),
   flat_desc: z.string({
     required_error: "Flat Description is required",
   }),
@@ -34,11 +33,17 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 export const AddAndEditApartmentModal = ({ children }: any) => {
   const { isOpen, onClose } = useAddNewApartmentModal();
   const { toast } = useToast();
+  const { flatProjectCode } = useProjectDetailsPageFormModal();
   const { flatFormType } = useFacilityStore();
   const { projectsData } = useProjectData();
-  const projectName = projectsData?.map((item: any) => item.project_name);
+  const projectName = projectsData?.find(
+    (project: any) => project.project_code === flatProjectCode
+  )?.project_name;
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      project_name: projectName,
+    },
   });
 
   const { mutate } = useMutation({
@@ -47,6 +52,7 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
       if (flatFormType === "add") {
         const response = await api.post("/project-flats", {
           ...data,
+          project_name: projectName,
           project_code: projectsData?.find(
             (project: any) => project.project_name === data.project_name
           )?.project_code,
@@ -59,7 +65,7 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
             variant: "success",
           });
           onClose();
-          window.location.reload();
+          // window.location.reload();
         }
       } else {
         const response = await api.put(`/project-flats/${flatFormType}`, {
@@ -92,16 +98,18 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
       description="Add A New Apartment"
       isOpen={isOpen}
       onClose={onClose}
-      classname="max-w-2xl"
-    >
+      classname="max-w-2xl">
       <Form {...form}>
-        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-          <CustomFormSelect
+        <form
+          className="space-y-4"
+          onSubmit={form.handleSubmit(onSubmit)}>
+          <CustomFormField
             control={form.control}
             name="project_name"
-            placeholder="Select Project"
-            labelText="Project Name"
-            items={projectName || []}
+            placeholder={projectName}
+            defaultValue={projectName}
+            disabled
+            label="Project Name"
           />
           <CustomFormField
             control={form.control}
@@ -117,7 +125,10 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
           />
 
           <div className="grid grid-cols-2 gap-5 pt-4">
-            <Button variant="secondary" onClick={onClose} type="button">
+            <Button
+              variant="secondary"
+              onClick={onClose}
+              type="button">
               Cancel
             </Button>
             <Button type="submit">Submit</Button>

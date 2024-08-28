@@ -9,7 +9,7 @@ import { useProjectData } from "../../hooks/useSelectOptions";
 import { IProjectData } from "@/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/config/api";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
@@ -64,11 +64,12 @@ export default function AddConsultantToProjectForm({
         });
         return response.data;
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
       }
     },
     onSuccess: (data) => {
@@ -92,7 +93,10 @@ export default function AddConsultantToProjectForm({
     <div className="relative py-4">
       <div>
         <div className="flex items-center gap-2 absolute -top-10">
-          <AvatarComponent height="h-14" width="w-14" />
+          <AvatarComponent
+            height="h-14"
+            width="w-14"
+          />
           <div className="flex flex-col">
             <span>{consultantDetailsData?.data?.name}</span>
             <span>{consultantDetailsData?.data?.consultant_code}</span>
@@ -104,7 +108,9 @@ export default function AddConsultantToProjectForm({
         </div>
       </div>
       <Form {...form}>
-        <form className="pt-5" onSubmit={form.handleSubmit(submit)}>
+        <form
+          className="pt-5"
+          onSubmit={form.handleSubmit(submit)}>
           <CustomFormSelect
             name="project_name"
             control={form.control}
@@ -113,10 +119,15 @@ export default function AddConsultantToProjectForm({
             placeholder="Select Project Name"
           />
           <div className="grid md:grid-cols-2 gap-4 pt-9">
-            <Button variant={"secondary"} onClick={onClose} type="button">
+            <Button
+              variant={"secondary"}
+              onClick={onClose}
+              type="button">
               Cancel
             </Button>
-            <Button type="submit" disabled={isPending}>
+            <Button
+              type="submit"
+              disabled={isPending}>
               Add
             </Button>
           </div>

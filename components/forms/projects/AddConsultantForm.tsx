@@ -14,7 +14,7 @@ import {
 } from "@/store/project/useProjectModal";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { selectOptionsForConsultantsType } from "@/utils/types";
 import { useGetAllConsultants } from "@/hooks/useSelectOptions";
 
@@ -53,13 +53,20 @@ export default function AddConsultantForm() {
             (consultant: any) => consultant.name === values.consultant
           )?.consultant_code,
         });
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Consultant added successfully",
+            variant: "success",
+          });
+        }
         return response.data;
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.message);
-        } else {
-          throw error;
-        }
+        const axiosError = error as AxiosError;
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: axiosError.message || "An error occurred",
+        });
       }
     },
   });
@@ -71,26 +78,14 @@ export default function AddConsultantForm() {
         queryClient.invalidateQueries({
           queryKey: ["get all consultants by project code"],
         });
-        toast({
-          title: "Consultant added successfully",
-          variant: "success",
-        });
-      },
-      onError: () => {
-        toast({
-          title: "Something went wrong",
-          variant: "destructive",
-        });
       },
     });
-    console.log(data);
   };
   return (
     <Form {...form}>
       <form
         className="flex flex-col gap-5"
-        onSubmit={form.handleSubmit(handleSubmit)}
-      >
+        onSubmit={form.handleSubmit(handleSubmit)}>
         <CustomFormField
           control={form.control}
           name="project_name"
@@ -120,8 +115,7 @@ export default function AddConsultantForm() {
             variant={"secondary"}
             className="w-full"
             type="button"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             Cancel
           </Button>
           <Button className="w-full">Add</Button>

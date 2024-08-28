@@ -2,7 +2,7 @@
 import { DataTable } from "@/components/shared/DataTable";
 import GoBack from "@/components/shared/GoBack";
 import PageHead from "@/components/ui/pageHead";
-import React from "react";
+import React, { useEffect } from "react";
 import { columns } from "./columns";
 import { data } from "./data";
 import { useQuery } from "@tanstack/react-query";
@@ -24,6 +24,7 @@ interface IProps {
 
 const StaffApartmentPage = ({ params }: IProps) => {
   const code = params.id;
+  const { setFlatProjectCode } = useProjectDetailsPageFormModal();
   const { setFlatData, setFlatFormType } = useFacilityStore();
   const { onOpen } = useAddNewApartmentModal();
   const AddAppartment = () => {
@@ -32,6 +33,10 @@ const StaffApartmentPage = ({ params }: IProps) => {
   };
 
   const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  useEffect(() => {
+    setFlatProjectCode(code);
+  }, [code]);
 
   const CAN_CREATE = staffPrivilege?.find(
     (item: any) => item.type === "project"
@@ -55,7 +60,11 @@ const StaffApartmentPage = ({ params }: IProps) => {
         disabled={!CAN_CREATE}
         buttonAction={AddAppartment}
       />
-      <DataTable columns={columns} data={data ?? []} isLoading={isPending} />
+      <DataTable
+        columns={columns}
+        data={data ?? []}
+        isLoading={isPending}
+      />
     </>
   );
 };

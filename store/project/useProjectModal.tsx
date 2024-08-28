@@ -13,6 +13,8 @@ type currentModal =
 interface ModalStoreState {
   projectName: string;
   projectCode: string;
+  flatProjectCode: string;
+  setFlatProjectCode: (projectCode: string) => void;
   projectId: number | null;
   isOpen: boolean;
   currentModal: currentModal;
@@ -29,6 +31,9 @@ interface ModalStoreState {
 export const useProjectDetailsPageFormModal = create<ModalStoreState>(
   (set) => ({
     isOpen: false,
+    setFlatProjectCode: (flatProjectCode) =>
+      set({ flatProjectCode: flatProjectCode }),
+    flatProjectCode: "",
     projectName: "",
     projectId: null,
     currentModal: "add_startup_cost",
