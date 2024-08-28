@@ -107,9 +107,9 @@ export default function Material() {
               title: "Success",
               description: "Material request edited",
             });
-            // form.reset();
-            // onClose();
-            // window.location.reload();
+            form.reset();
+            onClose();
+            window.location.reload();
           }
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {

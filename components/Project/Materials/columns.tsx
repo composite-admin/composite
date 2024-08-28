@@ -14,7 +14,12 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
   {
     accessorKey: "description",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Description" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Description"
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -33,20 +38,38 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
   {
     accessorKey: "supplier_name",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Supplier" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Supplier"
+          withSort={false}
+        />
+      );
     },
   },
   {
     accessorKey: "comment",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Comment" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Comment"
+          withSort={false}
+        />
+      );
     },
   },
 
   {
     accessorKey: "quantity",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Quantity" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Quantity"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -61,7 +84,11 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
     accessorKey: "unit_price",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Unit Price" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Unit Price"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -77,7 +104,11 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
     accessorKey: "total_price",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Total Price" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Total Price"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -93,7 +124,11 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
     accessorKey: "dateAdded",
     header: ({ column }) => {
       return (
-        <ColumnHeader column={column} title="Date Added" withSort={false} />
+        <ColumnHeader
+          column={column}
+          title="Date Added"
+          withSort={false}
+        />
       );
     },
     cell: ({ row }) => {
@@ -108,9 +143,15 @@ export const columns: ColumnDef<IMaterialsByProjectData>[] = [
   },
 
   {
-    accessorKey: "id",
+    accessorKey: "updatedAt",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Action" withSort={false} />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Action"
+          withSort={false}
+        />
+      );
     },
     cell: ({ row }) => {
       return (

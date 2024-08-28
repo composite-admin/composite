@@ -33,7 +33,8 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 export const AddAndEditApartmentModal = ({ children }: any) => {
   const { isOpen, onClose } = useAddNewApartmentModal();
   const { toast } = useToast();
-  const { flatProjectCode } = useProjectDetailsPageFormModal();
+  const { flatProjectCode, setFlatProjectCode } =
+    useProjectDetailsPageFormModal();
   const { flatFormType } = useFacilityStore();
   const { projectsData } = useProjectData();
   const projectName = projectsData?.find(
@@ -65,6 +66,7 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
             variant: "success",
           });
           onClose();
+          setFlatProjectCode("");
           window.location.reload();
         }
       } else {

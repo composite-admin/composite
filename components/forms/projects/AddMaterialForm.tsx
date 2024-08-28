@@ -27,7 +27,9 @@ import { useTableActionStore } from "@/store/useTableActionStore";
 const AddMaterialSchema = z.object({
   supplier_code: z.string().optional(),
   supplier_name: z.string().optional(),
-  description: z.string().optional(),
+  description: z.string({
+    required_error: "Description is required",
+  }),
   project_code: z.string().optional(),
   payment_mode: z.string({
     required_error: "Payment Mode is required",
@@ -42,7 +44,7 @@ const AddMaterialSchema = z.object({
       required_error: "Unit price is required",
     })
     .regex(/^\d*\.?\d*$/, "Please enter a valid number"),
-  comment: z.string().optional(),
+  comment: z.string().optional().nullish().nullable(),
 });
 type AddMaterialType = z.infer<typeof AddMaterialSchema>;
 export default function AddMaterialForm() {
@@ -66,7 +68,7 @@ export default function AddMaterialForm() {
       supplier_code: materialDetails?.supplier_code,
       supplier_name: materialDetails?.supplier_name as string,
       payment_mode: materialDetails?.payment_mode as string,
-      description: materialDetails?.description,
+      description: materialDetails?.description!,
       quantity: String(materialDetails?.quantity),
       unit_price: String(materialDetails?.unit_price),
       comment: materialDetails?.comment,
@@ -125,6 +127,15 @@ export default function AddMaterialForm() {
               quantity: Number(values.quantity),
               unit_price: Number(values.unit_price),
             });
+        if (response.status === 200 || response.status === 201) {
+          form.reset();
+          onClose();
+          toast({
+            title: "Material added successfully",
+            variant: "success",
+          });
+          onCloseModal();
+        }
         return response.data;
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -139,12 +150,6 @@ export default function AddMaterialForm() {
   const handleSubmit = (data: AddMaterialType) => {
     mutate(data, {
       onSuccess: () => {
-        form.reset();
-        onClose();
-        toast({
-          title: "Material added successfully",
-          variant: "success",
-        });
         queryClient.invalidateQueries({
           queryKey: ["get all materials by project code", projectCode],
         });
@@ -161,8 +166,7 @@ export default function AddMaterialForm() {
     <Form {...form}>
       <form
         className="flex flex-col gap-5"
-        onSubmit={form.handleSubmit(handleSubmit)}
-      >
+        onSubmit={form.handleSubmit(handleSubmit)}>
         <CustomFormField
           control={form.control}
           name="project_name"
@@ -191,9 +195,7 @@ export default function AddMaterialForm() {
               control={form.control}
               name="description"
               labelText="Material Description"
-              placeholder="Material Description"
-              items={matDesc ?? ["Loading..."]}
-              disabled={!watchSupplier || matDesc.length === 0}
+              items={matDesc || []}
             />
 
             <CustomFormSelect
@@ -225,8 +227,7 @@ export default function AddMaterialForm() {
             type="button"
             onClick={() => {
               isEditOrDelete ? onCloseModal() : onClose();
-            }}
-          >
+            }}>
             Cancel
           </Button>
           <Button className="w-full">
