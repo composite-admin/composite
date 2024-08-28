@@ -54,7 +54,7 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
           ...data,
           project_name: projectName,
           project_code: projectsData?.find(
-            (project: any) => project.project_name === data.project_name
+            (project: any) => project.project_name === projectName
           )?.project_code,
           status: "Vacant",
         });
@@ -65,7 +65,7 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
             variant: "success",
           });
           onClose();
-          // window.location.reload();
+          window.location.reload();
         }
       } else {
         const response = await api.put(`/project-flats/${flatFormType}`, {
