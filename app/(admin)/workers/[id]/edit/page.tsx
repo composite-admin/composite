@@ -93,11 +93,45 @@ const SingleWorker = () => {
 
             <div className="flex flex-col ">
               <p className="value">Service Type</p>
-
-              <input
-                type="text"
-                {...register("service_type", { required: true })}
-              />
+              <select {...register("service_type", { required: true })}>
+                <option value=""></option>
+                <option value="Borehole Drilling">Borehole Drilling</option>
+                <option value="Carpentry">Carpentry</option>
+                <option value="Cabinetry/Furniture">
+                  Cabinetry / Furniture
+                </option>
+                <option value="Cable TV Installation">
+                  Cable TV Installation
+                </option>
+                <option value="Cleaning">Cleaning</option>
+                <option value="Concret Casting">Concret Casting</option>
+                <option value="CCTV / Security Installation">
+                  CCTV / Security Installation
+                </option>
+                <option value="Data / Video / Voice Cabling">
+                  Data / Video / Voice Cabling
+                </option>
+                <option value="Electrical">Electrical</option>
+                <option value="House Painting">House Painting</option>
+                <option value="Gardening">Gardening</option>
+                <option value="Mable Work">Mable Work</option>
+                <option value="Masonry">Masonry</option>
+                <option value="Paving">Paving</option>
+                <option value="Piling Work">Piling Work</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="PoP Work">PoP Work</option>
+                <option value="Roofing">Roofing</option>
+                <option value="Scalfolding">Scalfolding</option>
+                <option value="Spray Painting">Spray Painting</option>
+                <option value="Steel Bending">Steel Bending</option>
+                <option value="Tiling">Tiling</option>
+                <option value="Welding">Welding</option>
+              </select>
+              {errors.service_type && (
+                <span className="text-red-500 text-xs">
+                  Please select a service type.
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -197,14 +231,12 @@ const SingleWorker = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>

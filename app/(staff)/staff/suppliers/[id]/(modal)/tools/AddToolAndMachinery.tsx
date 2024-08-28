@@ -22,6 +22,7 @@ import { HiBellAlert } from "react-icons/hi2";
 import z from "zod";
 import useSuppliersActionsStore from "@/store/actions/suppliersActions";
 import { useModal } from "@/utils/modalContext";
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 const FormSchema = z.object({
   supplier_name: z.string({
@@ -43,6 +44,12 @@ type FormDataType = z.infer<typeof FormSchema>;
 
 export default function AddToolAndMachinery() {
   const { selectedItem } = useSuppliersActionsStore();
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "supplier"
+  )?.can_create;
+
   const form = useForm<FormDataType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {

@@ -9,7 +9,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { useGetAllInventoryTypes } from "@/hooks/useSelectOptions";
 import Add from "./AddToolAndMachinery";
-
+import { useStaffPrivilegeStore } from "@/store/staff/useStaffStore";
 
 const AddToolsModal = () => {
   const { hideModal } = useModal();
@@ -36,6 +36,11 @@ const AddToolsModal = () => {
     materialSubTypes,
     createTool,
   } = useSupplierToolsAndMachineriesStore();
+  const { data: staffPrivilege } = useStaffPrivilegeStore();
+
+  const CAN_CREATE = staffPrivilege?.find(
+    (item: any) => item.type === "supplier"
+  )?.can_create;
 
   const [selectedMaterialType, setSelectedMaterialType] = useState("");
   const [selectedMaterialSubType, setSelectedMaterialSubType] = useState("");
@@ -101,17 +106,33 @@ const AddToolsModal = () => {
       isOpen={true}
       isAutomatic={false}
       onClose={hideModal}>
-      <div className="max-w-4xl gap-4 overflow-y-auto w-full bg-white rounded-lg p-10 md:grid space-y-6 md:space-y-0 grid-cols-[1.5fr_4fr]">
-        <div className="space-y-2">
-          <p className="lg:text-3xl md:text-2xl font-bold">
-            Add Tools and Machinery
-          </p>
-          <p className="text-zinc-500">Make changes to tools and machinery</p>
+      {CAN_CREATE ? (
+        <div className="max-w-4xl gap-4 overflow-y-auto w-full bg-white rounded-lg p-10 md:grid space-y-6 md:space-y-0 grid-cols-[1.5fr_4fr]">
+          <div className="space-y-2">
+            <p className="lg:text-3xl md:text-2xl font-bold">
+              Add Tools and Machinery
+            </p>
+            <p className="text-zinc-500">Make changes to tools and machinery</p>
+          </div>
+          <div className="space-y-4">
+            <Add />
+          </div>
         </div>
-        <div className="space-y-4">
-          <Add />
+      ) : (
+        <div className="md:min-w-[30rem] w-[98%] bg-white rounded-lg p-10">
+          <div className="space-y-4">
+            <p className="text-xl font-bold">
+              You do not have permission to do this
+            </p>
+            <button
+              role="button"
+              className="w-full py-3 font-semibold rounded-lg bg-zinc-300"
+              onClick={hideModal}>
+              Close
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </FramerModal>
   );
 };
