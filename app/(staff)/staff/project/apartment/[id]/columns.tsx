@@ -12,7 +12,12 @@ export const columns: ColumnDef<IProjectFlatData>[] = [
   {
     accessorKey: "flat_code",
     header: ({ column }) => {
-      return <ColumnHeader column={column} title="Fiat Code" />;
+      return (
+        <ColumnHeader
+          column={column}
+          title="Fiat Code"
+        />
+      );
     },
     cell: ({ row }) => {
       return (
@@ -45,21 +50,21 @@ export const columns: ColumnDef<IProjectFlatData>[] = [
     },
   },
 
-  {
-    accessorKey: "flat_id",
-    header: ({ column }) => {
-      return <ColumnHeader column={column} title="Actions" />;
-    },
-    cell: ({ row }) => {
-      return (
-        <Link
-          href={"/facility/all-flats"}
-          className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
-        >
-          <ViewUserPageIcon />
-          View
-        </Link>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "flat_id",
+  //   header: ({ column }) => {
+  //     return <ColumnHeader column={column} title="Actions" />;
+  //   },
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Link
+  //         href={"/facility/all-flats"}
+  //         className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
+  //       >
+  //         <ViewUserPageIcon />
+  //         View
+  //       </Link>
+  //     );
+  //   },
+  // },
 ];
