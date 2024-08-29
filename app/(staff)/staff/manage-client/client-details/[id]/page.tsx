@@ -97,15 +97,15 @@ export default function ClientDetailsPage({ params }: Params) {
                 <span className="font-semibold">Office Phone:</span>
                 <span className=" md:text-lg">{details?.phone_number}</span>
               </div>
-              <div className="flex flex-col gap-1 lg:col-span-3">
+              <div className="flex flex-col gap-1">
                 <span className="font-semibold">Email:</span>
                 <span className=" md:text-lg">{details?.email}</span>
               </div>
               <div className="flex  flex-col gap-1 ">
                 <span className="font-semibold">State:</span>
                 <span className=" md:text-lg">{details?.state}</span>
-              </div>{" "}
-              <div className="flex flex-col gap-1 ">
+              </div>
+              <div className="flex flex-col gap-1 lg:col-span-3">
                 <span className="font-semibold">Address:</span>
                 <span className=" md:text-lg">{details?.address}</span>
               </div>
