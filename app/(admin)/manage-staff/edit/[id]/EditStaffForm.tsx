@@ -100,7 +100,7 @@ export default function EditStaffForm({ data }: props) {
       form.setValue("email", data?.email);
       form.setValue("stateOfOrigin", data?.stateOfOrigin);
       form.setValue("sex", data?.sex);
-      form.setValue("middlename", data?.middlename);
+      form.setValue("middlename", data?.middlename ?? "");
       form.setValue("role", data?.role);
       form.setValue("cell_phone", data?.cell_phone);
       form.setValue("address", data?.address);
