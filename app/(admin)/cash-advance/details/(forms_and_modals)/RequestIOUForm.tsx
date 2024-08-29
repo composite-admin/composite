@@ -5,6 +5,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { api } from "@/config/api";
+import { userStore } from "@/store/auth/AuthStore";
 import useCashAdvanceStore from "@/store/cash-advance/useCashAdvanceStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -56,6 +57,7 @@ type RequestAndIOUFomType = z.infer<typeof RequestAndIOUSchema>;
 export default function RequestIOUForm() {
   const { CashAdvanceDetails, onClose } = useCashAdvanceStore();
   const query = useQueryClient();
+  const { username } = userStore();
   const form = useForm<RequestAndIOUFomType>({
     resolver: zodResolver(RequestAndIOUSchema),
     values: {
@@ -74,6 +76,8 @@ export default function RequestIOUForm() {
     },
   });
 
+  console.log(CashAdvanceDetails);
+
   const { mutate } = useMutation({
     mutationKey: ["request iou", CashAdvanceDetails?.cash_id],
     mutationFn: async (data: RequestAndIOUFomType) => {
@@ -83,6 +87,7 @@ export default function RequestIOUForm() {
           {
             ...data,
             decision: "Pending",
+            action_by: username,
           }
         );
 
@@ -110,7 +115,9 @@ export default function RequestIOUForm() {
   };
   return (
     <Form {...form}>
-      <form className="space-y-5" onSubmit={form.handleSubmit(submit)}>
+      <form
+        className="space-y-5"
+        onSubmit={form.handleSubmit(submit)}>
         <div className="grid md:grid-cols-2 gap-5">
           <CustomFormField
             name="cash_advance_type"
@@ -153,7 +160,10 @@ export default function RequestIOUForm() {
           label={"Description"}
         />
         <div className="grid md:grid-cols-2 gap-5">
-          <Button variant={"secondary"} type="button" onClick={onClose}>
+          <Button
+            variant={"secondary"}
+            type="button"
+            onClick={onClose}>
             Cancel
           </Button>
           <Button type="submit">Submit</Button>
