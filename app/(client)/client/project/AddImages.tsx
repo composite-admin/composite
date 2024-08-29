@@ -16,7 +16,7 @@ export default function AddImages() {
   const [isDragOver, setIsDragOver] = useState(false);
   const { onClose } = useClientStoreModal();
   const { projectDetails } = useClientStore();
-  const { userId, id } = userStore();
+  const { username } = userStore();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -61,9 +61,9 @@ export default function AddImages() {
       files.forEach((file, index) => {
         formData.append(`images`, file);
       });
-      formData.append("project_id", projectDetails.id.toString());
-      formData.append("project_code", projectDetails.project_code);
-
+      formData.append("projectId", projectDetails.id.toString());
+      formData.append("added_by", username?.toString()!);
+      formData.append("projectCode", projectDetails.project_code);
       const uploadUrl = `/client/images`;
 
       const response = await api.post(uploadUrl, formData, {

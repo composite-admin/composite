@@ -1,6 +1,7 @@
 import { getStuffTyped } from "@/hooks/useSelectOptions";
 import useClientStore from "@/store/client/useClientStore";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 interface ProjectImage {
   id: number;
@@ -28,7 +29,25 @@ export default function ProjectImages() {
       <h2 className="font-semibold md:text-lg">Project Images</h2>
 
       <div>
-        {data?.length === 0 ? <p>No images found</p> : <div>Images</div>}
+        {data?.length === 0 ? (
+          <p>No images found</p>
+        ) : (
+          <div className="flex gap-5 flex-wrap">
+            {data?.map((item) => {
+              return (
+                <div key={item.id}>
+                  <Image
+                    width={120}
+                    height={120}
+                    className="aspect-square"
+                    src={item.image}
+                    alt=""
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
