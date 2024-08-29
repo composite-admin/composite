@@ -45,7 +45,6 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
     return project.project_name;
   });
   const pathname = usePathname();
-  console.log(pathname);
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -59,7 +58,9 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
       if (flatFormType === "add") {
         const response = await api.post("/project-flats", {
           ...data,
-          project_name: projectName,
+          project_name: pathname.includes("all-flats")
+            ? data.project_name
+            : projectName,
           project_code: projectsData?.find(
             (project: any) => project.project_name === projectName
           )?.project_code,
