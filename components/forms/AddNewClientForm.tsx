@@ -48,7 +48,7 @@ export default function AddNewClientForm({ isEdit }: { isEdit?: boolean }) {
             title: "Client created successfully",
             variant: "success",
           });
-          router.push("/staff/manage-client");
+          router.back();
         }
         return response.data;
       } catch (error) {

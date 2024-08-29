@@ -18,7 +18,7 @@ export default function ClientHomePage() {
   const { projectDetails } = useClientStore();
   const { clientFlats } = useGetClientFlats(projectDetails?.project_code);
   const { clientComments } = useGetAllClientComments();
-  const { userId } = userStore();
+  const { userId, username } = userStore();
   const filteredComment = clientComments?.filter(
     (item: ICommentData) => String(item?.client_id) === userId
   );
@@ -33,16 +33,15 @@ export default function ClientHomePage() {
       <div>
         <aside className="bg-white flex-col md:flex-row flex justify-between items-center border-borderColor border p-6 gap-5 rounded-xl ">
           <div className="flex flex-col gap-2.5">
-            <h2 className="text-responsive font-semibold">
-              Welcome, {details?.first_name} {details?.last_name}
+            <h2 className="text-responsive font-semibold capitalize">
+              Welcome, {username}
             </h2>
             <span className="text-textColor text-sm text-wrap max-w-xs">
               {details?.address}
             </span>
             <Link
               href="/client/profile"
-              className="flex justify-between items-center text-sm font-semibold text-primaryLight w-32"
-            >
+              className="flex justify-between items-center text-sm font-semibold text-primaryLight w-32">
               <span>View Profile</span>
               <span>
                 <ChevronRight />
@@ -50,7 +49,10 @@ export default function ClientHomePage() {
             </Link>
           </div>
           <div>
-            <AvatarComponent height="h-28" width="w-28" />
+            <AvatarComponent
+              height="h-28"
+              width="w-28"
+            />
           </div>
         </aside>
       </div>

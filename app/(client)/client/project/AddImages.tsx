@@ -47,31 +47,33 @@ export default function AddImages() {
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!projectDetails?.id || !projectDetails?.project_code) {
+      toast({
+        title: "Missing project details",
+        description: "Project ID or code is missing. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const formData = new FormData();
-      const images = files.forEach((file) => formData.append("images", file));
-      formData.append("project_id", projectDetails?.id);
-      formData.append("project_code", projectDetails?.project_code);
+      files.forEach((file, index) => {
+        formData.append(`images`, file);
+      });
+      formData.append("project_id", projectDetails.id.toString());
+      formData.append("project_code", projectDetails.project_code);
 
       const uploadUrl = `/client/images`;
 
-      const response = await api.post(
-        uploadUrl,
-        {
-          image: images,
-          project_id: projectDetails?.id,
-          project_code: projectDetails?.project_code,
+      const response = await api.post(uploadUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      });
 
       if (response.status === 200) {
         setFiles([]);
-        console.log(formData);
         toast({
           title: "Images uploaded successfully",
           variant: "success",
@@ -83,6 +85,7 @@ export default function AddImages() {
       console.error("Error uploading files:", error);
     }
   };
+  
 
   return (
     <form onSubmit={handleUpload}>
