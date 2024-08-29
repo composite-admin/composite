@@ -105,7 +105,7 @@ const EditSupplier = () => {
 
               <input
                 type="text"
-                {...register("contact_person", { required: true })}
+                {...register("contact_person")}
               />
             </div>
 

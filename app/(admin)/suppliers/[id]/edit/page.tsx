@@ -27,9 +27,9 @@ const EditSupplier = () => {
       variant: "success",
     });
     updateSupplier(Number(params.id), data);
-    if (formState.isSubmitted) {
-      router.back();
-    }
+
+    router.back();
+
     return;
   };
 
@@ -96,7 +96,7 @@ const EditSupplier = () => {
 
               <input
                 type="text"
-                {...register("contact_person", { required: true })}
+                {...register("contact_person")}
               />
             </div>
 
@@ -105,7 +105,7 @@ const EditSupplier = () => {
 
               <input
                 type="tel"
-                {...register("contact_home_phone", { required: true })}
+                {...register("contact_home_phone")}
               />
             </div>
 
@@ -114,7 +114,7 @@ const EditSupplier = () => {
 
               <input
                 type="tel"
-                {...register("contact_mobile", { required: true })}
+                {...register("contact_mobile")}
               />
             </div>
 
