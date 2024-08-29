@@ -1,6 +1,7 @@
 import { getStuffTyped } from "@/hooks/useSelectOptions";
 import useClientStore from "@/store/client/useClientStore";
 import { useQuery } from "@tanstack/react-query";
+import { X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -66,20 +67,19 @@ export default function ProjectImages() {
 
       {selectedImageIndex !== null && data && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
-          <div className="relative">
+          <div className="relative p-5">
             <Image
-              width={600}
-              height={600}
+              width={400}
+              height={400}
               unoptimized
               src={data[selectedImageIndex].image}
               alt="Selected Image"
-              className="max-w-full max-h-full rounded-lg"
+              className="aspect-square max-w-full max-h-full rounded-lg"
             />
-            <button
-              className="absolute top-2 right-2 text-white text-2xl bg-red-500 rounded-full p-2"
-              onClick={handleCloseModal}>
-              &times;
-            </button>
+            <X
+              className="rounded-full cursor-pointer absolute border size-8 top-3 right-3 bg-red-500 text-white"
+              onClick={handleCloseModal}
+            />
           </div>
         </div>
       )}
