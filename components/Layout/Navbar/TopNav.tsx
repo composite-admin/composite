@@ -8,7 +8,6 @@ import { getCookie } from "cookies-next";
 
 const TopNav = () => {
   const { username, userType } = userStore();
-  // const username = getCookie("username");
   const router = useRouter();
   const { logOut } = userStore();
 

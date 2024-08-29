@@ -4,6 +4,7 @@ import GoBack from "@/components/shared/GoBack";
 import { Button } from "@/components/ui/button";
 import { api } from "@/config/api";
 import { useGetStaffPrivileges } from "@/hooks/useSelectOptions";
+import { userStore } from "@/store/auth/AuthStore";
 import useManageStaffStore from "@/store/manage-staff/useManageStaffStore";
 import { useAddPrivilegeModal } from "@/store/modals/useCreateModal";
 import { formatDate } from "@/utils/formatDate";
@@ -77,6 +78,7 @@ const bankDetailsValues = ["bank_name", "account_name", "account_number"];
 
 export default function ManageStaffPage({ params }: IProps) {
   const { setStaffDetails, staffDetails } = useManageStaffStore();
+  const { userType } = userStore();
   const { isLoading: isLoadingPrivileges, staffPrivileges } =
     useGetStaffPrivileges(staffDetails?.userid!);
   const { onOpen } = useAddPrivilegeModal();
@@ -178,9 +180,13 @@ export default function ManageStaffPage({ params }: IProps) {
           </div>
         </div>
         <div className=" flex justify-end mt-5">
-          <Button onClick={showBankDetails}>
-            {toggle ? "Hide" : "View"} Bank Details
-          </Button>
+          {userType === "admin" ? (
+            <Button
+              variant={"outline"}
+              onClick={showBankDetails}>
+              Bank Details
+            </Button>
+          ) : null}
         </div>
         {toggle && (
           <div>
