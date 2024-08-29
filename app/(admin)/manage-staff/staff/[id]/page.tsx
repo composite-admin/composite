@@ -130,9 +130,11 @@ export default function ManageStaffPage({ params }: IProps) {
                 disabled={!staffDetails || isLoadingPrivileges}>
                 <p className="font-semibold">Grant Privileges</p>
               </Button>
-              <Button>
-                <Link href={`/manage-staff/edit/${params.id}`}>Edit</Link>
-              </Button>
+              {userType === "admin" ? (
+                <Button>
+                  <Link href={`/manage-staff/edit/${params.id}`}>Edit</Link>
+                </Button>
+              ) : null}
             </aside>
           </div>
           <div className="mt-10 border-b pb-8">
