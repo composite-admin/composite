@@ -106,7 +106,16 @@ export default function AddMaterialForm() {
       };
       materialDescription();
     }
-  }, [watchSupplier, suppliers]);
+    if (isEditOrDelete) {
+      form.setValue("description", materialDetails?.description!);
+    }
+  }, [
+    watchSupplier,
+    suppliers,
+    isEditOrDelete,
+    form,
+    materialDetails?.description,
+  ]);
 
   const { mutate } = useMutation({
     mutationKey: ["add-material"],
@@ -191,12 +200,22 @@ export default function AddMaterialForm() {
             />
           </div>
           <div className="space-y-5">
-            <CustomFormSelect
-              control={form.control}
-              name="description"
-              labelText="Material Description"
-              items={matDesc || []}
-            />
+            {isEditOrDelete ? (
+              <CustomFormSelect
+                control={form.control}
+                name="description"
+                labelText="Material Description"
+                defaultValue={materialDetails?.description}
+                items={matDesc || []}
+              />
+            ) : (
+              <CustomFormSelect
+                control={form.control}
+                name="description"
+                labelText="Material Description"
+                items={matDesc || []}
+              />
+            )}
 
             <CustomFormSelect
               control={form.control}
