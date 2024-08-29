@@ -7,7 +7,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import StepTopNav from "../MultiStepFoms/StepTopNav";
-import StepBottomNav from "../MultiStepFoms/StepBottomNav";
 import FormContainer from "@/components/shared/FormContainer";
 import { Form } from "@/components/ui/form";
 import { AddStaffSteps as steps } from "./addStaffFormtypes";
@@ -107,6 +106,11 @@ export default function AddStaffForm() {
       : "";
 
     if (password !== confirmPassword) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Password do not match",
+      });
       return;
     }
     mutate({

@@ -91,14 +91,14 @@ export const AddStaffFormSchema = z
       .string()
       .min(10, "Account number is required, must be at least 10 digits"),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-        path: ["confirmPassword"],
-      });
-    }
-  });
+  // .superRefine(({ confirmPassword, password }, ctx) => {
+  //   if (confirmPassword !== password) {
+  //     ctx.addIssue({
+  //       code: "custom",
+  //       message: "The passwords did not match",
+  //       path: ["confirmPassword"],
+  //     });
+  //   }
+  // });
 
 export type addStaffType = z.infer<typeof AddStaffFormSchema>;
