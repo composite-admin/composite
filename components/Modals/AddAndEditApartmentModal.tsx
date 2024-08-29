@@ -19,6 +19,7 @@ import { api } from "@/config/api";
 import useFacilityStore from "@/store/facility/useFacilityStore";
 import { useToast } from "../ui/use-toast";
 import { useProjectDetailsPageFormModal } from "@/store/project/useProjectModal";
+import { usePathname } from "next/navigation";
 
 const FormSchema = z.object({
   project_name: z.string().optional(),
@@ -40,6 +41,11 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
   const projectName = projectsData?.find(
     (project: any) => project.project_code === flatProjectCode
   )?.project_name;
+  const projectList = projectsData?.map((project: any) => {
+    return project.project_name;
+  });
+  const pathname = usePathname();
+  console.log(pathname);
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -105,14 +111,24 @@ export const AddAndEditApartmentModal = ({ children }: any) => {
         <form
           className="space-y-4"
           onSubmit={form.handleSubmit(onSubmit)}>
-          <CustomFormField
-            control={form.control}
-            name="project_name"
-            placeholder={projectName}
-            defaultValue={projectName}
-            disabled
-            label="Project Name"
-          />
+          {pathname.includes("/all-flats") ? (
+            <CustomFormSelect
+              control={form.control}
+              name="project_name"
+              placeholder="Select project"
+              items={projectList || []}
+              label="Project Name"
+            />
+          ) : (
+            <CustomFormField
+              control={form.control}
+              name="project_name"
+              placeholder={projectName}
+              defaultValue={projectName}
+              disabled
+              label="Project Name"
+            />
+          )}
           <CustomFormField
             control={form.control}
             name="flat_desc"
