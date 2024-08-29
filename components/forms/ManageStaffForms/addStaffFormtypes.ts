@@ -91,4 +91,7 @@ export const AddStaffFormSchema = z.object({
   accountNumber: z
     .string()
     .min(10, "Account number is required, must be at least 10 digits"),
-});
+}).refine((data) => data.confirmPassword === data.password, {
+  message: "Passwords do not match",
+  path: ["confirm_password"],
+});;
