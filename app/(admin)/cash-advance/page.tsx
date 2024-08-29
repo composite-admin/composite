@@ -16,6 +16,7 @@ import axios from "axios";
 import { pendingAndApprovedColumns } from "./pendingAndApprovedCols";
 import useRefetchQuery from "@/utils/refetchQuery";
 import { approvedColumns } from "./approvedCols";
+import { userStore } from "@/store/auth/AuthStore";
 
 export default function CashAdvancePage() {
   const { setTableType, cashAdvanceTableState } = cashAdvanceTablesStore();
@@ -142,10 +143,16 @@ const RequestStatusBadges = ({
         data?.filter((decision) => decision.decision === "Pending").length ?? 0,
     },
   ];
+  const { userType } = userStore();
+
+  const filteredBadgeData =
+    userType === "supervisor"
+      ? badgeData.filter((badge) => badge.status !== "pending")
+      : badgeData;
 
   return (
     <div className="flex gap-3 py-5">
-      {badgeData.map((badge) => (
+      {filteredBadgeData.map((badge) => (
         <SelectTableTypeBadge
           key={badge.status}
           icon={badge.icon}

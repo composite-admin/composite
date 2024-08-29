@@ -47,6 +47,27 @@ function handleRouteAccess(
   currentURL: string,
   request: NextRequest
 ) {
+
+  const restrictedSupervisorRoutes = [
+    "/stakeholders/pending-project",
+    "/contractors/pending-project",
+  ];
+
+  if (
+    userType === "supervisor" &&
+    restrictedSupervisorRoutes.includes(currentURL)
+  ) {
+    // Redirect supervisors back to the previous page
+    const referer = request.headers.get("referer");
+    if (referer) {
+      return NextResponse.redirect(referer);
+    } else {
+      // If there's no referer, redirect to the dashboard
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+
   if (userType === "admin" || userType === "supervisor") {
     return NextResponse.next();
   } else if (userType === "client") {
