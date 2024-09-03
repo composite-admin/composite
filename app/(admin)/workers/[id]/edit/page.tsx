@@ -153,7 +153,6 @@ const SingleWorker = () => {
               <p className="value">Worker Mobile</p>
               <input
                 {...register("worker_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />

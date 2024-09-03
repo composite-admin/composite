@@ -144,7 +144,6 @@ const AddWorker = () => {
 
               <input
                 {...register("worker_mobile", {
-                  required: true,
                   validate: validatePhoneNumber,
                 })}
               />
@@ -247,14 +246,12 @@ const AddWorker = () => {
             <button
               className="bg-[#EBEBEB] text-textColor rounded-md"
               onClick={() => router.back()}
-              type="button"
-            >
+              type="button">
               Cancel
             </button>
             <button
               className="bg-primaryLight text-white  p-3 rounded-md"
-              type="submit"
-            >
+              type="submit">
               Submit
             </button>
           </div>

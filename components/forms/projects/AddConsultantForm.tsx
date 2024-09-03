@@ -49,6 +49,7 @@ export default function AddConsultantForm() {
           ...values,
           project_id: projectId,
           project_code: projectCode,
+          project_name: projectName,
           consultant_id: filteredConsultants?.find(
             (consultant: any) => consultant.name === values.consultant
           )?.consultant_code,
