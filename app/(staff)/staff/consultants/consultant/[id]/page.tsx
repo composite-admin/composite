@@ -106,7 +106,7 @@ export default function ConsultantDetailsPage({ params }: Params) {
                   <span className="text-sm">Edit Consultant Information</span>
                 </Link>
               </div>
-              <div className="flex gap-5 items-center p-8">
+              {/* <div className="flex gap-5 items-center p-8">
                 {CAN_CREATE ? (
                   <div
                     className="text-primaryLight-500 font-semibold  cursor-pointer"
@@ -114,7 +114,7 @@ export default function ConsultantDetailsPage({ params }: Params) {
                     <span className="text-sm">Add to Project</span>
                   </div>
                 ) : null}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
