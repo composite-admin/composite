@@ -61,7 +61,8 @@ export default function AddMaterialForm() {
   const { projectName, projectCode } = useProjectDetails();
   const { suppliers, supplierList } = useGetAllSuppliers();
 
-  const { materialDetails } = useGetMaterialDetails(Number(rowID));
+  const { materialDetails, isLoading: isMaterialLoading } =
+    useGetMaterialDetails(Number(rowID));
   let values;
   if (isEditOrDelete) {
     values = {
@@ -219,6 +220,7 @@ export default function AddMaterialForm() {
                 labelText="Material Description"
                 defaultValue={materialDetails?.description}
                 items={matDesc || []}
+                disabled={isMaterialLoading}
               />
             ) : (
               <CustomFormSelect
