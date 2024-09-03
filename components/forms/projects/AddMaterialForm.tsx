@@ -79,6 +79,18 @@ export default function AddMaterialForm() {
     values: values,
   });
 
+  useEffect(() => {
+    if (isEditOrDelete) {
+      form.setValue("description", materialDetails?.description!);
+      form.setValue("supplier_name", materialDetails?.supplier_name!);
+    }
+  }, [
+    form,
+    isEditOrDelete,
+    materialDetails?.description,
+    materialDetails?.supplier_name,
+  ]);
+
   const watchSupplier = form.watch("supplier_name");
   useEffect(() => {
     if (watchSupplier) {
