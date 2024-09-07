@@ -85,7 +85,9 @@ const SingleWorker = () => {
             <div className="space-y-4">
               <AnimatePresence mode="wait">
                 {worker?.createdAt && (
-                  <motion.div {...opacityVariant} className="space-y-4">
+                  <motion.div
+                    {...opacityVariant}
+                    className="space-y-4">
                     <div className="space-y-1">
                       <h1 className="font-bold text-2xl capitalize">
                         {worker?.worker_name}
@@ -105,7 +107,10 @@ const SingleWorker = () => {
             <div className="col-span-2 grid grid-cols-3 gap-4">
               <div className="">
                 <p className="font-semibold">Name:</p>
-                <TextSkeleton text={worker?.worker_name} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.worker_name}
+                  isLoading={fetching}
+                />
               </div>
 
               <div className="">
@@ -133,7 +138,7 @@ const SingleWorker = () => {
               <div className="">
                 <p className="font-semibold">Phone:</p>
                 <TextSkeleton
-                  text={worker?.worker_ofc_phone}
+                  text={worker?.worker_mobile}
                   isLoading={fetching}
                 />
               </div>
@@ -171,7 +176,10 @@ const SingleWorker = () => {
 
               <div className="col-span-3">
                 <p className="font-semibold">Comment:</p>
-                <TextSkeleton text={worker?.comment} isLoading={fetching} />
+                <TextSkeleton
+                  text={worker?.comment}
+                  isLoading={fetching}
+                />
               </div>
             </div>
           </div>

@@ -62,6 +62,13 @@ export default function AddConsultantToProjectForm({
           project_code: projectCode,
           consultant_id: consultantDetailsData?.data?.consultant_code,
         });
+        if (response.status === 201 || response.status === 200) {
+          toast({
+            title: "Success",
+            description: "Consultant added to project successfully",
+            variant: "success",
+          });
+        }
         return response.data;
       } catch (error) {
         const axiosError = error as AxiosError;
@@ -73,11 +80,7 @@ export default function AddConsultantToProjectForm({
       }
     },
     onSuccess: (data) => {
-      toast({
-        title: "Success",
-        description: "Consultant added to project successfully",
-        variant: "success",
-      });
+
       onClose();
       qc.invalidateQueries({
         queryKey: ["get all consultants projects"],
