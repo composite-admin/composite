@@ -9,6 +9,7 @@ import { CustomFormField } from "../shared/FormComponent";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { api } from "@/config/api";
+import { encryptEmail } from "@/utils/encryption";
 import axios from "axios";
 import { useToast } from "../ui/use-toast";
 import { ForgotPasswordStore } from "@/store/auth/AuthStore";
@@ -32,7 +33,9 @@ export default function ForgottenPassword() {
       try {
         const response = await api.post("/forgot-password", {
           ...credentials,
-          link: "https://composite-portal-dusky.vercel.app/set-password/redirect",
+          link:
+            "https://composite-portal-dusky.vercel.app/set-password/redirect?email=" +
+            encodeURIComponent(encryptEmail(credentials.email)),
         });
         setEmail(credentials.email);
         return response.data;
@@ -75,8 +78,7 @@ export default function ForgottenPassword() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-3"
-        >
+          className="flex flex-col gap-3">
           <div className="flex flex-col w-full gap-2">
             <CustomFormField
               name="email"
@@ -87,7 +89,9 @@ export default function ForgottenPassword() {
             />
           </div>
 
-          <Button type="submit" className=" p-3 py-6 rounded-l">
+          <Button
+            type="submit"
+            className=" p-3 py-6 rounded-l">
             Proceed
           </Button>
         </form>

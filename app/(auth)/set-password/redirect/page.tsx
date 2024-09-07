@@ -9,7 +9,8 @@ import { Form } from "@/components/ui/form";
 import { CustomFormField } from "@/components/shared/FormComponent";
 import { Button } from "@/components/ui/button";
 import { ForgotPasswordStore, userStore } from "@/store/auth/AuthStore";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { decryptEmail } from "@/utils/encryption";
 
 const FormSchema = z
   .object({
@@ -26,6 +27,15 @@ const FormSchema = z
 type FormType = z.infer<typeof FormSchema>;
 
 export default function ForgottenPassword() {
+  const searchParams = useSearchParams();
+  const encryptedEmail = searchParams.get("email");
+  let decryptedEmail = "";
+  if (encryptedEmail) {
+    decryptedEmail = decryptEmail(encryptedEmail);
+  }
+
+  console.log(decryptedEmail);
+  console.log(encryptedEmail);
   const { toast } = useToast();
   const router = useRouter();
   const { email, setEmail } = ForgotPasswordStore();
@@ -40,9 +50,16 @@ export default function ForgottenPassword() {
     mutationFn: async (data: FormType) => {
       try {
         const response = await api.put("/users/password", {
-          email: email,
+          email: decryptedEmail,
           password: data.password,
         });
+        console.log(encryptedEmail, decryptedEmail);
+        if (response.status === 200) {
+          toast({
+            title: "Password changed successfully, please login again",
+            variant: "success",
+          });
+        }
         return response.data;
       } catch (error) {
         toast({
@@ -53,12 +70,7 @@ export default function ForgottenPassword() {
       }
     },
     onSuccess: () => {
-      toast({
-        title: "Password changed successfully, please login again",
-        variant: "success",
-      });
       logOut();
-      setEmail("");
       router.push("/login");
     },
     onError: () => {
