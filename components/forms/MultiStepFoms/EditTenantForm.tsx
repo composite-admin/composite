@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import { z } from "zod";
@@ -74,7 +74,7 @@ export default function EditTenantForm({ id }: { id: string }) {
     resolver: zodResolver(FormDataSchemaEdit),
     values: {
       project_name: details?.project_name || "",
-      flat_code: details?.flat_code || "",
+      flat_code: details?.flat_code!,
       title: details?.title as any,
       full_name: details?.full_name || "",
       phone_number: details?.phone_number || "",
@@ -90,6 +90,10 @@ export default function EditTenantForm({ id }: { id: string }) {
     control: form.control,
     name: "fees",
   });
+
+  useEffect(() => {
+    form.setValue("flat_code", details?.flat_code!);
+  }, [details?.flat_code, form]);
 
   const processForm: SubmitHandler<Inputs> = async (values: editTenantType) => {
     try {
