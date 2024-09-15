@@ -15,6 +15,8 @@ export interface IProjectFlatData {
   flat_id: number;
   flat_code: string;
   flat_desc: string;
+  comment?: string;
+  updatedAt?: string;
 }
 
 interface IProps {

@@ -96,12 +96,12 @@ export const columns: ColumnDef<IFlatData>[] = [
       return <ColumnHeader column={column} title="Action" withSort={false} />;
     },
     cell: ({ row }) => {
-      let { project_name } = row.original;
+      let { flat_code } = row.original;
       return (
         <>
           <EditCell
             isLink={false}
-            projectCode={String(project_name)}
+            projectCode={String(flat_code)}
             row={row}
             action={"edit_flat"}
           />

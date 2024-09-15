@@ -1,7 +1,7 @@
 import { Modal } from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
 import { useEditFlatModal } from "@/store/modals/useCreateModal";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/config/api";
 import { useProjectData } from "@/hooks/useSelectOptions";
 import useFacilityStore from "@/store/facility/useFacilityStore";
@@ -28,13 +28,14 @@ const FormSchema = z.object({
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 export default function EditFlatModal() {
+  const query = useQueryClient();
   const { action, projectCode } = useEditFlatModal();
   const { onClose } = useTableActionStore();
   const { toast } = useToast();
   const { projectsData } = useProjectData();
   const { flatData } = useFacilityStore();
   const flatItem = flatData?.find(
-    (item: any) => item.project_name === projectCode
+    (item: any) => item.flat_code === projectCode
   );
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
@@ -44,6 +45,21 @@ export default function EditFlatModal() {
     },
   });
 
+  // const { data: flatDetails } = useQuery({
+  //   queryKey: ["apartment", flatItem?.flat_id],
+  //   queryFn: async () => {
+  //     const response = await api.get(`/project-flats/${flatItem?.flat_id}`);
+  //     return response.data;
+  //   },
+  // });
+
+  // const { data: flats } = useQuery({
+  //   queryKey: ["apartment"],
+  //   queryFn: async () => {
+  //     const response = await api.get(`/project-flats`);
+  //     return response.data;
+  //   },
+  // });
   const { mutate } = useMutation({
     mutationKey: ["apartment"],
     mutationFn: async (data: FormSchemaType) => {
@@ -51,6 +67,11 @@ export default function EditFlatModal() {
         ...data,
       });
       return response.data;
+    },
+    onSuccess: () => {
+      query.invalidateQueries({
+        queryKey: ["get all tenants"],
+      });
     },
   });
 

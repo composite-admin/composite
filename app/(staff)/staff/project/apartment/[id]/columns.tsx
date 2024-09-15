@@ -7,6 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { HiOutlineCog, HiUserAdd } from "react-icons/hi";
 import { IProjectFlatData } from "./page";
+import { formatDate } from "@/utils/formatDate";
 
 export const columns: ColumnDef<IProjectFlatData>[] = [
   {
@@ -50,21 +51,36 @@ export const columns: ColumnDef<IProjectFlatData>[] = [
     },
   },
 
-  // {
-  //   accessorKey: "flat_id",
-  //   header: ({ column }) => {
-  //     return <ColumnHeader column={column} title="Actions" />;
-  //   },
-  //   cell: ({ row }) => {
-  //     return (
-  //       <Link
-  //         href={"/facility/all-flats"}
-  //         className="text-primaryLight-500 underline flex gap-1.5 items-center font-medium"
-  //       >
-  //         <ViewUserPageIcon />
-  //         View
-  //       </Link>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "flat_id",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader
+          column={column}
+          title="Comment"
+        />
+      );
+    },
+    cell: ({ row }) => {
+      return <div className="font-bold">{row.original.comment ?? "-"}</div>;
+    },
+  },
+  {
+    accessorKey: "updatedAt",
+    header: ({ column }) => {
+      return (
+        <ColumnHeader
+          column={column}
+          title="Updated at"
+        />
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="font-bold">
+          {formatDate(row.original.updatedAt as string) ?? "-"}
+        </div>
+      );
+    },
+  },
 ];
