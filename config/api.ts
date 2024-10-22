@@ -8,7 +8,7 @@ export interface AxiosErrorResponse extends AxiosRequestConfig {
 }
 
 export const api = axios.create({
-  baseURL: "https://composite-port-services.onrender.com",
+  baseURL: "http://18.218.167.96:3000",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
